@@ -1,0 +1,8 @@
+---
+// Pages with `lang: en` (or another LTR language) render left-to-right inside the RTL site.
+import Default from '@astrojs/starlight/components/MarkdownContent.astro';
+const lang = Astro.locals.starlightRoute.entry.data.lang;
+const dir = lang && !['he', 'ar'].includes(lang) ? 'ltr' : undefined;
+---
+
+<div dir={dir} lang={lang}><Default><slot /></Default></div>
