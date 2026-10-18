@@ -110,7 +110,7 @@ function toSidebar(node, includeDrafts) {
 				? { label: i.fm.title ?? i.name, slug: idFromPath(i.rel) }
 				: toSidebar(i, includeDrafts),
 		);
-	const badge = node.fm.status === 'stub' ? { badge: { text: 'בבנייה', variant: 'caution' } } : {};
+	const badge = node.fm.status === 'stub' ? { badge: { text: 'בבנייה', variant: 'note' } } : {};
 	if (!items.length) return { label: node.fm.title ?? node.name, slug: idFromPath(node.rel), ...badge };
 	return {
 		label: node.fm.title ?? node.name,
