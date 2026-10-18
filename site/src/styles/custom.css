@@ -1,0 +1,14 @@
+/* Math is always laid out left-to-right, also inside RTL pages. */
+.katex,
+.katex-display {
+	direction: ltr;
+	unicode-bidi: isolate;
+}
+.katex-display {
+	text-align: center;
+}
+/* Code blocks and tables of numbers stay LTR inside RTL pages. */
+.expressive-code,
+pre {
+	direction: ltr;
+}

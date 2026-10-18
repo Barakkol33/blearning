@@ -24,10 +24,11 @@ export default defineConfig({
 			title: 'blearning',
 			defaultLocale: 'root',
 			locales: { root: { label: 'עברית', lang: 'he', dir: 'rtl' } },
-			customCss: ['katex/dist/katex.min.css'],
+			customCss: ['katex/dist/katex.min.css', './src/styles/custom.css'],
 			components: {
 				Head: './src/overrides/Head.astro',
 				MarkdownContent: './src/overrides/MarkdownContent.astro',
+				PageTitle: './src/overrides/PageTitle.astro',
 			},
 			// Drafts are shown in dev and left out of the published site.
 			sidebar: buildSidebar({ includeDrafts: !isBuild }),

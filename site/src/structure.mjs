@@ -110,9 +110,11 @@ function toSidebar(node, includeDrafts) {
 				? { label: i.fm.title ?? i.name, slug: idFromPath(i.rel) }
 				: toSidebar(i, includeDrafts),
 		);
-	if (!items.length) return { label: node.fm.title ?? node.name, slug: idFromPath(node.rel) };
+	const badge = node.fm.status === 'stub' ? { badge: { text: 'בבנייה', variant: 'caution' } } : {};
+	if (!items.length) return { label: node.fm.title ?? node.name, slug: idFromPath(node.rel), ...badge };
 	return {
 		label: node.fm.title ?? node.name,
+		...badge,
 		collapsed: true,
 		items: [{ label: 'סקירה', slug: idFromPath(node.rel) }, ...items],
 	};
@@ -129,3 +131,4 @@ export function buildSidebar({ includeDrafts = true } = {}) {
 		.sort((a, b) => compare(a, b, root.kind))
 		.map((c) => toSidebar(c, includeDrafts));
 }
+

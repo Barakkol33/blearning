@@ -1,12 +1,13 @@
 ---
-title: הנפשות
+title: Animations
+lang: en
 ---
 
-# הנפשות
+# Animations
 
-## צבעים
+## Colors
 
-הפכו את הכרטיס.
+Flip the card.
 
 <bl-flashcards>
 red | אדום
@@ -15,12 +16,10 @@ green | ירוק
 yellow | צהוב
 black | שחור
 white | לבן
-orange | כתום
-purple | סגול
 </bl-flashcards>
 
-## Find the letter
+## First letter
 
-משחק זיהוי אותיות באנגלית.
+Listen and choose the first letter.
 
-<bl-letter-game lang="en"></bl-letter-game>
+<bl-first-letter lang="en"></bl-first-letter>

@@ -73,27 +73,55 @@ class KidGame extends BlElement {
 	}
 }
 
-// <bl-letter-game> / <bl-letter-game lang="en">
-class LetterGame extends KidGame {
+// <bl-first-letter> / <bl-first-letter lang="en">
+// Shows a picture and its word with the first letter missing; the child picks the letter the word starts with.
+const WORDS_HE = [
+	['🐶', 'כלב'], ['🐱', 'חתול'], ['🐰', 'ארנב'], ['🐻', 'דוב'], ['🐸', 'צפרדע'], ['🐵', 'קוף'], ['🐢', 'צב'], ['🦋', 'פרפר'],
+	['🐟', 'דג'], ['🐴', 'סוס'], ['🐄', 'פרה'], ['🐍', 'נחש'], ['🦓', 'זברה'], ['🐫', 'גמל'], ['🦁', 'אריה'], ['🐘', 'פיל'],
+	['🍎', 'תפוח'], ['🍌', 'בננה'], ['🍇', 'ענבים'], ['🍋', 'לימון'], ['🍦', 'גלידה'], ['🎂', 'עוגה'], ['🥚', 'ביצה'], ['🍕', 'פיצה'],
+	['🏠', 'בית'], ['🚗', 'מכונית'], ['🚌', 'אוטובוס'], ['✈️', 'מטוס'], ['🚆', 'רכבת'], ['⚽', 'כדור'], ['📖', 'ספר'], ['🔑', 'מפתח'],
+	['☀️', 'שמש'], ['🌙', 'ירח'], ['⭐', 'כוכב'], ['🌸', 'פרח'], ['🌳', 'עץ'], ['⛰️', 'הר'], ['❤️', 'לב'], ['✋', 'יד'],
+	['👂', 'אוזן'], ['⏰', 'שעון'], ['📱', 'טלפון'], ['🧦', 'גרב'], ['👑', 'כתר'], ['🎈', 'בלון'], ['🪑', 'כיסא'], ['🌊', 'ים'],
+];
+const WORDS_EN = [
+	['🍎', 'apple'], ['⚽', 'ball'], ['🐱', 'cat'], ['🐶', 'dog'], ['🥚', 'egg'], ['🐟', 'fish'], ['🍇', 'grapes'], ['🎩', 'hat'],
+	['🍦', 'ice cream'], ['🧃', 'juice'], ['🔑', 'key'], ['🦁', 'lion'], ['🌙', 'moon'], ['👃', 'nose'], ['🍊', 'orange'], ['🐷', 'pig'],
+	['👑', 'queen'], ['🐰', 'rabbit'], ['☀️', 'sun'], ['🌳', 'tree'], ['☂️', 'umbrella'], ['🎻', 'violin'], ['🐳', 'whale'], ['🪀', 'yo-yo'], ['🦓', 'zebra'],
+];
+class FirstLetter extends KidGame {
 	init() {
 		this.style.position = 'relative';
 		this.en = this.getAttribute('lang') === 'en';
+		this.words = this.en ? WORDS_EN : WORDS_HE;
 		this.letters = this.en ? EN : HE;
 		this.praise = this.en ? ['Great job!', 'Super!', 'Well done!'] : ['כל הכבוד!', 'מעולה!', 'יופי!', 'אלוף!'];
-		this.tryAgain = this.en ? 'Try again 🙂' : 'נסו שוב 🙂';
+		this.tryAgain = this.en ? 'Listen again and try 🙂' : 'הקשיבו שוב ונסו 🙂';
 		this.big = Object.assign(document.createElement('div'), { className: 'big' });
-		this.big.title = this.en ? 'Click to hear' : 'לחצו כדי לשמוע';
 		this.big.style.cursor = 'pointer';
-		this.big.addEventListener('click', () => this.say(this.target, this.en ? 'en-US' : 'he-IL'));
+		this.big.title = this.en ? 'Click to hear the word' : 'לחצו כדי לשמוע את המילה';
+		this.big.addEventListener('click', () => this.speak());
+		this.word = document.createElement('div');
+		this.word.dir = this.en ? 'ltr' : 'rtl';
+		this.word.style.cssText = 'display:flex;justify-content:center;align-items:flex-end;gap:.05em;font-size:2.6rem;font-weight:700;margin:.2rem 0';
 		this.opts = Object.assign(document.createElement('div'), { className: 'opts' });
-		this.append(this.big, this.opts);
+		this.append(this.big, this.word, this.opts);
 	}
+	speak() { this.say(this.current[1], this.en ? 'en-US' : 'he-IL'); }
 	round() {
-		this.msg.textContent = this.en ? 'Find the same letter!' : 'מצאו את אותה האות!';
-		this.target = pick(this.letters);
-		this.big.textContent = this.target;
-		this.big.style.color = pick(COLORS);
-		this.options(this.target, this.letters, 4);
+		let next;
+		do next = pick(this.words); while (next === this.current);
+		this.current = next;
+		const [emoji, word] = next, first = word[0].toUpperCase();
+		this.msg.textContent = this.en ? 'Which letter does the word start with?' : 'באיזו אות מתחילה המילה?';
+		this.big.textContent = emoji;
+		const rest = word.slice(1);
+		this.word.innerHTML = `<span style="min-width:.9em;color:var(--sl-color-accent);border-bottom:.2rem dashed var(--sl-color-accent)">?</span><span>${rest}</span>`;
+		// distractors: other letters, never the right one
+		this.options(first, this.letters, 3, (ok) => {
+			if (ok) this.word.innerHTML = `<span style="color:var(--sl-color-orange-high)">${first}</span><span>${rest}</span>`;
+			else this.speak();
+		});
+		setTimeout(() => this.speak(), 300);
 	}
 }
 
@@ -116,5 +144,5 @@ class CountGame extends KidGame {
 	}
 }
 
-define('bl-letter-game', LetterGame);
+define('bl-first-letter', FirstLetter);
 define('bl-count-game', CountGame);

@@ -20,7 +20,7 @@ const strip = (entry: string) => {
 const blearning = z.object({
 	kind: z.enum(['area', 'group', 'unit', 'guide', 'section', 'part', 'chapter', 'home']).optional(),
 	order: z.number().optional(),
-	status: z.enum(['draft', 'in-progress', 'solid']).optional(),
+	status: z.enum(['stub', 'draft', 'in-progress', 'solid']).optional(),
 	level: z.number().optional(),
 	questionnaire: z.string().optional(),
 	institution: z.string().optional(),
