@@ -227,6 +227,10 @@ updated: 2026-10-18     # optional
 
 - **One page = one concept.** If a page grows past what a reader can take in one sitting, split it.
 - **Explain, then example.** Intuition first, then the formal version, then worked examples.
+- **Coherent, understandable, complete.** Every subject must be:
+  - *coherent*: a logical order, transitions between topics, and the same terms throughout;
+  - *understandable*: a reader can learn from it without the source. Every term is defined where it first appears;
+  - *complete*: it covers everything relevant in its context. Gaps, skipped steps, missing proofs or explanations, and links to related topics are filled in, even when the source did not have them. Adding material beyond the source is welcome.
 - **Link generously** to related pages, as Wikipedia does.
 - **Stub marking.** A subject or course whose content is still a naive skeleton gets `status: stub` in its `_index.md`. The site then shows a "🚧 בבנייה" badge on it in the sidebar and on the title of every page inside it. Remove it (or change it to `draft` / `in-progress`) once real content is in.
 - **One language per page.** Hebrew and English are both fine. Non-Hebrew pages set `lang` (e.g. `lang: en`).
@@ -268,6 +272,13 @@ Only Barak edits the site. Other people send material, and Barak asks Claude to 
 2. **Create the nodes** that are missing along the path, each with an `_index.md` from `templates/` (`unit.md` for units, `node.md` for everything else, `page.md` for pages).
 3. **Put the original in `sources/`** at the mirrored path, if there is an original file.
 4. **Split into chapters and pages**: chapters follow the source's own chapters (or the official syllabus); every page is one concept.
+   - **Rights check and rewriting** (before anything moves to public):
+     - Ideas, facts, definitions, theorems and algorithms belong to no one. Only the wording is protected.
+     - Remove specifics (teacher or class names, assignment numbers, "in the last lesson") so the material is general.
+     - Material that looks copied is truly rewritten: our own structure, new examples, new wording, redrawn diagrams. Test: if the original author could recognize their text sentence by sentence, rewrite more.
+     - Co-written material: ask the co-authors, or at least credit them. Credit sources anyway ("based on course X").
+     - Never published, even rephrased: Open University assignment (ממ"ן) questions and solutions, and exam questions. Official Bagrut exams are linked, not copied.
+   - **Complete it** according to §8: coherent, understandable and complete, with additions beyond the source where needed.
 5. For a `unit`: decide which section X belongs to (material, assignments, summaries or exams). Then move tips to `tips.md`, exam aids to `allowed-aids.md` and unit-wide lists (glossary, acronyms, dates) to extra pages.
 6. Move images and attachments to the right `_files/` folders and fix their links.
 7. Fill in the front matter, add `related` links, and update the parent `_index.md` if it lists its children.
