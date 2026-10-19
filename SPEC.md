@@ -124,6 +124,7 @@ Not git-based, so ruled out by constraint 1: GitBook, Notion + Super, Obsidian P
 - `npm run dev:all` previews public + private content together. The site reads extra content roots from `BLEARNING_EXTRA_CONTENT`.
 - Stack: Astro 7 + Starlight 0.42 on Node 24 LTS. KaTeX for math, Pagefind for search. Animations are custom elements (`site/src/animations/`) used as `<bl-*>` tags in Markdown.
 - `site/src/structure.mjs` enforces STRUCTURE.md at build time (R16): ids without numeric prefixes, the sidebar from `kind` and ordering, and the unit rules.
+- `site/src/routeData.ts` (Starlight route middleware) scopes the sidebar: the home page lists every area; a page inside an area shows only that area, expanded.
 - Cloudflare Pages remains the fallback if branch previews are needed.
 
 ## 5. Recommended stack (original analysis)

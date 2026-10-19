@@ -30,6 +30,8 @@ export default defineConfig({
 				MarkdownContent: './src/overrides/MarkdownContent.astro',
 				PageTitle: './src/overrides/PageTitle.astro',
 			},
+			// Home lists all areas; a page inside an area shows only that area in the sidebar.
+			routeMiddleware: './src/routeData.ts',
 			// Drafts are shown in dev and left out of the published site.
 			sidebar: buildSidebar({ includeDrafts: !isBuild }),
 		}),
