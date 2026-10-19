@@ -5,6 +5,8 @@
   "scripts": {
     "dev": "astro dev",
     "dev:all": "node scripts/dev-all.mjs",
+    "dev:openu": "node scripts/openu.mjs --dev",
+    "openu": "node scripts/openu.mjs",
     "build": "astro build",
     "check": "astro build",
     "preview": "astro preview",
