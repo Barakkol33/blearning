@@ -48,7 +48,7 @@ blearning-private/
 | יסודי | `elementary/` | one guide per subject |
 | חטיבת ביניים | `middle-school/` | one guide per subject |
 | תיכון | `high-school/` | Bagrut: one unit per subject (math: per questionnaire) |
-| האוניברסיטה הפתוחה: מדעי המחשב | `openu-cs/` | one unit per course |
+| האוניברסיטה הפתוחה - תואר מדעי המחשב | `openu-cs/` | one guide per course, generated from the [openu](https://github.com/Barakkol33/openu) repo (SPEC.md §4); not edited here |
 | טכנולוגיה | `tech/` | guides |
 
 Every subject (guide or unit) opens with an overview (`_index.md`) that includes its basic terms ("מונחים בסיסיים") and, for a unit, exam tips ("דגשים"). Its interactive animations go in `animations.md`. A larger subject can move the terms to `glossary.md` and the tips to `tips.md`.
@@ -135,7 +135,6 @@ questionnaires and university courses are split the same way, into four sections
 |---|---|---|
 | Bagrut, subject with one questionnaire | `high-school/<subject>/` | the subject itself |
 | Bagrut, subject with several questionnaires | `high-school/<subject>[/<level>]/<questionnaire>/` | each questionnaire; the subject (and level) are `group`s |
-| Open University CS | `openu-cs/<course>/` | the course |
 
 - Right now only **math** is split into questionnaires. Every other subject is a single unit.
   If a subject needs to be split later, move its sections into questionnaire folders and turn the subject into a `group`.

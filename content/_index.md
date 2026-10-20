@@ -12,5 +12,5 @@ description: מאגר ידע אישי שגדל עם הזמן
 - [יסודי](elementary/_index.md)
 - [חטיבת ביניים](middle-school/_index.md)
 - [תיכון](high-school/_index.md)
-- [האוניברסיטה הפתוחה: מדעי המחשב](openu-cs/_index.md)
+- [האוניברסיטה הפתוחה - תואר מדעי המחשב](openu-cs/_index.md)
 - [טכנולוגיה](tech/_index.md)

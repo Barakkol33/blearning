@@ -122,7 +122,7 @@ Not git-based, so ruled out by constraint 1: GitBook, Notion + Super, Obsidian P
 - **Publishing = moving files** from the private `content/` to the public one (see STRUCTURE.md §1). Nothing is duplicated, and nothing from `sources/` or the private history reaches the public repo.
 - Every push to `main` in the public repo runs `.github/workflows/deploy.yml` (withastro/action), which builds `site/` and deploys to GitHub Pages.
 - `npm run dev:all` previews public + private content together. The site reads extra content roots from `BLEARNING_EXTRA_CONTENT`.
-- The [openu](https://github.com/Barakkol33/openu) repo is published as the `openu/` area. `site/scripts/openu.mjs` converts each course README into a guide whose chapters sit directly under the course, in the gitignored `site/.generated/`. openu stays the source of truth: the generated files are never edited or committed.
+- The [openu](https://github.com/Barakkol33/openu) repo is published as the `openu-cs/` area. `site/scripts/openu.mjs` converts each course README into a guide whose chapters sit directly under the course, in the gitignored `site/.generated/`. openu stays the source of truth: the generated files are never edited or committed.
   - `npm run build` generates it first (from `OPENU_DIR`, default `../../openu`; skipped with a warning if missing). `npm run dev:openu` previews it, regenerated live on every change in openu.
   - The deploy workflow checks out openu next to the site, and also runs daily so pushes to openu reach the site within a day (or run the workflow by hand).
 - Stack: Astro 7 + Starlight 0.42 on Node 24 LTS. KaTeX for math, Pagefind for search. Animations are custom elements (`site/src/animations/`) used as `<bl-*>` tags in Markdown.

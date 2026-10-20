@@ -8,7 +8,7 @@
 // The openu repo is read from OPENU_DIR (default ../../openu, relative to site/).
 // Never edit the generated files: edit openu and regenerate.
 //
-// Mapping (STRUCTURE.md): openu/<course>/README.md → openu/<course>/ guide, split into
+// Mapping (STRUCTURE.md): openu/<course>/README.md → openu-cs/<course>/ guide, split into
 // NN-<chapter>/ by its top headings. Other .md files in the course folder become guide pages.
 // Images are copied into the chapter's _files/. Links to code, PDFs and folders point to GitHub.
 import fs from 'node:fs';
@@ -20,7 +20,7 @@ import YAML from 'yaml';
 const siteDir = fileURLToPath(new URL('..', import.meta.url));
 const openuDir = path.resolve(siteDir, process.env.OPENU_DIR ?? '../../openu');
 const outRoot = path.join(siteDir, '.generated', 'openu-content');
-const AREA = 'openu';
+const AREA = 'openu-cs';
 const GITHUB = 'https://github.com/Barakkol33/openu';
 const SKIP_MD = new Set(['README.md', 'CLAUDE.md', 'LICENSE.md']);
 const IMAGE = /\.(png|jpe?g|gif|svg|webp)$/i;
@@ -175,7 +175,7 @@ function generate() {
 		.map((e) => [e.name, convertCourse(e.name, out, files)])
 		.filter(([, t]) => t);
 	out.set(path.join(AREA, '_index.md'), frontmatter(
-		{ title: 'האוניברסיטה הפתוחה (openu)', kind: 'area', order: 6 },
+		{ title: 'האוניברסיטה הפתוחה - תואר מדעי המחשב', kind: 'area', order: 5 },
 		`> נוצר אוטומטית מהמאגר [openu](${GITHUB}). עורכים שם, לא כאן.\n\n${courses.map(([n, t]) => `- [${t}](${n}/_index.md)`).join('\n')}`,
 	));
 
