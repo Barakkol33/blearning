@@ -8,8 +8,8 @@
 // The openu repo is read from OPENU_DIR (default ../../openu, relative to site/).
 // Never edit the generated files: edit openu and regenerate.
 //
-// Mapping (STRUCTURE.md): openu/<course>/README.md → openu/<course>/ unit, split into
-// summaries/NN-<chapter>/ by its top headings. Other .md files in the course folder become unit pages.
+// Mapping (STRUCTURE.md): openu/<course>/README.md → openu/<course>/ guide, split into
+// NN-<chapter>/ by its top headings. Other .md files in the course folder become guide pages.
 // Images are copied into the chapter's _files/. Links to code, PDFs and folders point to GitHub.
 import fs from 'node:fs';
 import path from 'node:path';
@@ -150,21 +150,19 @@ function convertCourse(name, out, files) {
 		: `> נוצר אוטומטית מ-[openu/${name}](${ghUrl(name)}). עורכים שם.`;
 	const pdfLines = pdfs.map((f) => `- [${f}](${ghUrl(path.join(name, f))})`).join('\n');
 	out.set(path.join(unit, '_index.md'), frontmatter(
-		{ title: courseTitle, kind: 'unit', status: 'draft', institution: 'openu', ...lang },
+		{ title: courseTitle, kind: 'guide', institution: 'openu', ...lang },
 		[sourceLine, rewriteLinks(intro, name, unit, files, pages), pdfLines && `## ${lang.lang ? 'Files' : 'קבצים'}\n\n${pdfLines}`].filter((s) => s?.trim()).join('\n\n'),
 	));
-	out.set(path.join(unit, 'allowed-aids.md'), frontmatter({ title: 'חומר עזר מותר לשימוש' }, '- יש לבדוק בחוברת הקורס של הסמסטר.'));
-	out.set(path.join(unit, 'summaries', '_index.md'), frontmatter({ title: 'סיכומים', kind: 'section' }, ''));
 
 	const used = new Set();
 	chapters.forEach((c, k) => {
 		const n = k + 1;
-		const rel = path.join(unit, 'summaries', `${String(n).padStart(2, '0')}-${slugify(c.title, n, used)}`);
+		const rel = path.join(unit, `${String(n).padStart(2, '0')}-${slugify(c.title, n, used)}`);
 		const body = rewriteLinks(c.body, name, rel, files, pages);
 		out.set(path.join(rel, '_index.md'), frontmatter({ title: c.title.replace(/\$`([^`]+)`\$/g, '$$$1$$'), kind: 'chapter', ...lang }, body));
 	});
-	// A unit needs a section; a README without headings becomes one chapter.
-	if (!chapters.length) out.set(path.join(unit, 'summaries', '01-summary', '_index.md'), frontmatter({ title: courseTitle, kind: 'chapter', ...lang }, ''));
+	// A guide needs a chapter; a README without headings becomes one chapter.
+	if (!chapters.length) out.set(path.join(unit, '01-summary', '_index.md'), frontmatter({ title: courseTitle, kind: 'chapter', ...lang }, ''));
 	return courseTitle;
 }
 
