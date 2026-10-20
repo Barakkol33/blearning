@@ -26,6 +26,15 @@ const SKIP_MD = new Set(['README.md', 'CLAUDE.md', 'LICENSE.md']);
 const IMAGE = /\.(png|jpe?g|gif|svg|webp)$/i;
 
 const hebrew = (s) => /[֐-׿]/.test(s);
+/** `{ lang: 'en' }` for mostly-English text (prose only: code, math and links are ignored), else `{}`. */
+function langOf(text) {
+	const prose = text
+		.replace(/^\s*(```|~~~)[\s\S]*?^\s*\1\s*$/gm, '')
+		.replace(/\$\$[\s\S]*?\$\$|\$[^$\n]+\$|`[^`\n]*`|\]\([^)]*\)|https?:\S+/g, '');
+	const he = (prose.match(/[֐-׿]/g) ?? []).length;
+	const en = (prose.match(/[A-Za-z]/g) ?? []).length;
+	return en > 4 * he ? { lang: 'en' } : {};
+}
 const frontmatter = (fm, body) => `---\n${YAML.stringify(fm).trimEnd()}\n---\n\n${body.trim()}\n`;
 const ghUrl = (rel) => `${GITHUB}/${fs.existsSync(path.join(openuDir, rel)) && fs.statSync(path.join(openuDir, rel)).isDirectory() ? 'tree' : 'blob'}/main/${encodeURI(rel.replace(/\\/g, '/'))}`;
 
@@ -128,7 +137,6 @@ function convertCourse(name, out, files) {
 	if (!fs.existsSync(readme)) return null;
 	const md = convertMath(fs.readFileSync(readme, 'utf8'));
 	const { title, intro, chapters } = split(md);
-	const lang = hebrew(md) ? {} : { lang: 'en' };
 	const unit = path.join(AREA, name);
 
 	// Extra .md files in the course folder → unit pages.
@@ -138,20 +146,18 @@ function convertCourse(name, out, files) {
 	for (const f of extra) {
 		const text = convertMath(fs.readFileSync(path.join(dir, f), 'utf8'));
 		const { title: t } = split(text);
-		const fm = { title: (t ?? f.replace(/\.md$/, '')).replace(/\$`([^`]+)`\$/g, '$$$1$$'), ...(hebrew(text) ? {} : { lang: 'en' }) };
+		const fm = { title: (t ?? f.replace(/\.md$/, '')).replace(/\$`([^`]+)`\$/g, '$$$1$$'), ...langOf(text) };
 		out.set(path.join(unit, f.toLowerCase()), frontmatter(fm, rewriteLinks(text, name, unit, files, pages)));
 	}
 
 	// Attachments: the course PDFs, linked from GitHub.
 	const pdfs = fs.readdirSync(dir).filter((f) => f.endsWith('.pdf'));
 	const courseTitle = title ?? name;
-	const sourceLine = lang.lang
-		? `> Generated from [openu/${name}](${ghUrl(name)}). Edit it there.`
-		: `> נוצר אוטומטית מ-[openu/${name}](${ghUrl(name)}). עורכים שם.`;
+	const lang = langOf(`${courseTitle}\n${intro}`);
 	const pdfLines = pdfs.map((f) => `- [${f}](${ghUrl(path.join(name, f))})`).join('\n');
 	out.set(path.join(unit, '_index.md'), frontmatter(
 		{ title: courseTitle, kind: 'guide', institution: 'openu', ...lang },
-		[sourceLine, rewriteLinks(intro, name, unit, files, pages), pdfLines && `## ${lang.lang ? 'Files' : 'קבצים'}\n\n${pdfLines}`].filter((s) => s?.trim()).join('\n\n'),
+		[rewriteLinks(intro, name, unit, files, pages), pdfLines && `## ${lang.lang ? 'Files' : 'קבצים'}\n\n${pdfLines}`].filter((s) => s?.trim()).join('\n\n'),
 	));
 
 	const used = new Set();
@@ -159,7 +165,7 @@ function convertCourse(name, out, files) {
 		const n = k + 1;
 		const rel = path.join(unit, `${String(n).padStart(2, '0')}-${slugify(c.title, n, used)}`);
 		const body = rewriteLinks(c.body, name, rel, files, pages);
-		out.set(path.join(rel, '_index.md'), frontmatter({ title: c.title.replace(/\$`([^`]+)`\$/g, '$$$1$$'), kind: 'chapter', ...lang }, body));
+		out.set(path.join(rel, '_index.md'), frontmatter({ title: c.title.replace(/\$`([^`]+)`\$/g, '$$$1$$'), kind: 'chapter', ...langOf(`${c.title}\n${c.body}`) }, body));
 	});
 	// A guide needs a chapter; a README without headings becomes one chapter.
 	if (!chapters.length) out.set(path.join(unit, '01-summary', '_index.md'), frontmatter({ title: courseTitle, kind: 'chapter', ...lang }, ''));
