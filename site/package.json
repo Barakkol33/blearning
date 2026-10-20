@@ -7,8 +7,8 @@
     "dev:all": "node scripts/dev-all.mjs",
     "dev:openu": "node scripts/openu.mjs --dev",
     "openu": "node scripts/openu.mjs",
-    "build": "astro build",
-    "check": "astro build",
+    "build": "node scripts/openu.mjs --build",
+    "check": "node scripts/openu.mjs --build",
     "preview": "astro preview",
     "astro": "astro"
   },

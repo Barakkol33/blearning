@@ -1,8 +1,9 @@
-// Generates the openu repo (https://github.com/Barakkol33/openu) as blearning content, so it can be
-// previewed on the site while openu stays the single source of truth.
+// Generates the openu repo (https://github.com/Barakkol33/openu) as blearning content, so it is
+// published on the site while openu stays the single source of truth.
 //
-//   node scripts/openu.mjs         generate into site/.generated/openu-content/ (gitignored)
-//   node scripts/openu.mjs --dev   generate, regenerate on every change in openu, and run `astro dev`
+//   node scripts/openu.mjs           generate into site/.generated/openu-content/ (gitignored)
+//   node scripts/openu.mjs --dev     generate, regenerate on every change in openu, and run `astro dev`
+//   node scripts/openu.mjs --build   generate (skipped with a warning if openu is missing) and run `astro build`
 //
 // The openu repo is read from OPENU_DIR (default ../../openu, relative to site/).
 // Never edit the generated files: edit openu and regenerate.
@@ -176,8 +177,8 @@ function generate() {
 		.map((e) => [e.name, convertCourse(e.name, out, files)])
 		.filter(([, t]) => t);
 	out.set(path.join(AREA, '_index.md'), frontmatter(
-		{ title: 'האוניברסיטה הפתוחה (openu)', kind: 'area', order: 6, draft: true },
-		`> נוצר אוטומטית מהמאגר [openu](${GITHUB}) לתצוגה מקדימה. עורכים שם, לא כאן.\n\n${courses.map(([n, t]) => `- [${t}](${n}/_index.md)`).join('\n')}`,
+		{ title: 'האוניברסיטה הפתוחה (openu)', kind: 'area', order: 6 },
+		`> נוצר אוטומטית מהמאגר [openu](${GITHUB}). עורכים שם, לא כאן.\n\n${courses.map(([n, t]) => `- [${t}](${n}/_index.md)`).join('\n')}`,
 	));
 
 	// Sync to disk: write only what changed and remove stale files, so the dev server reloads cleanly.
@@ -209,9 +210,16 @@ function generate() {
 	console.log(`openu: ${courses.length} courses → ${path.relative(siteDir, outRoot)}`);
 }
 
-generate();
+const mode = ['--dev', '--build'].find((a) => process.argv.includes(a));
 
-if (process.argv.includes('--dev')) {
+if (mode === '--build' && !fs.existsSync(openuDir)) {
+	console.warn(`openu: repo not found at ${openuDir}, building without it`);
+	fs.rmSync(outRoot, { recursive: true, force: true });
+} else {
+	generate();
+}
+
+if (mode === '--dev') {
 	let timer;
 	fs.watch(openuDir, { recursive: true }, (_, file) => {
 		if (file && /(^|[\\/])\.git([\\/]|$)/.test(file)) return;
@@ -220,8 +228,11 @@ if (process.argv.includes('--dev')) {
 			try { generate(); } catch (e) { console.error(e.message); }
 		}, 300);
 	});
+}
+
+if (mode) {
 	const extra = [process.env.BLEARNING_EXTRA_CONTENT, path.relative(siteDir, outRoot)].filter(Boolean).join(';');
-	spawn('npx', ['astro', 'dev', ...process.argv.slice(2).filter((a) => a !== '--dev')], {
+	spawn('npx', ['astro', mode.slice(2), ...process.argv.slice(2).filter((a) => a !== mode)], {
 		stdio: 'inherit',
 		shell: true,
 		env: { ...process.env, BLEARNING_EXTRA_CONTENT: extra },
