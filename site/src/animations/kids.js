@@ -129,7 +129,6 @@ class FirstLetter extends KidGame {
 			if (ok) this.word.innerHTML = `<span style="color:var(--sl-color-orange-high)">${first}</span><span>${rest}</span>`;
 			else this.speak();
 		});
-		setTimeout(() => this.speak(), 300);
 	}
 }
 
