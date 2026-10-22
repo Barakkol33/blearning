@@ -32,6 +32,9 @@ jobs:
         with:
           path: ./site
           node-version: 24
+          # Astro's content cache keeps rendered Markdown, and it does not notice changes to the
+          # Markdown config (e.g. heading links). The build is fast, so always build fresh.
+          cache: false
 
   deploy:
     needs: build
