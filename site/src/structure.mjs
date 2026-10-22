@@ -75,8 +75,10 @@ function readNode(dirs, rel, errors) {
 
 function validate(node, errors, inSummaries = false) {
 	if (node.kind === 'unit') {
-		if (!node.pages.some((p) => p.name === 'allowed-aids')) errors.push(`${node.rel}: unit without allowed-aids.md`);
-		if (!node.children.some((c) => SECTIONS.includes(c.name))) errors.push(`${node.rel}: unit without any section (${SECTIONS.join(', ')})`);
+		// A flat unit (high school) keeps the allowed aids in its overview (`aids:`) and its summaries as NN- pages.
+		if (!node.fm.aids && !node.pages.some((p) => p.name === 'allowed-aids')) errors.push(`${node.rel}: unit without allowed-aids.md or "aids"`);
+		const flat = node.pages.some((p) => PREFIX.test(p.name));
+		if (!flat && !node.children.some((c) => SECTIONS.includes(c.name))) errors.push(`${node.rel}: unit without any section (${SECTIONS.join(', ')}) or summary pages`);
 	}
 	const summaries = inSummaries || (node.kind === 'section' && node.name === 'summaries');
 	if (summaries && node.pages.some((p) => p.name === 'solutions')) errors.push(`${node.rel}: summaries never contain exercises (solutions.md)`);
