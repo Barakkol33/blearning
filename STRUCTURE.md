@@ -52,7 +52,7 @@ blearning-private/
 | טכנולוגיה | `tech/` | guides |
 | פינת הכיף | `fun/` | pages directly in the area (dad jokes, quotes), no chapters |
 
-Every subject (guide or unit) opens with an overview (`_index.md`) that includes its basic terms ("מונחים בסיסיים") and, for a unit, exam tips ("דגשים"). Its interactive animations go in `animations.md`. A larger subject can move the terms to `glossary.md` and the tips to `tips.md`.
+Every subject (guide or unit) opens with an overview (`_index.md`) that includes its basic terms ("מונחים בסיסיים") and, for a unit, exam tips ("דגשים"). In high school, the overview is the subject's one general page and animations go inside the summary pages (§3, "Flat units"). Elsewhere, interactive animations go in `animations.md`, and a larger subject can move the terms to `glossary.md` and the tips to `tips.md`.
 
 ---
 
@@ -130,6 +130,23 @@ questionnaires and university courses are split the same way, into four sections
 - `summaries/` (and `material/`) may hold `part` folders between itself and the chapters when the material has a natural extra level (volumes, eras). Use this sparingly.
 - Extra unit-wide pages are allowed for things that belong to the whole unit and not to one chapter, e.g. `glossary.md`, `acronyms.md`, `dates.md`, `syllabus.md`.
 
+### Flat units (high school)
+
+Bagrut units in `high-school/` use a flat layout instead of sections, so a subject reads as a few long pages:
+
+```
+high-school/<subject>/
+├── _index.md          # the one general page: overview, list of summaries, syllabus, allowed aids, tips, glossary, appendices
+├── 01-<topic>.md      # 3–7 summary pages, each a whole topic area
+├── 02-<topic>.md
+└── _files/            # all images and attachments of the subject
+```
+
+- **3–7 summary pages** per subject (math: per questionnaire). Each page is a topic area, and each former chapter is a `##` section in it.
+- **Everything that is not a summary is in `_index.md`**: overview and basic terms, a numbered list of the summary pages ("הסיכומים"), then the syllabus, allowed aids (with `aids:` in the front matter), exam tips, glossary/acronyms/dates and appendices, each a `##` section. There are no separate `tips.md` or `allowed-aids.md` pages.
+- Animations go inside the summary page of their topic, not on a separate page.
+- Link to a section with an anchor: `[קבלים](04-electrostatics.md#קבלים)`.
+
 ### Where the unit sits
 
 | Area | Path | Unit |
@@ -138,7 +155,8 @@ questionnaires and university courses are split the same way, into four sections
 | Bagrut, subject with several questionnaires | `high-school/<subject>[/<level>]/<questionnaire>/` | each questionnaire; the subject (and level) are `group`s |
 
 - Right now only **math** is split into questionnaires. Every other subject is a single unit.
-  If a subject needs to be split later, move its sections into questionnaire folders and turn the subject into a `group`.
+  If a subject needs to be split later, move its pages into questionnaire folders and turn the subject into a `group`.
+- High-school units are flat (see "Flat units" above). University courses keep the sections.
 - Questionnaires are named the way they are called day to day: `581`, `582`.
 
 ---
@@ -214,7 +232,7 @@ aids: [formula-sheet, calculator]   # short machine-readable summary of allowed-
 ---
 title: זריקה משופעת      # required
 tags: [מכניקה, קינמטיקה]   # optional
-related: [high-school/math/5-units/581/summaries/06-calculus]   # optional: content paths without the content/ prefix
+related: [high-school/math/5-units/581/04-calculus]   # optional: content paths without the content/ prefix
 attachments: [_files/projectile-sheet.pdf]                 # optional
 lang: en                # optional: page language; non-Hebrew pages render left-to-right
 updated: 2026-10-18     # optional
@@ -225,7 +243,7 @@ updated: 2026-10-18     # optional
 
 ## 8. Page content
 
-- **One page = one concept.** If a page grows past what a reader can take in one sitting, split it.
+- **One page = one concept.** If a page grows past what a reader can take in one sitting, split it. Exception: high-school summary pages are whole topic areas (3–7 per subject), with one `##` section per concept.
 - **Explain, then example.** Intuition first, then the formal version, then worked examples.
 - **Coherent, understandable, complete.** Every subject must be:
   - *coherent*: a logical order, transitions between topics, and the same terms throughout;
@@ -279,6 +297,6 @@ Only Barak edits the site. Other people send material, and Barak asks Claude to 
      - Co-written material: ask the co-authors, or at least credit them. Credit sources anyway ("based on course X").
      - Never published, even rephrased: Open University assignment (ממ"ן) questions and solutions, and exam questions. Official Bagrut exams are linked, not copied.
    - **Complete it** according to §8: coherent, understandable and complete, with additions beyond the source where needed.
-5. For a `unit`: decide which section X belongs to (material, assignments, summaries or exams). Then move tips to `tips.md`, exam aids to `allowed-aids.md` and unit-wide lists (glossary, acronyms, dates) to extra pages.
+5. For a `unit`: decide which section X belongs to (material, assignments, summaries or exams). Then move tips to `tips.md`, exam aids to `allowed-aids.md` and unit-wide lists (glossary, acronyms, dates) to extra pages. In high school (flat units), summaries go into the 3–7 topic pages and everything else into sections of `_index.md`.
 6. Move images and attachments to the right `_files/` folders and fix their links.
 7. Fill in the front matter, add `related` links, and update the parent `_index.md` if it lists its children.

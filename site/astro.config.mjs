@@ -6,6 +6,8 @@ import rehypeKatex from 'rehype-katex';
 import { buildSidebar } from './src/structure.mjs';
 import { remarkContent } from './src/markdown.mjs';
 import { contentFiles } from './src/files.mjs';
+// Old URLs → new pages, after the high-school units were flattened (2026-10).
+import oldUrls from './src/redirects.json' with { type: 'json' };
 
 const site = 'https://barakkol33.github.io';
 const base = '/blearning';
@@ -15,6 +17,7 @@ export default defineConfig({
 	site,
 	base,
 	trailingSlash: 'always',
+	redirects: Object.fromEntries(Object.entries(oldUrls).map(([from, to]) => [from, `${base}${to}`])),
 	markdown: {
 		remarkPlugins: [remarkMath, [remarkContent, { base }]],
 		rehypePlugins: [rehypeKatex],

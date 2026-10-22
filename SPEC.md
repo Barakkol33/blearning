@@ -45,7 +45,7 @@ Priority: **M** = must have at launch, **S** = should have soon after, **F** = f
 | # | Requirement | Pri |
 |---|---|---|
 | R15 | Content is Markdown files in git, editable by Claude Code | M |
-| R16 | Structure validation: the build fails if a file breaks STRUCTURE.md (missing `kind`, a unit without `allowed-aids.md` or without any section…) | M |
+| R16 | Structure validation: the build fails if a file breaks STRUCTURE.md (missing `kind`, a unit without `allowed-aids.md`/`aids`, or without any section or summary pages…) | M |
 | R17 | Local preview with live reload (`npm run dev`) | M |
 | R18 | Automatic deploy on push to `main` | M |
 | R19 | Preview URL for every branch or PR | S |
