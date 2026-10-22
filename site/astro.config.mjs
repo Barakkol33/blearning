@@ -3,7 +3,7 @@ import { defineConfig } from 'astro/config';
 import starlight from '@astrojs/starlight';
 import remarkMath from 'remark-math';
 import rehypeKatex from 'rehype-katex';
-import { buildSidebar } from './src/structure.mjs';
+import { buildSidebar, contentDirs } from './src/structure.mjs';
 import { remarkContent } from './src/markdown.mjs';
 import { contentFiles } from './src/files.mjs';
 // Old URLs → new pages, after the high-school units were flattened (2026-10).
@@ -37,6 +37,8 @@ export default defineConfig({
 			routeMiddleware: './src/routeData.ts',
 			// Drafts are shown in dev and left out of the published site.
 			sidebar: buildSidebar({ includeDrafts: !isBuild }),
+			// Content lives outside src/content/docs, so tell Starlight to process it too (heading anchor links, asides).
+			markdown: { processedDirs: contentDirs },
 		}),
 		contentFiles({ base }),
 	],
