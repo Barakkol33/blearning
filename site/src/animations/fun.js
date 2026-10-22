@@ -14,17 +14,22 @@ const css = `
 `;
 let styled = false;
 
-// Shared base of <bl-jokes> and <bl-quotes>: rows "main | second | topic, topic".
-// Two modes: scroll through everything (filtered by topic) or draw one at random.
+// Ratings, lowest first (the optional 4th column).
+const RATINGS = [['נחמד', '⭐'], ['טוב', '⭐⭐'], ['מצוין', '⭐⭐⭐']];
+
+// Shared base of <bl-jokes> and <bl-quotes>: rows "main | second | topic, topic | rating".
+// Two modes: scroll through everything or draw one at random, both filtered by topic and rating.
 class Collection extends BlElement {
 	setup() {
 		if (!styled) {
 			document.head.append(Object.assign(document.createElement('style'), { textContent: css }));
 			styled = true;
 		}
-		this.items = this.rows().map(([main, second = '', topics = '']) => ({ main, second, topics: topics.split(',').map((t) => t.trim()).filter(Boolean) }));
+		this.items = this.rows().map(([main, second = '', topics = '', rating = '']) => ({ main, second, rating, topics: topics.split(',').map((t) => t.trim()).filter(Boolean) }));
 		this.topics = [...new Set(this.items.flatMap((i) => i.topics))].sort((a, b) => a.localeCompare(b, 'he'));
+		this.ratings = RATINGS.filter(([r]) => this.items.some((i) => i.rating === r));
 		this.picked = new Set();
+		this.pickedRatings = new Set();
 		this.mode = this.getAttribute('mode') === 'scroll' ? 'scroll' : 'random';
 
 		const c = this.controls();
@@ -32,23 +37,42 @@ class Collection extends BlElement {
 		this.again = this.button(c, this.againLabel, () => this.render());
 		this.out = this.text(c);
 
-		this.topicBar = document.createElement('div');
-		this.topicBar.className = 'bl-col-topics';
-		this.topicBar.addEventListener('click', (e) => {
-			const b = e.target.closest('button');
-			if (!b) return;
-			const t = b.dataset.topic;
-			t ? (this.picked.has(t) ? this.picked.delete(t) : this.picked.add(t)) : this.picked.clear();
-			this.queue = null;
-			this.render();
-		});
+		this.ratingBar = this.chipBar(this.pickedRatings);
+		this.topicBar = this.chipBar(this.picked);
 		this.body = document.createElement('div');
-		this.append(this.topicBar, this.body);
+		this.append(this.ratingBar, this.topicBar, this.body);
 		this.render();
 	}
 
+	/** A row of toggle chips that edits `picked`; the first chip ("הכל") clears it. */
+	chipBar(picked) {
+		const bar = document.createElement('div');
+		bar.className = 'bl-col-topics';
+		bar.addEventListener('click', (e) => {
+			const b = e.target.closest('button');
+			if (!b) return;
+			const v = b.dataset.value;
+			v ? (picked.has(v) ? picked.delete(v) : picked.add(v)) : picked.clear();
+			this.queue = null;
+			this.render();
+		});
+		return bar;
+	}
+
+	fillChips(bar, picked, chips) {
+		bar.innerHTML = '';
+		for (const [v, label] of chips) {
+			const b = Object.assign(document.createElement('button'), { type: 'button', textContent: label });
+			if (v) b.dataset.value = v;
+			b.setAttribute('aria-pressed', v ? picked.has(v) : !picked.size);
+			bar.append(b);
+		}
+	}
+
 	filtered() {
-		return this.picked.size ? this.items.filter((i) => i.topics.some((t) => this.picked.has(t))) : this.items;
+		return this.items.filter((i) =>
+			(!this.picked.size || i.topics.some((t) => this.picked.has(t))) &&
+			(!this.pickedRatings.size || this.pickedRatings.has(i.rating)));
 	}
 
 	/** Next random item: a shuffled queue, so nothing repeats until all were shown. */
@@ -59,14 +83,10 @@ class Collection extends BlElement {
 
 	render() {
 		const list = this.filtered();
-		const count = (t) => this.items.filter((i) => i.topics.includes(t)).length;
-		this.topicBar.innerHTML = '';
-		for (const [t, label] of [['', `הכל (${this.items.length})`], ...this.topics.map((t) => [t, `${t} (${count(t)})`])]) {
-			const b = Object.assign(document.createElement('button'), { type: 'button', textContent: label });
-			if (t) b.dataset.topic = t;
-			b.setAttribute('aria-pressed', t ? this.picked.has(t) : !this.picked.size);
-			this.topicBar.append(b);
-		}
+		const count = (f) => this.items.filter(f).length;
+		this.fillChips(this.topicBar, this.picked, [['', `כל הנושאים (${this.items.length})`], ...this.topics.map((t) => [t, `${t} (${count((i) => i.topics.includes(t))})`])]);
+		this.ratingBar.hidden = !this.ratings.length;
+		this.fillChips(this.ratingBar, this.pickedRatings, [['', 'כל הדירוגים'], ...this.ratings.map(([r, stars]) => [r, `${stars} ${r} (${count((i) => i.rating === r)})`])]);
 		this.again.hidden = this.mode !== 'random';
 		this.body.className = this.mode === 'random' ? 'bl-col-one' : 'bl-col-list';
 		this.body.innerHTML = '';
@@ -87,31 +107,34 @@ class Collection extends BlElement {
 		return e;
 	}
 
-	tags(item) {
-		return this.el('div', 'bl-col-tags', item.topics.join(' · '));
+	/** Rating stars, plus the topics when scrolling. */
+	meta(item, withTags) {
+		const stars = RATINGS.find(([r]) => r === item.rating);
+		const parts = [stars ? `${stars[1]} ${stars[0]}` : '', withTags ? item.topics.join(' · ') : ''].filter(Boolean);
+		return parts.length ? this.el('div', 'bl-col-tags', parts.join('  ·  ')) : null;
 	}
 }
 
-// <bl-jokes> with rows "setup | punchline | topics": the punchline opens on click
+// <bl-jokes> with rows "setup | punchline | topics | rating": the punchline opens on click
 class Jokes extends Collection {
 	againLabel = '😂 עוד בדיחה';
 	card(item, withTags) {
 		const d = this.el('details', 'bl-col-card');
 		d.append(this.el('summary', '', item.main));
 		if (item.second) d.append(this.el('div', 'bl-col-second', item.second));
-		if (withTags) d.append(this.tags(item));
+		d.append(this.meta(item, withTags) ?? '');
 		return d;
 	}
 }
 
-// <bl-quotes> with rows "quote | author | topics"
+// <bl-quotes> with rows "quote | author | topics | rating"
 class Quotes extends Collection {
 	againLabel = '💬 עוד ציטוט';
 	card(item, withTags) {
 		const q = this.el('blockquote', 'bl-col-card');
 		q.append(this.el('div', '', item.main));
 		if (item.second) q.append(this.el('div', 'bl-col-second', `— ${item.second}`));
-		if (withTags) q.append(this.tags(item));
+		q.append(this.meta(item, withTags) ?? '');
 		return q;
 	}
 }
