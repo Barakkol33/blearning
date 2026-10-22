@@ -1,0 +1,45 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 644 289" width="644" height="289">
+<rect width="100%" height="100%" rx="10" fill="#ffffff"/>
+<g transform="translate(0.0,0.0)">
+<text x="157.0" y="22" font-family="'Times New Roman', Times, 'Noto Serif', serif" font-size="18" fill="#1f2937" text-anchor="middle" direction="rtl">חיבור בטור</text>
+<line x1="47.0" y1="132.0" x2="47.0" y2="144.1" stroke="#1f2937" stroke-width="1.8" stroke-linecap="round"/>
+<line x1="47.0" y1="152.9" x2="47.0" y2="165.0" stroke="#1f2937" stroke-width="1.8" stroke-linecap="round"/>
+<line x1="29.4" y1="144.1" x2="64.6" y2="144.1" stroke="#1f2937" stroke-width="1.8" stroke-linecap="round"/>
+<line x1="38.2" y1="152.9" x2="55.8" y2="152.9" stroke="#1f2937" stroke-width="4" stroke-linecap="round"/>
+<line x1="47.0" y1="132.0" x2="47.0" y2="77.0" stroke="#1f2937" stroke-width="1.8" stroke-linecap="round"/>
+<line x1="47.0" y1="165.0" x2="47.0" y2="220.0" stroke="#1f2937" stroke-width="1.8" stroke-linecap="round"/>
+<polyline points="47.0,77.0 60.8,77.0 67.6,69.9 74.5,84.2 81.4,69.9 88.2,84.2 95.1,69.9 102.0,84.2 108.9,69.9 115.8,84.2 122.6,69.9 129.5,84.2 136.4,69.9 143.2,77.0 157.0,77.0" fill="none" stroke="#1f2937" stroke-width="1.8" stroke-linejoin="round"/>
+<polyline points="157.0,77.0 170.8,77.0 177.6,69.9 184.5,84.2 191.4,69.9 198.2,84.2 205.1,69.9 212.0,84.2 218.9,69.9 225.8,84.2 232.6,69.9 239.5,84.2 246.4,69.9 253.2,77.0 267.0,77.0" fill="none" stroke="#1f2937" stroke-width="1.8" stroke-linejoin="round"/>
+<line x1="267.0" y1="77.0" x2="267.0" y2="220.0" stroke="#1f2937" stroke-width="1.8" stroke-linecap="round"/>
+<line x1="267.0" y1="220.0" x2="47.0" y2="220.0" stroke="#1f2937" stroke-width="1.8" stroke-linecap="round"/>
+<text x="102.0" y="61.0" font-family="'Times New Roman', Times, 'Noto Serif', serif" font-size="17" fill="#1f2937" text-anchor="middle" font-style="italic"><tspan dy="0" font-size="17">R</tspan><tspan dy="5" font-size="12">1</tspan></text>
+<text x="212.0" y="61.0" font-family="'Times New Roman', Times, 'Noto Serif', serif" font-size="17" fill="#1f2937" text-anchor="middle" font-style="italic"><tspan dy="0" font-size="17">R</tspan><tspan dy="5" font-size="12">2</tspan></text>
+<text x="23.0" y="154.4" font-family="'Times New Roman', Times, 'Noto Serif', serif" font-size="17" fill="#1f2937" text-anchor="middle" font-style="italic"><tspan dy="0" font-size="17">ε</tspan></text>
+<line x1="267.0" y1="132.0" x2="267.0" y2="158.0" stroke="#dc2626" stroke-width="2.2" stroke-linecap="round"/>
+<polygon points="267.0,165.0 263.3,155.7 270.7,155.7" fill="#dc2626"/>
+<text x="281.0" y="154.4" font-family="'Times New Roman', Times, 'Noto Serif', serif" font-size="17" fill="#dc2626" text-anchor="middle" font-style="italic"><tspan dy="0" font-size="17">I</tspan></text>
+<text x="157.0" y="258.2" font-family="'Times New Roman', Times, 'Noto Serif', serif" font-size="15" fill="#1f2937" text-anchor="middle" font-style="italic"><tspan dy="0" font-size="15">R = R</tspan><tspan dy="5" font-size="10">1</tspan><tspan dy="-5" font-size="15"> + R</tspan><tspan dy="5" font-size="10">2</tspan></text>
+</g>
+<g transform="translate(330.0,0.0)">
+<text x="157.0" y="22" font-family="'Times New Roman', Times, 'Noto Serif', serif" font-size="18" fill="#1f2937" text-anchor="middle" direction="rtl">חיבור במקביל</text>
+<line x1="47.0" y1="132.0" x2="47.0" y2="144.1" stroke="#1f2937" stroke-width="1.8" stroke-linecap="round"/>
+<line x1="47.0" y1="152.9" x2="47.0" y2="165.0" stroke="#1f2937" stroke-width="1.8" stroke-linecap="round"/>
+<line x1="29.4" y1="144.1" x2="64.6" y2="144.1" stroke="#1f2937" stroke-width="1.8" stroke-linecap="round"/>
+<line x1="38.2" y1="152.9" x2="55.8" y2="152.9" stroke="#1f2937" stroke-width="4" stroke-linecap="round"/>
+<line x1="47.0" y1="132.0" x2="47.0" y2="77.0" stroke="#1f2937" stroke-width="1.8" stroke-linecap="round"/>
+<line x1="47.0" y1="165.0" x2="47.0" y2="220.0" stroke="#1f2937" stroke-width="1.8" stroke-linecap="round"/>
+<line x1="47.0" y1="77.0" x2="267.0" y2="77.0" stroke="#1f2937" stroke-width="1.8" stroke-linecap="round"/>
+<line x1="47.0" y1="220.0" x2="267.0" y2="220.0" stroke="#1f2937" stroke-width="1.8" stroke-linecap="round"/>
+<polyline points="179.0,77.0 179.0,121.0 186.2,125.6 171.8,130.2 186.2,134.8 171.8,139.3 186.2,143.9 171.8,148.5 186.2,153.1 171.8,157.7 186.2,162.2 171.8,166.8 186.2,171.4 179.0,176.0 179.0,220.0" fill="none" stroke="#1f2937" stroke-width="1.8" stroke-linejoin="round"/>
+<polyline points="267.0,77.0 267.0,121.0 274.1,125.6 259.9,130.2 274.1,134.8 259.9,139.3 274.1,143.9 259.9,148.5 274.1,153.1 259.9,157.7 274.1,162.2 259.9,166.8 274.1,171.4 267.0,176.0 267.0,220.0" fill="none" stroke="#1f2937" stroke-width="1.8" stroke-linejoin="round"/>
+<circle cx="179.0" cy="77.0" r="3" fill="#1f2937" stroke="#1f2937" stroke-width="1.5"/>
+<circle cx="179.0" cy="220.0" r="3" fill="#1f2937" stroke="#1f2937" stroke-width="1.5"/>
+<text x="153.0" y="154.4" font-family="'Times New Roman', Times, 'Noto Serif', serif" font-size="17" fill="#1f2937" text-anchor="middle" font-style="italic"><tspan dy="0" font-size="17">R</tspan><tspan dy="5" font-size="12">1</tspan></text>
+<text x="241.0" y="154.4" font-family="'Times New Roman', Times, 'Noto Serif', serif" font-size="17" fill="#1f2937" text-anchor="middle" font-style="italic"><tspan dy="0" font-size="17">R</tspan><tspan dy="5" font-size="12">2</tspan></text>
+<text x="23.0" y="154.4" font-family="'Times New Roman', Times, 'Noto Serif', serif" font-size="17" fill="#1f2937" text-anchor="middle" font-style="italic"><tspan dy="0" font-size="17">ε</tspan></text>
+<line x1="80.0" y1="77.0" x2="122.5" y2="77.0" stroke="#dc2626" stroke-width="2.2" stroke-linecap="round"/>
+<polygon points="129.5,77.0 120.2,80.7 120.2,73.3" fill="#dc2626"/>
+<text x="104.8" y="69.0" font-family="'Times New Roman', Times, 'Noto Serif', serif" font-size="17" fill="#dc2626" text-anchor="middle" font-style="italic"><tspan dy="0" font-size="17">I</tspan></text>
+<text x="157.0" y="258.2" font-family="'Times New Roman', Times, 'Noto Serif', serif" font-size="15" fill="#1f2937" text-anchor="middle" font-style="italic"><tspan dy="0" font-size="15">1/R = 1/R</tspan><tspan dy="5" font-size="10">1</tspan><tspan dy="-5" font-size="15"> + 1/R</tspan><tspan dy="5" font-size="10">2</tspan></text>
+</g>
+</svg>

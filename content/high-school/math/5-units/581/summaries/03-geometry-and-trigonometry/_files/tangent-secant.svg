@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 387 293" width="387" height="293">
+<rect width="100%" height="100%" rx="10" fill="#ffffff"/>
+<g transform="translate(0.0,0.0)">
+<circle cx="123.2" cy="133.6" r="93.6" fill="none" stroke="#1f2937" stroke-width="1.8"/>
+<line x1="352.0" y1="164.8" x2="172.4" y2="53.9" stroke="#16a34a" stroke-width="2.2" stroke-linecap="round"/>
+<line x1="352.0" y1="164.8" x2="35.0" y2="164.8" stroke="#2563eb" stroke-width="1.8" stroke-linecap="round"/>
+<circle cx="352.0" cy="164.8" r="3.5" fill="#1f2937" stroke="#1f2937" stroke-width="1.5"/>
+<text x="368.0" y="170.7" font-family="'Times New Roman', Times, 'Noto Serif', serif" font-size="17" fill="#1f2937" text-anchor="middle" font-style="italic">A</text>
+<circle cx="172.4" cy="53.9" r="3.5" fill="#1f2937" stroke="#1f2937" stroke-width="1.5"/>
+<text x="169.6" y="44.1" font-family="'Times New Roman', Times, 'Noto Serif', serif" font-size="17" fill="#1f2937" text-anchor="middle" font-style="italic">B</text>
+<circle cx="35.0" cy="164.8" r="3.5" fill="#1f2937" stroke="#1f2937" stroke-width="1.5"/>
+<text x="19.0" y="170.7" font-family="'Times New Roman', Times, 'Noto Serif', serif" font-size="17" fill="#1f2937" text-anchor="middle" font-style="italic">C</text>
+<circle cx="211.4" cy="164.8" r="3.5" fill="#1f2937" stroke="#1f2937" stroke-width="1.5"/>
+<text x="219.4" y="184.6" font-family="'Times New Roman', Times, 'Noto Serif', serif" font-size="17" fill="#1f2937" text-anchor="middle" font-style="italic">D</text>
+<text x="196.0" y="271.4" font-family="'Times New Roman', Times, 'Noto Serif', serif" font-size="15" fill="#1f2937" text-anchor="middle">AC · AD = AB²</text>
+</g>
+</svg>

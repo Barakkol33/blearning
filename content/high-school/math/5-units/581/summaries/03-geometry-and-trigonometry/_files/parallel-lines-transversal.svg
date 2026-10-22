@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 490 320" width="490" height="320">
+<rect width="100%" height="100%" rx="10" fill="#ffffff"/>
+<g transform="translate(0.0,0.0)">
+<line x1="25.0" y1="107.5" x2="465.0" y2="107.5" stroke="#1f2937" stroke-width="1.8" stroke-linecap="round"/>
+<text x="29.0" y="101.5" font-family="'Times New Roman', Times, 'Noto Serif', serif" font-size="17" fill="#1f2937" text-anchor="middle" font-style="italic">a</text>
+<polyline points="94.3,99.8 102.0,107.5 94.3,115.2" fill="none" stroke="#1f2937" stroke-width="1.6" stroke-linejoin="round"/>
+<polyline points="100.3,99.8 108.0,107.5 100.3,115.2" fill="none" stroke="#1f2937" stroke-width="1.6" stroke-linejoin="round"/>
+<line x1="25.0" y1="217.5" x2="465.0" y2="217.5" stroke="#1f2937" stroke-width="1.8" stroke-linecap="round"/>
+<text x="29.0" y="211.4" font-family="'Times New Roman', Times, 'Noto Serif', serif" font-size="17" fill="#1f2937" text-anchor="middle" font-style="italic">b</text>
+<polyline points="94.3,209.8 102.0,217.5 94.3,225.2" fill="none" stroke="#1f2937" stroke-width="1.6" stroke-linejoin="round"/>
+<polyline points="100.3,209.8 108.0,217.5 100.3,225.2" fill="none" stroke="#1f2937" stroke-width="1.6" stroke-linejoin="round"/>
+<line x1="338.5" y1="25.0" x2="173.5" y2="300.0" stroke="#1f2937" stroke-width="1.8" stroke-linecap="round"/>
+<text x="350.5" y="30.9" font-family="'Times New Roman', Times, 'Noto Serif', serif" font-size="17" fill="#1f2937" text-anchor="middle" font-style="italic">t</text>
+<text x="309.1" y="102.1" font-family="'Times New Roman', Times, 'Noto Serif', serif" font-size="17" fill="#dc2626" text-anchor="middle" font-style="italic">θ</text>
+<text x="277.6" y="93.3" font-family="'Times New Roman', Times, 'Noto Serif', serif" font-size="17" fill="#2563eb" text-anchor="middle" font-style="italic">β</text>
+<text x="268.9" y="124.8" font-family="'Times New Roman', Times, 'Noto Serif', serif" font-size="17" fill="#dc2626" text-anchor="middle" font-style="italic">θ</text>
+<text x="300.4" y="133.6" font-family="'Times New Roman', Times, 'Noto Serif', serif" font-size="17" fill="#2563eb" text-anchor="middle" font-style="italic">β</text>
+<text x="243.1" y="212.1" font-family="'Times New Roman', Times, 'Noto Serif', serif" font-size="17" fill="#dc2626" text-anchor="middle" font-style="italic">θ</text>
+<text x="211.6" y="203.3" font-family="'Times New Roman', Times, 'Noto Serif', serif" font-size="17" fill="#2563eb" text-anchor="middle" font-style="italic">β</text>
+<text x="202.9" y="234.8" font-family="'Times New Roman', Times, 'Noto Serif', serif" font-size="17" fill="#dc2626" text-anchor="middle" font-style="italic">θ</text>
+<text x="234.4" y="243.6" font-family="'Times New Roman', Times, 'Noto Serif', serif" font-size="17" fill="#2563eb" text-anchor="middle" font-style="italic">β</text>
+</g>
+</svg>

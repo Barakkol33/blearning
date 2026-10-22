@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 488 358" width="488" height="358">
+<rect width="100%" height="100%" rx="10" fill="#ffffff"/>
+<g transform="translate(0.0,0.0)">
+<ellipse cx="244.0" cy="184.0" rx="200.0" ry="130.0" fill="#dbeafe" stroke="#dc2626" stroke-width="2.2"/>
+<line x1="19.0" y1="184.0" x2="469.0" y2="184.0" stroke="#1f2937" stroke-width="1.2" stroke-linecap="round"/>
+<line x1="244.0" y1="339.0" x2="244.0" y2="29.0" stroke="#1f2937" stroke-width="1.2" stroke-linecap="round"/>
+<line x1="175.6" y1="61.8" x2="92.0" y2="184.0" stroke="#2563eb" stroke-width="2.2" stroke-linecap="round"/>
+<line x1="175.6" y1="61.8" x2="396.0" y2="184.0" stroke="#2563eb" stroke-width="2.2" stroke-linecap="round"/>
+<circle cx="444.0" cy="184.0" r="3.5" fill="#1f2937" stroke="#1f2937" stroke-width="1.5"/>
+<circle cx="44.0" cy="184.0" r="3.5" fill="#1f2937" stroke="#1f2937" stroke-width="1.5"/>
+<circle cx="244.0" cy="54.0" r="3.5" fill="#1f2937" stroke="#1f2937" stroke-width="1.5"/>
+<circle cx="244.0" cy="314.0" r="3.5" fill="#1f2937" stroke="#1f2937" stroke-width="1.5"/>
+<circle cx="92.0" cy="184.0" r="3.5" fill="#1f2937" stroke="#1f2937" stroke-width="1.5"/>
+<circle cx="396.0" cy="184.0" r="3.5" fill="#1f2937" stroke="#1f2937" stroke-width="1.5"/>
+<circle cx="244.0" cy="184.0" r="3.5" fill="#1f2937" stroke="#1f2937" stroke-width="1.5"/>
+<circle cx="175.6" cy="61.8" r="3.5" fill="#1f2937" stroke="#1f2937" stroke-width="1.5"/>
+<text x="456.0" y="177.9" font-family="'Times New Roman', Times, 'Noto Serif', serif" font-size="17" fill="#1f2937" text-anchor="middle" font-style="italic">a</text>
+<text x="30.0" y="177.9" font-family="'Times New Roman', Times, 'Noto Serif', serif" font-size="17" fill="#1f2937" text-anchor="middle" font-style="italic">−a</text>
+<text x="256.0" y="47.9" font-family="'Times New Roman', Times, 'Noto Serif', serif" font-size="17" fill="#1f2937" text-anchor="middle" font-style="italic">b</text>
+<text x="258.0" y="333.9" font-family="'Times New Roman', Times, 'Noto Serif', serif" font-size="17" fill="#1f2937" text-anchor="middle" font-style="italic">−b</text>
+<text x="92.0" y="205.9" font-family="'Times New Roman', Times, 'Noto Serif', serif" font-size="17" fill="#1f2937" text-anchor="middle" font-style="italic">F₁</text>
+<text x="396.0" y="205.9" font-family="'Times New Roman', Times, 'Noto Serif', serif" font-size="17" fill="#1f2937" text-anchor="middle" font-style="italic">F₂</text>
+<text x="84.0" y="177.9" font-family="'Times New Roman', Times, 'Noto Serif', serif" font-size="17" fill="#1f2937" text-anchor="middle" font-style="italic">−f</text>
+<text x="396.0" y="177.9" font-family="'Times New Roman', Times, 'Noto Serif', serif" font-size="17" fill="#1f2937" text-anchor="middle" font-style="italic">f</text>
+<text x="256.0" y="203.9" font-family="'Times New Roman', Times, 'Noto Serif', serif" font-size="17" fill="#1f2937" text-anchor="middle" font-style="italic">C</text>
+<text x="165.6" y="55.8" font-family="'Times New Roman', Times, 'Noto Serif', serif" font-size="17" fill="#1f2937" text-anchor="middle" font-style="italic">P</text>
+<text x="14.0" y="29.6" font-family="'Times New Roman', Times, 'Noto Serif', serif" font-size="16" fill="#2563eb" text-anchor="start" font-style="italic">PF₁ + PF₂ = 2a</text>
+<text x="474.0" y="29.2" font-family="'Times New Roman', Times, 'Noto Serif', serif" font-size="15" fill="#1f2937" text-anchor="end" font-style="italic">e = f/a ,  0 &lt; e &lt; 1</text>
+</g>
+</svg>

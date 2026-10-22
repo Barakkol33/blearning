@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 358 303" width="358" height="303">
+<rect width="100%" height="100%" rx="10" fill="#ffffff"/>
+<g transform="translate(0.0,0.0)">
+<polyline points="102.0,69.0 102.0,267.0 212.0,267.0 212.0,69.0" fill="none" stroke="#1f2937" stroke-width="2.2" stroke-linejoin="round"/>
+<rect x="110.2" y="225.7" width="93.5" height="35.8" rx="4" fill="#dbeafe" stroke="#1f2937" stroke-width="1.6"/>
+<text x="157.0" y="249.5" font-family="Consolas, 'Courier New', monospace" font-size="16" fill="#1f2937" text-anchor="middle">4</text>
+<rect x="110.2" y="184.5" width="93.5" height="35.8" rx="4" fill="#dbeafe" stroke="#1f2937" stroke-width="1.6"/>
+<text x="157.0" y="208.2" font-family="Consolas, 'Courier New', monospace" font-size="16" fill="#1f2937" text-anchor="middle">8</text>
+<rect x="110.2" y="143.2" width="93.5" height="35.8" rx="4" fill="#fef9c3" stroke="#1f2937" stroke-width="1.6"/>
+<text x="157.0" y="167.0" font-family="Consolas, 'Courier New', monospace" font-size="16" fill="#1f2937" text-anchor="middle">1</text>
+<text x="278.0" y="166.3" font-family="Consolas, 'Courier New', monospace" font-size="14" fill="#7c3aed" text-anchor="middle">Top()</text>
+<line x1="245.0" y1="161.4" x2="215.6" y2="161.4" stroke="#7c3aed" stroke-width="1.6" stroke-linecap="round"/>
+<polygon points="209.2,161.4 217.6,158.1 217.6,164.7" fill="#7c3aed"/>
+<line x1="69.0" y1="30.5" x2="130.0" y2="101.7" stroke="#16a34a" stroke-width="2" stroke-linecap="round"/>
+<polygon points="135.0,107.5 125.3,102.4 131.4,97.1" fill="#16a34a"/>
+<text x="52.5" y="27.1" font-family="Consolas, 'Courier New', monospace" font-size="14" fill="#16a34a" text-anchor="middle">Push(x)</text>
+<line x1="179.0" y1="107.5" x2="240.0" y2="36.3" stroke="#dc2626" stroke-width="2" stroke-linecap="round"/>
+<polygon points="245.0,30.5 241.4,40.9 235.3,35.6" fill="#dc2626"/>
+<text x="267.0" y="27.1" font-family="Consolas, 'Courier New', monospace" font-size="14" fill="#dc2626" text-anchor="middle">Pop()</text>
+</g>
+</svg>

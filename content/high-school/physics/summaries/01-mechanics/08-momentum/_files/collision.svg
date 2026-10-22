@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 283" width="448" height="283">
+<rect width="100%" height="100%" rx="10" fill="#ffffff"/>
+<g transform="translate(0.0,0.0)">
+<line x1="24.0" y1="114.0" x2="424.0" y2="114.0" stroke="#1f2937" stroke-width="1.6" stroke-linecap="round"/>
+<line x1="24.0" y1="244.0" x2="424.0" y2="244.0" stroke="#1f2937" stroke-width="1.6" stroke-linecap="round"/>
+<polygon points="54.0,114.0 114.0,114.0 114.0,69.0 54.0,69.0" fill="#dbeafe" stroke="#1f2937" stroke-width="1.8" stroke-linejoin="round"/>
+<polygon points="244.0,114.0 294.0,114.0 294.0,74.0 244.0,74.0" fill="#dcfce7" stroke="#1f2937" stroke-width="1.8" stroke-linejoin="round"/>
+<text x="84.0" y="97.4" font-family="'Times New Roman', Times, 'Noto Serif', serif" font-size="17" fill="#1f2937" text-anchor="middle" font-style="italic"><tspan dy="0" font-size="17">m</tspan><tspan dy="5" font-size="12">1</tspan></text>
+<text x="269.0" y="99.9" font-family="'Times New Roman', Times, 'Noto Serif', serif" font-size="17" fill="#1f2937" text-anchor="middle" font-style="italic"><tspan dy="0" font-size="17">m</tspan><tspan dy="5" font-size="12">2</tspan></text>
+<line x1="114.0" y1="91.5" x2="186.3" y2="91.5" stroke="#dc2626" stroke-width="2.4" stroke-linecap="round"/>
+<polygon points="194.0,91.5 183.8,95.6 183.8,87.4" fill="#dc2626"/>
+<text x="154.0" y="81.4" font-family="'Times New Roman', Times, 'Noto Serif', serif" font-size="17" fill="#dc2626" text-anchor="middle" font-style="italic"><tspan dy="0" font-size="17">v</tspan><tspan dy="5" font-size="12">1</tspan></text>
+<text x="269.0" y="99.9" font-family="'Times New Roman', Times, 'Noto Serif', serif" font-size="17" fill="#1f2937" text-anchor="middle" font-style="italic"></text>
+<text x="269.0" y="61.0" font-family="'Times New Roman', Times, 'Noto Serif', serif" font-size="13" fill="#9ca3af" text-anchor="middle" direction="rtl">במנוחה</text>
+<text x="404.0" y="97.1" font-family="'Times New Roman', Times, 'Noto Serif', serif" font-size="16" fill="#1f2937" text-anchor="middle" font-weight="bold" direction="rtl">לפני</text>
+<polygon points="174.0,244.0 234.0,244.0 234.0,199.0 174.0,199.0" fill="#dbeafe" stroke="#1f2937" stroke-width="1.8" stroke-linejoin="round"/>
+<polygon points="234.0,244.0 284.0,244.0 284.0,204.0 234.0,204.0" fill="#dcfce7" stroke="#1f2937" stroke-width="1.8" stroke-linejoin="round"/>
+<text x="204.0" y="227.4" font-family="'Times New Roman', Times, 'Noto Serif', serif" font-size="17" fill="#1f2937" text-anchor="middle" font-style="italic"><tspan dy="0" font-size="17">m</tspan><tspan dy="5" font-size="12">1</tspan></text>
+<text x="259.0" y="229.9" font-family="'Times New Roman', Times, 'Noto Serif', serif" font-size="17" fill="#1f2937" text-anchor="middle" font-style="italic"><tspan dy="0" font-size="17">m</tspan><tspan dy="5" font-size="12">2</tspan></text>
+<line x1="284.0" y1="221.5" x2="326.3" y2="221.5" stroke="#dc2626" stroke-width="2.4" stroke-linecap="round"/>
+<polygon points="334.0,221.5 323.8,225.6 323.8,217.4" fill="#dc2626"/>
+<text x="309.0" y="211.4" font-family="'Times New Roman', Times, 'Noto Serif', serif" font-size="17" fill="#dc2626" text-anchor="middle" font-style="italic"><tspan dy="0" font-size="17">v′</tspan></text>
+<text x="404.0" y="227.1" font-family="'Times New Roman', Times, 'Noto Serif', serif" font-size="16" fill="#1f2937" text-anchor="middle" font-weight="bold" direction="rtl">אחרי</text>
+<text x="224.0" y="162.4" font-family="'Times New Roman', Times, 'Noto Serif', serif" font-size="17" fill="#1f2937" text-anchor="middle" font-style="italic"><tspan dy="0" font-size="17">m</tspan><tspan dy="5" font-size="12">1</tspan><tspan dy="-5" font-size="17"> v</tspan><tspan dy="5" font-size="12">1</tspan><tspan dy="-5" font-size="17"> = (m</tspan><tspan dy="5" font-size="12">1</tspan><tspan dy="-5" font-size="17"> + m</tspan><tspan dy="5" font-size="12">2</tspan><tspan dy="-5" font-size="17">) v′</tspan></text>
+</g>
+</svg>

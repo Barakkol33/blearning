@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 328" width="448" height="328">
+<rect width="100%" height="100%" rx="10" fill="#ffffff"/>
+<g transform="translate(0.0,0.0)">
+<polygon points="38.0,278.0 398.0,278.0 398.0,70.2" fill="#f3f4f6" stroke="#1f2937" stroke-width="1.8" stroke-linejoin="round"/>
+<polygon points="201.7,183.5 248.4,156.5 221.4,109.7 174.7,136.7" fill="#fef9c3" stroke="#1f2937" stroke-width="1.8" stroke-linejoin="round"/>
+<line x1="211.6" y1="146.6" x2="211.6" y2="258.9" stroke="#dc2626" stroke-width="2.4" stroke-linecap="round"/>
+<polygon points="211.6,266.6 207.5,256.4 215.6,256.4" fill="#dc2626"/>
+<text x="195.6" y="280.6" font-family="'Times New Roman', Times, 'Noto Serif', serif" font-size="17" fill="#dc2626" text-anchor="middle" font-style="italic"><tspan dy="0" font-size="17">mg</tspan></text>
+<line x1="211.6" y1="146.6" x2="163.4" y2="63.3" stroke="#2563eb" stroke-width="2.4" stroke-linecap="round"/>
+<polygon points="159.6,56.6 168.2,63.4 161.2,67.5" fill="#2563eb"/>
+<text x="145.1" y="61.6" font-family="'Times New Roman', Times, 'Noto Serif', serif" font-size="17" fill="#2563eb" text-anchor="middle" font-style="italic"><tspan dy="0" font-size="17">N</tspan></text>
+<line x1="234.9" y1="133.1" x2="282.8" y2="105.5" stroke="#16a34a" stroke-width="2.4" stroke-linecap="round"/>
+<polygon points="289.5,101.6 282.7,110.3 278.6,103.2" fill="#16a34a"/>
+<text x="293.5" y="93.6" font-family="'Times New Roman', Times, 'Noto Serif', serif" font-size="17" fill="#16a34a" text-anchor="middle" font-style="italic"><tspan dy="0" font-size="17">f</tspan></text>
+<line x1="211.6" y1="146.6" x2="259.6" y2="229.8" stroke="#9ca3af" stroke-width="1.2" stroke-linecap="round" stroke-dasharray="4 4"/>
+<polyline points="211.6,191.6 212.2,191.6 212.7,191.6 213.3,191.6 213.9,191.6 214.5,191.5 215.1,191.5 215.7,191.4 216.3,191.4 216.9,191.3 217.4,191.2 218.0,191.2 218.6,191.1 219.2,191.0 219.8,190.9 220.3,190.8 220.9,190.6 221.5,190.5 222.1,190.4 222.6,190.2 223.2,190.1 223.8,189.9 224.3,189.8 224.9,189.6 225.5,189.4 226.0,189.2 226.6,189.0 227.1,188.8 227.7,188.6 228.2,188.4 228.8,188.2 229.3,188.0 229.9,187.7 230.4,187.5 230.9,187.2 231.5,187.0 232.0,186.7 232.5,186.4 233.0,186.2 233.5,185.9 234.1,185.6" fill="none" stroke="#ea580c" stroke-width="1.6" stroke-linejoin="round"/>
+<text x="227.1" y="209.8" font-family="'Times New Roman', Times, 'Noto Serif', serif" font-size="15" fill="#ea580c" text-anchor="middle" font-style="italic">θ</text>
+<polyline points="92.0,278.0 92.0,277.3 92.0,276.6 92.0,275.9 91.9,275.2 91.9,274.5 91.8,273.8 91.8,273.1 91.7,272.4 91.6,271.7 91.5,271.0 91.4,270.3 91.3,269.6 91.2,268.9 91.1,268.2 91.0,267.5 90.8,266.8 90.7,266.1 90.5,265.4 90.3,264.7 90.2,264.0 90.0,263.3 89.8,262.7 89.6,262.0 89.4,261.3 89.1,260.6 88.9,260.0 88.7,259.3 88.4,258.6 88.2,258.0 87.9,257.3 87.6,256.7 87.3,256.0 87.0,255.4 86.7,254.8 86.4,254.1 86.1,253.5 85.8,252.9 85.5,252.2 85.1,251.6 84.8,251.0" fill="none" stroke="#ea580c" stroke-width="1.6" stroke-linejoin="round"/>
+<text x="105.2" y="268.4" font-family="'Times New Roman', Times, 'Noto Serif', serif" font-size="17" fill="#ea580c" text-anchor="middle" font-style="italic">θ</text>
+<line x1="74.0" y1="104.0" x2="121.1" y2="76.8" stroke="#9ca3af" stroke-width="1.5" stroke-linecap="round"/>
+<polygon points="126.0,74.0 121.0,80.3 118.0,75.1" fill="#9ca3af"/>
+<line x1="74.0" y1="104.0" x2="46.8" y2="56.9" stroke="#9ca3af" stroke-width="1.5" stroke-linecap="round"/>
+<polygon points="44.0,52.0 50.3,57.0 45.1,60.0" fill="#9ca3af"/>
+<text x="136.4" y="73.3" font-family="'Times New Roman', Times, 'Noto Serif', serif" font-size="15" fill="#9ca3af" text-anchor="middle" font-style="italic">x</text>
+<text x="38.0" y="46.9" font-family="'Times New Roman', Times, 'Noto Serif', serif" font-size="15" fill="#9ca3af" text-anchor="middle" font-style="italic">y</text>
+</g>
+</svg>

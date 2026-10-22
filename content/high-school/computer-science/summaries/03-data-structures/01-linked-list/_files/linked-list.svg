@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 562 182" width="562" height="182">
+<rect width="100%" height="100%" rx="10" fill="#ffffff"/>
+<g transform="translate(0.0,0.0)">
+<rect x="96.5" y="96.5" width="49.5" height="38.5" rx="0" fill="#dbeafe" stroke="#1f2937" stroke-width="1.6"/>
+<rect x="146.0" y="96.5" width="27.5" height="38.5" rx="0" fill="#fff" stroke="#1f2937" stroke-width="1.6"/>
+<text x="121.2" y="121.3" font-family="Consolas, 'Courier New', monospace" font-size="16" fill="#1f2937" text-anchor="middle">7</text>
+<circle cx="159.7" cy="115.8" r="3" fill="#1f2937" stroke="#1f2937" stroke-width="1.5"/>
+<line x1="159.7" y1="115.8" x2="220.8" y2="115.8" stroke="#1f2937" stroke-width="1.8" stroke-linecap="round"/>
+<polygon points="228.5,115.8 218.3,119.8 218.3,111.7" fill="#1f2937"/>
+<rect x="228.5" y="96.5" width="49.5" height="38.5" rx="0" fill="#dbeafe" stroke="#1f2937" stroke-width="1.6"/>
+<rect x="278.0" y="96.5" width="27.5" height="38.5" rx="0" fill="#fff" stroke="#1f2937" stroke-width="1.6"/>
+<text x="253.2" y="121.3" font-family="Consolas, 'Courier New', monospace" font-size="16" fill="#1f2937" text-anchor="middle">2</text>
+<circle cx="291.8" cy="115.8" r="3" fill="#1f2937" stroke="#1f2937" stroke-width="1.5"/>
+<line x1="291.8" y1="115.8" x2="352.8" y2="115.8" stroke="#1f2937" stroke-width="1.8" stroke-linecap="round"/>
+<polygon points="360.5,115.8 350.3,119.8 350.3,111.7" fill="#1f2937"/>
+<rect x="360.5" y="96.5" width="49.5" height="38.5" rx="0" fill="#dbeafe" stroke="#1f2937" stroke-width="1.6"/>
+<rect x="410.0" y="96.5" width="27.5" height="38.5" rx="0" fill="#fff" stroke="#1f2937" stroke-width="1.6"/>
+<text x="385.2" y="121.3" font-family="Consolas, 'Courier New', monospace" font-size="16" fill="#1f2937" text-anchor="middle">9</text>
+<circle cx="423.8" cy="115.8" r="3" fill="#1f2937" stroke="#1f2937" stroke-width="1.5"/>
+<line x1="423.8" y1="115.8" x2="462.8" y2="115.8" stroke="#1f2937" stroke-width="1.8" stroke-linecap="round"/>
+<polygon points="470.5,115.8 460.3,119.8 460.3,111.7" fill="#1f2937"/>
+<text x="478.8" y="121.0" font-family="Consolas, 'Courier New', monospace" font-size="15" fill="#9ca3af" text-anchor="start">null</text>
+<text x="30.5" y="52.3" font-family="Consolas, 'Courier New', monospace" font-size="15" fill="#7c3aed" text-anchor="start">first</text>
+<line x1="58.0" y1="58.0" x2="91.0" y2="90.0" stroke="#7c3aed" stroke-width="1.8" stroke-linecap="round"/>
+<polygon points="96.5,95.4 86.3,91.2 92.0,85.4" fill="#7c3aed"/>
+<text x="121.2" y="158.5" font-family="Consolas, 'Courier New', monospace" font-size="12" fill="#9ca3af" text-anchor="middle">value</text>
+<text x="159.8" y="158.5" font-family="Consolas, 'Courier New', monospace" font-size="12" fill="#9ca3af" text-anchor="middle">next</text>
+</g>
+</svg>

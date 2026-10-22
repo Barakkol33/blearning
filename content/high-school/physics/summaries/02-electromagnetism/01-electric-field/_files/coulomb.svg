@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 143" width="512" height="143">
+<rect width="100%" height="100%" rx="10" fill="#ffffff"/>
+<g transform="translate(0.0,0.0)">
+<text x="124.0" y="22" font-family="'Times New Roman', Times, 'Noto Serif', serif" font-size="18" fill="#1f2937" text-anchor="middle" direction="rtl">מטענים זהים: דחייה</text>
+<circle cx="84.0" cy="89.0" r="13.0" fill="#fee2e2" stroke="#dc2626" stroke-width="2"/>
+<text x="84.0" y="95.0" font-family="'Times New Roman', Times, 'Noto Serif', serif" font-size="20" fill="#dc2626" text-anchor="middle">+</text>
+<circle cx="164.0" cy="89.0" r="13.0" fill="#fee2e2" stroke="#dc2626" stroke-width="2"/>
+<text x="164.0" y="95.0" font-family="'Times New Roman', Times, 'Noto Serif', serif" font-size="20" fill="#dc2626" text-anchor="middle">+</text>
+<line x1="69.0" y1="89.0" x2="31.7" y2="89.0" stroke="#c026d3" stroke-width="2.4" stroke-linecap="round"/>
+<polygon points="24.0,89.0 34.2,84.9 34.2,93.1" fill="#c026d3"/>
+<line x1="179.0" y1="89.0" x2="216.3" y2="89.0" stroke="#c026d3" stroke-width="2.4" stroke-linecap="round"/>
+<polygon points="224.0,89.0 213.8,93.1 213.8,84.9" fill="#c026d3"/>
+<text x="46.5" y="81.0" font-family="'Times New Roman', Times, 'Noto Serif', serif" font-size="17" fill="#c026d3" text-anchor="middle" font-style="italic"><tspan dy="0" font-size="17">F</tspan></text>
+<text x="201.5" y="81.0" font-family="'Times New Roman', Times, 'Noto Serif', serif" font-size="17" fill="#c026d3" text-anchor="middle" font-style="italic"><tspan dy="0" font-size="17">F</tspan></text>
+</g>
+<g transform="translate(264.0,0.0)">
+<text x="124.0" y="22" font-family="'Times New Roman', Times, 'Noto Serif', serif" font-size="18" fill="#1f2937" text-anchor="middle" direction="rtl">מטענים שונים: משיכה</text>
+<circle cx="59.0" cy="89.0" r="13.0" fill="#fee2e2" stroke="#dc2626" stroke-width="2"/>
+<text x="59.0" y="95.0" font-family="'Times New Roman', Times, 'Noto Serif', serif" font-size="20" fill="#dc2626" text-anchor="middle">+</text>
+<circle cx="189.0" cy="89.0" r="13.0" fill="#dbeafe" stroke="#2563eb" stroke-width="2"/>
+<text x="189.0" y="95.0" font-family="'Times New Roman', Times, 'Noto Serif', serif" font-size="20" fill="#2563eb" text-anchor="middle">−</text>
+<line x1="74.0" y1="89.0" x2="108.8" y2="89.0" stroke="#c026d3" stroke-width="2.4" stroke-linecap="round"/>
+<polygon points="116.5,89.0 106.3,93.1 106.3,84.9" fill="#c026d3"/>
+<line x1="174.0" y1="89.0" x2="139.2" y2="89.0" stroke="#c026d3" stroke-width="2.4" stroke-linecap="round"/>
+<polygon points="131.5,89.0 141.7,84.9 141.7,93.1" fill="#c026d3"/>
+<text x="94.0" y="81.0" font-family="'Times New Roman', Times, 'Noto Serif', serif" font-size="17" fill="#c026d3" text-anchor="middle" font-style="italic"><tspan dy="0" font-size="17">F</tspan></text>
+<text x="154.0" y="81.0" font-family="'Times New Roman', Times, 'Noto Serif', serif" font-size="17" fill="#c026d3" text-anchor="middle" font-style="italic"><tspan dy="0" font-size="17">F</tspan></text>
+</g>
+</svg>

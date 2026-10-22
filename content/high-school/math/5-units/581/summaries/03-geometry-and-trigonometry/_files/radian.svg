@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 328 328" width="328" height="328">
+<rect width="100%" height="100%" rx="10" fill="#ffffff"/>
+<g transform="translate(0.0,0.0)">
+<circle cx="158.0" cy="170.0" r="120.0" fill="none" stroke="#9ca3af" stroke-width="1.3"/>
+<polygon points="158.0,170.0 278.0,170.0 278.0,167.0 277.9,164.0 277.7,161.0 277.4,158.0 277.1,155.0 276.7,152.1 276.2,149.1 275.6,146.2 275.0,143.2 274.3,140.3 273.5,137.4 272.6,134.5 271.7,131.7 270.7,128.9 269.7,126.0 268.5,123.3 267.3,120.5 266.1,117.8 264.7,115.1 263.3,112.5 261.8,109.9 260.3,107.3 258.7,104.7 257.0,102.2 255.3,99.8 253.5,97.4 251.7,95.0 249.8,92.7 247.8,90.4 245.8,88.2 243.7,86.0 241.6,83.9 239.4,81.9 237.2,79.8 234.9,77.9 232.6,76.0 230.2,74.2 227.8,72.4 225.3,70.7 222.8,69.0" fill="#dbeafe" stroke="none" stroke-width="0" stroke-linejoin="round"/>
+<line x1="158.0" y1="170.0" x2="278.0" y2="170.0" stroke="#2563eb" stroke-width="2.2" stroke-linecap="round"/>
+<line x1="158.0" y1="170.0" x2="222.8" y2="69.0" stroke="#2563eb" stroke-width="2.2" stroke-linecap="round"/>
+<polyline points="278.0,170.0 278.0,167.0 277.9,164.0 277.7,161.0 277.4,158.0 277.1,155.0 276.7,152.1 276.2,149.1 275.6,146.2 275.0,143.2 274.3,140.3 273.5,137.4 272.6,134.5 271.7,131.7 270.7,128.9 269.7,126.0 268.5,123.3 267.3,120.5 266.1,117.8 264.7,115.1 263.3,112.5 261.8,109.9 260.3,107.3 258.7,104.7 257.0,102.2 255.3,99.8 253.5,97.4 251.7,95.0 249.8,92.7 247.8,90.4 245.8,88.2 243.7,86.0 241.6,83.9 239.4,81.9 237.2,79.8 234.9,77.9 232.6,76.0 230.2,74.2 227.8,72.4 225.3,70.7 222.8,69.0" fill="none" stroke="#dc2626" stroke-width="4" stroke-linejoin="round"/>
+<text x="218.0" y="189.9" font-family="'Times New Roman', Times, 'Noto Serif', serif" font-size="17" fill="#2563eb" text-anchor="middle" font-style="italic">R</text>
+<text x="178.4" y="121.5" font-family="'Times New Roman', Times, 'Noto Serif', serif" font-size="17" fill="#2563eb" text-anchor="middle" font-style="italic">R</text>
+<text x="279.1" y="109.8" font-family="'Times New Roman', Times, 'Noto Serif', serif" font-size="17" fill="#dc2626" text-anchor="middle" font-style="italic">R</text>
+<polyline points="185.0,170.0 185.0,169.3 185.0,168.7 184.9,168.0 184.9,167.3 184.8,166.6 184.7,166.0 184.6,165.3 184.5,164.6 184.3,164.0 184.2,163.3 184.0,162.7 183.8,162.0 183.6,161.4 183.4,160.7 183.1,160.1 182.9,159.5 182.6,158.9 182.3,158.3 182.0,157.7 181.7,157.1 181.4,156.5 181.0,155.9 180.7,155.3 180.3,154.8 179.9,154.2 179.5,153.7 179.1,153.1 178.7,152.6 178.2,152.1 177.8,151.6 177.3,151.1 176.8,150.6 176.3,150.2 175.8,149.7 175.3,149.3 174.8,148.9 174.2,148.4 173.7,148.0 173.2,147.7 172.6,147.3" fill="none" stroke="#1f2937" stroke-width="1.6" stroke-linejoin="round"/>
+<text x="197.5" y="153.3" font-family="'Times New Roman', Times, 'Noto Serif', serif" font-size="14" fill="#1f2937" text-anchor="middle">1 rad</text>
+<text x="158.0" y="310.2" font-family="'Times New Roman', Times, 'Noto Serif', serif" font-size="15" fill="#1f2937" text-anchor="middle">1 rad ≈ 57.3° ,  π rad = 180°</text>
+</g>
+</svg>

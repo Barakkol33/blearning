@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 578 336" width="578" height="336">
+<rect width="100%" height="100%" rx="10" fill="#ffffff"/>
+<g transform="translate(0.0,0.0)">
+<rect x="212.0" y="25.0" width="165.0" height="123.2" rx="0" fill="#fff" stroke="#1f2937" stroke-width="1.6"/>
+<polygon points="212.0,25.0 377.0,25.0 377.0,52.5 212.0,52.5" fill="#dbeafe" stroke="none" stroke-width="0" stroke-linejoin="round"/>
+<rect x="212.0" y="25.0" width="165.0" height="123.2" rx="0" fill="none" stroke="#1f2937" stroke-width="1.6"/>
+<text x="294.5" y="43.7" font-family="Consolas, 'Courier New', monospace" font-size="14" fill="#1f2937" text-anchor="middle" font-weight="bold">Animal</text>
+<text x="294.5" y="19.0" font-family="Consolas, 'Courier New', monospace" font-size="11" fill="#9ca3af" text-anchor="middle">«abstract»</text>
+<line x1="212.0" y1="52.5" x2="377.0" y2="52.5" stroke="#1f2937" stroke-width="1.2" stroke-linecap="round"/>
+<text x="218.6" y="68.8" font-family="Consolas, 'Courier New', monospace" font-size="12" fill="#1f2937" text-anchor="start"># name: string</text>
+<text x="218.6" y="88.6" font-family="Consolas, 'Courier New', monospace" font-size="12" fill="#1f2937" text-anchor="start">- age: int</text>
+<line x1="212.0" y1="100.3" x2="377.0" y2="100.3" stroke="#1f2937" stroke-width="1.2" stroke-linecap="round"/>
+<text x="218.6" y="116.7" font-family="Consolas, 'Courier New', monospace" font-size="12" fill="#1f2937" text-anchor="start">+ Move(): void</text>
+<text x="218.6" y="136.4" font-family="Consolas, 'Courier New', monospace" font-size="12" fill="#1f2937" text-anchor="start">+ GetAge(): int</text>
+<rect x="25.0" y="190.0" width="148.5" height="83.6" rx="0" fill="#fff" stroke="#1f2937" stroke-width="1.6"/>
+<polygon points="25.0,190.0 173.5,190.0 173.5,217.5 25.0,217.5" fill="#dbeafe" stroke="none" stroke-width="0" stroke-linejoin="round"/>
+<rect x="25.0" y="190.0" width="148.5" height="83.6" rx="0" fill="none" stroke="#1f2937" stroke-width="1.6"/>
+<text x="99.2" y="208.7" font-family="Consolas, 'Courier New', monospace" font-size="14" fill="#1f2937" text-anchor="middle" font-weight="bold">Duck</text>
+<line x1="25.0" y1="217.5" x2="173.5" y2="217.5" stroke="#1f2937" stroke-width="1.2" stroke-linecap="round"/>
+<text x="31.6" y="233.8" font-family="Consolas, 'Courier New', monospace" font-size="12" fill="#1f2937" text-anchor="start">- canFly: bool</text>
+<line x1="25.0" y1="245.6" x2="173.5" y2="245.6" stroke="#1f2937" stroke-width="1.2" stroke-linecap="round"/>
+<text x="31.6" y="261.9" font-family="Consolas, 'Courier New', monospace" font-size="12" fill="#1f2937" text-anchor="start">+ Move(): void</text>
+<rect x="220.2" y="190.0" width="148.5" height="83.6" rx="0" fill="#fff" stroke="#1f2937" stroke-width="1.6"/>
+<polygon points="220.2,190.0 368.8,190.0 368.8,217.5 220.2,217.5" fill="#dbeafe" stroke="none" stroke-width="0" stroke-linejoin="round"/>
+<rect x="220.2" y="190.0" width="148.5" height="83.6" rx="0" fill="none" stroke="#1f2937" stroke-width="1.6"/>
+<text x="294.5" y="208.7" font-family="Consolas, 'Courier New', monospace" font-size="14" fill="#1f2937" text-anchor="middle" font-weight="bold">Fish</text>
+<line x1="220.2" y1="217.5" x2="368.8" y2="217.5" stroke="#1f2937" stroke-width="1.2" stroke-linecap="round"/>
+<text x="226.8" y="233.8" font-family="Consolas, 'Courier New', monospace" font-size="12" fill="#1f2937" text-anchor="start">- fins: int</text>
+<line x1="220.2" y1="245.6" x2="368.8" y2="245.6" stroke="#1f2937" stroke-width="1.2" stroke-linecap="round"/>
+<text x="226.8" y="261.9" font-family="Consolas, 'Courier New', monospace" font-size="12" fill="#1f2937" text-anchor="start">+ Move(): void</text>
+<rect x="415.5" y="190.0" width="148.5" height="83.6" rx="0" fill="#fff" stroke="#1f2937" stroke-width="1.6"/>
+<polygon points="415.5,190.0 564.0,190.0 564.0,217.5 415.5,217.5" fill="#dbeafe" stroke="none" stroke-width="0" stroke-linejoin="round"/>
+<rect x="415.5" y="190.0" width="148.5" height="83.6" rx="0" fill="none" stroke="#1f2937" stroke-width="1.6"/>
+<text x="489.7" y="208.7" font-family="Consolas, 'Courier New', monospace" font-size="14" fill="#1f2937" text-anchor="middle" font-weight="bold">Zebra</text>
+<line x1="415.5" y1="217.5" x2="564.0" y2="217.5" stroke="#1f2937" stroke-width="1.2" stroke-linecap="round"/>
+<text x="422.1" y="233.8" font-family="Consolas, 'Courier New', monospace" font-size="12" fill="#1f2937" text-anchor="start">- stripes: int</text>
+<line x1="415.5" y1="245.6" x2="564.0" y2="245.6" stroke="#1f2937" stroke-width="1.2" stroke-linecap="round"/>
+<text x="422.1" y="261.9" font-family="Consolas, 'Courier New', monospace" font-size="12" fill="#1f2937" text-anchor="start">+ Move(): void</text>
+<polygon points="294.5,148.2 285.3,163.6 303.7,163.6" fill="#fff" stroke="#1f2937" stroke-width="1.6" stroke-linejoin="round"/>
+<line x1="294.5" y1="163.6" x2="294.5" y2="169.1" stroke="#1f2937" stroke-width="1.6" stroke-linecap="round"/>
+<line x1="99.2" y1="169.1" x2="489.7" y2="169.1" stroke="#1f2937" stroke-width="1.6" stroke-linecap="round"/>
+<line x1="99.2" y1="169.1" x2="99.2" y2="190.0" stroke="#1f2937" stroke-width="1.6" stroke-linecap="round"/>
+<line x1="294.5" y1="169.1" x2="294.5" y2="190.0" stroke="#1f2937" stroke-width="1.6" stroke-linecap="round"/>
+<line x1="489.7" y1="169.1" x2="489.7" y2="190.0" stroke="#1f2937" stroke-width="1.6" stroke-linecap="round"/>
+</g>
+</svg>

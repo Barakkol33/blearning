@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 413 292" width="413" height="292">
+<rect width="100%" height="100%" rx="10" fill="#ffffff"/>
+<g transform="translate(0.0,0.0)">
+<polygon points="324.0,146.0 341.7,203.5 344.0,200.9 346.2,198.3 348.3,195.6 350.3,192.9 352.2,190.1 353.9,187.3 355.6,184.5 357.1,181.6 358.5,178.8 359.8,175.9 361.0,172.9 362.0,170.0 363.0,167.0 363.8,164.1 364.4,161.1 365.0,158.1 365.4,155.1 365.8,152.0 365.9,149.0 366.0,146.0 365.9,143.0 365.8,140.0 365.4,136.9 365.0,133.9 364.4,130.9 363.8,127.9 363.0,125.0 362.0,122.0 361.0,119.1 359.8,116.1 358.5,113.2 357.1,110.4 355.6,107.5 353.9,104.7 352.2,101.9 350.3,99.1 348.3,96.4 346.2,93.7 344.0,91.1 341.7,88.5" fill="#dbeafe" stroke="#1f2937" stroke-width="1" stroke-linejoin="round"/>
+<polygon points="324.0,146.0 36.7,135.9 36.6,136.4 36.6,136.9 36.5,137.4 36.4,137.9 36.4,138.4 36.3,138.9 36.3,139.4 36.3,139.9 36.2,140.4 36.2,140.9 36.1,141.4 36.1,142.0 36.1,142.5 36.1,143.0 36.0,143.5 36.0,144.0 36.0,144.5 36.0,145.0 36.0,145.5 36.0,146.0 36.0,146.5 36.0,147.0 36.0,147.5 36.0,148.0 36.0,148.5 36.1,149.0 36.1,149.5 36.1,150.0 36.1,150.6 36.2,151.1 36.2,151.6 36.3,152.1 36.3,152.6 36.3,153.1 36.4,153.6 36.4,154.1 36.5,154.6 36.6,155.1 36.6,155.6 36.7,156.1" fill="#dcfce7" stroke="#1f2937" stroke-width="1" stroke-linejoin="round"/>
+<ellipse cx="201.0" cy="146.0" rx="165.0" ry="110.0" fill="none" stroke="#1f2937" stroke-width="1.8"/>
+<circle cx="324.0" cy="146.0" r="11.0" fill="#fef9c3" stroke="#ea580c" stroke-width="1.5"/>
+<text x="314.0" y="176.6" font-family="'Times New Roman', Times, 'Noto Serif', serif" font-size="13" fill="#1f2937" text-anchor="middle" direction="rtl">השמש</text>
+<circle cx="78.0" cy="146.0" r="2.5" fill="#9ca3af" stroke="#9ca3af" stroke-width="1.5"/>
+<text x="341.2" y="151.2" font-family="'Times New Roman', Times, 'Noto Serif', serif" font-size="15" fill="#2563eb" text-anchor="middle" font-style="italic"><tspan dy="0" font-size="15">A</tspan><tspan dy="5" font-size="10">1</tspan></text>
+<text x="30.0" y="151.2" font-family="'Times New Roman', Times, 'Noto Serif', serif" font-size="15" fill="#16a34a" text-anchor="end" font-style="italic"><tspan dy="0" font-size="15">A</tspan><tspan dy="5" font-size="10">2</tspan></text>
+<text x="201.0" y="275.4" font-family="'Times New Roman', Times, 'Noto Serif', serif" font-size="16" fill="#1f2937" text-anchor="middle" font-style="italic"><tspan dy="0" font-size="16">A</tspan><tspan dy="5" font-size="11">1</tspan><tspan dy="-5" font-size="16"> = A</tspan><tspan dy="5" font-size="11">2</tspan></text>
+<circle cx="147.7" cy="41.9" r="6.6" fill="#dbeafe" stroke="#2563eb" stroke-width="1.5"/>
+<polyline points="107.8,63.5 97.4,60.4 100.5,50.0" fill="none" stroke="#9ca3af" stroke-width="1.6" stroke-linejoin="round"/>
+</g>
+</svg>

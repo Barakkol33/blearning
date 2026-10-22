@@ -1,0 +1,47 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 692 333" width="692" height="333">
+<rect width="100%" height="100%" rx="10" fill="#ffffff"/>
+<g transform="translate(0.0,0.0)">
+<text x="144.0" y="22" font-family="'Times New Roman', Times, 'Noto Serif', serif" font-size="18" fill="#1f2937" text-anchor="middle" direction="rtl">זווית פנימית</text>
+<circle cx="144.0" cy="174.0" r="100.0" fill="none" stroke="#1f2937" stroke-width="1.8"/>
+<polyline points="194.0,87.4 188.9,84.6 183.6,82.2 178.2,80.0 172.7,78.2 167.1,76.7 161.4,75.5 155.6,74.7 149.8,74.2 144.0,74.0 138.2,74.2 132.4,74.7 126.6,75.5 120.9,76.7 115.3,78.2 109.8,80.0 104.4,82.2 99.1,84.6 94.0,87.4 89.0,90.5 84.3,93.8 79.7,97.4 75.4,101.3 71.3,105.4 67.4,109.7 63.8,114.3 60.5,119.0 57.4,124.0 54.6,129.1 52.2,134.4 50.0,139.8" fill="none" stroke="#dc2626" stroke-width="4" stroke-linejoin="round"/>
+<polyline points="94.0,260.6 99.1,263.4 104.4,265.8 109.8,268.0 115.3,269.8 120.9,271.3 126.6,272.5 132.4,273.3 138.2,273.8 144.0,274.0 149.8,273.8 155.6,273.3 161.4,272.5 167.1,271.3 172.7,269.8 178.2,268.0 183.6,265.8 188.9,263.4 194.0,260.6 199.0,257.5 203.7,254.2 208.3,250.6 212.6,246.7 216.7,242.6 220.6,238.3 224.2,233.7 227.5,229.0 230.6,224.0 233.4,218.9 235.8,213.6 238.0,208.2" fill="none" stroke="#2563eb" stroke-width="4" stroke-linejoin="round"/>
+<line x1="50.0" y1="139.8" x2="238.0" y2="208.2" stroke="#1f2937" stroke-width="1.8" stroke-linecap="round"/>
+<line x1="194.0" y1="87.4" x2="94.0" y2="260.6" stroke="#1f2937" stroke-width="1.8" stroke-linecap="round"/>
+<polygon points="144.0,174.0 154.0,156.7 153.2,156.3 152.5,155.9 151.7,155.5 150.8,155.2 150.0,154.9 149.2,154.7 148.3,154.5 147.5,154.3 146.6,154.2 145.7,154.1 144.9,154.0 144.0,154.0 143.1,154.0 142.3,154.1 141.4,154.2 140.5,154.3 139.7,154.5 138.8,154.7 138.0,154.9 137.2,155.2 136.3,155.5 135.5,155.9 134.8,156.3 134.0,156.7 133.3,157.1 132.5,157.6 131.8,158.1 131.1,158.7 130.5,159.3 129.9,159.9 129.3,160.5 128.7,161.1 128.1,161.8 127.6,162.5 127.1,163.3 126.7,164.0 126.3,164.8 125.9,165.5 125.5,166.3 125.2,167.2" fill="#fef9c3" stroke="none" stroke-width="0" stroke-linejoin="round"/>
+<polyline points="154.0,156.7 153.2,156.3 152.5,155.9 151.7,155.5 150.8,155.2 150.0,154.9 149.2,154.7 148.3,154.5 147.5,154.3 146.6,154.2 145.7,154.1 144.9,154.0 144.0,154.0 143.1,154.0 142.3,154.1 141.4,154.2 140.5,154.3 139.7,154.5 138.8,154.7 138.0,154.9 137.2,155.2 136.3,155.5 135.5,155.9 134.8,156.3 134.0,156.7 133.3,157.1 132.5,157.6 131.8,158.1 131.1,158.7 130.5,159.3 129.9,159.9 129.3,160.5 128.7,161.1 128.1,161.8 127.6,162.5 127.1,163.3 126.7,164.0 126.3,164.8 125.9,165.5 125.5,166.3 125.2,167.2" fill="none" stroke="#ea580c" stroke-width="1.6" stroke-linejoin="round"/>
+<text x="132.9" y="149.4" font-family="'Times New Roman', Times, 'Noto Serif', serif" font-size="17" fill="#ea580c" text-anchor="middle" font-style="italic">α</text>
+<circle cx="50.0" cy="139.8" r="3.5" fill="#1f2937" stroke="#1f2937" stroke-width="1.5"/>
+<text x="37.8" y="141.3" font-family="'Times New Roman', Times, 'Noto Serif', serif" font-size="17" fill="#1f2937" text-anchor="middle" font-style="italic">A</text>
+<circle cx="238.0" cy="208.2" r="3.5" fill="#1f2937" stroke="#1f2937" stroke-width="1.5"/>
+<text x="250.2" y="218.6" font-family="'Times New Roman', Times, 'Noto Serif', serif" font-size="17" fill="#1f2937" text-anchor="middle" font-style="italic">B</text>
+<circle cx="194.0" cy="87.4" r="3.5" fill="#1f2937" stroke="#1f2937" stroke-width="1.5"/>
+<text x="200.5" y="82.1" font-family="'Times New Roman', Times, 'Noto Serif', serif" font-size="17" fill="#1f2937" text-anchor="middle" font-style="italic">C</text>
+<circle cx="94.0" cy="260.6" r="3.5" fill="#1f2937" stroke="#1f2937" stroke-width="1.5"/>
+<text x="87.5" y="277.8" font-family="'Times New Roman', Times, 'Noto Serif', serif" font-size="17" fill="#1f2937" text-anchor="middle" font-style="italic">D</text>
+<text x="144.0" y="309.2" font-family="'Times New Roman', Times, 'Noto Serif', serif" font-size="15" fill="#1f2937" text-anchor="middle">α = (AC + BD) / 2</text>
+<text x="104.7" y="70.8" font-family="'Times New Roman', Times, 'Noto Serif', serif" font-size="14" fill="#dc2626" text-anchor="middle" font-style="italic">AC</text>
+<text x="183.3" y="287.0" font-family="'Times New Roman', Times, 'Noto Serif', serif" font-size="14" fill="#2563eb" text-anchor="middle" font-style="italic">BD</text>
+</g>
+<g transform="translate(304.0,0.0)">
+<text x="194.0" y="22" font-family="'Times New Roman', Times, 'Noto Serif', serif" font-size="18" fill="#1f2937" text-anchor="middle" direction="rtl">זווית חיצונית</text>
+<circle cx="144.0" cy="174.0" r="100.0" fill="none" stroke="#1f2937" stroke-width="1.8"/>
+<line x1="354.0" y1="174.0" x2="75.0" y2="101.7" stroke="#1f2937" stroke-width="1.8" stroke-linecap="round"/>
+<line x1="354.0" y1="174.0" x2="75.0" y2="246.3" stroke="#1f2937" stroke-width="1.8" stroke-linecap="round"/>
+<polyline points="75.0,101.7 72.1,104.5 69.3,107.5 66.7,110.5 64.2,113.7 61.8,117.0 59.6,120.4 57.5,123.8 55.5,127.4 53.7,131.0 52.1,134.7 50.5,138.4 49.2,142.2 48.0,146.1 46.9,150.0 46.0,153.9 45.3,157.9 44.7,161.9 44.3,165.9 44.1,170.0 44.0,174.0 44.1,178.0 44.3,182.1 44.7,186.1 45.3,190.1 46.0,194.1 46.9,198.0 48.0,201.9 49.2,205.8 50.5,209.6 52.1,213.3 53.7,217.0 55.5,220.6 57.5,224.2 59.6,227.6 61.8,231.0 64.2,234.3 66.7,237.5 69.3,240.5 72.1,243.5 75.0,246.3" fill="none" stroke="#dc2626" stroke-width="4" stroke-linejoin="round"/>
+<polyline points="239.5,203.7 240.3,200.8 241.1,197.9 241.8,194.9 242.4,192.0 242.9,189.0 243.3,186.0 243.6,183.0 243.8,180.0 244.0,177.0 244.0,174.0 244.0,171.0 243.8,168.0 243.6,165.0 243.3,162.0 242.9,159.0 242.4,156.0 241.8,153.1 241.1,150.1 240.3,147.2 239.5,144.3" fill="none" stroke="#2563eb" stroke-width="4" stroke-linejoin="round"/>
+<polygon points="354.0,174.0 320.1,165.2 320.0,165.6 319.9,166.1 319.8,166.5 319.7,166.9 319.6,167.4 319.6,167.8 319.5,168.3 319.4,168.7 319.3,169.1 319.3,169.6 319.2,170.0 319.2,170.5 319.1,170.9 319.1,171.3 319.1,171.8 319.0,172.2 319.0,172.7 319.0,173.1 319.0,173.6 319.0,174.0 319.0,174.4 319.0,174.9 319.0,175.3 319.0,175.8 319.1,176.2 319.1,176.7 319.1,177.1 319.2,177.5 319.2,178.0 319.3,178.4 319.3,178.9 319.4,179.3 319.5,179.7 319.6,180.2 319.6,180.6 319.7,181.1 319.8,181.5 319.9,181.9 320.0,182.4 320.1,182.8" fill="#fef9c3" stroke="none" stroke-width="0" stroke-linejoin="round"/>
+<polyline points="320.1,165.2 320.0,165.6 319.9,166.1 319.8,166.5 319.7,166.9 319.6,167.4 319.6,167.8 319.5,168.3 319.4,168.7 319.3,169.1 319.3,169.6 319.2,170.0 319.2,170.5 319.1,170.9 319.1,171.3 319.1,171.8 319.0,172.2 319.0,172.7 319.0,173.1 319.0,173.6 319.0,174.0 319.0,174.4 319.0,174.9 319.0,175.3 319.0,175.8 319.1,176.2 319.1,176.7 319.1,177.1 319.2,177.5 319.2,178.0 319.3,178.4 319.3,178.9 319.4,179.3 319.5,179.7 319.6,180.2 319.6,180.6 319.7,181.1 319.8,181.5 319.9,181.9 320.0,182.4 320.1,182.8" fill="none" stroke="#ea580c" stroke-width="1.6" stroke-linejoin="round"/>
+<text x="301.5" y="179.9" font-family="'Times New Roman', Times, 'Noto Serif', serif" font-size="17" fill="#ea580c" text-anchor="middle" font-style="italic">α</text>
+<circle cx="354.0" cy="174.0" r="3.5" fill="#1f2937" stroke="#1f2937" stroke-width="1.5"/>
+<text x="370.0" y="179.9" font-family="'Times New Roman', Times, 'Noto Serif', serif" font-size="17" fill="#1f2937" text-anchor="middle" font-style="italic">P</text>
+<text x="194.0" y="309.2" font-family="'Times New Roman', Times, 'Noto Serif', serif" font-size="15" fill="#1f2937" text-anchor="middle">α = (AB − CD) / 2</text>
+<circle cx="75.0" cy="101.7" r="3.5" fill="#1f2937" stroke="#1f2937" stroke-width="1.5"/>
+<text x="65.3" y="97.5" font-family="'Times New Roman', Times, 'Noto Serif', serif" font-size="17" fill="#1f2937" text-anchor="middle" font-style="italic">A</text>
+<circle cx="75.0" cy="246.3" r="3.5" fill="#1f2937" stroke="#1f2937" stroke-width="1.5"/>
+<text x="65.3" y="262.4" font-family="'Times New Roman', Times, 'Noto Serif', serif" font-size="17" fill="#1f2937" text-anchor="middle" font-style="italic">B</text>
+<circle cx="239.5" cy="144.3" r="3.5" fill="#1f2937" stroke="#1f2937" stroke-width="1.5"/>
+<text x="252.9" y="146.1" font-family="'Times New Roman', Times, 'Noto Serif', serif" font-size="17" fill="#1f2937" text-anchor="middle" font-style="italic">C</text>
+<circle cx="239.5" cy="203.7" r="3.5" fill="#1f2937" stroke="#1f2937" stroke-width="1.5"/>
+<text x="252.9" y="213.8" font-family="'Times New Roman', Times, 'Noto Serif', serif" font-size="17" fill="#1f2937" text-anchor="middle" font-style="italic">D</text>
+</g>
+</svg>

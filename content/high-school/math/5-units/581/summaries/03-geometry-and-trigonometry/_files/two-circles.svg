@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 386 281" width="386" height="281">
+<rect width="100%" height="100%" rx="10" fill="#ffffff"/>
+<g transform="translate(0.0,0.0)">
+<circle cx="140.5" cy="140.5" r="110.0" fill="none" stroke="#2563eb" stroke-width="1.8"/>
+<circle cx="283.5" cy="140.5" r="71.5" fill="none" stroke="#2563eb" stroke-width="1.8"/>
+<line x1="140.5" y1="140.5" x2="283.5" y2="140.5" stroke="#dc2626" stroke-width="2.2" stroke-linecap="round"/>
+<line x1="236.4" y1="86.7" x2="236.4" y2="194.3" stroke="#1f2937" stroke-width="1.8" stroke-linecap="round" stroke-dasharray="6 5"/>
+<polygon points="236.4,140.5 246.3,140.5 246.3,130.6 236.4,130.6" fill="none" stroke="#1f2937" stroke-width="1.3" stroke-linejoin="round"/>
+<line x1="229.3" y1="113.6" x2="243.6" y2="113.6" stroke="#1f2937" stroke-width="1.5" stroke-linecap="round"/>
+<line x1="229.3" y1="167.4" x2="243.6" y2="167.4" stroke="#1f2937" stroke-width="1.5" stroke-linecap="round"/>
+<circle cx="140.5" cy="140.5" r="3.5" fill="#1f2937" stroke="#1f2937" stroke-width="1.5"/>
+<text x="125.5" y="151.9" font-family="'Times New Roman', Times, 'Noto Serif', serif" font-size="17" fill="#1f2937" text-anchor="middle" font-style="italic">O₁</text>
+<circle cx="283.5" cy="140.5" r="3.5" fill="#1f2937" stroke="#1f2937" stroke-width="1.5"/>
+<text x="298.5" y="151.9" font-family="'Times New Roman', Times, 'Noto Serif', serif" font-size="17" fill="#1f2937" text-anchor="middle" font-style="italic">O₂</text>
+<circle cx="236.4" cy="86.7" r="3.5" fill="#1f2937" stroke="#1f2937" stroke-width="1.5"/>
+<text x="236.4" y="76.6" font-family="'Times New Roman', Times, 'Noto Serif', serif" font-size="17" fill="#1f2937" text-anchor="middle" font-style="italic">K</text>
+<circle cx="236.4" cy="194.3" r="3.5" fill="#1f2937" stroke="#1f2937" stroke-width="1.5"/>
+<text x="236.4" y="216.3" font-family="'Times New Roman', Times, 'Noto Serif', serif" font-size="17" fill="#1f2937" text-anchor="middle" font-style="italic">L</text>
+</g>
+</svg>

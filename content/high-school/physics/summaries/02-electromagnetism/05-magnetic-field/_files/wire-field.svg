@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 292 292" width="292" height="292">
+<rect width="100%" height="100%" rx="10" fill="#ffffff"/>
+<g transform="translate(0.0,0.0)">
+<circle cx="146.0" cy="146.0" r="38.5" fill="none" stroke="#2563eb" stroke-width="1.6"/>
+<polyline points="153.7,115.2 146.0,107.5 153.7,99.8" fill="none" stroke="#2563eb" stroke-width="1.6" stroke-linejoin="round"/>
+<polyline points="138.3,176.8 146.0,184.5 138.3,192.2" fill="none" stroke="#2563eb" stroke-width="1.6" stroke-linejoin="round"/>
+<circle cx="146.0" cy="146.0" r="71.5" fill="none" stroke="#2563eb" stroke-width="1.6"/>
+<polyline points="153.7,82.2 146.0,74.5 153.7,66.8" fill="none" stroke="#2563eb" stroke-width="1.6" stroke-linejoin="round"/>
+<polyline points="138.3,209.8 146.0,217.5 138.3,225.2" fill="none" stroke="#2563eb" stroke-width="1.6" stroke-linejoin="round"/>
+<circle cx="146.0" cy="146.0" r="107.2" fill="none" stroke="#2563eb" stroke-width="1.6"/>
+<polyline points="153.7,46.4 146.0,38.8 153.7,31.1" fill="none" stroke="#2563eb" stroke-width="1.6" stroke-linejoin="round"/>
+<polyline points="138.3,245.6 146.0,253.2 138.3,261.0" fill="none" stroke="#2563eb" stroke-width="1.6" stroke-linejoin="round"/>
+<circle cx="146.0" cy="146.0" r="12.1" fill="#fff" stroke="#1f2937" stroke-width="2"/>
+<circle cx="146.0" cy="146.0" r="3.5" fill="#1f2937" stroke="#1f2937" stroke-width="1.5"/>
+<line x1="217.5" y1="146.0" x2="217.5" y2="98.7" stroke="#dc2626" stroke-width="2.4" stroke-linecap="round"/>
+<polygon points="217.5,91.0 221.6,101.2 213.4,101.2" fill="#dc2626"/>
+<text x="231.5" y="97.0" font-family="'Times New Roman', Times, 'Noto Serif', serif" font-size="17" fill="#dc2626" text-anchor="middle" font-style="italic"><tspan dy="0" font-size="17">B</tspan></text>
+<line x1="146.0" y1="146.0" x2="217.5" y2="146.0" stroke="#9ca3af" stroke-width="1.2" stroke-linecap="round" stroke-dasharray="4 4"/>
+<text x="181.8" y="165.2" font-family="'Times New Roman', Times, 'Noto Serif', serif" font-size="15" fill="#1f2937" text-anchor="middle" font-style="italic"><tspan dy="0" font-size="15">r</tspan></text>
+<text x="146.0" y="277.4" font-family="'Times New Roman', Times, 'Noto Serif', serif" font-size="14" fill="#1f2937" text-anchor="middle" direction="rtl">הזרם יוצא מהדף</text>
+</g>
+</svg>

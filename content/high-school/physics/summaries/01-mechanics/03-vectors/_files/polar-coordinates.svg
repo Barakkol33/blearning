@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 376 298" width="376" height="298">
+<rect width="100%" height="100%" rx="10" fill="#ffffff"/>
+<g transform="translate(0.0,0.0)">
+<line x1="32.0" y1="230.0" x2="343.7" y2="230.0" stroke="#1f2937" stroke-width="1.4" stroke-linecap="round"/>
+<polygon points="350.0,230.0 341.6,233.3 341.6,226.7" fill="#1f2937"/>
+<line x1="50.0" y1="248.0" x2="50.0" y2="32.3" stroke="#1f2937" stroke-width="1.4" stroke-linecap="round"/>
+<polygon points="50.0,26.0 53.3,34.4 46.7,34.4" fill="#1f2937"/>
+<text x="346.0" y="249.2" font-family="'Times New Roman', Times, 'Noto Serif', serif" font-size="15" fill="#1f2937" text-anchor="middle" font-style="italic">x</text>
+<text x="62.0" y="35.3" font-family="'Times New Roman', Times, 'Noto Serif', serif" font-size="15" fill="#1f2937" text-anchor="middle" font-style="italic">y</text>
+<line x1="241.7" y1="85.6" x2="241.7" y2="230.0" stroke="#9ca3af" stroke-width="1.4" stroke-linecap="round" stroke-dasharray="5 4"/>
+<line x1="241.7" y1="85.6" x2="50.0" y2="85.6" stroke="#9ca3af" stroke-width="1.4" stroke-linecap="round" stroke-dasharray="5 4"/>
+<line x1="50.0" y1="230.0" x2="234.0" y2="230.0" stroke="#16a34a" stroke-width="2.4" stroke-linecap="round"/>
+<polygon points="241.7,230.0 231.5,234.1 231.5,225.9" fill="#16a34a"/>
+<line x1="241.7" y1="230.0" x2="241.7" y2="93.3" stroke="#ea580c" stroke-width="2.4" stroke-linecap="round"/>
+<polygon points="241.7,85.6 245.8,95.8 237.6,95.8" fill="#ea580c"/>
+<line x1="50.0" y1="230.0" x2="235.5" y2="90.2" stroke="#2563eb" stroke-width="2.6" stroke-linecap="round"/>
+<polygon points="241.7,85.6 236.0,95.0 231.1,88.5" fill="#2563eb"/>
+<polyline points="98.0,230.0 98.0,229.2 98.0,228.5 97.9,227.7 97.9,226.9 97.8,226.1 97.8,225.4 97.7,224.6 97.6,223.8 97.5,223.1 97.4,222.3 97.2,221.5 97.1,220.8 96.9,220.0 96.8,219.2 96.6,218.5 96.4,217.7 96.2,217.0 96.0,216.2 95.8,215.5 95.5,214.8 95.3,214.0 95.0,213.3 94.7,212.6 94.4,211.9 94.1,211.1 93.8,210.4 93.5,209.7 93.2,209.0 92.8,208.3 92.5,207.7 92.1,207.0 91.7,206.3 91.3,205.6 90.9,205.0 90.5,204.3 90.1,203.6 89.7,203.0 89.2,202.4 88.8,201.7 88.3,201.1" fill="none" stroke="#dc2626" stroke-width="1.6" stroke-linejoin="round"/>
+<text x="109.9" y="216.5" font-family="'Times New Roman', Times, 'Noto Serif', serif" font-size="17" fill="#dc2626" text-anchor="middle" font-style="italic">θ</text>
+<circle cx="241.7" cy="85.6" r="3.5" fill="#2563eb" stroke="#2563eb" stroke-width="1.5"/>
+<text x="271.7" y="82.8" font-family="'Times New Roman', Times, 'Noto Serif', serif" font-size="15" fill="#1f2937" text-anchor="middle" font-style="italic"><tspan dy="0" font-size="15">(x, y)</tspan></text>
+<text x="135.8" y="149.7" font-family="'Times New Roman', Times, 'Noto Serif', serif" font-size="17" fill="#2563eb" text-anchor="middle" font-style="italic"><tspan dy="0" font-size="17">r</tspan></text>
+<text x="145.8" y="253.2" font-family="'Times New Roman', Times, 'Noto Serif', serif" font-size="15" fill="#16a34a" text-anchor="middle" font-style="italic"><tspan dy="0" font-size="15">x = r cos θ</tspan></text>
+<text x="289.7" y="163.0" font-family="'Times New Roman', Times, 'Noto Serif', serif" font-size="15" fill="#ea580c" text-anchor="middle" font-style="italic"><tspan dy="0" font-size="15">y = r sin θ</tspan></text>
+</g>
+</svg>

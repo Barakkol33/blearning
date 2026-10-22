@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 462 292" width="462" height="292">
+<rect width="100%" height="100%" rx="10" fill="#ffffff"/>
+<g transform="translate(0.0,0.0)">
+<text x="111.5" y="22" font-family="'Times New Roman', Times, 'Noto Serif', serif" font-size="18" fill="#1f2937" text-anchor="middle">30° - 60° - 90°</text>
+<polygon points="53.0,81.4 144.0,239.0 53.0,239.0" fill="none" stroke="#1f2937" stroke-width="2.2" stroke-linejoin="round"/>
+<polygon points="53.0,239.0 53.0,226.0 66.0,226.0 66.0,239.0" fill="none" stroke="#1f2937" stroke-width="1.3" stroke-linejoin="round"/>
+<polyline points="53.0,110.6 53.4,110.6 53.8,110.6 54.1,110.6 54.5,110.6 54.9,110.6 55.3,110.5 55.7,110.5 56.1,110.5 56.4,110.4 56.8,110.4 57.2,110.3 57.6,110.3 58.0,110.2 58.3,110.1 58.7,110.1 59.1,110.0 59.5,109.9 59.8,109.8 60.2,109.7 60.6,109.6 60.9,109.5 61.3,109.4 61.7,109.3 62.0,109.2 62.4,109.1 62.8,109.0 63.1,108.8 63.5,108.7 63.8,108.6 64.2,108.4 64.5,108.3 64.9,108.1 65.2,107.9 65.6,107.8 65.9,107.6 66.3,107.4 66.6,107.3 67.0,107.1 67.3,106.9 67.6,106.7" fill="none" stroke="#dc2626" stroke-width="1.6" stroke-linejoin="round"/>
+<text x="67.3" y="139.7" font-family="'Times New Roman', Times, 'Noto Serif', serif" font-size="14" fill="#dc2626" text-anchor="middle">30°</text>
+<polyline points="132.6,219.3 132.1,219.6 131.6,219.9 131.1,220.3 130.6,220.6 130.2,221.0 129.7,221.3 129.2,221.7 128.8,222.1 128.3,222.5 127.9,222.9 127.5,223.3 127.1,223.8 126.7,224.2 126.3,224.7 126.0,225.2 125.6,225.6 125.3,226.1 124.9,226.6 124.6,227.1 124.3,227.6 124.0,228.1 123.7,228.7 123.5,229.2 123.2,229.7 123.0,230.3 122.8,230.8 122.6,231.4 122.4,232.0 122.2,232.5 122.0,233.1 121.9,233.7 121.7,234.3 121.6,234.9 121.5,235.4 121.4,236.0 121.4,236.6 121.3,237.2 121.3,237.8 121.3,238.4 121.2,239.0" fill="none" stroke="#2563eb" stroke-width="1.6" stroke-linejoin="round"/>
+<text x="104.6" y="221.2" font-family="'Times New Roman', Times, 'Noto Serif', serif" font-size="14" fill="#2563eb" text-anchor="middle">60°</text>
+<text x="98.5" y="260.9" font-family="'Times New Roman', Times, 'Noto Serif', serif" font-size="17" fill="#1f2937" text-anchor="middle">1</text>
+<text x="35.0" y="166.1" font-family="'Times New Roman', Times, 'Noto Serif', serif" font-size="17" fill="#1f2937" text-anchor="middle">√3</text>
+<text x="110.5" y="160.1" font-family="'Times New Roman', Times, 'Noto Serif', serif" font-size="17" fill="#1f2937" text-anchor="middle">2</text>
+</g>
+<g transform="translate(239.0,0.0)">
+<text x="111.5" y="22" font-family="'Times New Roman', Times, 'Noto Serif', serif" font-size="18" fill="#1f2937" text-anchor="middle">45° - 45° - 90°</text>
+<polygon points="53.0,115.5 176.5,239.0 53.0,239.0" fill="none" stroke="#1f2937" stroke-width="2.2" stroke-linejoin="round"/>
+<polygon points="53.0,239.0 53.0,226.0 66.0,226.0 66.0,239.0" fill="none" stroke="#1f2937" stroke-width="1.3" stroke-linejoin="round"/>
+<polyline points="53.0,141.5 53.5,141.5 54.0,141.5 54.5,141.5 55.0,141.4 55.5,141.4 56.1,141.3 56.6,141.3 57.1,141.2 57.6,141.1 58.1,141.0 58.6,140.9 59.1,140.8 59.6,140.7 60.1,140.5 60.5,140.4 61.0,140.2 61.5,140.1 62.0,139.9 62.5,139.7 62.9,139.5 63.4,139.3 63.9,139.1 64.3,138.9 64.8,138.7 65.3,138.4 65.7,138.2 66.1,137.9 66.6,137.7 67.0,137.4 67.4,137.1 67.9,136.8 68.3,136.5 68.7,136.2 69.1,135.9 69.5,135.6 69.9,135.3 70.3,134.9 70.6,134.6 71.0,134.2 71.4,133.9" fill="none" stroke="#dc2626" stroke-width="1.6" stroke-linejoin="round"/>
+<text x="72.9" y="168.4" font-family="'Times New Roman', Times, 'Noto Serif', serif" font-size="14" fill="#dc2626" text-anchor="middle">45°</text>
+<polyline points="158.1,220.6 157.8,221.0 157.4,221.4 157.1,221.7 156.7,222.1 156.4,222.5 156.1,222.9 155.8,223.3 155.5,223.7 155.2,224.1 154.9,224.6 154.6,225.0 154.3,225.4 154.1,225.9 153.8,226.3 153.6,226.7 153.3,227.2 153.1,227.7 152.9,228.1 152.7,228.6 152.5,229.1 152.3,229.5 152.1,230.0 151.9,230.5 151.8,231.0 151.6,231.5 151.5,231.9 151.3,232.4 151.2,232.9 151.1,233.4 151.0,233.9 150.9,234.4 150.8,234.9 150.7,235.4 150.7,235.9 150.6,236.5 150.6,237.0 150.5,237.5 150.5,238.0 150.5,238.5 150.5,239.0" fill="none" stroke="#dc2626" stroke-width="1.6" stroke-linejoin="round"/>
+<text x="128.5" y="224.0" font-family="'Times New Roman', Times, 'Noto Serif', serif" font-size="14" fill="#dc2626" text-anchor="middle">45°</text>
+<text x="114.7" y="260.9" font-family="'Times New Roman', Times, 'Noto Serif', serif" font-size="17" fill="#1f2937" text-anchor="middle">1</text>
+<text x="39.0" y="183.2" font-family="'Times New Roman', Times, 'Noto Serif', serif" font-size="17" fill="#1f2937" text-anchor="middle">1</text>
+<text x="128.8" y="175.2" font-family="'Times New Roman', Times, 'Noto Serif', serif" font-size="17" fill="#1f2937" text-anchor="middle">√2</text>
+</g>
+</svg>

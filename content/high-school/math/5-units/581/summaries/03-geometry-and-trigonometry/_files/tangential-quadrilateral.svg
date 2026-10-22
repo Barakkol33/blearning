@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 378 348" width="378" height="348">
+<rect width="100%" height="100%" rx="10" fill="#ffffff"/>
+<g transform="translate(0.0,0.0)">
+<circle cx="194.0" cy="174.0" r="100.0" fill="none" stroke="#2563eb" stroke-width="1.8"/>
+<polygon points="94.0,74.0 324.3,74.0 266.9,288.4 94.0,257.9" fill="none" stroke="#1f2937" stroke-width="2.2" stroke-linejoin="round"/>
+<circle cx="94.0" cy="74.0" r="3.5" fill="#1f2937" stroke="#1f2937" stroke-width="1.5"/>
+<text x="82.7" y="68.6" font-family="'Times New Roman', Times, 'Noto Serif', serif" font-size="17" fill="#1f2937" text-anchor="middle" font-style="italic">A</text>
+<circle cx="324.3" cy="74.0" r="3.5" fill="#1f2937" stroke="#1f2937" stroke-width="1.5"/>
+<text x="337.0" y="70.2" font-family="'Times New Roman', Times, 'Noto Serif', serif" font-size="17" fill="#1f2937" text-anchor="middle" font-style="italic">B</text>
+<circle cx="266.9" cy="288.4" r="3.5" fill="#1f2937" stroke="#1f2937" stroke-width="1.5"/>
+<text x="275.5" y="307.8" font-family="'Times New Roman', Times, 'Noto Serif', serif" font-size="17" fill="#1f2937" text-anchor="middle" font-style="italic">C</text>
+<circle cx="94.0" cy="257.9" r="3.5" fill="#1f2937" stroke="#1f2937" stroke-width="1.5"/>
+<text x="81.7" y="274.1" font-family="'Times New Roman', Times, 'Noto Serif', serif" font-size="17" fill="#1f2937" text-anchor="middle" font-style="italic">D</text>
+<circle cx="94.0" cy="174.0" r="3" fill="#2563eb" stroke="#2563eb" stroke-width="1.5"/>
+<text x="110.0" y="179.2" font-family="'Times New Roman', Times, 'Noto Serif', serif" font-size="15" fill="#2563eb" text-anchor="middle" font-style="italic">E</text>
+<circle cx="194.0" cy="74.0" r="3" fill="#2563eb" stroke="#2563eb" stroke-width="1.5"/>
+<text x="194.0" y="95.3" font-family="'Times New Roman', Times, 'Noto Serif', serif" font-size="15" fill="#2563eb" text-anchor="middle" font-style="italic">F</text>
+<circle cx="290.6" cy="199.9" r="3" fill="#2563eb" stroke="#2563eb" stroke-width="1.5"/>
+<text x="275.1" y="201.0" font-family="'Times New Roman', Times, 'Noto Serif', serif" font-size="15" fill="#2563eb" text-anchor="middle" font-style="italic">G</text>
+<circle cx="176.6" cy="272.5" r="3" fill="#2563eb" stroke="#2563eb" stroke-width="1.5"/>
+<text x="179.4" y="262.0" font-family="'Times New Roman', Times, 'Noto Serif', serif" font-size="15" fill="#2563eb" text-anchor="middle" font-style="italic">H</text>
+<text x="194.0" y="329.2" font-family="'Times New Roman', Times, 'Noto Serif', serif" font-size="15" fill="#1f2937" text-anchor="middle">AB + CD = AD + BC</text>
+</g>
+</svg>

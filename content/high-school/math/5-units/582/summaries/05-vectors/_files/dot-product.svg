@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 316 220" width="316" height="220">
+<rect width="100%" height="100%" rx="10" fill="#ffffff"/>
+<g transform="translate(0.0,0.0)">
+<line x1="38.0" y1="182.0" x2="258.4" y2="147.2" stroke="#dc2626" stroke-width="2.4" stroke-linecap="round"/>
+<polygon points="266.0,146.0 256.5,151.6 255.3,143.6" fill="#dc2626"/>
+<line x1="38.0" y1="182.0" x2="118.1" y2="44.7" stroke="#2563eb" stroke-width="2.4" stroke-linecap="round"/>
+<polygon points="122.0,38.0 120.4,48.9 113.3,44.8" fill="#2563eb"/>
+<polygon points="38.0,182.0 73.6,176.4 73.4,175.6 73.3,174.8 73.1,174.0 72.9,173.3 72.7,172.5 72.5,171.7 72.3,171.0 72.0,170.2 71.7,169.5 71.5,168.7 71.2,168.0 70.8,167.2 70.5,166.5 70.1,165.8 69.8,165.1 69.4,164.4 69.0,163.7 68.6,163.0 68.2,162.3 67.7,161.7 67.3,161.0 66.8,160.4 66.3,159.8 65.8,159.1 65.3,158.5 64.8,157.9 64.2,157.3 63.7,156.8 63.1,156.2 62.5,155.6 61.9,155.1 61.3,154.6 60.7,154.1 60.1,153.6 59.5,153.1 58.8,152.6 58.2,152.2 57.5,151.7 56.8,151.3 56.1,150.9" fill="#fef9c3" stroke="none" stroke-width="0" stroke-linejoin="round"/>
+<polyline points="73.6,176.4 73.4,175.6 73.3,174.8 73.1,174.0 72.9,173.3 72.7,172.5 72.5,171.7 72.3,171.0 72.0,170.2 71.7,169.5 71.5,168.7 71.2,168.0 70.8,167.2 70.5,166.5 70.1,165.8 69.8,165.1 69.4,164.4 69.0,163.7 68.6,163.0 68.2,162.3 67.7,161.7 67.3,161.0 66.8,160.4 66.3,159.8 65.8,159.1 65.3,158.5 64.8,157.9 64.2,157.3 63.7,156.8 63.1,156.2 62.5,155.6 61.9,155.1 61.3,154.6 60.7,154.1 60.1,153.6 59.5,153.1 58.8,152.6 58.2,152.2 57.5,151.7 56.8,151.3 56.1,150.9" fill="none" stroke="#ea580c" stroke-width="1.6" stroke-linejoin="round"/>
+<text x="85.1" y="155.8" font-family="'Times New Roman', Times, 'Noto Serif', serif" font-size="17" fill="#ea580c" text-anchor="middle" font-style="italic">α</text>
+<text x="272.0" y="165.9" font-family="'Times New Roman', Times, 'Noto Serif', serif" font-size="17" fill="#dc2626" text-anchor="middle" font-style="italic" font-weight="bold" text-decoration="underline">u</text>
+<text x="112.0" y="39.9" font-family="'Times New Roman', Times, 'Noto Serif', serif" font-size="17" fill="#2563eb" text-anchor="middle" font-style="italic" font-weight="bold" text-decoration="underline">v</text>
+<text x="206.0" y="37.2" font-family="'Times New Roman', Times, 'Noto Serif', serif" font-size="15" fill="#1f2937" text-anchor="middle">u · v = |u||v| cos α</text>
+</g>
+</svg>
