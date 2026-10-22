@@ -7,7 +7,7 @@ import YAML from 'yaml';
 
 export const contentDir = fileURLToPath(new URL('../../content/', import.meta.url));
 // Extra content roots shown together with content/ (local preview of the private repo):
-// BLEARNING_EXTRA_CONTENT=../../blearning/content (relative to site/, ';'-separated)
+// BLEARNING_EXTRA_CONTENT=../../blearning-private/content (relative to site/, ';'-separated)
 export const contentDirs = [
 	contentDir,
 	...(process.env.BLEARNING_EXTRA_CONTENT ?? '').split(';').filter(Boolean).map((d) => path.resolve(fileURLToPath(new URL('..', import.meta.url)), d)),

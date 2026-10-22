@@ -16,8 +16,8 @@ blearning lives in two repos with **the same `content/` layout**. Material is ne
 
 | Repo | Local folder | Holds |
 |---|---|---|
-| `Barakkol33/blearning` (public) | `C:\projects\blearning-public` | `content/` that is published, `site/`, these docs, `templates/` |
-| `Barakkol33/blearning-private` | `C:\projects\blearning` | `content/` that is not public yet, `sources/` (never public) |
+| `Barakkol33/blearning` (public) | `C:\projects\blearning` | `content/` that is published, `site/`, these docs, `templates/` |
+| `Barakkol33/blearning-private` | `C:\projects\blearning-private` | `content/` that is not public yet, `sources/` (never public) |
 
 ```
 blearning (public)/
