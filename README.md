@@ -9,7 +9,7 @@ A personal knowledge hub that grows over time, kind of like a Wikipedia that I b
 | גן | Letter and number games |
 | יסודי | Elementary school subjects |
 | תיכון | Bagrut subjects |
-| האוניברסיטה הפתוחה - תואר מדעי המחשב | Open University CS courses (generated from the openu repo) |
+| האוניברסיטה הפתוחה - מדעי המחשב | Open University CS courses (generated from the openu repo) |
 | טכנולוגיה | Software development, DevOps, Claude guide |
 
 - [STRUCTURE.md](STRUCTURE.md): where everything goes and how it is laid out.

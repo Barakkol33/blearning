@@ -48,7 +48,7 @@ blearning-private/
 | יסודי | `elementary/` | one guide per subject |
 | חטיבת ביניים | `middle-school/` | one guide per subject |
 | תיכון | `high-school/` | Bagrut: one unit per subject (math: per questionnaire) |
-| האוניברסיטה הפתוחה - תואר מדעי המחשב | `openu-cs/` | one guide per course, generated from the [openu](https://github.com/Barakkol33/openu) repo (SPEC.md §4); not edited here |
+| האוניברסיטה הפתוחה - מדעי המחשב | `openu-cs/` | one guide per course, generated from the [openu](https://github.com/Barakkol33/openu) repo (SPEC.md §4); not edited here |
 | טכנולוגיה | `tech/` | guides |
 | פינת הכיף | `fun/` | pages directly in the area (dad jokes, quotes), no chapters |
 

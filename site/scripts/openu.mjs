@@ -181,7 +181,7 @@ function generate() {
 		.map((e) => [e.name, convertCourse(e.name, out, files)])
 		.filter(([, t]) => t);
 	out.set(path.join(AREA, '_index.md'), frontmatter(
-		{ title: 'האוניברסיטה הפתוחה - תואר מדעי המחשב', kind: 'area', order: 5 },
+		{ title: 'האוניברסיטה הפתוחה - מדעי המחשב', kind: 'area', order: 5 },
 		`> נוצר אוטומטית מהמאגר [openu](${GITHUB}). עורכים שם, לא כאן.\n\n${courses.map(([n, t]) => `- [${t}](${n}/_index.md)`).join('\n')}`,
 	));
 
