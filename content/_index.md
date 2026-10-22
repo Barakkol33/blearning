@@ -14,3 +14,4 @@ description: מאגר ידע אישי שגדל עם הזמן
 - [תיכון](high-school/_index.md)
 - [האוניברסיטה הפתוחה - תואר מדעי המחשב](openu-cs/_index.md)
 - [טכנולוגיה](tech/_index.md)
+- [פינת הכיף](fun/_index.md)

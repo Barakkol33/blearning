@@ -50,6 +50,7 @@ blearning-private/
 | תיכון | `high-school/` | Bagrut: one unit per subject (math: per questionnaire) |
 | האוניברסיטה הפתוחה - תואר מדעי המחשב | `openu-cs/` | one guide per course, generated from the [openu](https://github.com/Barakkol33/openu) repo (SPEC.md §4); not edited here |
 | טכנולוגיה | `tech/` | guides |
+| פינת הכיף | `fun/` | pages directly in the area (dad jokes, quotes), no chapters |
 
 Every subject (guide or unit) opens with an overview (`_index.md`) that includes its basic terms ("מונחים בסיסיים") and, for a unit, exam tips ("דגשים"). Its interactive animations go in `animations.md`. A larger subject can move the terms to `glossary.md` and the tips to `tips.md`.
 
@@ -249,7 +250,7 @@ front | back
 ```
 
 - The elements are defined in `site/src/animations/` and loaded on every page. Data goes in attributes, or in the element's text as `a | b` rows (no blank lines inside the element).
-- Available: `bl-function-graph` (preset: linear, parabola, exponential, tangent), `bl-unit-circle`, `bl-coin-flips` (mode: galton), `bl-riemann`, `bl-matrix-transform` (eigen), `bl-fraction-pie`, `bl-multiplication-grid`, `bl-projectile`, `bl-spring`, `bl-particles`, `bl-solar-system` (mode: seasons), `bl-sorting` (algorithm), `bl-call-stack`, `bl-stack-queue`, `bl-tree-traversal`, `bl-graph-search` (algorithm: bfs, dfs, astar), `bl-dfa`, `bl-truth-table` (formula), `bl-binary-counter` (bits), `bl-scheduler`, `bl-venn-join`, `bl-timeline` (rows: year | event), `bl-flashcards` (rows), `bl-knesset`, `bl-root-builder`, `bl-first-letter` (lang: en), `bl-count-game`.
+- Available: `bl-function-graph` (preset: linear, parabola, exponential, tangent), `bl-unit-circle`, `bl-coin-flips` (mode: galton), `bl-riemann`, `bl-matrix-transform` (eigen), `bl-fraction-pie`, `bl-multiplication-grid`, `bl-projectile`, `bl-spring`, `bl-particles`, `bl-solar-system` (mode: seasons), `bl-sorting` (algorithm), `bl-call-stack`, `bl-stack-queue`, `bl-tree-traversal`, `bl-graph-search` (algorithm: bfs, dfs, astar), `bl-dfa`, `bl-truth-table` (formula), `bl-binary-counter` (bits), `bl-scheduler`, `bl-venn-join`, `bl-timeline` (rows: year | event), `bl-flashcards` (rows), `bl-knesset`, `bl-root-builder`, `bl-first-letter` (lang: en), `bl-count-game`, `bl-jokes` and `bl-quotes` (rows: setup | punchline | topics, quote | author | topics; topics comma-separated; mode: random, scroll).
 - A new animation is a new element in `site/src/animations/`. Until it exists, mark the spot with a comment: `<!-- animation: projectile trajectory with adjustable angle -->`.
 - `.mdx` is not needed.
 

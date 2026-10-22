@@ -4,3 +4,4 @@ import './science.js';
 import './cs.js';
 import './humanities.js';
 import './kids.js';
+import './fun.js';
