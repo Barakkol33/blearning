@@ -18,7 +18,11 @@ jobs:
           node-version: 24
       - run: npm ci && npm run build
         working-directory: site
-      - uses: actions/upload-artifact@v4
-        with:
-          name: dist
-          path: site/dist
+      - name: Show area indexes
+        working-directory: site/dist
+        run: |
+          for f in */index.html; do
+            grep -q 'bl-area-index' "$f" || continue
+            echo "== $f"
+            python3 -c "import re,sys,html;s=open(sys.argv[1]).read();m=re.search(r'<nav class=.bl-area-index.*?</nav>',s,re.S).group(0);m=re.sub(r'<li[^>]*>','\\n- ',m);print(html.unescape(re.sub(r'<[^>]+>','',m))[:1500])" "$f"
+          done
