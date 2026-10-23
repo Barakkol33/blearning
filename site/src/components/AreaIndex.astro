@@ -1,0 +1,45 @@
+---
+// Index of everything inside an area, shown at the end of the area's home page (`kind: area`).
+// Built from the area's sidebar (already scoped to the area by routeData.ts), so it follows the
+// same order, titles, drafts and stub badges, and stays up to date without editing _index.md.
+import { getCollection } from 'astro:content';
+import IndexTree from './IndexTree.astro';
+
+const sidebar = Astro.locals.starlightRoute.sidebar as any[];
+const area = sidebar.length === 1 && sidebar[0].type === 'group' ? sidebar[0] : undefined;
+// The first entry of the area group is the area's own overview page; the rest are its contents.
+const entries = area ? area.entries.slice(1) : [];
+const descriptions = new Map((await getCollection('docs')).map((e) => [e.id, e.data.description]));
+---
+
+{
+	entries.length > 0 && (
+		<nav class="bl-area-index" aria-labelledby="bl-area-index">
+			<h2 id="bl-area-index">מה יש כאן</h2>
+			<IndexTree entries={entries} descriptions={descriptions} top />
+		</nav>
+	)
+}
+
+<style>
+	.bl-area-index :global(.bl-index-top > li) {
+		margin-top: 0.75rem;
+	}
+	.bl-area-index :global(.bl-index-top > li > a) {
+		font-weight: 600;
+	}
+	.bl-area-index :global(.bl-index-desc) {
+		display: block;
+		font-size: var(--sl-text-sm);
+		color: var(--sl-color-gray-3);
+	}
+	.bl-area-index :global(.bl-index-badge) {
+		margin-inline-start: 0.4rem;
+		padding: 0 0.5rem;
+		border-radius: 999px;
+		font-size: var(--sl-text-xs);
+		background: var(--sl-color-blue-low);
+		color: var(--sl-color-blue-high);
+		border: 1px solid var(--sl-color-blue);
+	}
+</style>

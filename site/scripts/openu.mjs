@@ -182,7 +182,7 @@ function generate() {
 		.filter(([, t]) => t);
 	out.set(path.join(AREA, '_index.md'), frontmatter(
 		{ title: 'האוניברסיטה הפתוחה - מדעי המחשב', kind: 'area', order: 5 },
-		`> נוצר אוטומטית מהמאגר [openu](${GITHUB}). עורכים שם, לא כאן.\n\n${courses.map(([n, t]) => `- [${t}](${n}/_index.md)`).join('\n')}`,
+		`> נוצר אוטומטית מהמאגר [openu](${GITHUB}). עורכים שם, לא כאן.`,
 	));
 
 	// Sync to disk: write only what changed and remove stale files, so the dev server reloads cleanly.
