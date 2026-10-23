@@ -23,6 +23,5 @@ jobs:
         run: |
           for f in */index.html; do
             grep -q 'bl-area-index' "$f" || continue
-            echo "== $f"
-            python3 -c "import re,sys,html;s=open(sys.argv[1]).read();m=re.search(r'<nav class=.bl-area-index.*?</nav>',s,re.S).group(0);m=re.sub(r'<li[^>]*>','\\n- ',m);print(html.unescape(re.sub(r'<[^>]+>','',m))[:1500])" "$f"
+            python3 -c "import re,sys,html;s=open(sys.argv[1]).read();m=re.search(r'<nav class=.bl-area-index.*?</nav>',s,re.S).group(0);m=re.sub(r'<li[^>]*>','\\n- ',m);t=html.unescape(re.sub(r'<[^>]+>','',m))[:3000];print('::notice title='+sys.argv[1]+'::'+t.replace(chr(10),'%0A'))" "$f"
           done
