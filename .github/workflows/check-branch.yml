@@ -1,0 +1,24 @@
+name: Check branch build
+on:
+  push:
+    branches-ignore: [main]
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    env:
+      OPENU_DIR: ../openu
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/checkout@v5
+        with:
+          repository: Barakkol33/openu
+          path: openu
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+      - run: npm ci && npm run build
+        working-directory: site
+      - uses: actions/upload-artifact@v4
+        with:
+          name: dist
+          path: site/dist
