@@ -2,13 +2,13 @@
 title: דף החזרה
 tags: [כיתה ג, חזרה למבחן, מספרים עד 1000, לוח הכפל, מצולעים, משולשים]
 related: [elementary/math/multiplication]
-attachments: [_files/grade-3-math-review.docx]
-updated: 2026-10-22
+attachments: [_files/grade-3-math-review.pdf, _files/grade-3-math-review-solutions.pdf, _files/grade-3-math-review.docx]
+updated: 2026-10-24
 ---
 
 # דף החזרה
 
-12 שאלות, כ-30 דקות. ★ קל · ★★ בינוני · ★★★ מאתגר. רוצים להדפיס? [קובץ Word](_files/grade-3-math-review.docx).
+12 שאלות, כ-30 דקות. ★ קל · ★★ בינוני · ★★★ מאתגר. רוצים להדפיס? [המבחן (PDF)](_files/grade-3-math-review.pdf) · [הפתרונות (PDF)](_files/grade-3-math-review-solutions.pdf) · [קובץ Word](_files/grade-3-math-review.docx).
 
 ## חלק א – מספרים עד 1,000
 

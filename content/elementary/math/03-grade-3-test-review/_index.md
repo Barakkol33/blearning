@@ -24,4 +24,6 @@ description: דף חזרה של כחצי שעה – מספרים עד 1,000, ח�
 
 - [דף החזרה](review-sheet.md) – 12 שאלות.
 - [פתרונות](solutions.md).
-- [להורדה ולהדפסה – קובץ Word](_files/grade-3-math-review.docx): שלושה עמודי תרגילים ועמוד פתרונות בסוף.
+- [להדפסה – המבחן (PDF)](_files/grade-3-math-review.pdf): שלושה עמודי תרגילים, בלי פתרונות.
+- [להדפסה – הפתרונות (PDF)](_files/grade-3-math-review-solutions.pdf): עמוד אחד, להורה או למורה.
+- [לעריכה – קובץ Word](_files/grade-3-math-review.docx): שלושה עמודי תרגילים ועמוד פתרונות בסוף.
