@@ -44,6 +44,12 @@ function frontmatter(file) {
 	return m ? YAML.parse(m[1]) ?? {} : {};
 }
 
+/** Whether an `_index` says anything beyond its front matter and `#` title. */
+function hasBody(file) {
+	const text = fs.readFileSync(file, 'utf8').replace(/^---\r?\n[\s\S]*?\r?\n---/, '');
+	return text.split(/\r?\n/).some((line) => line.trim() && !line.startsWith('# '));
+}
+
 const isPage = (name) => /\.mdx?$/.test(name) && name !== '_index.md' && name !== '_index.mdx';
 
 function readNode(dirs, rel, errors) {
@@ -54,7 +60,7 @@ function readNode(dirs, rel, errors) {
 		return null;
 	}
 	const fm = frontmatter(indexFile);
-	const node = { rel, name: path.basename(rel || '.'), fm, kind: fm.kind, pages: [], children: [] };
+	const node = { rel, name: path.basename(rel || '.'), fm, kind: fm.kind, hasBody: hasBody(indexFile), pages: [], children: [] };
 	if (rel && !fm.kind) errors.push(`${rel}/_index.md: missing "kind"`);
 	const seen = new Set();
 	for (const dir of dirs) {
@@ -114,6 +120,10 @@ function toSidebar(node, includeDrafts) {
 		);
 	const badge = node.fm.status === 'stub' ? { badge: { text: 'בבנייה', variant: 'note' } } : {};
 	if (!items.length) return { label: node.fm.title ?? node.name, slug: idFromPath(node.rel), ...badge };
+	// A folder with one page and an empty _index has nothing to overview: link straight to the page.
+	if (items.length === 1 && !node.children.length && !node.hasBody) {
+		return { label: node.fm.title ?? node.name, slug: items[0].slug, ...badge };
+	}
 	return {
 		label: node.fm.title ?? node.name,
 		...badge,
