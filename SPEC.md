@@ -127,7 +127,7 @@ Not git-based, so ruled out by constraint 1: GitBook, Notion + Super, Obsidian P
   - The deploy workflow checks out openu next to the site, and also runs daily so pushes to openu reach the site within a day (or run the workflow by hand).
 - Stack: Astro 7 + Starlight 0.42 on Node 24 LTS. KaTeX for math, Pagefind for search. Animations are custom elements (`site/src/animations/`) used as `<bl-*>` tags in Markdown.
 - `site/src/structure.mjs` enforces STRUCTURE.md at build time (R16): ids without numeric prefixes, the sidebar from `kind` and ordering, and the unit rules.
-- `site/src/routeData.ts` (Starlight route middleware) scopes the sidebar: the home page lists every area; an area's home page and pages directly in an area show that area; a page inside a subject (a guide, unit or group of the area) shows only that subject, expanded, with a link back to the area.
+- `site/src/routeData.ts` (Starlight route middleware) scopes the sidebar: the home page lists every area; a page inside an area shows only that area, expanded.
 - An area's home page (`kind: area`) ends with an index of everything in the area ("מה יש כאן"), built from its sidebar by `site/src/components/AreaIndex.astro`. Area `_index.md` files don't keep their own lists of children.
 - Cloudflare Pages remains the fallback if branch previews are needed.
 
