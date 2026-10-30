@@ -14,4 +14,5 @@ description: מאגר ידע אישי שגדל עם הזמן
 - [תיכון](high-school/_index.md)
 - [האוניברסיטה הפתוחה - מדעי המחשב](openu-cs/_index.md)
 - [טכנולוגיה](tech/_index.md)
+- [מדריך קלוד (Claude)](claude-guide/_index.md)
 - [פינת הכיף](fun/_index.md)

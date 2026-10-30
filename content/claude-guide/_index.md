@@ -1,7 +1,8 @@
 ---
 title: מדריך קלוד (Claude)
-kind: guide
-order: 3
+kind: area
+order: 7
+description: מדריך מעשי לשימוש בקלוד, למי שמשתמש במחשב ברמה בסיסית.
 ---
 
 # מדריך קלוד (Claude)

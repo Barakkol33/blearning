@@ -194,5 +194,10 @@
 	"/high-school/literature/summaries/": "/high-school/literature/#הסיכומים",
 	"/high-school/literature/allowed-aids/": "/high-school/literature/#חומר-עזר-מותר-לשימוש",
 	"/high-school/literature/tips/": "/high-school/literature/#דגשים-ושיטת-תשובה",
-	"/high-school/literature/glossary/": "/high-school/literature/#מושגים-בספרות"
+	"/high-school/literature/glossary/": "/high-school/literature/#מושגים-בספרות",
+	"/tech/claude-guide/": "/claude-guide/",
+	"/tech/claude-guide/basics/": "/claude-guide/basics/",
+	"/tech/claude-guide/basics/basics/": "/claude-guide/basics/basics/",
+	"/tech/claude-guide/advanced/": "/claude-guide/advanced/",
+	"/tech/claude-guide/advanced/advanced/": "/claude-guide/advanced/advanced/"
 }

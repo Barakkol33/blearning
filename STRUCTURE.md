@@ -50,6 +50,7 @@ blearning-private/
 | תיכון | `high-school/` | Bagrut: one unit per subject (math: per questionnaire) |
 | האוניברסיטה הפתוחה - מדעי המחשב | `openu-cs/` | one guide per course, generated from the [openu](https://github.com/Barakkol33/openu) repo (SPEC.md §4); not edited here |
 | טכנולוגיה | `tech/` | guides |
+| מדריך קלוד (Claude) | `claude-guide/` | chapters directly in the area |
 | פינת הכיף | `fun/` | pages directly in the area (dad jokes, quotes), no chapters |
 
 Every subject (guide or unit) opens with an overview (`_index.md`) that includes its basic terms ("מונחים בסיסיים") and, for a unit, exam tips ("דגשים"). In high school, the overview is the subject's one general page and animations go inside the summary pages (§3, "Flat units"). Elsewhere, interactive animations go in `animations.md`, and a larger subject can move the terms to `glossary.md` and the tips to `tips.md`.

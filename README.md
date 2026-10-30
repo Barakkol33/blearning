@@ -10,7 +10,8 @@ A personal knowledge hub that grows over time, kind of like a Wikipedia that I b
 | יסודי | Elementary school subjects |
 | תיכון | Bagrut subjects |
 | האוניברסיטה הפתוחה - מדעי המחשב | Open University CS courses (generated from the openu repo) |
-| טכנולוגיה | Software development, DevOps, Claude guide |
+| טכנולוגיה | Software development, DevOps |
+| מדריך קלוד (Claude) | Practical guide to using Claude |
 
 - [STRUCTURE.md](STRUCTURE.md): where everything goes and how it is laid out.
 - [SPEC.md](SPEC.md): requirements, stack, hosting and costs.

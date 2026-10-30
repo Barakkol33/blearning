@@ -1,7 +1,7 @@
 ---
 title: פינת הכיף
 kind: area
-order: 7
+order: 8
 description: בדיחות אבא וציטוטים, להגרלה או לגלילה לפי נושא.
 ---
 
