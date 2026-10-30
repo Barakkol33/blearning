@@ -1,14 +1,15 @@
 ---
-title: Claude Guide
+title: מדריך Claude
 kind: guide
 order: 3
-lang: en
 ---
 
-# Claude Guide
+# מדריך Claude
 
-A practical guide to enhance your use of AI, even if you've never written code before.
+מדריך מעשי לשימוש טוב יותר בבינה מלאכותית, גם אם מעולם לא כתבתם קוד.
 
-- [Basics guide](01-basics/basics.md)
+המדריך בנוי משלוש מדרגות. כל מדרגה מסתמכת על הקודמת, אבל אפשר לעצור בכל אחת מהן ולהישאר עם משהו שעובד:
 
-- [Advanced guide](02-advanced/advanced.md)
+1. [צעדים ראשונים](01-first-steps/first-steps.md): מתקינים את Claude ואת Obsidian, ומכירים סוגי קבצים ואפליקציות שימושיים. בלי קוד ובלי טרמינל.
+2. [בסיס](02-basics/basics.md): עובדים עם Claude Code בתוך VS Code, ויוצרים מסמכים, מצגות ואתרים.
+3. [מתקדם](03-advanced/advanced.md): שורת הפקודה, Python, Git והרשאות.

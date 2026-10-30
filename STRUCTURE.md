@@ -66,7 +66,7 @@ Every other `.md` file is a **page**.
 | `area` | Top-level domain of knowledge | groups, units, guides | `high-school`, `openu-cs`, `tech` |
 | `group` | Pure organizing folder, no content of its own | groups, units, guides | `high-school/math`, `high-school/math/5-units` |
 | `unit` | **Exam-oriented study unit** with fixed sections (§3) | the fixed sections | a Bagrut questionnaire, a single-questionnaire Bagrut subject, a university course |
-| `guide` | **Free-form body of knowledge** | chapters (and optionally parts), plus any pages | `tech/devops`, `elementary/math`, `kindergarten/games` |
+| `guide` | **Free-form body of knowledge** | chapters (and optionally parts), plus any pages and sub-guides | `tech/software-development`, `elementary/math`, `kindergarten/games` |
 | `section` | A fixed section of a unit (`material/`, `assignments/`, `summaries/`, `exams/`) | chapters / parts, assignments or exams | `physics/summaries` |
 | `part` | Optional grouping of chapters (volume, semester, era) | chapters | linear algebra "volume A" |
 | `chapter` | A chapter: one coherent topic area | pages (and, rarely, sub-chapters) | `01-kinematics` |
@@ -175,6 +175,7 @@ high-school/<subject>/
 
 - A guide can be organized however the knowledge needs (parts, sub-chapters, guide-wide pages), as long as the bulk of it is divided into chapters.
 - Guides can be grouped freely with `group` folders.
+- A guide can hold a sub-guide when a large topic belongs under a general one (`tech/software-development/devops`).
 
 ---
 
