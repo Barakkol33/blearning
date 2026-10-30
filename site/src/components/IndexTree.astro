@@ -1,0 +1,38 @@
+---
+// Nested list of sidebar entries, used by AreaIndex. Groups link to their overview ("סקירה", the
+// group's first entry) and list the rest of their entries underneath.
+type Badge = { text: string } | undefined;
+type Link = { type: 'link'; label: string; href: string; badge?: Badge };
+type Group = { type: 'group'; label: string; entries: Entry[]; badge?: Badge };
+type Entry = Link | Group;
+
+interface Props {
+	entries: Entry[];
+	descriptions?: Map<string, string | undefined>;
+	top?: boolean;
+}
+
+const { entries, descriptions, top = false } = Astro.props;
+const base = import.meta.env.BASE_URL.replace(/\/?$/, '/');
+const idOf = (href: string) => href.slice(base.length).replace(/\/$/, '') || 'index';
+const hrefOf = (e: Entry) => (e.type === 'link' ? e.href : (e.entries[0] as Link).href);
+const contents = (e: Entry) => (e.type === 'group' ? e.entries.slice(1) : []);
+---
+
+{
+	entries.length > 0 && (
+		<ul class:list={['bl-index-list', { 'bl-index-top': top }]}>
+			{entries.map((e) => {
+				const desc = top ? descriptions?.get(idOf(hrefOf(e))) : undefined;
+				return (
+					<li>
+						<a href={hrefOf(e)}>{e.label}</a>
+						{e.badge && <span class="bl-index-badge">{e.badge.text}</span>}
+						{desc && <span class="bl-index-desc">{desc}</span>}
+						<Astro.self entries={contents(e)} />
+					</li>
+				);
+			})}
+		</ul>
+	)
+}

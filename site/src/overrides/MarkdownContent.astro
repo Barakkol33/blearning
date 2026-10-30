@@ -1,8 +1,11 @@
 ---
 // Pages with `lang: en` (or another LTR language) render left-to-right inside the RTL site.
+// An area's home page (`kind: area`) ends with an index of everything in the area.
 import Default from '@astrojs/starlight/components/MarkdownContent.astro';
-const lang = Astro.locals.starlightRoute.entry.data.lang;
+import AreaIndex from '../components/AreaIndex.astro';
+const { data } = Astro.locals.starlightRoute.entry;
+const lang = data.lang;
 const dir = lang && !['he', 'ar'].includes(lang) ? 'ltr' : undefined;
 ---
 
-<div dir={dir} lang={lang}><Default><slot /></Default></div>
+<div dir={dir} lang={lang}><Default><slot />{data.kind === 'area' && <AreaIndex />}</Default></div>
