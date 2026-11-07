@@ -4,4 +4,5 @@
 - Content placement and layout follow [STRUCTURE.md](STRUCTURE.md). "Add the content of X" → §10 workflow, in the **private** repo. "Move X to public" → STRUCTURE.md §1: move the files (no copies), commit both repos.
 - Before moving anything to public, check rights: only material written by Barak (or with permission). No course booklets, assignment/exam questions, teachers' handouts or long quotes. `sources/` is never public.
 - The site is in `site/`: `npm run dev` (public only), `npm run dev:all` (with private content), `npm run check` (build + structure validation). Pushing `main` deploys to GitHub Pages.
+- `examples/` holds code-example sub-projects, one folder each, listed in [examples/README.md](examples/README.md). When a folder changes, `.github/workflows/examples-release.yml` zips it to the stable `<name>-latest` release. Add each new sub-project to the index table.
 - Technical decisions are in [SPEC.md](SPEC.md). Keep it updated.

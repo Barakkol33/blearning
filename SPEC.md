@@ -129,6 +129,7 @@ Not git-based, so ruled out by constraint 1: GitBook, Notion + Super, Obsidian P
 - `site/src/structure.mjs` enforces STRUCTURE.md at build time (R16): ids without numeric prefixes, the sidebar from `kind` and ordering, and the unit rules.
 - `site/src/routeData.ts` (Starlight route middleware) scopes the sidebar: the home page lists every area; a page inside an area shows only that area, expanded.
 - An area's home page (`kind: area`) ends with an index of everything in the area ("מה יש כאן"), built from its sidebar by `site/src/components/AreaIndex.astro`. Area `_index.md` files don't keep their own lists of children.
+- `examples/` holds downloadable code-example sub-projects, one top-level folder each, each with its own README. They are not part of the site, and pushes that touch only `examples/` don't deploy. `.github/workflows/examples-release.yml` runs on changes there. It zips each changed folder (tracked files only, via `git archive`) into a release named `<name>-latest`, replacing the zip in place, so the stable link is `https://github.com/Barakkol33/blearning/releases/download/<name>-latest/<name>.zip`. Deleting a folder deletes its release. Running the workflow by hand rebuilds them all.
 - Cloudflare Pages remains the fallback if branch previews are needed.
 
 ## 5. Recommended stack (original analysis)

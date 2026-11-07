@@ -1,0 +1,26 @@
+[build-system]
+requires = ["setuptools>=61"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "adfs-auth"
+version = "0.1.0"
+description = "Thin ADFS JWT + API-key authentication and per-route permissions for FastAPI"
+requires-python = ">=3.9"
+dependencies = [
+    "fastapi>=0.100",
+    "pyjwt[crypto]>=2.8",
+]
+
+[project.optional-dependencies]
+dev = ["pytest>=7", "httpx>=0.24", "uvicorn>=0.23"]
+
+[project.scripts]
+adfs-auth-probe = "adfs_auth.probe:main"
+adfs-auth-mock = "adfs_auth.mock_adfs:main"
+
+[tool.setuptools]
+packages = ["adfs_auth"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

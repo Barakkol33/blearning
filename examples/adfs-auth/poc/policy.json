@@ -1,0 +1,15 @@
+{
+  "group_permissions": {
+    "CORP\\Orders-Readers": ["orders:read"],
+    "CORP\\Orders-Writers": ["orders:read", "orders:write"]
+  },
+  "subject_permissions": {
+    "batch-job": ["orders:read"]
+  },
+  "api_keys": {
+    "7f265c7bcc3a111afa7167af17e43990060f5269487f504df97f985df4cef8b1": {
+      "name": "legacy-report-script",
+      "permissions": ["orders:read"]
+    }
+  }
+}

@@ -1,0 +1,16 @@
+{
+  "group_permissions": {
+    "CORP\\Inventory-Viewers": ["inventory:read"],
+    "CORP\\Inventory-Clerks": ["inventory:read", "inventory:write"],
+    "CORP\\Inventory-Admins": ["*"]
+  },
+  "subject_permissions": {
+    "nightly-sync": ["inventory:read", "inventory:write"]
+  },
+  "api_keys": {
+    "3e7b29d300c6315ba8d232d123dce374bae54acf1a49c501f0a97ef0121945a5": {
+      "name": "warehouse-scanner",
+      "permissions": ["inventory:read"]
+    }
+  }
+}

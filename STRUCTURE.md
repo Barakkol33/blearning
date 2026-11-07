@@ -24,6 +24,7 @@ blearning (public)/
 ├── content/      # Published, structured content
 ├── site/         # The website (Astro + Starlight), see SPEC.md
 ├── templates/    # Templates for each node kind
+├── examples/     # Downloadable code-example sub-projects (not part of the site), see SPEC.md §4
 ├── STRUCTURE.md  # This file
 └── SPEC.md
 

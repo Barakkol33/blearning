@@ -3,6 +3,8 @@ name: Deploy site
 on:
   push:
     branches: [main]
+    # Code examples are released by examples-release.yml and are not part of the site.
+    paths-ignore: ['examples/**']
   workflow_dispatch:
   # Picks up changes in the openu repo, which is generated into the site at build time.
   schedule:

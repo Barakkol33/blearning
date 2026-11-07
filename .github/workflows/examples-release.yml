@@ -1,0 +1,68 @@
+name: Release examples
+
+# Each top-level folder under examples/ is a downloadable sub-project. When one changes, zip it
+# (tracked files only) and publish it at a stable link:
+#   https://github.com/<owner>/<repo>/releases/download/<name>-latest/<name>.zip
+
+on:
+  push:
+    branches: [main]
+    paths: ['examples/**']
+  workflow_dispatch: # rebuilds every sub-project
+
+permissions:
+  contents: write
+
+concurrency:
+  group: examples-release
+  cancel-in-progress: false
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    env:
+      GH_TOKEN: ${{ github.token }}
+      BEFORE: ${{ github.event.before }}
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
+
+      - name: Zip and publish changed sub-projects
+        run: |
+          set -euo pipefail
+          git config user.name github-actions
+          git config user.email github-actions@users.noreply.github.com
+
+          if [ "${{ github.event_name }}" = workflow_dispatch ] || [ -z "${BEFORE:-}" ] \
+             || [ "$BEFORE" = 0000000000000000000000000000000000000000 ] \
+             || ! git cat-file -e "$BEFORE^{commit}" 2>/dev/null; then
+            names=$(git ls-tree -d --name-only HEAD examples/ | cut -d/ -f2)
+          else
+            names=$(git diff --name-only "$BEFORE" "$GITHUB_SHA" -- examples/ | awk -F/ 'NF>2 {print $2}' | sort -u)
+          fi
+          echo "sub-projects to process: ${names:-<none>}"
+
+          sha7=$(git rev-parse --short HEAD)
+          date=$(date -u +%Y-%m-%d)
+          for n in $names; do
+            tag="$n-latest"
+            if ! git cat-file -e "HEAD:examples/$n" 2>/dev/null; then
+              echo "::notice::examples/$n was removed; deleting release $tag"
+              gh release delete "$tag" --cleanup-tag -y || true
+              continue
+            fi
+            git archive --format=zip --prefix="$n/" -o "$n.zip" "HEAD:examples/$n"
+            notes="Latest snapshot of \`examples/$n\` from commit $sha7 ($date).
+
+          Source: $GITHUB_SERVER_URL/$GITHUB_REPOSITORY/tree/main/examples/$n"
+            if gh release view "$tag" >/dev/null 2>&1; then
+              git tag -f "$tag" HEAD
+              git push -f origin "refs/tags/$tag"
+              gh release upload "$tag" "$n.zip" --clobber
+              gh release edit "$tag" --notes "$notes" --latest=false
+            else
+              gh release create "$tag" "$n.zip" --title "$n" --notes "$notes" --latest=false --target "$GITHUB_SHA"
+            fi
+            echo "::notice::$n -> $GITHUB_SERVER_URL/$GITHUB_REPOSITORY/releases/download/$tag/$n.zip"
+          done
