@@ -1,0 +1,47 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 430" width="1200" height="430" font-family="Segoe UI, Calibri, Carlito, sans-serif">
+  <defs>
+    <marker id="a" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M0 0 L10 5 L0 10 z" fill="#0f6cbd"/>
+    </marker>
+    <marker id="g" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M0 0 L10 5 L0 10 z" fill="#1a7f37"/>
+    </marker>
+  </defs>
+  <rect width="1200" height="430" fill="#ffffff"/>
+
+  <!-- the loop -->
+  <path d="M363.4 74.1 A150 150 0 0 1 449.4 223.1" fill="none" stroke="#0f6cbd" stroke-width="5" marker-end="url(#a)"/>
+  <path d="M386 332.9 A150 150 0 0 1 214 332.9" fill="none" stroke="#0f6cbd" stroke-width="5" marker-end="url(#a)"/>
+  <path d="M150.6 223.1 A150 150 0 0 1 236.6 74.1" fill="none" stroke="#0f6cbd" stroke-width="5" marker-end="url(#a)"/>
+
+  <circle cx="300" cy="60" r="54" fill="#0f6cbd"/>
+  <text x="300" y="68" text-anchor="middle" font-size="24" font-weight="700" fill="#ffffff">Watch</text>
+  <circle cx="430" cy="285" r="58" fill="#2b579a"/>
+  <text x="430" y="293" text-anchor="middle" font-size="22" font-weight="700" fill="#ffffff">Compare</text>
+  <circle cx="170" cy="285" r="54" fill="#1a7f37"/>
+  <text x="170" y="293" text-anchor="middle" font-size="24" font-weight="700" fill="#ffffff">Fix</text>
+
+  <text x="300" y="200" text-anchor="middle" font-size="20" fill="#7a7a7a">a loop that</text>
+  <text x="300" y="226" text-anchor="middle" font-size="20" fill="#7a7a7a">never stops</text>
+
+  <!-- wish vs reality -->
+  <text x="640" y="80" font-size="22" font-weight="700" fill="#242424">You asked for (the wish)</text>
+  <text x="640" y="108" font-size="19" fill="#7a7a7a" font-family="Consolas, Cascadia Mono, monospace">replicas: 3</text>
+  <rect x="920" y="52" width="58" height="58" rx="8" fill="#1f6feb"/>
+  <rect x="990" y="52" width="58" height="58" rx="8" fill="#1f6feb"/>
+  <rect x="1060" y="52" width="58" height="58" rx="8" fill="#1f6feb"/>
+
+  <text x="640" y="210" font-size="22" font-weight="700" fill="#242424">Actually running</text>
+  <text x="640" y="238" font-size="19" fill="#7a7a7a">one copy crashed</text>
+  <rect x="920" y="182" width="58" height="58" rx="8" fill="#1f6feb"/>
+  <rect x="990" y="182" width="58" height="58" rx="8" fill="#1f6feb"/>
+  <rect x="1060" y="182" width="58" height="58" rx="8" fill="#ffffff" stroke="#cf222e" stroke-width="3" stroke-dasharray="8 6"/>
+  <path d="M1074 196 l30 30 M1104 196 l-30 30" stroke="#cf222e" stroke-width="4" stroke-linecap="round"/>
+
+  <line x1="1089" y1="250" x2="1089" y2="300" stroke="#1a7f37" stroke-width="4" marker-end="url(#g)"/>
+  <rect x="1060" y="310" width="58" height="58" rx="8" fill="#1f6feb" stroke="#1a7f37" stroke-width="4"/>
+  <text x="1040" y="335" text-anchor="end" font-size="22" font-weight="700" fill="#1a7f37">Fix: start a new copy</text>
+  <text x="1040" y="362" text-anchor="end" font-size="19" fill="#7a7a7a">nobody pressed anything</text>
+
+  <text x="640" y="410" font-size="19" fill="#7a7a7a">like a thermostat: you set 22°, it keeps fixing the room</text>
+</svg>

@@ -1,0 +1,136 @@
+# The whole app, as code: a web page, 3 copies of it, and one address in front of them.
+#
+#   ConfigMap  - the web server's config (the page itself)
+#   Deployment - "always keep 3 copies running"
+#   Service    - one stable address that spreads traffic over the copies
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: hello-page
+data:
+  # nginx fills in ${...} from environment variables when the container starts
+  default.conf.template: |
+    server {
+      listen 80;
+      keepalive_timeout 0;   # a new connection per request, so every request can hit a different copy
+
+      # what the terminal "watch" reads: one line per request
+      location /plain {
+        default_type text/plain;
+        return 200 "${VERSION} ${COLOR} ${POD_NAME} ${NODE_NAME}\n";
+      }
+
+      location /healthz {
+        return 200 "ok\n";
+      }
+
+      # what the browser shows: refreshes itself every second
+      location / {
+        default_type text/html;
+        return 200 '<!doctype html><html><head><meta charset="utf-8">
+          <meta http-equiv="refresh" content="1"><title>${VERSION}</title>
+          <style>
+            body{margin:0;height:100vh;display:flex;flex-direction:column;align-items:center;
+                 justify-content:center;background:${COLOR};color:#fff;font-family:system-ui,sans-serif;
+                 text-shadow:0 2px 8px rgba(0,0,0,.4)}
+            h1{font-size:12vh;margin:0} p{font-size:5vh;margin:1vh}
+          </style></head><body>
+          <h1>Hello from ${VERSION}</h1>
+          <p>pod: <b>${POD_NAME}</b></p>
+          <p>machine: <b>${NODE_NAME}</b></p>
+          </body></html>';
+      }
+    }
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: hello
+spec:
+  replicas: 3                       # the desired state: how many copies
+  selector:
+    matchLabels:
+      app: hello
+  strategy:
+    rollingUpdate:
+      maxUnavailable: 0             # never go below 3 healthy copies during an update
+      maxSurge: 1                   # add one new copy at a time
+  template:
+    metadata:
+      labels:
+        app: hello
+    spec:
+      terminationGracePeriodSeconds: 10
+      # high availability: spread the copies over the machines, so losing one machine never loses all of them
+      topologySpreadConstraints:
+        - maxSkew: 1
+          topologyKey: kubernetes.io/hostname
+          whenUnsatisfiable: DoNotSchedule
+          nodeTaintsPolicy: Honor        # ignore machines that can't take copies (the brain, or one that's down)
+          labelSelector:
+            matchLabels:
+              app: hello
+      # if a machine disappears, move its copies elsewhere after 5s (the default is 5 minutes)
+      tolerations:
+        - key: node.kubernetes.io/unreachable
+          operator: Exists
+          effect: NoExecute
+          tolerationSeconds: 5
+        - key: node.kubernetes.io/not-ready
+          operator: Exists
+          effect: NoExecute
+          tolerationSeconds: 5
+      containers:
+        - name: web
+          image: nginx:1.27-alpine
+          ports:
+            - containerPort: 80
+          env:
+            - name: VERSION
+              value: v1
+            - name: COLOR
+              value: "#1f6feb"      # blue
+            - name: POD_NAME
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.name
+            - name: NODE_NAME
+              valueFrom:
+                fieldRef:
+                  fieldPath: spec.nodeName
+          readinessProbe:           # only send traffic to a copy that answers
+            httpGet:
+              path: /healthz
+              port: 80
+            periodSeconds: 1
+          lifecycle:
+            preStop:                # finish in-flight requests before shutting down
+              exec:
+                command: ["sleep", "3"]
+          resources:
+            requests:
+              cpu: 10m
+              memory: 16Mi
+            limits:
+              memory: 64Mi
+          volumeMounts:
+            - name: page
+              mountPath: /etc/nginx/templates
+      volumes:
+        - name: page
+          configMap:
+            name: hello-page
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: hello
+spec:
+  type: NodePort
+  selector:
+    app: hello
+  ports:
+    - port: 80
+      targetPort: 80
+      nodePort: 30080

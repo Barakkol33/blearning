@@ -5,5 +5,6 @@ Small, self-contained projects you can browse here or download as a zip. Each fo
 | Project | What it is | Source | Download |
 |---|---|---|---|
 | adfs-auth | FastAPI authentication against on-prem ADFS (JWT) or API keys, with per-route permissions, a mock ADFS and a probe tool for checking a real ADFS | [examples/adfs-auth](adfs-auth/) | [adfs-auth.zip](https://github.com/Barakkol33/blearning/releases/download/adfs-auth-latest/adfs-auth.zip) |
+| devops-talk | "From Code to the Real World" - a DevOps / Kubernetes talk for high school: the slides (pypresent), the diagrams, a live kind demo and a presenter guide. Shown on the site at [tech/software-development/devops/talk](https://barakkol33.github.io/blearning/tech/software-development/devops/talk/) | [examples/devops-talk](devops-talk/) | [devops-talk.zip](https://github.com/Barakkol33/blearning/releases/download/devops-talk-latest/devops-talk.zip) |
 
 The download links always serve the latest version. Whenever a project's folder changes on `main`, [a workflow](../.github/workflows/examples-release.yml) rebuilds its zip under a release named `<project>-latest`.

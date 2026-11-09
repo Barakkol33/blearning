@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 290" width="1200" height="290" font-family="Segoe UI, Calibri, Carlito, sans-serif">
+  <rect width="1200" height="290" fill="#ffffff"/>
+
+  <!-- Bugs -->
+  <rect x="30" y="20" width="350" height="250" rx="16" fill="#fdf0f0" stroke="#cf222e" stroke-width="3"/>
+  <circle cx="205" cy="88" r="46" fill="#cf222e"/>
+  <ellipse cx="205" cy="96" rx="16" ry="22" fill="#ffffff"/>
+  <circle cx="205" cy="68" r="9" fill="#ffffff"/>
+  <path d="M189 86 l-14 -8 M189 98 h-16 M189 110 l-14 8 M221 86 l14 -8 M221 98 h16 M221 110 l14 8" stroke="#ffffff" stroke-width="4" stroke-linecap="round"/>
+  <text x="205" y="180" text-anchor="middle" font-size="34" font-weight="700" fill="#cf222e">Bugs</text>
+  <text x="205" y="214" text-anchor="middle" font-size="20" fill="#242424">wrong results,</text>
+  <text x="205" y="240" text-anchor="middle" font-size="20" fill="#242424">leaked data, crashes</text>
+
+  <!-- Lag -->
+  <rect x="425" y="20" width="350" height="250" rx="16" fill="#fff6e6" stroke="#d97706" stroke-width="3"/>
+  <circle cx="600" cy="88" r="46" fill="#d97706"/>
+  <circle cx="600" cy="88" r="32" fill="#ffffff"/>
+  <path d="M600 88 v-22 M600 88 l15 10" stroke="#d97706" stroke-width="5" stroke-linecap="round"/>
+  <text x="600" y="180" text-anchor="middle" font-size="34" font-weight="700" fill="#b45309">Lag</text>
+  <text x="600" y="214" text-anchor="middle" font-size="20" fill="#242424">slow pages, stuck queues,</text>
+  <text x="600" y="240" text-anchor="middle" font-size="20" fill="#242424">users who leave</text>
+
+  <!-- Cost -->
+  <rect x="820" y="20" width="350" height="250" rx="16" fill="#eef4fb" stroke="#2b579a" stroke-width="3"/>
+  <circle cx="995" cy="88" r="46" fill="#2b579a"/>
+  <text x="995" y="106" text-anchor="middle" font-size="52" font-weight="700" fill="#ffffff">$</text>
+  <text x="995" y="180" text-anchor="middle" font-size="34" font-weight="700" fill="#2b579a">Cost</text>
+  <text x="995" y="214" text-anchor="middle" font-size="20" fill="#242424">servers you didn't need,</text>
+  <text x="995" y="240" text-anchor="middle" font-size="20" fill="#242424">bills nobody expected</text>
+</svg>

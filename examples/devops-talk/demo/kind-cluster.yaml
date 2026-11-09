@@ -1,0 +1,27 @@
+# A 3-node Kubernetes cluster that runs inside Docker on your laptop.
+# One "brain" (control-plane) and two "muscle" machines (workers).
+kind: Cluster
+apiVersion: kind.x-k8s.io/v1alpha4
+name: devops-demo
+
+# Notice a dead machine fast (the default waits ~40-50s), so "unplug a machine"
+# fails over in seconds. Real clusters tune these too - it's a trade-off between
+# reacting fast and reacting to a short network blip.
+kubeadmConfigPatches:
+  - |
+    kind: ClusterConfiguration
+    controllerManager:
+      extraArgs:
+        node-monitor-grace-period: "10s"
+  - |
+    kind: KubeletConfiguration
+    nodeStatusUpdateFrequency: "4s"
+
+nodes:
+  - role: control-plane
+    extraPortMappings:
+      # http://localhost:8080 on your laptop -> the app's NodePort inside the cluster
+      - containerPort: 30080
+        hostPort: 8080
+  - role: worker
+  - role: worker

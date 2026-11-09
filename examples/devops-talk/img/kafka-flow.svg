@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 400" width="1200" height="400" font-family="Segoe UI, Calibri, Carlito, sans-serif">
+  <defs>
+    <marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M0 0 L10 5 L0 10 z" fill="#7a7a7a"/>
+    </marker>
+  </defs>
+  <rect width="1200" height="400" fill="#ffffff"/>
+
+  <!-- producer -->
+  <rect x="20" y="150" width="190" height="90" rx="14" fill="#0f6cbd"/>
+  <text x="115" y="190" text-anchor="middle" font-size="23" font-weight="700" fill="#ffffff">checkout</text>
+  <text x="115" y="218" text-anchor="middle" font-size="18" fill="#dbe7f6">producer</text>
+  <text x="115" y="272" text-anchor="middle" font-size="18" fill="#7a7a7a">the waiter</text>
+  <line x1="210" y1="195" x2="262" y2="195" stroke="#7a7a7a" stroke-width="3" marker-end="url(#a)"/>
+
+  <!-- topic: an ordered log of events -->
+  <text x="520" y="122" text-anchor="middle" font-size="22" font-weight="700" fill="#2b579a">Kafka topic "orders"</text>
+  <rect x="268" y="140" width="504" height="110" rx="14" fill="#f3f7fc" stroke="#2b579a" stroke-width="3"/>
+  <g font-size="18" fill="#ffffff" text-anchor="middle">
+    <rect x="283" y="165" width="50" height="60" rx="6" fill="#2b579a"/><text x="308" y="201">#1</text>
+    <rect x="343" y="165" width="50" height="60" rx="6" fill="#2b579a"/><text x="368" y="201">#2</text>
+    <rect x="403" y="165" width="50" height="60" rx="6" fill="#2b579a"/><text x="428" y="201">#3</text>
+    <rect x="463" y="165" width="50" height="60" rx="6" fill="#2b579a"/><text x="488" y="201">#4</text>
+    <rect x="523" y="165" width="50" height="60" rx="6" fill="#2b579a"/><text x="548" y="201">#5</text>
+    <rect x="583" y="165" width="50" height="60" rx="6" fill="#2b579a"/><text x="608" y="201">#6</text>
+    <rect x="643" y="165" width="50" height="60" rx="6" fill="#2b579a"/><text x="668" y="201">#7</text>
+    <rect x="703" y="165" width="50" height="60" rx="6" fill="#0f6cbd"/><text x="728" y="201">#8</text>
+  </g>
+  <text x="520" y="282" text-anchor="middle" font-size="18" fill="#7a7a7a">the order rail - events stay, in order, on disk</text>
+  <text x="520" y="306" text-anchor="middle" font-size="18" fill="#7a7a7a">each consumer reads at its own pace</text>
+
+  <!-- consumers -->
+  <line x1="772" y1="195" x2="862" y2="85" stroke="#7a7a7a" stroke-width="3" marker-end="url(#a)"/>
+  <line x1="772" y1="195" x2="862" y2="195" stroke="#7a7a7a" stroke-width="3" marker-end="url(#a)"/>
+  <line x1="772" y1="195" x2="862" y2="305" stroke="#7a7a7a" stroke-width="3" marker-end="url(#a)"/>
+
+  <rect x="868" y="52" width="300" height="66" rx="12" fill="#eaf5ec" stroke="#1a7f37" stroke-width="2.5"/>
+  <text x="1018" y="93" text-anchor="middle" font-size="21" fill="#242424">stock service</text>
+  <rect x="868" y="162" width="300" height="66" rx="12" fill="#eaf5ec" stroke="#1a7f37" stroke-width="2.5"/>
+  <text x="1018" y="203" text-anchor="middle" font-size="21" fill="#242424">email service</text>
+  <rect x="868" y="272" width="300" height="66" rx="12" fill="#eaf5ec" stroke="#1a7f37" stroke-width="2.5"/>
+  <text x="1018" y="313" text-anchor="middle" font-size="21" fill="#242424">analytics</text>
+  <text x="1018" y="372" text-anchor="middle" font-size="18" fill="#7a7a7a">consumers - the cooks</text>
+</svg>

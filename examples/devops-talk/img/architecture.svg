@@ -1,0 +1,65 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 470" width="1200" height="470" font-family="Segoe UI, Calibri, Carlito, sans-serif">
+  <defs>
+    <marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0 0 L10 5 L0 10 z" fill="#7a7a7a"/>
+    </marker>
+  </defs>
+  <rect width="1200" height="470" fill="#ffffff"/>
+
+  <!-- phone -->
+  <rect x="45" y="150" width="78" height="130" rx="14" fill="#ffffff" stroke="#242424" stroke-width="3"/>
+  <rect x="55" y="166" width="58" height="92" rx="4" fill="#eef4fb"/>
+  <circle cx="84" cy="270" r="4" fill="#242424"/>
+  <text x="84" y="315" text-anchor="middle" font-size="22" fill="#242424">your phone</text>
+
+  <line x1="128" y1="215" x2="222" y2="215" stroke="#7a7a7a" stroke-width="3" marker-end="url(#a)"/>
+
+  <!-- load balancer -->
+  <rect x="228" y="165" width="160" height="100" rx="14" fill="#eef4fb" stroke="#0f6cbd" stroke-width="3"/>
+  <text x="308" y="208" text-anchor="middle" font-size="24" font-weight="700" fill="#0f6cbd">Load</text>
+  <text x="308" y="238" text-anchor="middle" font-size="24" font-weight="700" fill="#0f6cbd">balancer</text>
+  <text x="308" y="300" text-anchor="middle" font-size="19" fill="#7a7a7a">picks a free server</text>
+
+  <line x1="388" y1="215" x2="462" y2="110" stroke="#7a7a7a" stroke-width="3" marker-end="url(#a)"/>
+  <line x1="388" y1="215" x2="462" y2="215" stroke="#7a7a7a" stroke-width="3" marker-end="url(#a)"/>
+  <line x1="388" y1="215" x2="462" y2="320" stroke="#7a7a7a" stroke-width="3" marker-end="url(#a)"/>
+
+  <!-- app servers -->
+  <rect x="468" y="80" width="180" height="60" rx="10" fill="#0f6cbd"/>
+  <rect x="468" y="185" width="180" height="60" rx="10" fill="#0f6cbd"/>
+  <rect x="468" y="290" width="180" height="60" rx="10" fill="#0f6cbd"/>
+  <text x="558" y="118" text-anchor="middle" font-size="22" fill="#ffffff">app server</text>
+  <text x="558" y="223" text-anchor="middle" font-size="22" fill="#ffffff">app server</text>
+  <text x="558" y="328" text-anchor="middle" font-size="22" fill="#ffffff">app server</text>
+  <text x="558" y="388" text-anchor="middle" font-size="22" font-weight="700" fill="#0f6cbd">× 100 copies</text>
+  <text x="558" y="416" text-anchor="middle" font-size="19" fill="#7a7a7a">the code - maybe written by AI</text>
+
+  <line x1="648" y1="215" x2="752" y2="95" stroke="#7a7a7a" stroke-width="3" marker-end="url(#a)"/>
+  <line x1="648" y1="215" x2="752" y2="215" stroke="#7a7a7a" stroke-width="3" marker-end="url(#a)"/>
+  <line x1="648" y1="215" x2="752" y2="335" stroke="#7a7a7a" stroke-width="3" marker-end="url(#a)"/>
+
+  <!-- database (cylinder) -->
+  <path d="M760 60 v70 a80 18 0 0 0 160 0 v-70" fill="#eef4fb" stroke="#2b579a" stroke-width="3"/>
+  <ellipse cx="840" cy="60" rx="80" ry="18" fill="#dbe7f6" stroke="#2b579a" stroke-width="3"/>
+  <text x="840" y="115" text-anchor="middle" font-size="22" font-weight="700" fill="#2b579a">Database</text>
+  <text x="945" y="90" font-size="19" fill="#7a7a7a">data that lasts</text>
+
+  <!-- cache -->
+  <rect x="760" y="185" width="160" height="60" rx="10" fill="#fff4dc" stroke="#d97706" stroke-width="3"/>
+  <text x="840" y="223" text-anchor="middle" font-size="22" font-weight="700" fill="#b45309">Cache</text>
+  <text x="945" y="212" font-size="19" fill="#7a7a7a">fast memory</text>
+  <text x="945" y="236" font-size="19" fill="#7a7a7a">for hot data</text>
+
+  <!-- queue and workers -->
+  <rect x="760" y="305" width="160" height="60" rx="10" fill="#ffffff" stroke="#2b579a" stroke-width="3"/>
+  <rect x="772" y="317" width="26" height="36" rx="3" fill="#2b579a"/>
+  <rect x="804" y="317" width="26" height="36" rx="3" fill="#2b579a" opacity=".75"/>
+  <rect x="836" y="317" width="26" height="36" rx="3" fill="#2b579a" opacity=".5"/>
+  <rect x="868" y="317" width="26" height="36" rx="3" fill="#2b579a" opacity=".3"/>
+  <text x="840" y="392" text-anchor="middle" font-size="22" font-weight="700" fill="#2b579a">Queue (Kafka)</text>
+  <line x1="920" y1="335" x2="992" y2="335" stroke="#7a7a7a" stroke-width="3" marker-end="url(#a)"/>
+  <rect x="998" y="305" width="150" height="60" rx="10" fill="#eef4fb" stroke="#2b579a" stroke-width="3"/>
+  <text x="1073" y="343" text-anchor="middle" font-size="22" fill="#2b579a">workers</text>
+  <text x="1073" y="392" text-anchor="middle" font-size="19" fill="#7a7a7a">slow jobs:</text>
+  <text x="1073" y="416" text-anchor="middle" font-size="19" fill="#7a7a7a">emails, videos</text>
+</svg>

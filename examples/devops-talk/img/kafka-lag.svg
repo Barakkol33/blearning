@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 280" width="1200" height="280" font-family="Segoe UI, Calibri, Carlito, sans-serif">
+  <defs>
+    <marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0 0 L10 5 L0 10 z" fill="#242424"/>
+    </marker>
+  </defs>
+  <rect width="1200" height="280" fill="#ffffff"/>
+
+  <text x="20" y="135" font-size="20" font-weight="700" fill="#2b579a">topic</text>
+  <text x="20" y="160" font-size="20" font-weight="700" fill="#2b579a">"orders"</text>
+
+  <!-- read: 1-5 -->
+  <g font-size="22" text-anchor="middle" fill="#ffffff">
+    <rect x="120" y="110" width="70" height="60" rx="8" fill="#1f6feb"/><text x="155" y="148">1</text>
+    <rect x="200" y="110" width="70" height="60" rx="8" fill="#1f6feb"/><text x="235" y="148">2</text>
+    <rect x="280" y="110" width="70" height="60" rx="8" fill="#1f6feb"/><text x="315" y="148">3</text>
+    <rect x="360" y="110" width="70" height="60" rx="8" fill="#1f6feb"/><text x="395" y="148">4</text>
+    <rect x="440" y="110" width="70" height="60" rx="8" fill="#1f6feb"/><text x="475" y="148">5</text>
+  </g>
+  <!-- not read yet: 6-12 -->
+  <g font-size="22" text-anchor="middle" fill="#b45309">
+    <rect x="520" y="110" width="70" height="60" rx="8" fill="#fff6e6" stroke="#d97706" stroke-width="2.5"/><text x="555" y="148">6</text>
+    <rect x="600" y="110" width="70" height="60" rx="8" fill="#fff6e6" stroke="#d97706" stroke-width="2.5"/><text x="635" y="148">7</text>
+    <rect x="680" y="110" width="70" height="60" rx="8" fill="#fff6e6" stroke="#d97706" stroke-width="2.5"/><text x="715" y="148">8</text>
+    <rect x="760" y="110" width="70" height="60" rx="8" fill="#fff6e6" stroke="#d97706" stroke-width="2.5"/><text x="795" y="148">9</text>
+    <rect x="840" y="110" width="70" height="60" rx="8" fill="#fff6e6" stroke="#d97706" stroke-width="2.5"/><text x="875" y="148">10</text>
+    <rect x="920" y="110" width="70" height="60" rx="8" fill="#fff6e6" stroke="#d97706" stroke-width="2.5"/><text x="955" y="148">11</text>
+    <rect x="1000" y="110" width="70" height="60" rx="8" fill="#fff6e6" stroke="#d97706" stroke-width="2.5"/><text x="1035" y="148">12</text>
+  </g>
+
+  <!-- lag bracket -->
+  <path d="M522 92 v-14 h546 v14" fill="none" stroke="#d97706" stroke-width="3"/>
+  <text x="795" y="62" text-anchor="middle" font-size="26" font-weight="700" fill="#b45309">lag = 7 not read yet</text>
+
+  <!-- pointers -->
+  <line x1="475" y1="240" x2="475" y2="180" stroke="#242424" stroke-width="3" marker-end="url(#a)"/>
+  <text x="475" y="266" text-anchor="middle" font-size="20" fill="#242424">email consumer has read up to here</text>
+  <line x1="1035" y1="240" x2="1035" y2="180" stroke="#242424" stroke-width="3" marker-end="url(#a)"/>
+  <text x="1035" y="266" text-anchor="middle" font-size="20" fill="#242424">newest</text>
+</svg>

@@ -9,6 +9,8 @@ lang: en
 
 A hands-on guide to DevOps: from Linux basics through Docker and Kubernetes, to deploying a real application on a local cluster.
 
+**New here? Start with the talk:** [From Code to the Real World](talk.md) - the big picture in 40 minutes of slides, with a live Kubernetes demo you can run yourself.
+
 ## Prerequisites
 
 Before starting, follow [0-prerequisites.md](prerequisites.md) to install the required tools and pre-pull Docker images. This is especially important if you'll be working without internet access.
