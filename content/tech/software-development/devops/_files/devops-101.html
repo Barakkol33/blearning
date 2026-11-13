@@ -1,0 +1,1371 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Hi-tech, DevOps &amp; JFrog 101</title>
+<style>
+  :root {
+    --green: #40be46;
+    --green-dark: #2a9a31;
+    --green-soft: #e8f8e9;
+    --ink: #17191c;
+    --ink-2: #2b2f35;
+    --muted: #6a727d;
+    --line: #e3e7ea;
+    --paper: #ffffff;
+    --tint: #f5f7f6;
+    --warn: #e5533d;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { height: 100%; background: #0c0d0f; overflow: hidden; }
+  body { font-family: "Open Sans", "Segoe UI", system-ui, -apple-system, Arial, sans-serif; color: var(--ink); }
+
+  #stage {
+    position: absolute; top: 50%; left: 50%;
+    width: 1280px; height: 720px;
+    transform-origin: center center;
+    background: var(--paper);
+    overflow: hidden;
+    box-shadow: 0 20px 80px rgba(0,0,0,.6);
+  }
+  .slide {
+    position: absolute; inset: 0;
+    padding: 56px 80px 70px;
+    display: flex; flex-direction: column;
+    opacity: 0; visibility: hidden;
+    transform: translateX(24px);
+    transition: opacity .35s ease, transform .35s ease, visibility 0s .35s;
+    font-size: 22px; line-height: 1.45;
+  }
+  .slide.active { opacity: 1; visibility: visible; transform: none; transition: opacity .35s ease, transform .35s ease; }
+  .slide::before { content: ""; position: absolute; left: 0; top: 0; bottom: 0; width: 10px; background: var(--green); }
+
+  .kicker { font-size: 15px; font-weight: 700; letter-spacing: .16em; text-transform: uppercase; color: var(--green-dark); margin-bottom: 10px; }
+  h1 { font-size: 92px; line-height: 1; font-weight: 800; letter-spacing: -.03em; }
+  h2 { font-size: 44px; line-height: 1.12; font-weight: 800; letter-spacing: -.02em; margin-bottom: 14px; }
+  h3 { font-size: 23px; font-weight: 700; margin-bottom: 6px; }
+  .lead { font-size: 25px; color: var(--ink-2); max-width: 980px; }
+  .muted { color: var(--muted); }
+  b, strong { font-weight: 700; }
+  .g { color: var(--green-dark); }
+  .body { flex: 1; display: flex; flex-direction: column; justify-content: center; gap: 26px; }
+
+  /* dark slides */
+  .dark { background: var(--ink); color: #fff; }
+  .dark .kicker { color: var(--green); }
+  .dark .lead { color: #cfd5da; }
+  .dark .g { color: var(--green); }
+  .dark .muted { color: #98a1ab; }
+
+  .grid { display: grid; gap: 20px; }
+  .c2 { grid-template-columns: 1fr 1fr; }
+  .c3 { grid-template-columns: repeat(3, 1fr); }
+  .c4 { grid-template-columns: repeat(4, 1fr); }
+  .card { background: var(--tint); border: 1px solid var(--line); border-radius: 14px; padding: 22px 24px; font-size: 19px; }
+  .card .ico { font-size: 34px; line-height: 1; margin-bottom: 12px; }
+  .card p { color: var(--ink-2); }
+  .tight .card { padding: 14px 20px; font-size: 17px; }
+  .tight .card h3 { font-size: 21px; margin-bottom: 2px; }
+  .tight.sm .card { padding: 11px 16px; font-size: 16px; }
+  .tight.sm .card h3 { font-size: 19px; }
+  .card.green { background: var(--green-soft); border-color: #bfe8c2; }
+  .card.top { border-top: 5px solid var(--green); }
+  .dark .card { background: #23272c; border-color: #343a41; }
+  .dark .card p { color: #c6ccd2; }
+
+  .analogy { border-left: 5px solid var(--green); background: var(--green-soft); padding: 16px 22px; border-radius: 0 12px 12px 0; font-size: 20px; }
+  .analogy b { color: var(--green-dark); }
+  .dark .analogy { background: #1f2b21; }
+  .dark .analogy b { color: var(--green); }
+
+  .flow { display: flex; align-items: stretch; gap: 0; }
+  .step { flex: 1; background: var(--tint); border: 1px solid var(--line); border-radius: 12px; padding: 16px 14px; text-align: center; font-size: 17px; }
+  .step .ico { font-size: 30px; display: block; margin-bottom: 6px; }
+  .step b { display: block; font-size: 19px; }
+  .step span.s { color: var(--muted); font-size: 15px; }
+  .arrow { flex: 0 0 34px; display: flex; align-items: center; justify-content: center; color: var(--green); font-size: 26px; font-weight: 800; }
+  .step.hl { background: var(--green); border-color: var(--green); color: #fff; }
+  .step.hl span.s { color: #eafbeb; }
+
+  .tag { display: inline-block; background: var(--green); color: #fff; font-size: 13px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; padding: 4px 10px; border-radius: 999px; margin-bottom: 10px; }
+  .tag.out { background: transparent; color: var(--green-dark); border: 1.5px solid var(--green); }
+  .btn { display: inline-block; background: var(--green); color: #fff; font-weight: 700; text-decoration: none; padding: 12px 24px; border-radius: 999px; font-size: 20px; }
+  .btn:hover { background: var(--green-dark); }
+  .btn.ghost { background: transparent; border: 2px solid var(--green); color: var(--green); }
+  .chips { display: flex; flex-wrap: wrap; gap: 8px; }
+  .chip { background: #fff; border: 1px solid var(--line); border-radius: 999px; padding: 5px 14px; font-size: 16px; font-weight: 600; }
+
+  table { width: 100%; border-collapse: collapse; font-size: 19px; }
+  th { text-align: left; font-size: 14px; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); padding: 8px 14px; border-bottom: 2px solid var(--ink); }
+  td { padding: 11px 14px; border-bottom: 1px solid var(--line); vertical-align: top; }
+  td:first-child { font-weight: 700; white-space: nowrap; }
+
+  .wall { display: grid; grid-template-columns: 1fr 70px 1fr; align-items: stretch; gap: 0; }
+  .brick { background: repeating-linear-gradient(0deg, #c9502f 0 22px, #a8401f 22px 25px); border-radius: 6px; display: flex; align-items: center; justify-content: center; }
+  .brick span { writing-mode: vertical-rl; color: #fff; font-weight: 800; letter-spacing: .2em; font-size: 15px; }
+
+  .footer { position: absolute; left: 80px; right: 80px; bottom: 24px; display: flex; justify-content: space-between; font-size: 13px; color: var(--muted); letter-spacing: .06em; }
+  .dark .footer { color: #7d8690; }
+  #bar { position: absolute; left: 0; bottom: 0; height: 5px; background: var(--green); transition: width .3s ease; z-index: 5; }
+
+  .big { font-size: 76px; font-weight: 800; color: var(--green-dark); line-height: 1; letter-spacing: -.03em; }
+  .dark .big { color: var(--green); }
+  @keyframes hintout { to { opacity: 0; } }
+  .hint { animation: hintout .6s ease 4s forwards; position: fixed; bottom: 10px; left: 0; right: 0; text-align: center; color: #5c636b; font-size: 12px; letter-spacing: .05em; }
+
+  .slide svg { display: block; max-width: 100%; }
+  table.compact td { padding: 7px 14px; font-size: 17px; }
+  .notes { display: none; }
+
+  /* explanation drawer */
+  :root { --dw: 420px; }
+  body.ready #stage { transition: left .3s ease, transform .3s ease; }
+  #help { position: fixed; top: 16px; right: 16px; z-index: 30; width: 48px; height: 48px; border-radius: 50%; border: 0; background: var(--green); color: #fff; font-family: inherit; font-size: 26px; font-weight: 800; line-height: 1; cursor: pointer; box-shadow: 0 4px 18px rgba(0,0,0,.45); transition: right .3s ease, background .2s ease; }
+  #help:hover { background: var(--green-dark); }
+  body.open #help { right: calc(var(--dw) + 16px); background: var(--ink-2); }
+  #drawer { position: fixed; top: 0; right: 0; bottom: 0; width: var(--dw); max-width: 100vw; background: #fff; border-left: 6px solid var(--green); transform: translateX(105%); transition: transform .3s ease; z-index: 20; display: flex; flex-direction: column; }
+  body.open #drawer { transform: none; box-shadow: -10px 0 40px rgba(0,0,0,.35); }
+  #drawer header { padding: 22px 26px 4px; display: flex; justify-content: space-between; align-items: center; }
+  #drawer header .kicker { margin: 0; font-size: 13px; }
+  #d-close { border: 0; background: none; font-size: 28px; line-height: 1; color: var(--muted); cursor: pointer; padding: 0 4px; }
+  #d-title { padding: 4px 26px 16px; font-size: 26px; line-height: 1.2; font-weight: 800; letter-spacing: -.01em; border-bottom: 1px solid var(--line); }
+  #d-body { padding: 18px 26px 26px; overflow-y: auto; flex: 1; font-size: 16.5px; line-height: 1.6; color: var(--ink-2); }
+  #d-body h4 { font-size: 13px; letter-spacing: .14em; text-transform: uppercase; color: var(--green-dark); margin: 20px 0 6px; }
+  #d-body h4:first-child { margin-top: 0; }
+  #d-body p { margin-bottom: 10px; }
+  #d-body ul { padding-left: 20px; margin-bottom: 10px; }
+  #d-body li { margin-bottom: 5px; }
+  #drawer footer { padding: 12px 26px; border-top: 1px solid var(--line); display: flex; align-items: center; justify-content: space-between; font-size: 13px; color: var(--muted); }
+  #drawer footer button { border: 1px solid var(--line); background: var(--tint); border-radius: 8px; padding: 8px 14px; font-family: inherit; font-size: 14px; font-weight: 600; color: var(--ink); cursor: pointer; }
+  #drawer footer button:hover { border-color: var(--green); }
+  @media (max-width: 900px) { body.open #help, body.open #dl { display: none; } }
+  #dl { position: fixed; top: 76px; right: 16px; z-index: 30; width: 48px; height: 48px; border-radius: 50%; background: var(--ink-2); border: 2px solid #4a525b; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 18px rgba(0,0,0,.45); transition: right .3s ease, background .2s ease; }
+  #dl:hover { background: var(--green-dark); border-color: var(--green-dark); }
+  body.open #dl { right: calc(var(--dw) + 16px); }
+  .explain { display: none; }
+  .svgwrap { display: block; }
+
+  /* phone layout: slides become a scrolling page */
+  html.m, html.m body { height: auto; overflow: visible; overflow-x: hidden; }
+  html.m #stage { position: static; width: auto; height: auto; transform: none !important; background: transparent; box-shadow: none; overflow: visible; padding: 10px 10px 90px; }
+  html.m .slide { position: relative; inset: auto; display: block; opacity: 1; visibility: visible; transform: none; background: var(--paper); padding: 24px 18px 18px 24px; margin-bottom: 12px; border-radius: 12px; overflow: hidden; font-size: 17px; scroll-margin-top: 10px; }
+  html.m .slide.dark { background: var(--ink); }
+  html.m .slide::before { width: 6px; }
+  html.m h1 { font-size: 50px !important; }
+  html.m h2 { font-size: 27px; }
+  html.m h3 { font-size: 19px; }
+  html.m .lead { font-size: 18px !important; }
+  html.m .big { font-size: 52px !important; }
+  html.m .kicker { font-size: 12px; }
+  html.m .body { display: block; }
+  html.m .body > * + * { margin-top: 16px; }
+  html.m .grid, html.m .wall, html.m .body div[style*="grid-template-columns"] { grid-template-columns: 1fr !important; gap: 10px !important; }
+  html.m .body div[style*="grid-template-columns"] > * { grid-column: auto !important; }
+  html.m .card { padding: 14px 16px; font-size: 16px; border-radius: 12px !important; }
+  html.m .analogy { font-size: 16px !important; }
+  html.m .flow { flex-direction: column; }
+  html.m .arrow { flex: 0 0 26px; transform: rotate(90deg); }
+  html.m .brick { height: 40px; }
+  html.m .brick span { writing-mode: horizontal-tb; }
+  html.m table, html.m table.compact td { font-size: 15px; }
+  html.m td, html.m th { padding: 8px 8px; }
+  html.m td:first-child { white-space: normal; }
+  html.m .slide svg { height: auto; }
+  html.m .svgwrap { overflow-x: auto; -webkit-overflow-scrolling: touch; padding-bottom: 4px; }
+  html.m .svgwrap svg { width: var(--mw); min-width: var(--mw); max-width: none; }
+  html.m .footer { position: static; margin-top: 18px; font-size: 11px; }
+  html.m #bar, html.m .hint { display: none; }
+  html.m .explain { display: inline-flex; align-items: center; gap: 8px; margin-top: 16px; border: 1.5px solid var(--green); background: transparent; color: var(--green-dark); border-radius: 999px; padding: 8px 16px; font-family: inherit; font-size: 15px; font-weight: 700; cursor: pointer; }
+  html.m .dark .explain { color: var(--green); }
+  html.m #help, html.m #dl { top: auto; right: 14px; width: 46px; height: 46px; }
+  html.m #help { bottom: 14px; }
+  html.m #dl { bottom: 70px; }
+  html.m #drawer { width: 100vw; border-left: 0; border-top: 6px solid var(--green); }
+
+  @media print {
+    html, body { overflow: visible; background: #fff; height: auto; }
+    #stage { position: static; transform: none !important; box-shadow: none; height: auto; overflow: visible; }
+    .slide { position: relative; height: 720px; opacity: 1; visibility: visible; transform: none; page-break-after: always; }
+    #bar, .hint, #drawer, #help, #dl, .explain { display: none !important; }
+    @page { size: 1280px 720px; margin: 0; }
+  }
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
+  <marker id="ah" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#17191c"/></marker>
+  <marker id="ag" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#40be46"/></marker>
+  <marker id="ar" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#e5533d"/></marker>
+</defs></svg>
+<div id="stage">
+
+  <!--
+    This file holds TWO decks, back to back: PART 1 (generic hi-tech & DevOps) and PART 2 (JFrog).
+    To split it into two files later, with no content change:
+      hitech-devops-101.html = this file without PART 2
+      jfrog-101.html         = this file without PART 1
+    Then only change <title> in each. The links between the parts already point to those two file names.
+  -->
+
+  <!-- ==================== PART 1: HI-TECH & DEVOPS 101 (generic) ==================== -->
+  <section id="part-generic" class="slide dark">
+    <div class="body" style="gap:18px">
+      <div class="kicker">A friendly, jargon-free introduction</div>
+      <h1 style="font-size:80px">Hi-tech &amp; DevOps <span class="g">101</span></h1>
+      <p class="lead" style="margin-top:14px">The words, the people and the process behind every app —<br>explained without a single line of code.</p>
+      <p class="muted" style="font-size:18px;margin-top:26px">For anyone who works with tech people · no technical background needed</p>
+    </div>
+    <aside class="notes">
+<h4>How to use this deck</h4>
+<p>Each slide gives you the headline and a picture. This side panel gives you the fuller story in plain language, so you can read the deck on your own, at your own pace.</p>
+<ul><li><b>Arrow keys</b> or a click move between slides.</li><li><b>?</b> opens and closes this panel. It stays open as you move.</li><li><b>F</b> goes fullscreen.</li></ul>
+<h4>What to expect</h4>
+<p>No technical background is needed. We use one running comparison — a <b>restaurant</b> — because building software and running a kitchen have a lot in common: recipes, ingredients, suppliers, quality checks and delivery.</p>
+    </aside>
+  </section>
+
+  <section class="slide">
+    <div class="kicker">Where we're going</div>
+    <h2>Three short chapters</h2>
+    <div class="body">
+      <div class="grid c3">
+        <div class="card top"><div class="big">1</div><h3 style="margin-top:14px">Hi-tech vocabulary</h3><p>The everyday words of a tech company: cloud, backend, sprint, bug, funding round.</p></div>
+        <div class="card top"><div class="big">2</div><h3 style="margin-top:14px">What is DevOps?</h3><p>How modern companies build, deliver and run software — and why.</p></div>
+        <div class="card top"><div class="big">3</div><h3 style="margin-top:14px">Code, packages &amp; containers</h3><p>What developers produce, the building blocks they borrow, and how it all gets shipped.</p></div>
+      </div>
+      <div class="analogy" style="font-size:19px"><b>Tip:</b> press <b>?</b> on any slide to open a side panel with a fuller, readable explanation.</div>
+    </div>
+    <aside class="notes">
+<h4>The idea</h4>
+<p>The three chapters build on each other, like steps on a ladder.</p>
+<ul><li><b>Vocabulary</b> — the everyday words you hear in the corridor and read in job descriptions.</li><li><b>DevOps</b> — the way of working that almost every software company now follows.</li><li><b>Code, packages and containers</b> — what software is actually made of, and how it travels to the customer.</li></ul>
+<h4>Why it matters to you</h4>
+<p>You don't need to do any of this yourself. The goal is to recognise the words, understand roughly what a development team does all day, and follow a technical conversation without getting lost.</p>
+    </aside>
+  </section>
+
+  <section class="slide">
+    <div class="kicker">Chapter 1 · Hi-tech vocabulary</div>
+    <h2>Where software lives</h2>
+    <div class="body" style="gap:20px">
+      <svg viewBox="0 0 1120 220" width="1120" height="220" font-family="Segoe UI, Arial, sans-serif" aria-label="A client talks to a server and database in the cloud through an API">
+        <rect x="40" y="40" width="150" height="96" rx="8" fill="#fff" stroke="#17191c" stroke-width="4"/>
+        <rect x="56" y="56" width="118" height="12" rx="3" fill="#40be46"/>
+        <g fill="#c9d1d6"><rect x="56" y="78" width="70" height="8" rx="3"/><rect x="56" y="94" width="96" height="8" rx="3"/><rect x="56" y="110" width="50" height="8" rx="3"/></g>
+        <path d="M20 146H210" stroke="#17191c" stroke-width="6" stroke-linecap="round"/>
+        <rect x="228" y="60" width="52" height="92" rx="9" fill="#fff" stroke="#17191c" stroke-width="4"/>
+        <rect x="238" y="74" width="32" height="10" rx="3" fill="#40be46"/><rect x="238" y="92" width="32" height="6" rx="3" fill="#c9d1d6"/><rect x="238" y="104" width="20" height="6" rx="3" fill="#c9d1d6"/><circle cx="254" cy="139" r="4" fill="#17191c"/>
+        <text x="150" y="182" text-anchor="middle" font-size="19" font-weight="800" fill="#17191c">Client</text>
+        <text x="150" y="204" text-anchor="middle" font-size="15" fill="#6a727d">the FRONTEND — what users see</text>
+        <path d="M310 84H500" stroke="#17191c" stroke-width="3" marker-end="url(#ah)"/>
+        <path d="M500 124H310" stroke="#17191c" stroke-width="3" marker-end="url(#ah)"/>
+        <text x="405" y="70" text-anchor="middle" font-size="15" fill="#6a727d">request: "show my orders"</text>
+        <text x="405" y="150" text-anchor="middle" font-size="15" fill="#6a727d">response: the data</text>
+        <rect x="375" y="90" width="60" height="28" rx="14" fill="#40be46"/><text x="405" y="110" text-anchor="middle" font-size="15" font-weight="800" fill="#fff">API</text>
+        <rect x="520" y="10" width="590" height="204" rx="40" fill="#e8f8e9" stroke="#40be46" stroke-width="3" stroke-dasharray="10 8"/>
+        <text x="815" y="40" text-anchor="middle" font-size="15" font-weight="800" fill="#2a9a31" letter-spacing="1.5">☁ THE CLOUD — RENTED COMPUTERS (AWS · AZURE · GOOGLE)</text>
+        <rect x="590" y="58" width="150" height="100" rx="8" fill="#17191c"/>
+        <g fill="#3a4047"><rect x="602" y="70" width="126" height="20" rx="4"/><rect x="602" y="98" width="126" height="20" rx="4"/><rect x="602" y="126" width="126" height="20" rx="4"/></g>
+        <g fill="#40be46"><circle cx="716" cy="80" r="4"/><circle cx="716" cy="108" r="4"/><circle cx="716" cy="136" r="4"/></g>
+        <text x="665" y="181" text-anchor="middle" font-size="19" font-weight="800" fill="#17191c">Server</text>
+        <text x="665" y="201" text-anchor="middle" font-size="14" fill="#6a727d">the BACKEND — the logic</text>
+        <path d="M752 108H888" stroke="#17191c" stroke-width="3" marker-start="url(#ah)" marker-end="url(#ah)"/>
+        <text x="820" y="96" text-anchor="middle" font-size="14" fill="#6a727d">reads &amp; saves</text>
+        <path d="M900 76V140C900 151 927 160 960 160S1020 151 1020 140V76" fill="#fff" stroke="#17191c" stroke-width="4"/>
+        <ellipse cx="960" cy="76" rx="60" ry="18" fill="#fff" stroke="#17191c" stroke-width="4"/>
+        <path d="M900 108C900 119 927 128 960 128S1020 119 1020 108" fill="none" stroke="#17191c" stroke-width="3"/>
+        <text x="960" y="181" text-anchor="middle" font-size="19" font-weight="800" fill="#17191c">Database</text>
+        <text x="960" y="201" text-anchor="middle" font-size="14" fill="#6a727d">where the data is kept</text>
+      </svg>
+      <div class="grid c3 tight" style="gap:12px">
+        <div class="card"><h3>Frontend</h3><p>The part you see and click: screens, buttons, the app on your phone.</p></div>
+        <div class="card"><h3>Backend</h3><p>The part you don't see: logic and data, running on servers.</p></div>
+        <div class="card"><h3>API</h3><p>The agreed "menu" one program uses to ask another for something.</p></div>
+        <div class="card"><h3>Database</h3><p>Organised storage for all the data: users, orders, messages.</p></div>
+        <div class="card"><h3>Cloud</h3><p>Renting computers over the internet instead of buying your own.</p></div>
+        <div class="card"><h3>SaaS</h3><p>Software you subscribe to and use online — nothing to install.</p></div>
+      </div>
+    </div>
+  <aside class="notes">
+<h4>The idea</h4>
+<p>Almost every app is split in two. The part on your phone or in your browser is the <b>client</b>, built by <b>frontend</b> developers. It is mostly a window: when you tap "my orders", it sends a request over the internet to a <b>server</b>.</p>
+<p>The server runs the <b>backend</b> — the real logic. It checks who you are, fetches your orders from the <b>database</b>, and sends the answer back.</p>
+<h4>API</h4>
+<p>The request and the answer follow agreed rules called an <b>API</b>. Think of a restaurant menu: you can only order what is on it, in the way it is written, and the kitchen knows exactly what to bring.</p>
+<h4>Cloud and SaaS</h4>
+<p>Companies rarely own these servers any more. They rent them from Amazon (AWS), Microsoft (Azure) or Google — that is "the <b>cloud</b>". Software delivered this way, by subscription, is called <b>SaaS</b> (Software as a Service). The opposite is software installed on the customer's own servers, called "self-hosted" or "on-prem".</p>
+    </aside>
+  </section>
+
+  <section class="slide">
+    <div class="kicker">Chapter 1 · Hi-tech vocabulary</div>
+    <h2>How a tech team works</h2>
+    <div class="body" style="gap:18px">
+      <svg viewBox="0 0 1120 200" width="1120" height="200" font-family="Segoe UI, Arial, sans-serif" aria-label="Backlog feeding two-week sprints, each ending in a release">
+        <g fill="#f5f7f6" stroke="#c9d1d6" stroke-width="2"><rect x="20" y="30" width="150" height="26" rx="6"/><rect x="20" y="62" width="150" height="26" rx="6"/><rect x="20" y="94" width="150" height="26" rx="6"/></g>
+        <g fill="none" stroke="#40be46" stroke-width="2.5"><rect x="30" y="37" width="12" height="12" rx="3"/><rect x="30" y="69" width="12" height="12" rx="3"/><rect x="30" y="101" width="12" height="12" rx="3"/></g>
+        <g fill="#c9d1d6"><rect x="52" y="39" width="100" height="8" rx="3"/><rect x="52" y="71" width="80" height="8" rx="3"/><rect x="52" y="103" width="92" height="8" rx="3"/></g>
+        <text x="95" y="144" text-anchor="middle" font-size="18" font-weight="800" fill="#17191c">Backlog</text>
+        <text x="95" y="164" text-anchor="middle" font-size="14" fill="#6a727d">the to-do list</text>
+        <path d="M182 75H236" stroke="#17191c" stroke-width="3" marker-end="url(#ah)"/>
+        <g fill="#e8f8e9" stroke="#40be46" stroke-width="2.5"><rect x="245" y="40" width="200" height="70" rx="10"/><rect x="535" y="40" width="200" height="70" rx="10"/><rect x="825" y="40" width="200" height="70" rx="10"/></g>
+        <g font-size="19" font-weight="800" fill="#17191c" text-anchor="middle"><text x="345" y="72">Sprint 1</text><text x="635" y="72">Sprint 2</text><text x="925" y="72">Sprint 3</text></g>
+        <g font-size="14" fill="#6a727d" text-anchor="middle"><text x="345" y="94">2 weeks of work</text><text x="635" y="94">2 weeks of work</text><text x="925" y="94">2 weeks of work</text></g>
+        <g fill="#17191c">
+          <circle cx="255" cy="126" r="4"/><circle cx="275" cy="126" r="4"/><circle cx="295" cy="126" r="4"/><circle cx="315" cy="126" r="4"/><circle cx="335" cy="126" r="4"/><circle cx="355" cy="126" r="4"/><circle cx="375" cy="126" r="4"/><circle cx="395" cy="126" r="4"/><circle cx="415" cy="126" r="4"/><circle cx="435" cy="126" r="4"/>
+        </g>
+        <text x="345" y="150" text-anchor="middle" font-size="14" fill="#6a727d">each dot = a daily stand-up</text>
+        <g stroke="#17191c" stroke-width="3"><path d="M445 75H462"/><path d="M518 75H529" marker-end="url(#ah)"/><path d="M735 75H752"/><path d="M808 75H819" marker-end="url(#ah)"/><path d="M1025 75H1042"/></g>
+        <g fill="#17191c"><circle cx="490" cy="75" r="27"/><circle cx="780" cy="75" r="27"/><circle cx="1070" cy="75" r="27"/></g>
+        <g font-size="15" font-weight="800" fill="#fff" text-anchor="middle"><text x="490" y="80">v1.0</text><text x="780" y="80">v1.1</text><text x="1070" y="80">v1.2</text></g>
+        <g font-size="14" fill="#6a727d" text-anchor="middle"><text x="490" y="124">release</text><text x="780" y="124">release</text><text x="1070" y="124">release</text></g>
+        <path d="M245 188H1096" stroke="#40be46" stroke-width="3" marker-end="url(#ag)"/>
+        <text x="670" y="179" text-anchor="middle" font-size="14" font-weight="700" fill="#2a9a31" letter-spacing="1">ROADMAP — WHERE THE PRODUCT IS HEADING OVER THE COMING MONTHS</text>
+      </svg>
+      <div class="grid c4 tight" style="gap:12px">
+        <div class="card"><h3>R&amp;D</h3><p>Research &amp; Development: the engineering organisation that builds the product.</p></div>
+        <div class="card"><h3>Product Manager</h3><p>Decides what to build and why. The voice of the customer.</p></div>
+        <div class="card"><h3>Agile</h3><p>Working in small steps and adjusting often, not one big plan.</p></div>
+        <div class="card"><h3>Sprint</h3><p>A short, fixed work cycle (often two weeks) with a clear goal.</p></div>
+        <div class="card"><h3>Backlog</h3><p>The prioritised list of everything waiting to be built.</p></div>
+        <div class="card"><h3>Stand-up (daily)</h3><p>A 15-minute sync: what I did, what's next, what's blocking me.</p></div>
+        <div class="card"><h3>QA</h3><p>Quality Assurance: testing before customers see it.</p></div>
+        <div class="card"><h3>Roadmap</h3><p>The high-level plan for the coming quarters.</p></div>
+      </div>
+    </div>
+  <aside class="notes">
+<h4>The idea</h4>
+<p>Software teams don't plan a year ahead in detail. They work <b>Agile</b>: build a little, show it, learn, adjust.</p>
+<p>The work waits in a prioritised list called the <b>backlog</b>. Every couple of weeks the team pulls the top items into a <b>sprint</b> and commits to finishing them. Each morning there is a short <b>stand-up</b> meeting to stay in sync. At the end, something working is <b>released</b>.</p>
+<h4>Who is involved</h4>
+<ul><li><b>R&amp;D</b> — the engineers who build the product.</li><li><b>Product Manager (PM)</b> — decides what should be built and in what order.</li><li><b>QA</b> — tests that it really works.</li><li><b>Team Lead / Engineering Manager</b> — manages the engineers.</li></ul>
+<h4>Why it matters to you</h4>
+<p>When a manager says "we can't interview this week, it's the end of the sprint", this is what they mean. It also explains why teams want hires to start at the beginning of a cycle.</p>
+    </aside>
+  </section>
+
+  <section class="slide">
+    <div class="kicker">Chapter 1 · Hi-tech vocabulary</div>
+    <h2>Programming words you'll hear daily</h2>
+    <div class="body" style="gap:20px">
+      <svg viewBox="0 0 1120 185" width="1120" height="185" font-family="Segoe UI, Arial, sans-serif" aria-label="Three environments and the parts of a version number">
+        <g fill="#f5f7f6" stroke="#c9d1d6" stroke-width="2"><rect x="20" y="30" width="170" height="90" rx="12"/><rect x="250" y="30" width="170" height="90" rx="12"/></g>
+        <rect x="480" y="30" width="170" height="90" rx="12" fill="#40be46"/>
+        <g font-size="21" font-weight="800" text-anchor="middle"><text x="105" y="70" fill="#17191c">Dev</text><text x="335" y="70" fill="#17191c">Staging</text><text x="565" y="70" fill="#fff">Production</text></g>
+        <g font-size="14" text-anchor="middle"><text x="105" y="96" fill="#6a727d">work in progress</text><text x="335" y="96" fill="#6a727d">dress rehearsal</text><text x="565" y="96" fill="#fff">live — real customers</text></g>
+        <g stroke="#17191c" stroke-width="3"><path d="M194 75H242" marker-end="url(#ah)"/><path d="M424 75H472" marker-end="url(#ah)"/></g>
+        <g font-size="13" fill="#6a727d" text-anchor="middle"><text x="218" y="64">deploy</text><text x="448" y="64">deploy</text></g>
+        <text x="335" y="158" text-anchor="middle" font-size="14" font-weight="700" fill="#2a9a31" letter-spacing="1">ENVIRONMENTS — THE SAME SOFTWARE, AT THREE LEVELS OF "REAL"</text>
+        <path d="M705 20V170" stroke="#e3e7ea" stroke-width="2"/>
+        <g font-size="74" font-weight="800" fill="#17191c" text-anchor="middle"><text x="800" y="92">2</text><text x="850" y="92">.</text><text x="905" y="92">4</text><text x="955" y="92">.</text><text x="1010" y="92">1</text></g>
+        <text x="745" y="92" text-anchor="middle" font-size="40" font-weight="800" fill="#9aa3ad">v</text>
+        <g stroke="#40be46" stroke-width="4" stroke-linecap="round"><path d="M775 104H825"/><path d="M880 104H930"/><path d="M985 104H1035"/></g>
+        <g font-size="15" font-weight="800" fill="#17191c" text-anchor="middle"><text x="800" y="126">major</text><text x="905" y="126">minor</text><text x="1010" y="126">patch</text></g>
+        <g font-size="13" fill="#6a727d" text-anchor="middle"><text x="800" y="144">big change</text><text x="905" y="144">new feature</text><text x="1010" y="144">bug fix</text></g>
+        <text x="905" y="174" text-anchor="middle" font-size="14" font-weight="700" fill="#2a9a31" letter-spacing="1">A VERSION — THE NAME OF ONE RELEASE</text>
+      </svg>
+      <div class="grid c3 tight" style="gap:12px">
+        <div class="card"><h3>Programming language</h3><p>How developers write instructions: Java, Python, JavaScript, Go, C++.</p></div>
+        <div class="card"><h3>Library / framework</h3><p>Ready-made code that developers build on instead of starting from zero.</p></div>
+        <div class="card"><h3>Bug</h3><p>A mistake in the code that makes software misbehave. Fixing it is "debugging".</p></div>
+        <div class="card"><h3>Feature</h3><p>One capability of the product: "export to PDF", "dark mode".</p></div>
+        <div class="card"><h3>Deploy</h3><p>Putting a new version onto servers so it can actually be used.</p></div>
+        <div class="card"><h3>Full-stack</h3><p>A developer who works on both the frontend and the backend.</p></div>
+      </div>
+    </div>
+  <aside class="notes">
+<h4>Environments</h4>
+<p>The same software exists in several copies. Developers work in <b>dev</b>, where breaking things is fine. <b>Staging</b> is a realistic rehearsal. <b>Production</b> ("prod") is the real thing customers use — when someone says "production is down", it is an emergency. Moving a version from one to the next is called <b>deploying</b>.</p>
+<h4>Versions</h4>
+<p>Every release gets a number such as 2.4.1. The first number changes for big changes, the middle one for new features, the last for small fixes.</p>
+<h4>Languages</h4>
+<p>A <b>programming language</b> is simply the language code is written in. Different jobs favour different ones: JavaScript for web screens, Java and Go for backends, Python for data and AI. In a CV, languages and <b>frameworks</b> (ready-made foundations such as React or Spring) are the main "skills" keywords.</p>
+<h4>Bug or feature?</h4>
+<p>A <b>feature</b> is something the product is meant to do. A <b>bug</b> is when it does something it shouldn't.</p>
+    </aside>
+  </section>
+
+  <section class="slide">
+    <div class="kicker">Chapter 1 · Hi-tech vocabulary</div>
+    <h2>Technology names, and what they're for</h2>
+    <div class="body" style="gap:16px">
+      <svg viewBox="0 0 1120 116" width="1120" height="116" font-family="Segoe UI, Arial, sans-serif" aria-label="Which technologies are used where">
+        <rect x="0" y="34" width="212" height="78" rx="10" fill="#f5f7f6" stroke="#c9d1d6" stroke-width="2"/>
+        <rect x="0" y="2" width="212" height="36" rx="10" fill="#17191c"/>
+        <text x="106" y="26" text-anchor="middle" font-size="13" font-weight="800" fill="#fff" letter-spacing="1.5">WEB SCREENS</text>
+        <text x="106" y="68" text-anchor="middle" font-size="16" font-weight="700" fill="#17191c">JavaScript · TypeScript</text>
+        <text x="106" y="94" text-anchor="middle" font-size="15" fill="#6a727d">React · Angular</text>
+        <rect x="227" y="34" width="212" height="78" rx="10" fill="#f5f7f6" stroke="#c9d1d6" stroke-width="2"/>
+        <rect x="227" y="2" width="212" height="36" rx="10" fill="#17191c"/>
+        <text x="333" y="26" text-anchor="middle" font-size="13" font-weight="800" fill="#fff" letter-spacing="1.5">SERVERS (BACKEND)</text>
+        <text x="333" y="68" text-anchor="middle" font-size="16" font-weight="700" fill="#17191c">Java · Python · Go</text>
+        <text x="333" y="94" text-anchor="middle" font-size="15" fill="#6a727d">Node.js · C#</text>
+        <rect x="454" y="34" width="212" height="78" rx="10" fill="#f5f7f6" stroke="#c9d1d6" stroke-width="2"/>
+        <rect x="454" y="2" width="212" height="36" rx="10" fill="#17191c"/>
+        <text x="560" y="26" text-anchor="middle" font-size="13" font-weight="800" fill="#fff" letter-spacing="1.5">DEVICES &amp; SPEED</text>
+        <text x="560" y="68" text-anchor="middle" font-size="16" font-weight="700" fill="#17191c">C · C++ · Rust</text>
+        <text x="560" y="94" text-anchor="middle" font-size="15" fill="#6a727d">cars, phones, games</text>
+        <rect x="681" y="34" width="212" height="78" rx="10" fill="#f5f7f6" stroke="#c9d1d6" stroke-width="2"/>
+        <rect x="681" y="2" width="212" height="36" rx="10" fill="#17191c"/>
+        <text x="787" y="26" text-anchor="middle" font-size="13" font-weight="800" fill="#fff" letter-spacing="1.5">DATA &amp; AI</text>
+        <text x="787" y="68" text-anchor="middle" font-size="16" font-weight="700" fill="#17191c">Python · SQL</text>
+        <text x="787" y="94" text-anchor="middle" font-size="15" fill="#6a727d">analysis, models</text>
+        <rect x="908" y="34" width="212" height="78" rx="10" fill="#f5f7f6" stroke="#c9d1d6" stroke-width="2"/>
+        <rect x="908" y="2" width="212" height="36" rx="10" fill="#40be46"/>
+        <text x="1014" y="26" text-anchor="middle" font-size="13" font-weight="800" fill="#fff" letter-spacing="1.5">CLOUD &amp; DEVOPS</text>
+        <text x="1014" y="68" text-anchor="middle" font-size="16" font-weight="700" fill="#17191c">Go · Python · Bash</text>
+        <text x="1014" y="94" text-anchor="middle" font-size="15" fill="#6a727d">Docker · Kubernetes</text>
+        </svg>
+      <div class="grid c4 tight sm" style="gap:10px">
+        <div class="card"><h3>Python</h3><p>Easy to read. Data, AI and automation scripts.</p></div>
+        <div class="card"><h3>JavaScript · TypeScript</h3><p>The language of web pages. TS is its stricter form.</p></div>
+        <div class="card"><h3>Node.js</h3><p>Runs JavaScript on servers, not only in browsers.</p></div>
+        <div class="card"><h3>Java</h3><p>Large, long-lived business backends. Android too.</p></div>
+        <div class="card"><h3>Go</h3><p>Simple and fast. Cloud and DevOps tools.</p></div>
+        <div class="card"><h3>C / C++</h3><p>Close to the hardware: devices, games, engines.</p></div>
+        <div class="card"><h3>C# · .NET</h3><p>Microsoft's platform for business software.</p></div>
+        <div class="card"><h3>Rust</h3><p>A newer, safer alternative to C++.</p></div>
+        <div class="card"><h3>Maven · Gradle</h3><p>Build and package tools for Java.</p></div>
+        <div class="card"><h3>npm · pip</h3><p>Package managers for JavaScript and Python.</p></div>
+        <div class="card"><h3>React · Angular</h3><p>Libraries for building web screens.</p></div>
+        <div class="card"><h3>SQL</h3><p>The language for asking a database questions.</p></div>
+      </div>
+    </div>
+    <aside class="notes">
+<h4>The idea</h4>
+<p>There are many programming languages for the same reason there are many tools in a toolbox: each is good at something. The drawing groups the common names by where they are used; the cards say what each one is mainly for.</p>
+<h4>The languages</h4>
+<ul><li><b>Python</b> — reads almost like English. The default for data analysis, AI and small automation scripts.</li><li><b>JavaScript</b> — the only language browsers run, so every website uses it. <b>TypeScript</b> is JavaScript with extra safety checks.</li><li><b>Node.js</b> — not a language: it lets JavaScript run on a server, so one team can write both frontend and backend in the same language.</li><li><b>Java</b> — the workhorse of banks, insurers and large enterprises. Systems written in it live for decades.</li><li><b>Go</b> — created at Google for cloud software. Docker and Kubernetes are written in it, so DevOps people love it.</li><li><b>C and C++</b> — old, fast and close to the machine. Used where speed or hardware matter: operating systems, cars, chips, game engines.</li></ul>
+<h4>Not languages: the tools around them</h4>
+<p>Every language has a <b>package manager</b> that downloads the outside code a project needs, and often a <b>build tool</b>. <b>Maven</b> does both for Java (Gradle is its rival). <b>npm</b> is the one for JavaScript, <b>pip</b> for Python. These names come back in the chapter on packages.</p>
+<h4>Reading a CV</h4>
+<ul><li>A language is not a seniority level; "5 years of Java" says more than "Java".</li><li>A good developer learns a new language in weeks. Learning its whole world — frameworks, tools, habits — takes longer, which is why teams ask for specific experience.</li><li>Group what you see by the columns in the drawing: it tells you what kind of developer this is.</li></ul>
+    </aside>
+  </section>
+
+  <section class="slide">
+    <div class="kicker">Chapter 1 · Hi-tech vocabulary</div>
+    <h2>The business side of hi-tech</h2>
+    <div class="body" style="gap:18px">
+      <svg viewBox="0 0 1120 205" width="1120" height="205" font-family="Segoe UI, Arial, sans-serif" aria-label="A startup grows through funding rounds to an IPO or exit">
+        <g fill="#e3e7ea"><rect x="40" y="130" width="180" height="40" rx="8"/><rect x="255" y="105" width="180" height="65" rx="8"/></g>
+        <g fill="#bfe8c2"><rect x="470" y="80" width="180" height="90" rx="8"/><rect x="685" y="52" width="180" height="118" rx="8"/></g>
+        <rect x="900" y="22" width="180" height="148" rx="8" fill="#40be46"/>
+        <g font-size="17" font-weight="800" text-anchor="middle" fill="#17191c"><text x="130" y="156">Pre-seed</text><text x="345" y="144">Seed</text><text x="560" y="131">Round A</text><text x="775" y="117">Rounds B, C…</text></g>
+        <text x="990" y="102" text-anchor="middle" font-size="18" font-weight="800" fill="#fff">IPO or Exit</text>
+        <path d="M30 174H1096" stroke="#17191c" stroke-width="3" marker-end="url(#ah)"/>
+        <g font-size="13" fill="#6a727d" text-anchor="middle"><text x="130" y="194">an idea and a few founders</text><text x="345" y="194">first product, first customers</text><text x="560" y="194">it works — now grow</text><text x="775" y="194">scale: hundreds of people</text><text x="990" y="194">goes public, or is acquired</text></g>
+      </svg>
+      <div class="grid c4 tight" style="gap:12px">
+        <div class="card"><h3>Startup</h3><p>A young company searching for a product that can grow fast.</p></div>
+        <div class="card"><h3>Funding round</h3><p>Investors (VCs) put in money in return for shares: Seed, A, B, C…</p></div>
+        <div class="card"><h3>Unicorn</h3><p>A private startup valued at more than one billion dollars.</p></div>
+        <div class="card"><h3>IPO / Exit</h3><p>Going public on the stock market, or being bought by another company.</p></div>
+        <div class="card"><h3>B2B / B2C</h3><p>Selling to businesses, or selling directly to consumers.</p></div>
+        <div class="card"><h3>ARR</h3><p>Annual Recurring Revenue: yearly subscription income.</p></div>
+        <div class="card"><h3>Equity / options</h3><p>A share in the company given to employees, earned ("vested") over time.</p></div>
+        <div class="card"><h3>Headcount</h3><p>The number of approved positions a team is allowed to fill.</p></div>
+      </div>
+    </div>
+    <aside class="notes">
+<h4>The idea</h4>
+<p>A <b>startup</b> is not just a small company — it is a company built to grow quickly, usually on investors' money rather than profits.</p>
+<p>The drawing shows the usual path. Each step up is a <b>funding round</b>: venture capital funds (<b>VCs</b>) invest, and in return get a share of the company. The rounds have names — Seed, A, B, C — and each one is larger. The path ends in an <b>IPO</b> (shares sold on the stock market) or an <b>exit</b> by acquisition.</p>
+<h4>How the company earns</h4>
+<p><b>B2B</b> companies sell to other businesses; <b>B2C</b> sell to the public. Most B2B software is sold by subscription, so the number everyone watches is <b>ARR</b> — the subscription income for a year. <b>Churn</b> is the share of customers who leave.</p>
+<h4>Why it matters to you</h4>
+<p>Compensation in hi-tech usually includes <b>equity</b>: options or shares (RSUs) that <b>vest</b> over about four years. Hiring follows the funding cycle — a new round usually opens new <b>headcount</b>; a tight market freezes it.</p>
+    </aside>
+  </section>
+
+  <section class="slide">
+    <div class="kicker">Chapter 2 · What is DevOps?</div>
+    <h2>Every app you use travels this road</h2>
+    <p class="lead">From an idea in someone's head to the app on your phone.</p>
+    <div class="body">
+      <div class="flow">
+        <div class="step"><span class="ico">💡</span><b>Plan</b><span class="s">decide what to make</span></div><div class="arrow">›</div>
+        <div class="step"><span class="ico">⌨️</span><b>Code</b><span class="s">developers write it</span></div><div class="arrow">›</div>
+        <div class="step"><span class="ico">🏗️</span><b>Build</b><span class="s">turn text into a working program</span></div><div class="arrow">›</div>
+        <div class="step"><span class="ico">🧪</span><b>Test</b><span class="s">check it works and is safe</span></div><div class="arrow">›</div>
+        <div class="step"><span class="ico">🚀</span><b>Release</b><span class="s">deliver it to users</span></div><div class="arrow">›</div>
+        <div class="step"><span class="ico">📈</span><b>Run</b><span class="s">keep it alive, watch, improve</span></div>
+      </div>
+      <div class="analogy"><b>Think of a restaurant.</b> Someone designs the menu, cooks prepare the dish, it gets tasted, a waiter brings it to the table, and the manager watches whether guests are happy. Software works the same way — thousands of times a day.</div>
+    </div>
+  <aside class="notes">
+<h4>The idea</h4>
+<p>Whatever the product — a banking app, a game, the software in a car — it travels the same six steps: someone <b>plans</b> it, developers <b>code</b> it, the code is <b>built</b> into something that can run, it is <b>tested</b>, <b>released</b> to users, and then <b>run</b> and watched.</p>
+<p>Then the loop starts again, because users always want something new and something is always broken.</p>
+<h4>The restaurant</h4>
+<p>Menu design, cooking, tasting, serving, and watching the dining room. A good restaurant does this smoothly hundreds of times a night. A good software company does it thousands of times a day.</p>
+<h4>Why it matters</h4>
+<p>Everything else in this deck — DevOps, packages, containers — is about making this road faster and safer.</p>
+    </aside>
+  </section>
+
+  <section class="slide">
+    <div class="kicker">Chapter 2 · What is DevOps?</div>
+    <h2>The old way: two teams and a wall</h2>
+    <div class="body">
+      <div class="wall">
+        <div class="card" style="border-radius:14px 0 0 14px">
+          <span class="tag out">Dev · Developers</span>
+          <h3>"Ship new features, fast."</h3>
+          <p>Wrote the code, then handed it over and moved on to the next thing.</p>
+        </div>
+        <div class="brick"><span>THE WALL</span></div>
+        <div class="card" style="border-radius:0 14px 14px 0">
+          <span class="tag out">Ops · Operations</span>
+          <h3>"Keep everything stable."</h3>
+          <p>Ran the software for customers. Every change was a risk to avoid.</p>
+        </div>
+      </div>
+      <div class="grid c3">
+        <div class="card"><h3>🐢 Slow</h3><p>A new version once or twice a year.</p></div>
+        <div class="card"><h3>💥 Risky</h3><p>Huge releases — when they broke, they broke big.</p></div>
+        <div class="card"><h3>👉 Blame</h3><p>"It worked on my machine" vs. "your code broke production."</p></div>
+      </div>
+    </div>
+  <aside class="notes">
+<h4>The idea</h4>
+<p>Until roughly 15 years ago, most companies had two separate groups with opposite goals.</p>
+<p><b>Developers</b> were rewarded for delivering new things. <b>Operations</b> were rewarded for keeping systems stable — and every new thing is a threat to stability. Developers finished their code and "threw it over the wall".</p>
+<h4>What went wrong</h4>
+<ul><li>Releases were rare and huge, so each one was frightening.</li><li>When something failed, each side blamed the other.</li><li>Customers waited months for small improvements.</li></ul>
+<p>"It works on my machine" became the industry's running joke: the code ran on the developer's laptop but not in production.</p>
+    </aside>
+  </section>
+
+  <section class="slide">
+    <div class="kicker">Chapter 2 · What is DevOps?</div>
+    <h2><span class="g">Dev</span>elopment + <span class="g">Op</span>eration<span class="g">s</span>, working as one</h2>
+    <div class="body" style="gap:20px">
+      <div style="display:grid;grid-template-columns:470px 1fr;gap:36px;align-items:center">
+        <svg viewBox="-50 0 740 330" width="470" aria-label="The DevOps loop">
+          <path d="M320 165 C230 40 60 50 60 165 C60 280 230 290 320 165 C410 40 580 50 580 165 C580 280 410 290 320 165 Z" fill="none" stroke="#40be46" stroke-width="30" stroke-linejoin="round"/>
+          <g font-family="Segoe UI, Arial, sans-serif" font-weight="700" font-size="19" fill="#17191c" text-anchor="middle">
+            <text x="190" y="38">Code</text><text x="-8" y="171">Plan</text>
+            <text x="190" y="312">Build</text><text x="268" y="172" font-size="17">Test</text>
+            <text x="450" y="38">Release</text><text x="372" y="172" font-size="17" dx="8">Deploy</text>
+            <text x="450" y="312">Operate</text><text x="648" y="171">Monitor</text>
+          </g>
+          <g font-family="Segoe UI, Arial, sans-serif" font-weight="800" font-size="30" text-anchor="middle" fill="#2a9a31">
+            <text x="165" y="176">DEV</text><text x="478" y="176">OPS</text>
+          </g>
+        </svg>
+        <div>
+          <p class="lead" style="font-size:23px">Not a tool and not really a job title — it's a <b>way of working</b>: one team owns the software from idea to customer, in a loop that never stops.</p>
+        </div>
+      </div>
+      <div class="grid c3">
+        <div class="card green"><h3>🤝 Culture</h3><p>Shared responsibility: "you build it, you run it."</p></div>
+        <div class="card green"><h3>🤖 Automation</h3><p>Machines do the repetitive building, testing and shipping.</p></div>
+        <div class="card green"><h3>⚡ Small &amp; often</h3><p>Many tiny updates a day instead of one giant yearly release.</p></div>
+      </div>
+    </div>
+  <aside class="notes">
+<h4>The idea</h4>
+<p><b>DevOps</b> removes the wall. One team is responsible for the software all the way from idea to customer — "you build it, you run it". The drawing is the famous infinity loop: the work never ends, it circles.</p>
+<h4>Three ingredients</h4>
+<ul><li><b>Culture</b> — shared goals and shared responsibility.</li><li><b>Automation</b> — the boring, error-prone steps (building, testing, shipping) are done by machines, the same way every time.</li><li><b>Small and often</b> — tiny changes many times a day. A small change is easy to check and easy to undo.</li></ul>
+<h4>Common confusion</h4>
+<p>DevOps is a way of working, but you will also see "DevOps Engineer" as a job title. That person builds and maintains the automation the rest of the team relies on.</p>
+    </aside>
+  </section>
+
+  <section class="slide">
+    <div class="kicker">Chapter 2 · What is DevOps?</div>
+    <h2>Keeping it running</h2>
+    <div class="body" style="gap:18px">
+      <svg viewBox="0 0 1120 210" width="1120" height="210" font-family="Segoe UI, Arial, sans-serif" aria-label="A monitoring graph with an incident, an alert and a recovery">
+        <rect x="470" y="20" width="170" height="160" fill="#fdecea"/>
+        <path d="M40 20V180H1090" fill="none" stroke="#17191c" stroke-width="3"/>
+        <path d="M40 100H1090" stroke="#e5533d" stroke-width="2" stroke-dasharray="8 6"/>
+        <text x="1088" y="92" text-anchor="end" font-size="13" font-weight="700" fill="#e5533d">alert threshold</text>
+        <path d="M40 150L110 144L180 151L250 142L320 149L390 143L460 146L500 70L545 38L590 56L640 138L710 148L780 143L850 150L920 144L990 149L1080 145" fill="none" stroke="#40be46" stroke-width="5" stroke-linejoin="round" stroke-linecap="round"/>
+        <path d="M500 70L545 38L590 56L640 138" fill="none" stroke="#e5533d" stroke-width="5" stroke-linejoin="round" stroke-linecap="round"/>
+        <circle cx="492" cy="86" r="7" fill="#e5533d"/>
+        <text x="20" y="104" font-size="13" fill="#6a727d" transform="rotate(-90 20 104)" text-anchor="middle">errors</text>
+        <text x="250" y="126" text-anchor="middle" font-size="14" fill="#6a727d">monitoring: the numbers are watched all the time</text>
+        <text x="460" y="42" text-anchor="end" font-size="14" font-weight="700" fill="#17191c">🔔 alert — the on-call engineer is paged</text>
+        <text x="555" y="198" text-anchor="middle" font-size="14" font-weight="800" fill="#e5533d">INCIDENT</text>
+        <text x="660" y="100" font-size="14" font-weight="700" fill="#17191c" dy="-14">fix or rollback</text>
+        <text x="860" y="126" text-anchor="middle" font-size="14" fill="#6a727d">back to normal — then a post-mortem</text>
+      </svg>
+      <div class="grid c3 tight" style="gap:12px">
+        <div class="card"><h3>Monitoring</h3><p>Dashboards and logs that show how the system is behaving right now.</p></div>
+        <div class="card"><h3>Alert</h3><p>An automatic alarm when a number crosses a limit.</p></div>
+        <div class="card"><h3>On-call</h3><p>The engineer whose turn it is to respond — day or night.</p></div>
+        <div class="card"><h3>Incident</h3><p>Something is broken for customers. Top priority until it is fixed.</p></div>
+        <div class="card"><h3>Rollback</h3><p>Going back to the previous version that worked.</p></div>
+        <div class="card"><h3>SLA / uptime</h3><p>The promised availability, for example "99.9% of the time".</p></div>
+      </div>
+    </div>
+    <aside class="notes">
+<h4>The idea</h4>
+<p>Shipping software is only half of DevOps. The "Ops" half is keeping it healthy while real customers use it, around the clock.</p>
+<h4>Reading the drawing</h4>
+<p>The green line is a measurement — here, the number of errors. <b>Monitoring</b> tools draw lines like this for thousands of measurements. When one crosses a threshold, an <b>alert</b> fires and the <b>on-call</b> engineer's phone rings.</p>
+<p>That starts an <b>incident</b>. The team either fixes the problem or does a <b>rollback</b> to the last good version — which is quick, because releases are small. Afterwards they write a <b>post-mortem</b>: what happened and how to prevent it, without blaming a person.</p>
+<h4>Promises to customers</h4>
+<p>An <b>SLA</b> (Service Level Agreement) is the availability the company commits to. "Three nines" — 99.9% — allows less than nine hours of downtime in a whole year.</p>
+<h4>Why it matters to you</h4>
+<p>On-call duty affects people's lives: nights, weekends, sometimes extra pay. It is a normal topic in interviews and in compensation discussions for DevOps and SRE roles.</p>
+    </aside>
+  </section>
+
+  <section class="slide">
+    <div class="kicker">Chapter 3 · Code &amp; packages</div>
+    <h2>What is "code", really?</h2>
+    <div class="body" style="gap:16px">
+      <div class="grid c2 tight">
+        <div class="card"><h3>📝 Source code = a recipe</h3><p>Text instructions written by developers in a programming language. People can read it; a computer can't run it as-is.</p></div>
+        <div class="card"><h3>🕰️ Git = track changes for code</h3><p>Every change is saved with who made it, when and why — so hundreds of people can edit together safely.</p></div>
+      </div>
+      <svg viewBox="0 0 1120 140" width="1120" height="140" font-family="Segoe UI, Arial, sans-serif" aria-label="Git history with a branch and a merge">
+        <path d="M40 95H1080" stroke="#17191c" stroke-width="5" stroke-linecap="round"/>
+        <path d="M480 95C530 95 530 40 580 40H760C810 40 810 95 860 95" fill="none" stroke="#40be46" stroke-width="5"/>
+        <g fill="#fff" stroke="#17191c" stroke-width="4"><circle cx="120" cy="95" r="11"/><circle cx="300" cy="95" r="11"/><circle cx="480" cy="95" r="11"/><circle cx="1000" cy="95" r="11"/></g>
+        <g fill="#fff" stroke="#40be46" stroke-width="4"><circle cx="620" cy="40" r="11"/><circle cx="720" cy="40" r="11"/></g>
+        <circle cx="860" cy="95" r="13" fill="#40be46" stroke="#17191c" stroke-width="4"/>
+        <g font-size="14" fill="#6a727d" text-anchor="middle">
+          <text x="120" y="72">"add login page"</text><text x="300" y="72">"fix typo"</text>
+          <text x="210" y="128">each dot = a commit (one saved change)</text>
+        </g>
+        <text x="670" y="18" text-anchor="middle" font-size="15" font-weight="700" fill="#2a9a31">a branch — a private copy to work on safely</text>
+        <text x="860" y="128" text-anchor="middle" font-size="15" font-weight="700" fill="#17191c">pull request → review → merge</text>
+        <text x="1080" y="72" text-anchor="end" font-size="14" fill="#6a727d">"main" — the official version</text>
+      </svg>
+      <table class="compact">
+        <tr><th>Word you'll hear</th><th>What it means</th></tr>
+        <tr><td>Repository ("repo")</td><td>The project's folder with its full history. Lives on sites like GitHub or GitLab.</td></tr>
+        <tr><td>Commit</td><td>One saved change — "fixed the login button".</td></tr>
+        <tr><td>Pull request (PR)</td><td>"Please review my change before it joins the main version."</td></tr>
+      </table>
+    </div>
+  <aside class="notes">
+<h4>The idea</h4>
+<p><b>Source code</b> is text. Developers type instructions in a programming language, and that text is the company's most valuable asset.</p>
+<h4>Git</h4>
+<p>Because many people edit the same text at once, they need a system that remembers every change. That system is <b>Git</b>. The project and its entire history live in a <b>repository</b>, usually hosted on GitHub, GitLab or Bitbucket.</p>
+<h4>Reading the drawing</h4>
+<p>The black line is "main" — the official version. Each dot is a <b>commit</b>, one saved change with a short message. To work safely, a developer creates a <b>branch</b> (the green line), a private copy. When ready, they open a <b>pull request</b>: colleagues review the change, and it is then <b>merged</b> back into main.</p>
+<h4>Good to know</h4>
+<p>"Code review" is this checking by colleagues. It is a normal, daily part of the job, not a sign that something is wrong.</p>
+    </aside>
+  </section>
+
+  <section class="slide">
+    <div class="kicker">Chapter 3 · Code &amp; packages</div>
+    <h2>Nobody writes everything from scratch</h2>
+    <div class="body" style="gap:16px">
+      <div style="display:grid;grid-template-columns:300px 1fr;gap:40px;align-items:center">
+        <div>
+          <div class="big" style="font-size:68px;white-space:nowrap">70–90%</div>
+          <p class="muted" style="font-size:17px;margin:8px 0 14px">of a typical app is commonly estimated to be code written by <b>someone else</b>.</p>
+          <svg viewBox="0 0 300 172" width="300" height="172" font-family="Segoe UI, Arial, sans-serif" aria-label="A dependency tree">
+            <g stroke="#9aa3ad" stroke-width="2" fill="none">
+              <path d="M150 38L48 68M150 38V68M150 38L252 68"/>
+              <path d="M48 96L25 128M48 96L87 128M150 96V128M252 96L211 128M252 96L273 128"/>
+            </g>
+            <rect x="95" y="4" width="110" height="34" rx="8" fill="#40be46"/>
+            <text x="150" y="27" text-anchor="middle" font-size="15" font-weight="800" fill="#fff">Your app</text>
+            <g fill="#f5f7f6" stroke="#c9d1d6" stroke-width="2"><rect x="6" y="68" width="84" height="28" rx="6"/><rect x="108" y="68" width="84" height="28" rx="6"/><rect x="210" y="68" width="84" height="28" rx="6"/></g>
+            <g font-size="13" font-weight="600" text-anchor="middle" fill="#17191c"><text x="48" y="87">payments</text><text x="150" y="87">charts</text><text x="252" y="87">login</text></g>
+            <g fill="#e3e7ea" stroke="#c9d1d6" stroke-width="2"><rect x="0" y="128" width="50" height="22" rx="5"/><rect x="62" y="128" width="50" height="22" rx="5"/><rect x="124" y="128" width="50" height="22" rx="5"/><rect x="186" y="128" width="50" height="22" rx="5"/><rect x="248" y="128" width="50" height="22" rx="5"/></g>
+            <text x="150" y="168" text-anchor="middle" font-size="13" fill="#6a727d">every package brings its own packages</text>
+          </svg>
+        </div>
+        <div class="grid tight" style="gap:12px">
+          <div class="card"><h3>📦 Package</h3><p>A ready-made piece of code that solves one problem — sending email, drawing a chart, handling payments — wrapped up so others can reuse it.</p></div>
+          <div class="card"><h3>🔗 Dependency</h3><p>A package your software needs in order to work. Packages depend on other packages, which depend on others… easily hundreds deep.</p></div>
+          <div class="card"><h3>🏪 Registry</h3><p>The public "app store" developers download packages from.</p>
+            <div class="chips" style="margin-top:8px"><span class="chip">npm · JavaScript</span><span class="chip">PyPI · Python</span><span class="chip">Maven · Java</span><span class="chip">Docker Hub · containers</span></div></div>
+        </div>
+      </div>
+      <div class="analogy"><b>The chef doesn't grow the wheat.</b> A restaurant buys flour and spices from suppliers and focuses on its own dishes. Packages are the ingredients; package management is knowing what's in the pantry.</div>
+    </div>
+  <aside class="notes">
+<h4>The idea</h4>
+<p>No team writes everything itself. For almost any common task there is already a <b>package</b> — a ready-made piece of code, usually <b>open source</b>, meaning it is published freely for anyone to use.</p>
+<p>When your software uses a package, that package is a <b>dependency</b>. Packages have their own dependencies, as the tree shows, so one app can easily rest on hundreds or thousands of them.</p>
+<h4>Where they come from</h4>
+<p>Developers download packages from public <b>registries</b>. Each language has its own: npm for JavaScript, PyPI for Python, Maven Central for Java, Docker Hub for containers.</p>
+<h4>The restaurant</h4>
+<p>The chef buys flour instead of growing wheat. That is sensible — but it means the quality of the dish now depends on suppliers the chef has never met. Keep that thought; we come back to it at the end of this chapter.</p>
+    </aside>
+  </section>
+
+  <section class="slide">
+    <div class="kicker">Chapter 3 · Code &amp; packages</div>
+    <h2>From recipe to cake: the build</h2>
+    <p class="lead">An automatic assembly line — the <b>CI/CD pipeline</b> — runs every time a developer saves a change.</p>
+    <div class="body">
+      <div class="flow">
+        <div class="step"><span class="ico">📝</span><b>Our code</b><span class="s">the recipe</span></div>
+        <div class="arrow">+</div>
+        <div class="step"><span class="ico">📦</span><b>Packages</b><span class="s">ingredients from others</span></div>
+        <div class="arrow">›</div>
+        <div class="step"><span class="ico">🏗️</span><b>Build</b><span class="s">mix &amp; bake, automatically</span></div>
+        <div class="arrow">›</div>
+        <div class="step hl"><span class="ico">🎂</span><b>Artifact</b><span class="s">the finished, runnable product</span></div>
+        <div class="arrow">›</div>
+        <div class="step"><span class="ico">🚀</span><b>Deploy</b><span class="s">served to customers</span></div>
+      </div>
+      <div class="grid c2">
+        <div class="card green"><h3>Artifact (or "binary")</h3><p>The output of a build: the actual file that gets installed and run. Artifacts are kept in an <b>artifact repository</b>.</p></div>
+        <div class="card"><h3>CI/CD</h3><p><b>C</b>ontinuous <b>I</b>ntegration / <b>C</b>ontinuous <b>D</b>elivery: build, test and ship automatically, many times a day, with no manual copying of files.</p></div>
+      </div>
+    </div>
+  <aside class="notes">
+<h4>The idea</h4>
+<p>Source code is a recipe; you cannot eat a recipe. The <b>build</b> combines the team's code with all its packages and produces the finished thing a computer can run. That output is called an <b>artifact</b> or <b>binary</b>.</p>
+<p>Examples of artifacts: the app file you download to your phone, an installer, or a <b>container image</b> (a boxed-up program ready to run on a server — Docker is the best-known kind).</p>
+<h4>CI/CD</h4>
+<p>Nobody builds by hand. A <b>CI/CD pipeline</b> does it automatically whenever code changes: build, run tests, and if everything passes, deliver. Popular pipeline tools include Jenkins, GitHub Actions and GitLab CI.</p>
+<h4>Why it matters</h4>
+<p>Code lives in Git; the things built from code live in an <b>artifact repository</b>. Both have to be stored, versioned and protected.</p>
+    </aside>
+  </section>
+
+  <section class="slide">
+    <div class="kicker">Chapter 3 · Code &amp; packages</div>
+    <h2>Containers &amp; Kubernetes</h2>
+    <div class="body" style="gap:18px">
+      <svg viewBox="0 0 1120 200" width="1120" height="200" font-family="Segoe UI, Arial, sans-serif" aria-label="A container holds an app and runs the same everywhere; Kubernetes runs many of them">
+        <rect x="20" y="24" width="230" height="132" rx="10" fill="#fff" stroke="#17191c" stroke-width="4"/>
+        <rect x="38" y="40" width="194" height="30" rx="6" fill="#40be46"/><rect x="38" y="76" width="194" height="30" rx="6" fill="#e8f8e9" stroke="#bfe8c2" stroke-width="2"/><rect x="38" y="112" width="194" height="30" rx="6" fill="#f5f7f6" stroke="#c9d1d6" stroke-width="2"/>
+        <g font-size="14" font-weight="700" text-anchor="middle"><text x="135" y="60" fill="#fff">the app</text><text x="135" y="96" fill="#17191c">its packages</text><text x="135" y="132" fill="#17191c">its settings</text></g>
+        <text x="135" y="180" text-anchor="middle" font-size="15" font-weight="800" fill="#17191c">A container: everything in one box</text>
+        <path d="M262 90H318" stroke="#17191c" stroke-width="3" marker-end="url(#ah)"/>
+        <g fill="#f5f7f6" stroke="#c9d1d6" stroke-width="2"><rect x="330" y="50" width="130" height="80" rx="10"/><rect x="480" y="50" width="130" height="80" rx="10"/><rect x="630" y="50" width="130" height="80" rx="10"/></g>
+        <g fill="#fff" stroke="#17191c" stroke-width="3"><rect x="375" y="62" width="40" height="28" rx="4"/><rect x="525" y="62" width="40" height="28" rx="4"/><rect x="675" y="62" width="40" height="28" rx="4"/></g>
+        <g fill="#40be46"><rect x="381" y="68" width="28" height="7" rx="2"/><rect x="531" y="68" width="28" height="7" rx="2"/><rect x="681" y="68" width="28" height="7" rx="2"/></g>
+        <g font-size="15" font-weight="700" text-anchor="middle" fill="#17191c"><text x="395" y="116">Laptop</text><text x="545" y="116">Test server</text><text x="695" y="116">Cloud</text></g>
+        <text x="545" y="180" text-anchor="middle" font-size="15" font-weight="800" fill="#17191c">…that runs the same everywhere</text>
+        <path d="M795 20V186" stroke="#e3e7ea" stroke-width="2"/>
+        <rect x="830" y="24" width="270" height="132" rx="12" fill="#e8f8e9" stroke="#40be46" stroke-width="3" stroke-dasharray="10 8"/>
+        <text x="965" y="48" text-anchor="middle" font-size="14" font-weight="800" fill="#2a9a31" letter-spacing="2">KUBERNETES</text>
+        <g fill="#17191c"><rect x="852" y="62" width="40" height="34" rx="5"/><rect x="902" y="62" width="40" height="34" rx="5"/><rect x="952" y="62" width="40" height="34" rx="5"/><rect x="1002" y="62" width="40" height="34" rx="5"/><rect x="852" y="106" width="40" height="34" rx="5"/><rect x="902" y="106" width="40" height="34" rx="5"/></g>
+        <rect x="952" y="106" width="40" height="34" rx="5" fill="#fdecea" stroke="#e5533d" stroke-width="3"/><path d="M962 114L982 132M982 114L962 132" stroke="#e5533d" stroke-width="3" stroke-linecap="round"/>
+        <rect x="1002" y="106" width="40" height="34" rx="5" fill="#40be46"/><text x="1022" y="129" text-anchor="middle" font-size="16" font-weight="800" fill="#fff">+</text>
+        <path d="M996 123H999" stroke="#17191c" stroke-width="2"/>
+        <text x="965" y="180" text-anchor="middle" font-size="15" font-weight="800" fill="#17191c">One fails → a new one starts</text>
+      </svg>
+      <div class="grid c3 tight" style="gap:12px">
+        <div class="card"><h3>Container</h3><p>A sealed box holding an app together with everything it needs to run.</p></div>
+        <div class="card"><h3>Image</h3><p>The stored, ready-to-run template of a container. It is an artifact.</p></div>
+        <div class="card"><h3>Docker</h3><p>The best-known tool for building and running containers.</p></div>
+        <div class="card"><h3>Kubernetes (K8s)</h3><p>A system that runs many containers and restarts them when they fail.</p></div>
+        <div class="card"><h3>Microservices</h3><p>One product built as many small programs, each in its own container.</p></div>
+        <div class="card"><h3>Infrastructure as code</h3><p>Servers and settings described in text files, kept in Git like code.</p></div>
+      </div>
+    </div>
+    <aside class="notes">
+<h4>The idea</h4>
+<p>Remember "it works on my machine"? The cause is that the developer's laptop and the production server are set up differently. A <b>container</b> solves this by packing the app <i>together with</i> its packages and settings into one sealed box. The same box runs on a laptop, a test server and the cloud.</p>
+<p>The name comes from shipping containers: the crane doesn't care what is inside, because every box has the same shape.</p>
+<h4>Image and Docker</h4>
+<p>The stored template of a container is an <b>image</b> — a kind of artifact. <b>Docker</b> is the tool that made containers popular, and "a Docker image" is how most people say it.</p>
+<h4>Kubernetes</h4>
+<p>A large product may run thousands of containers. <b>Kubernetes</b> (written <b>K8s</b>) is the system that manages them: you say "keep six copies running" and it does, starting a replacement when one dies. That is the right-hand drawing.</p>
+<h4>Related words</h4>
+<p><b>Microservices</b> — splitting a product into many small services, each owned by a small team. <b>Infrastructure as code</b> — describing servers in text files, so environments can be rebuilt automatically. Common tool names you will see in CVs: Terraform, Helm, Ansible.</p>
+    </aside>
+  </section>
+
+  <section class="slide dark">
+    <div class="kicker">Chapter 3 · Code &amp; packages</div>
+    <h2>So many pieces. Who's keeping track?</h2>
+    <div class="body" style="gap:18px">
+      <p class="lead" style="font-size:22px;max-width:none">A large company builds thousands of artifacts a day out of countless outside packages. That chain of ingredients is the <b class="g">software supply chain</b>.</p>
+      <svg viewBox="0 0 1120 122" width="1120" height="122" font-family="Segoe UI, Arial, sans-serif" aria-label="The software supply chain">
+        <g fill="#23272c" stroke="#4a525b" stroke-width="2"><rect x="0" y="20" width="180" height="56" rx="10"/><rect x="470" y="20" width="180" height="56" rx="10"/><rect x="705" y="20" width="180" height="56" rx="10"/><rect x="940" y="20" width="180" height="56" rx="10"/></g>
+        <rect x="235" y="20" width="180" height="56" rx="10" fill="#3a2320" stroke="#e5533d" stroke-width="3"/>
+        <circle cx="415" cy="20" r="14" fill="#e5533d"/><text x="415" y="26" text-anchor="middle" font-size="18" font-weight="800" fill="#fff">!</text>
+        <g font-size="16" font-weight="700" fill="#fff" text-anchor="middle">
+          <text x="90" y="54">Open-source authors</text><text x="325" y="54">Public registries</text><text x="560" y="54">Our developers</text><text x="795" y="54">Our build</text><text x="1030" y="54">Our customers</text>
+        </g>
+        <g stroke="#40be46" stroke-width="3"><path d="M184 48H229" marker-end="url(#ag)"/><path d="M419 48H464" marker-end="url(#ag)"/><path d="M654 48H699" marker-end="url(#ag)"/><path d="M889 48H934" marker-end="url(#ag)"/></g>
+        <path d="M325 78V98H1030V82" fill="none" stroke="#e5533d" stroke-width="3" stroke-dasharray="8 6" marker-end="url(#ar)"/>
+        <text x="677" y="118" text-anchor="middle" font-size="14" font-weight="600" fill="#ff8f7d">one bad ingredient here travels all the way to the customer</text>
+      </svg>
+      <div class="grid c3 tight">
+        <div class="card"><h3>🗄️ Where is everything?</h3><p>Which exact version did we ship to which customer? Can we rebuild it next year?</p></div>
+        <div class="card"><h3>🕳️ Is it safe?</h3><p>One flawed ingredient hits everyone who used it — like 2021's "Log4Shell" bug in a tiny, hugely popular Java package.</p></div>
+        <div class="card"><h3>🎭 Is it genuine?</h3><p>Attackers publish fake or poisoned packages, hoping developers download them by mistake.</p></div>
+      </div>
+    </div>
+  <aside class="notes">
+<h4>The idea</h4>
+<p>Put the last slides together: thousands of builds a day, each made from hundreds of outside ingredients, written by strangers. This flow from the original authors to your customers is the <b>software supply chain</b>.</p>
+<h4>Three hard questions</h4>
+<ul><li><b>Where is everything?</b> If a customer reports a problem in a version from last year, can we find exactly that version and what went into it?</li><li><b>Is it safe?</b> In December 2021 a flaw called <b>Log4Shell</b> was found in a small, free Java package used almost everywhere. Companies spent weeks just working out whether they were using it.</li><li><b>Is it genuine?</b> Attackers upload packages with names that look like popular ones, hoping someone installs them by mistake.</li></ul>
+<h4>The answer</h4>
+<p>A whole category of products exists to solve this: artifact repositories and supply-chain security tools that store, check and track every ingredient. The follow-up deck, <b>JFrog 101</b>, shows one company's answer.</p>
+    </aside>
+  </section>
+
+  <section class="slide">
+    <div class="kicker">For your day-to-day</div>
+    <h2>Who's who: roles you'll meet</h2>
+    <div class="body">
+      <table>
+        <tr><th>Role</th><th>What they do</th><th>In the restaurant</th></tr>
+        <tr><td>Software Developer / Engineer</td><td>Writes the code for the product.</td><td class="muted">The cook</td></tr>
+        <tr><td>DevOps Engineer</td><td>Builds and maintains the automated pipeline that builds, tests and ships code.</td><td class="muted">Designs the kitchen line</td></tr>
+        <tr><td>SRE <span class="muted" style="font-weight:400">(Site Reliability)</span></td><td>Keeps live systems fast and available; handles incidents.</td><td class="muted">Floor manager on a busy night</td></tr>
+        <tr><td>Security / DevSecOps</td><td>Makes sure what ships is safe; finds and fixes vulnerabilities.</td><td class="muted">Food-safety inspector</td></tr>
+        <tr><td>Solutions Engineer</td><td>The technical partner in sales — shows customers how the products fit their needs.</td><td class="muted">Sommelier</td></tr>
+        <tr><td>Developer Advocate</td><td>Teaches and listens to the developer community — talks, demos, content.</td><td class="muted">The chef on TV</td></tr>
+      </table>
+    </div>
+  <aside class="notes">
+<h4>The idea</h4>
+<p>These are the roles you will meet most often, in almost any software company.</p>
+<h4>Telling them apart</h4>
+<ul><li><b>Developers</b> create the product. Often split into frontend, backend and full-stack.</li><li><b>DevOps Engineers</b> build the automated road the code travels on. Related titles: Platform Engineer, Build / Release Engineer.</li><li><b>SREs</b> keep production healthy and are "on call" when it breaks.</li><li><b>Security</b> people (AppSec, DevSecOps, researchers) find and prevent vulnerabilities.</li><li><b>Solutions Engineers</b> and <b>Developer Advocates</b> are technical people who face customers and the community.</li></ul>
+
+    </aside>
+  </section>
+
+  <section class="slide">
+    <div class="kicker">Cheat sheet</div>
+    <h2>Ten words to keep in your pocket</h2>
+    <div class="body">
+      <div class="grid c2" style="gap:10px 28px;font-size:18px">
+        <div><b class="g">DevOps</b> — developers and operations working as one team, with heavy automation.</div>
+        <div><b class="g">Artifact / binary</b> — the finished, runnable output of a build.</div>
+        <div><b class="g">Source code</b> — the human-written instructions for a program.</div>
+        <div><b class="g">Repository</b> — an organised store: of code (Git) or of artifacts.</div>
+        <div><b class="g">Git</b> — version history for code.</div>
+        <div><b class="g">CI/CD</b> — automatic build, test and delivery.</div>
+        <div><b class="g">Open source</b> — code published freely for anyone to use.</div>
+        <div><b class="g">Software supply chain</b> — everything that goes into your software, and how it got there.</div>
+        <div><b class="g">Package / dependency</b> — reusable code your software relies on.</div>
+        <div><b class="g">Vulnerability (CVE)</b> — a known, publicly listed security flaw.</div>
+      </div>
+    </div>
+  <aside class="notes">
+<h4>How to use this slide</h4>
+<p>Keep it as a reference. If you remember only these ten words, you can follow most technical conversations.</p>
+<h4>A few more you may meet</h4>
+<ul><li><b>Container / Docker</b> — a boxed-up program with everything it needs to run anywhere.</li><li><b>Kubernetes (K8s)</b> — a system that runs and manages many containers.</li><li><b>Microservices</b> — building one product as many small, separate programs.</li><li><b>On-prem / self-hosted</b> — installed on the customer's own servers rather than in the cloud.</li><li><b>SBOM</b> — the ingredient list of a piece of software.</li><li><b>Tech stack</b> — the set of languages and tools a team uses.</li></ul>
+    </aside>
+  </section>
+
+  <section class="slide dark">
+    <div class="body" style="gap:18px">
+      <div class="kicker">That's it</div>
+      <h1 style="font-size:72px">Now you speak <span class="g">hi-tech.</span></h1>
+      <p class="lead" style="margin-top:12px">Teams build software in small steps.<br><b class="g">DevOps</b> gets it to customers quickly and keeps it running.<br>It is made of code, borrowed <b class="g">packages</b> and built <b class="g">artifacts</b>.</p>
+      <p style="margin-top:22px"><a class="btn" data-goto="jfrog" href="jfrog-101.html">Next: JFrog 101 →</a></p>
+    </div>
+    <aside class="notes">
+<h4>The whole story in four lines</h4>
+<ul><li>Software lives in two halves — frontend and backend — usually in the cloud, and is built by teams working in short sprints.</li><li><b>DevOps</b> is the way of working that makes delivery fast and safe: shared ownership, automation, small frequent releases, and watching production.</li><li>Software is assembled from the team's own code plus many outside <b>packages</b>, built into <b>artifacts</b>, and often shipped in <b>containers</b>.</li><li>All those ingredients form a <b>software supply chain</b> that has to be tracked and protected.</li></ul>
+<h4>A good next step</h4>
+<p>Ask an engineer to show you their pipeline for five minutes: one change travelling from a commit to production. Seeing it once makes everything in this deck click.</p>
+<p>The follow-up deck, <b>JFrog 101</b>, shows how one company's products fit into this picture.</p>
+    </aside>
+  </section>
+  <!-- ==================== END OF PART 1 ==================== -->
+
+  <!-- ==================== PART 2: JFROG 101 ==================== -->
+  <section id="part-jfrog" class="slide dark">
+    <div class="body" style="gap:18px">
+      <div class="kicker">A friendly, jargon-free introduction</div>
+      <h1>JFrog <span class="g">101</span></h1>
+      <p class="lead" style="margin-top:14px">What JFrog sells, in plain language —<br>and the problem each product solves.</p>
+      <p class="muted" style="font-size:18px;margin-top:22px">🐸 &nbsp;For People &amp; HR teams · no technical background needed</p>
+      <p style="margin-top:4px"><a class="btn ghost" style="font-size:16px;padding:8px 18px" data-goto="generic" href="hitech-devops-101.html">New to the vocabulary? Start with Hi-tech &amp; DevOps 101</a></p>
+      <p class="muted" style="font-size:14px;margin-top:6px">Unofficial learning material. Not affiliated with or endorsed by JFrog Ltd. Product names are trademarks of their owners.</p>
+    </div>
+    <aside class="notes">
+<h4>How to use this deck</h4>
+<p>Each slide gives you the headline and a picture. This side panel gives the fuller story in plain language, so you can read the deck on your own.</p>
+<ul><li><b>Arrow keys</b> or a click move between slides.</li><li><b>?</b> opens and closes this panel. It stays open as you move.</li><li><b>F</b> goes fullscreen.</li></ul>
+<h4>Before you start</h4>
+<p>This deck assumes you know a few words: package, artifact, build, DevOps. The next slide is a one-minute recap. For the full background, read <b>Hi-tech &amp; DevOps 101</b> first.</p>
+<h4>A note</h4>
+<p>This is unofficial material written for learning. Product details change; for anything that matters, check JFrog's own documentation.</p>
+    </aside>
+  </section>
+
+  <section class="slide">
+    <div class="kicker">Before we start</div>
+    <h2>A 60-second recap</h2>
+    <div class="body">
+      <div class="flow">
+        <div class="step"><span class="ico">📝</span><b>Our code</b><span class="s">the recipe</span></div>
+        <div class="arrow">+</div>
+        <div class="step"><span class="ico">📦</span><b>Packages</b><span class="s">ingredients from others</span></div>
+        <div class="arrow">›</div>
+        <div class="step"><span class="ico">🏗️</span><b>Build</b><span class="s">mix &amp; bake, automatically</span></div>
+        <div class="arrow">›</div>
+        <div class="step hl"><span class="ico">🎂</span><b>Artifact</b><span class="s">the finished, runnable product</span></div>
+        <div class="arrow">›</div>
+        <div class="step"><span class="ico">🚀</span><b>Deploy</b><span class="s">served to customers</span></div>
+      </div>
+      <div class="grid c3">
+        <div class="card"><h3>📦 Package</h3><p>Ready-made code from outside the company, mostly free and open source. A modern app uses hundreds.</p></div>
+        <div class="card green"><h3>🎂 Artifact</h3><p>The finished, runnable output of a build. <b>The word at the heart of JFrog</b> — hence <i>Artifactory</i>.</p></div>
+        <div class="card"><h3>♾️ DevOps</h3><p>One team owns software from idea to customer, with heavy automation and small, frequent releases.</p></div>
+      </div>
+    </div>
+    <aside class="notes">
+<h4>The idea</h4>
+<p>Three words carry this whole deck.</p>
+<ul><li>A <b>package</b> is a reusable piece of code written by someone else. Developers download packages from public registries such as npm, PyPI and Docker Hub.</li><li>The <b>build</b> combines the team's own code with its packages and produces an <b>artifact</b>: the actual file that gets installed and run.</li><li><b>DevOps</b> is the way of working that automates this journey, so it can happen many times a day.</li></ul>
+<h4>The restaurant</h4>
+<p>Code is the recipe, packages are ingredients bought from suppliers, the build is the cooking, and the artifact is the finished dish.</p>
+<h4>Want more?</h4>
+<p>The deck <b>Hi-tech &amp; DevOps 101</b> explains each of these slowly, with drawings.</p>
+    </aside>
+  </section>
+
+  <section class="slide dark">
+    <div class="kicker">The problem JFrog solves</div>
+    <h2>So many pieces. Who's keeping track?</h2>
+    <div class="body" style="gap:18px">
+      <p class="lead" style="font-size:22px;max-width:none">A large company builds thousands of artifacts a day out of countless outside packages. That chain of ingredients is the <b class="g">software supply chain</b>.</p>
+      <svg viewBox="0 0 1120 122" width="1120" height="122" font-family="Segoe UI, Arial, sans-serif" aria-label="The software supply chain">
+        <g fill="#23272c" stroke="#4a525b" stroke-width="2"><rect x="0" y="20" width="180" height="56" rx="10"/><rect x="470" y="20" width="180" height="56" rx="10"/><rect x="705" y="20" width="180" height="56" rx="10"/><rect x="940" y="20" width="180" height="56" rx="10"/></g>
+        <rect x="235" y="20" width="180" height="56" rx="10" fill="#3a2320" stroke="#e5533d" stroke-width="3"/>
+        <circle cx="415" cy="20" r="14" fill="#e5533d"/><text x="415" y="26" text-anchor="middle" font-size="18" font-weight="800" fill="#fff">!</text>
+        <g font-size="16" font-weight="700" fill="#fff" text-anchor="middle">
+          <text x="90" y="54">Open-source authors</text><text x="325" y="54">Public registries</text><text x="560" y="54">Our developers</text><text x="795" y="54">Our build</text><text x="1030" y="54">Our customers</text>
+        </g>
+        <g stroke="#40be46" stroke-width="3"><path d="M184 48H229" marker-end="url(#ag)"/><path d="M419 48H464" marker-end="url(#ag)"/><path d="M654 48H699" marker-end="url(#ag)"/><path d="M889 48H934" marker-end="url(#ag)"/></g>
+        <path d="M325 78V98H1030V82" fill="none" stroke="#e5533d" stroke-width="3" stroke-dasharray="8 6" marker-end="url(#ar)"/>
+        <text x="677" y="118" text-anchor="middle" font-size="14" font-weight="600" fill="#ff8f7d">one bad ingredient here travels all the way to the customer</text>
+      </svg>
+      <div class="grid c3 tight">
+        <div class="card"><h3>🗄️ Where is everything?</h3><p>Which exact version did we ship to which customer? Can we rebuild it next year?</p></div>
+        <div class="card"><h3>🕳️ Is it safe?</h3><p>One flawed ingredient hits everyone who used it — like 2021's "Log4Shell" bug in a tiny, hugely popular Java package.</p></div>
+        <div class="card"><h3>🎭 Is it genuine?</h3><p>Attackers publish fake or poisoned packages, hoping developers download them by mistake.</p></div>
+      </div>
+    </div>
+  <aside class="notes">
+<h4>The idea</h4>
+<p>Put the last slides together: thousands of builds a day, each made from hundreds of outside ingredients, written by strangers. This flow from the original authors to your customers is the <b>software supply chain</b>.</p>
+<h4>Three hard questions</h4>
+<ul><li><b>Where is everything?</b> If a customer reports a problem in a version from last year, can we find exactly that version and what went into it?</li><li><b>Is it safe?</b> In December 2021 a flaw called <b>Log4Shell</b> was found in a small, free Java package used almost everywhere. Companies spent weeks just working out whether they were using it.</li><li><b>Is it genuine?</b> Attackers upload packages with names that look like popular ones, hoping someone installs them by mistake.</li></ul>
+<h4>Why it matters</h4>
+<p>This is the pain that makes customers buy from JFrog. The next slides show the answer.</p>
+    </aside>
+  </section>
+
+  <section class="slide">
+    <div class="kicker">JFrog</div>
+    <h2>JFrog in one sentence</h2>
+    <div class="body">
+      <p class="lead" style="font-size:30px;max-width:1080px">JFrog gives companies <b class="g">one trusted place</b> to store, secure and deliver every piece of software they build or use — from the developer's keyboard to the customer's device.</p>
+      <div class="grid c4">
+        <div class="card top"><h3>2008</h3><p>Founded in Israel; Artifactory was the first product.</p></div>
+        <div class="card top"><h3>FROG</h3><p>Traded on Nasdaq since the 2020 IPO.</p></div>
+        <div class="card top"><h3>💧 Liquid software</h3><p>The vision: updates that flow continuously, with no downtime.</p></div>
+        <div class="card top"><h3>🐸 Frogs</h3><p>What employees call themselves. The user conference is "swampUP".</p></div>
+      </div>
+    </div>
+  <aside class="notes">
+<h4>The idea</h4>
+<p>JFrog sells a platform that manages the software supply chain: one place where every artifact and package is <b>stored</b>, <b>checked</b> and <b>delivered</b>.</p>
+<h4>A short history</h4>
+<p>JFrog was founded in Israel in 2008. Its first product, Artifactory, became a standard tool for development teams. The company went public on Nasdaq in 2020 under the ticker FROG.</p>
+<h4>Words you will hear inside</h4>
+<ul><li><b>Liquid software</b> — the company vision: software updates should flow continuously and invisibly, like water, rather than arriving in big disruptive versions.</li><li><b>Frogs</b> — the employees.</li><li><b>swampUP</b> — the annual user conference.</li></ul>
+<h4>Who buys it</h4>
+<p>DevOps, platform and security teams in companies that build software — which today means banks, car makers, retailers and governments, not only "tech" companies.</p>
+    </aside>
+  </section>
+
+  <section class="slide">
+    <div class="kicker">JFrog products</div>
+    <h2>Artifactory — the warehouse</h2>
+    <div class="body" style="gap:16px">
+      <div style="display:grid;grid-template-columns:1fr 520px;gap:32px;align-items:center">
+        <div class="card green">
+          <span class="tag">The flagship</span>
+          <h3>One home for every artifact and package</h3>
+          <p style="margin-top:6px">Everything a company builds, plus a copy of every outside package it downloads, is kept here — organised, versioned and traceable.</p>
+          <p style="margin-top:10px"><b>"Universal"</b> = it speaks every language's package format, so teams don't need a separate tool for each.</p>
+          <div class="chips" style="margin-top:12px"><span class="chip">Docker</span><span class="chip">npm</span><span class="chip">Maven</span><span class="chip">PyPI</span><span class="chip">Go</span><span class="chip">+ many more</span></div>
+        </div>
+        <svg viewBox="0 0 520 310" width="520" height="310" font-family="Segoe UI, Arial, sans-serif" aria-label="How Artifactory sits between registries, builds and users">
+          <text x="0" y="20" font-size="12" font-weight="700" fill="#6a727d" letter-spacing="1.5">PUBLIC</text><text x="0" y="36" font-size="12" font-weight="700" fill="#6a727d" letter-spacing="1.5">REGISTRIES</text>
+          <g fill="#f5f7f6" stroke="#c9d1d6" stroke-width="2"><rect x="160" y="8" width="110" height="30" rx="7"/><rect x="280" y="8" width="110" height="30" rx="7"/><rect x="400" y="8" width="110" height="30" rx="7"/></g>
+          <g font-size="14" font-weight="600" text-anchor="middle" fill="#17191c"><text x="215" y="28">npm</text><text x="335" y="28">PyPI</text><text x="455" y="28">Docker Hub</text></g>
+          <g stroke="#17191c" stroke-width="2.5"><path d="M215 40V70" marker-end="url(#ah)"/><path d="M335 40V70" marker-end="url(#ah)"/><path d="M455 40V70" marker-end="url(#ah)"/></g>
+          <rect x="150" y="76" width="360" height="150" rx="14" fill="#40be46"/>
+          <text x="330" y="100" text-anchor="middle" font-size="16" font-weight="800" fill="#fff" letter-spacing="2">ARTIFACTORY</text>
+          <rect x="166" y="112" width="328" height="46" rx="8" fill="#fff"/><rect x="166" y="166" width="328" height="46" rx="8" fill="#fff"/>
+          <g font-size="14.5" font-weight="700" text-anchor="middle" fill="#17191c"><text x="330" y="140">📦 Cached copies of outside packages</text><text x="330" y="194">🎂 Everything we build (our artifacts)</text></g>
+          <rect x="0" y="169" width="112" height="40" rx="8" fill="#17191c"/><text x="56" y="194" text-anchor="middle" font-size="14" font-weight="700" fill="#fff">Our builds</text>
+          <path d="M114 189H144" stroke="#17191c" stroke-width="2.5" marker-end="url(#ah)"/>
+          <g stroke="#17191c" stroke-width="2.5"><path d="M215 228V256" marker-end="url(#ah)"/><path d="M335 228V256" marker-end="url(#ah)"/><path d="M455 228V256" marker-end="url(#ah)"/></g>
+          <g fill="#f5f7f6" stroke="#c9d1d6" stroke-width="2"><rect x="160" y="262" width="110" height="34" rx="7"/><rect x="280" y="262" width="110" height="34" rx="7"/><rect x="400" y="262" width="110" height="34" rx="7"/></g>
+          <g font-size="14" font-weight="600" text-anchor="middle" fill="#17191c"><text x="215" y="284">Developers</text><text x="335" y="284">Pipelines</text><text x="455" y="284">Production</text></g>
+          <text x="0" y="276" font-size="12" font-weight="700" fill="#6a727d" letter-spacing="1.5">WHO TAKES</text><text x="0" y="292" font-size="12" font-weight="700" fill="#6a727d" letter-spacing="1.5">FROM IT</text>
+        </svg>
+      </div>
+      <div class="grid c3 tight">
+        <div class="card"><h3>🎯 Single source of truth</h3><p>Everyone builds from the same, known ingredients.</p></div>
+        <div class="card"><h3>⚡ Fast &amp; reliable</h3><p>Builds keep working even when a public registry is down.</p></div>
+        <div class="card"><h3>🧾 Traceable</h3><p>Know exactly what went into every release.</p></div>
+      </div>
+    </div>
+  <aside class="notes">
+<h4>The idea</h4>
+<p><b>Artifactory</b> is the central warehouse. The drawing shows the two things it holds:</p>
+<ul><li><b>Copies of outside packages.</b> Instead of every developer downloading from the public internet, they ask Artifactory. It fetches the package once, keeps a copy, and serves everyone from there.</li><li><b>Everything the company builds.</b> Each build's output is stored with a record of what went into it.</li></ul>
+<p>From the warehouse, artifacts go to developers, to automated pipelines and finally to production.</p>
+<h4>Why customers want it</h4>
+<ul><li>Builds are faster and don't fail when a public registry has an outage.</li><li>Everyone uses the same approved ingredients.</li><li>Any past release can be found and explained.</li></ul>
+<h4>"Universal"</h4>
+<p>It supports dozens of package types in one product. Competing tools are often tied to one language or to one vendor's ecosystem.</p>
+<h4>The restaurant</h4>
+<p>The central pantry and walk-in fridge: every ingredient and every finished dish is labelled, dated and easy to find.</p>
+    </aside>
+  </section>
+
+  <section class="slide">
+    <div class="kicker">JFrog products</div>
+    <h2>Security — the inspectors</h2>
+    <div class="body" style="gap:18px">
+      <svg viewBox="0 0 1120 130" width="1120" height="130" font-family="Segoe UI, Arial, sans-serif" aria-label="Packages pass a gate, get scanned, and become a trusted release">
+        <g fill="#f5f7f6" stroke="#9aa3ad" stroke-width="2"><rect x="10" y="22" width="34" height="34" rx="6"/><rect x="10" y="70" width="34" height="34" rx="6"/></g>
+        <rect x="60" y="46" width="34" height="34" rx="6" fill="#e5533d"/><text x="77" y="70" text-anchor="middle" font-size="20" font-weight="800" fill="#fff">!</text>
+        <text x="0" y="126" font-size="14" fill="#6a727d">outside packages</text>
+        <path d="M106 63H192" stroke="#17191c" stroke-width="3" marker-end="url(#ah)"/>
+        <rect x="200" y="24" width="150" height="80" rx="10" fill="#fff" stroke="#40be46" stroke-width="3"/>
+        <text x="275" y="60" text-anchor="middle" font-size="16" font-weight="800" fill="#2a9a31" letter-spacing="1.5">CURATION</text>
+        <text x="275" y="82" text-anchor="middle" font-size="14" fill="#6a727d">the doorman</text>
+        <path d="M200 36C176 10 150 6 122 26" fill="none" stroke="#e5533d" stroke-width="3" stroke-dasharray="6 5" marker-end="url(#ar)"/>
+        <text x="170" y="10" text-anchor="middle" font-size="13" font-weight="700" fill="#e5533d">✕ blocked</text>
+        <path d="M354 63H432" stroke="#40be46" stroke-width="3" marker-end="url(#ag)"/>
+        <text x="392" y="52" text-anchor="middle" font-size="13" font-weight="700" fill="#2a9a31">safe</text>
+        <rect x="440" y="14" width="300" height="100" rx="12" fill="#40be46"/>
+        <text x="590" y="38" text-anchor="middle" font-size="15" font-weight="800" fill="#fff" letter-spacing="2">ARTIFACTORY</text>
+        <g fill="#fff"><rect x="462" y="52" width="30" height="30" rx="5"/><rect x="506" y="52" width="30" height="30" rx="5"/><rect x="550" y="52" width="30" height="30" rx="5"/><rect x="594" y="52" width="30" height="30" rx="5"/></g>
+        <circle cx="565" cy="67" r="24" fill="rgba(255,255,255,.25)" stroke="#17191c" stroke-width="4"/><path d="M582 84L598 100" stroke="#17191c" stroke-width="6" stroke-linecap="round"/>
+        <g font-size="13" font-weight="800" fill="#fff" text-anchor="middle"><text x="684" y="60">XRAY &amp;</text><text x="684" y="77">ADV. SECURITY</text></g>
+        <text x="684" y="95" text-anchor="middle" font-size="13" fill="#fff">scan what's inside</text>
+        <path d="M744 63H822" stroke="#17191c" stroke-width="3" marker-end="url(#ah)"/>
+        <rect x="830" y="24" width="280" height="80" rx="10" fill="#f5f7f6" stroke="#c9d1d6" stroke-width="2"/>
+        <text x="970" y="60" text-anchor="middle" font-size="18" font-weight="800" fill="#17191c">✅ Trusted release</text>
+        <text x="970" y="82" text-anchor="middle" font-size="13" fill="#6a727d">known ingredients · no known holes</text>
+      </svg>
+      <div class="grid c3">
+        <div class="card top">
+          <span class="tag out">Before it gets in</span>
+          <h3>JFrog Curation</h3>
+          <p>A doorman for open-source. Blocks malicious or risky packages <b>before</b> a developer can download them.</p>
+        </div>
+        <div class="card top">
+          <span class="tag out">While it's stored</span>
+          <h3>JFrog Xray</h3>
+          <p>An X-ray of every artifact: lists all the ingredients inside and flags known security holes and licence problems.</p>
+        </div>
+        <div class="card top">
+          <span class="tag out">Deeper checks</span>
+          <h3>JFrog Advanced Security</h3>
+          <p>Finds leaked passwords, risky settings and flaws in the company's own code — and says which issues really matter.</p>
+        </div>
+      </div>
+      <p class="muted" style="font-size:18px">Building security into the pipeline like this is often called <b style="color:var(--ink)">DevSecOps</b>.</p>
+    </div>
+  <aside class="notes">
+<h4>The idea</h4>
+<p>If everything passes through one warehouse, that is the natural place to put the inspectors. Follow the drawing from left to right.</p>
+<ul><li><b>Curation</b> stands at the door. When a developer asks for an outside package, it is checked against policy first. Malicious, too new, or badly maintained packages are turned away before they ever enter.</li><li><b>Xray</b> examines what is already inside. It opens each artifact, lists every ingredient, and compares the list to databases of known security flaws (called <b>CVEs</b>) and to licence rules. When a new flaw is announced, it can say immediately which products contain it.</li><li><b>Advanced Security</b> goes deeper: passwords accidentally left in code, risky configuration, weaknesses in the company's own code — and whether a flaw can actually be exploited, so teams fix what matters first.</li></ul>
+<h4>The restaurant</h4>
+<p>The supplier check at the back door, the food-safety inspector in the pantry, and the allergen list on every dish.</p>
+<h4>A term to know</h4>
+<p><b>SBOM</b> — Software Bill of Materials: the official ingredient list of a piece of software. Increasingly required by regulators and large customers.</p>
+    </aside>
+  </section>
+
+  <section class="slide">
+    <div class="kicker">JFrog products</div>
+    <h2>Delivery &amp; beyond</h2>
+    <div class="body">
+      <div class="grid c3">
+        <div class="card top">
+          <div class="ico">🚚</div>
+          <h3>JFrog Distribution</h3>
+          <p>Packs a release into a sealed, signed bundle and delivers it quickly and safely to data centres and sites around the world.</p>
+          <p class="muted" style="margin-top:8px;font-size:16px">The refrigerated delivery truck.</p>
+        </div>
+        <div class="card top">
+          <div class="ico">📡</div>
+          <h3>JFrog Connect</h3>
+          <p>Updates and monitors software on fleets of physical devices — cars, robots, sensors, kiosks — remotely.</p>
+          <p class="muted" style="margin-top:8px;font-size:16px">Delivery all the way to the customer's doorstep.</p>
+        </div>
+        <div class="card top">
+          <div class="ico">🧠</div>
+          <h3>JFrog ML</h3>
+          <p>AI models are artifacts too. Lets teams store, secure and ship machine-learning models with the same discipline as regular software.</p>
+          <p class="muted" style="margin-top:8px;font-size:16px">A new kind of dish, the same kitchen rules.</p>
+        </div>
+      </div>
+      <p class="muted" style="font-size:19px">All of these come together as the <b style="color:var(--ink)">JFrog Platform</b> — one product family, one login, available in the cloud or installed at the customer.</p>
+    </div>
+  <aside class="notes">
+<h4>The idea</h4>
+<p>Storing and checking is half the job; the software still has to reach where it runs.</p>
+<ul><li><b>Distribution</b> packs a release into a sealed, signed bundle — nobody can change it on the way — and copies it efficiently to sites around the world, close to where it will be used.</li><li><b>Connect</b> handles the "last mile" to physical devices: thousands of machines in the field that need updating remotely and reliably. This area is often called <b>IoT</b> (Internet of Things) or "edge".</li><li><b>JFrog ML</b> brings AI into the same process. A machine-learning <b>model</b> is also a file that must be stored, versioned, secured and deployed. The practice is called <b>MLOps</b>.</li></ul>
+<h4>The platform</h4>
+<p>Customers buy these together as the <b>JFrog Platform</b>, either as a cloud subscription or installed on their own servers.</p>
+    </aside>
+  </section>
+
+  <section class="slide">
+    <div class="kicker">Putting it together</div>
+    <h2>Where each product sits on the road</h2>
+    <div class="body" style="gap:14px">
+      <div class="flow">
+        <div class="step"><span class="ico">⌨️</span><b>Code</b><span class="s">developers pull packages</span></div><div class="arrow">›</div>
+        <div class="step"><span class="ico">🏗️</span><b>Build</b><span class="s">artifacts are created</span></div><div class="arrow">›</div>
+        <div class="step"><span class="ico">🧪</span><b>Test &amp; secure</b><span class="s">check before shipping</span></div><div class="arrow">›</div>
+        <div class="step"><span class="ico">🚀</span><b>Release</b><span class="s">send it out</span></div><div class="arrow">›</div>
+        <div class="step"><span class="ico">📱</span><b>Run</b><span class="s">servers &amp; devices</span></div>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(5,1fr);column-gap:34px;row-gap:10px;font-size:17px;font-weight:700;text-align:center">
+        <div style="grid-column:1/6;background:var(--green);color:#fff;border-radius:10px;padding:12px">Artifactory — stores everything, at every stage</div>
+        <div style="grid-column:1/2;background:var(--green-soft);border:1px solid #bfe8c2;border-radius:10px;padding:10px">Curation</div>
+        <div style="grid-column:2/4;background:var(--green-soft);border:1px solid #bfe8c2;border-radius:10px;padding:10px">Xray · Advanced Security</div>
+        <div style="grid-column:4/5;background:var(--green-soft);border:1px solid #bfe8c2;border-radius:10px;padding:10px">Distribution</div>
+        <div style="grid-column:5/6;background:var(--green-soft);border:1px solid #bfe8c2;border-radius:10px;padding:10px">Connect</div>
+      </div>
+      <p class="lead" style="font-size:21px;margin-top:10px">Artifactory is the foundation; the other products are specialists that plug into it. That's why customers tend to start with Artifactory and grow from there.</p>
+    </div>
+  <aside class="notes">
+<h4>The idea</h4>
+<p>This slide puts the products back on the road from the start of the deck.</p>
+<p><b>Artifactory</b> runs underneath every stage — it is the foundation. The others cover specific stretches: Curation where outside code enters, Xray and Advanced Security while software is built and tested, Distribution at release, Connect where software runs on devices.</p>
+<h4>Why it matters</h4>
+<p>This is JFrog's main sales message: one platform across the whole journey, instead of a different tool from a different vendor at each step. It also explains how customers grow — most begin with Artifactory and add the other products over time.</p>
+    </aside>
+  </section>
+
+  <section class="slide">
+    <div class="kicker">For your day-to-day</div>
+    <h2>Who's who: roles you'll meet</h2>
+    <div class="body">
+      <table>
+        <tr><th>Role</th><th>What they do</th><th>In the restaurant</th></tr>
+        <tr><td>Software Developer / Engineer</td><td>Writes the code for the product.</td><td class="muted">The cook</td></tr>
+        <tr><td>DevOps Engineer</td><td>Builds and maintains the automated pipeline that builds, tests and ships code.</td><td class="muted">Designs the kitchen line</td></tr>
+        <tr><td>SRE <span class="muted" style="font-weight:400">(Site Reliability)</span></td><td>Keeps live systems fast and available; handles incidents.</td><td class="muted">Floor manager on a busy night</td></tr>
+        <tr><td>Security / DevSecOps</td><td>Makes sure what ships is safe; finds and fixes vulnerabilities.</td><td class="muted">Food-safety inspector</td></tr>
+        <tr><td>Solutions Engineer</td><td>The technical partner in sales — shows customers how the products fit their needs.</td><td class="muted">Sommelier</td></tr>
+        <tr><td>Developer Advocate</td><td>Teaches and listens to the developer community — talks, demos, content.</td><td class="muted">The chef on TV</td></tr>
+      </table>
+      <p class="muted" style="font-size:18px">Worth remembering: JFrog's customers are DevOps and security people too — many candidates already know JFrog as users.</p>
+    </div>
+  <aside class="notes">
+<h4>The idea</h4>
+<p>These are the roles you will meet most often, both inside JFrog and at its customers.</p>
+<h4>Telling them apart</h4>
+<ul><li><b>Developers</b> create the product. Often split into frontend, backend and full-stack.</li><li><b>DevOps Engineers</b> build the automated road the code travels on. Related titles: Platform Engineer, Build / Release Engineer.</li><li><b>SREs</b> keep production healthy and are "on call" when it breaks.</li><li><b>Security</b> people (AppSec, DevSecOps, researchers) find and prevent vulnerabilities.</li><li><b>Solutions Engineers</b> and <b>Developer Advocates</b> are technical people who face customers and the community.</li></ul>
+<h4>A special point about JFrog</h4>
+<p>JFrog's customers are DevOps and security professionals. Many candidates have used Artifactory in a previous job — a good conversation opener in an interview.</p>
+    </aside>
+  </section>
+
+  <section class="slide">
+    <div class="kicker">Cheat sheet</div>
+    <h2>JFrog words to keep in your pocket</h2>
+    <div class="body">
+      <div class="grid c2" style="gap:10px 28px;font-size:18px">
+        <div><b class="g">Artifactory</b> — the warehouse: stores every artifact and package.</div>
+        <div><b class="g">JFrog Platform</b> — all the products together, in the cloud or self-hosted.</div>
+        <div><b class="g">Curation</b> — the doorman: blocks risky open-source packages on the way in.</div>
+        <div><b class="g">Liquid software</b> — the vision: updates that flow continuously.</div>
+        <div><b class="g">Xray</b> — the inspector: finds known flaws and licence problems inside artifacts.</div>
+        <div><b class="g">Software supply chain</b> — everything that goes into software, and how it got there.</div>
+        <div><b class="g">Advanced Security</b> — deeper checks: leaked secrets, risky settings, own-code flaws.</div>
+        <div><b class="g">DevSecOps</b> — DevOps with security built into every step.</div>
+        <div><b class="g">Distribution</b> — delivers signed releases around the world.</div>
+        <div><b class="g">CVE</b> — a known, publicly listed security flaw.</div>
+        <div><b class="g">Connect</b> — updates software on fleets of physical devices.</div>
+        <div><b class="g">SBOM</b> — the ingredient list of a piece of software.</div>
+        <div><b class="g">JFrog ML</b> — the same discipline for AI models.</div>
+        <div><b class="g">swampUP</b> — the annual user conference.</div>
+      </div>
+    </div>
+    <aside class="notes">
+<h4>How to use this slide</h4>
+<p>Keep it as a reference. The left column is the product names; the right column is the surrounding vocabulary.</p>
+<h4>One sentence to remember</h4>
+<p>JFrog gives a company one trusted place where every piece of its software is <b>stored</b> (Artifactory), <b>checked</b> (Curation, Xray, Advanced Security) and <b>delivered</b> (Distribution, Connect).</p>
+<h4>A few more you may meet</h4>
+<ul><li><b>Self-hosted / on-prem</b> — installed on the customer's own servers rather than in the cloud.</li><li><b>Repository</b> — one "shelf" inside Artifactory, usually per package type or per team.</li><li><b>Release bundle</b> — a sealed, signed set of artifacts that makes up one release.</li><li><b>Open-source security research</b> — the team that studies newly found vulnerabilities and malicious packages.</li></ul>
+    </aside>
+  </section>
+
+  <section class="slide dark">
+    <div class="body" style="gap:18px">
+      <div class="kicker">That's it</div>
+      <h1 style="font-size:76px">Questions? <span class="g">Leap in.</span> 🐸</h1>
+      <p class="lead" style="margin-top:12px">DevOps is how software gets built and shipped.<br>Packages and artifacts are what it's made of.<br><b class="g">JFrog is where they're kept, checked and delivered.</b></p>
+      <p class="muted" style="font-size:14px;margin-top:22px">Unofficial learning material. Not affiliated with or endorsed by JFrog Ltd. Facts may be out of date — check jfrog.com.</p>
+    </div>
+  <aside class="notes">
+<h4>The whole story in four lines</h4>
+<ul><li>Software is built by teams working in short cycles, with frontend, backend and cloud as the basic map.</li><li><b>DevOps</b> is the way of working that makes delivery fast and safe through shared ownership and automation.</li><li>Software is assembled from the team's code plus many outside <b>packages</b>, and built into <b>artifacts</b>.</li><li><b>JFrog</b> is where those artifacts and packages are stored (Artifactory), checked (Curation, Xray, Advanced Security) and delivered (Distribution, Connect).</li></ul>
+<h4>A good next step</h4>
+<p>Ask an engineer to show you Artifactory for five minutes. Seeing one real package on its "shelf" makes everything in this deck click.</p>
+    </aside>
+  </section>
+  <!-- ==================== END OF PART 2 ==================== -->
+
+  <div id="bar"></div>
+</div>
+<button id="help" aria-label="Explain this slide" title="Explain this slide (?)">?</button>
+<a id="dl" href="" download="devops-101.html" aria-label="Download this presentation" title="Download this presentation (one HTML file, works offline)"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="#fff" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4v11M7 11l5 5 5-5M5 20h14"/></svg></a>
+<aside id="drawer" aria-label="Slide explanation">
+  <header><span class="kicker">Explain this slide</span><button id="d-close" aria-label="Close">×</button></header>
+  <div id="d-title"></div>
+  <div id="d-body"></div>
+  <footer><button id="d-prev">← Previous</button><span id="d-count"></span><button id="d-next">Next →</button></footer>
+</aside>
+<div class="hint">← → or click to navigate · ? explains the slide · F for fullscreen</div>
+
+<script>
+(function () {
+  var stage = document.getElementById('stage');
+  var slides = Array.prototype.slice.call(document.querySelectorAll('.slide'));
+  var bar = document.getElementById('bar');
+  var help = document.getElementById('help');
+  var dTitle = document.getElementById('d-title');
+  var dBody = document.getElementById('d-body');
+  var dCount = document.getElementById('d-count');
+  var DW = 420, i = 0, open = false;
+
+  slides.forEach(function (s, n) {
+    var f = document.createElement('div');
+    f.className = 'footer';
+    f.innerHTML = '<span>' + document.title.toUpperCase() + '</span><span>' + (n + 1) + ' / ' + slides.length + '</span>';
+    s.appendChild(f);
+  });
+
+  var root = document.documentElement, mobile = false;
+  var embedded = false;
+  try { embedded = window.self !== window.top; } catch (e) { embedded = true; }
+  document.getElementById('dl').href = location.href.split('#')[0];
+  document.getElementById('dl').setAttribute('download', location.pathname.split('/').pop() || 'devops-101.html');
+
+  // wide drawings scroll sideways on a phone instead of shrinking to nothing
+  Array.prototype.forEach.call(document.querySelectorAll('.slide svg'), function (g) {
+    var w = parseInt(g.getAttribute('width'), 10) || 0;
+    if (w < 500) return;
+    var d = document.createElement('div');
+    d.className = 'svgwrap';
+    g.style.setProperty('--mw', Math.round(w * 0.68) + 'px');
+    g.parentNode.insertBefore(d, g);
+    d.appendChild(g);
+  });
+  slides.forEach(function (sl, n) {
+    if (!sl.querySelector('.notes')) return;
+    var b = document.createElement('button');
+    b.className = 'explain';
+    b.textContent = '? Explain this slide';
+    b.addEventListener('click', function () { show(n, true); toggle(true); });
+    sl.insertBefore(b, sl.querySelector('.footer'));
+  });
+  function current() {
+    var mid = window.innerHeight / 2, best = 0;
+    slides.forEach(function (sl, n) { var r = sl.getBoundingClientRect(); if (r.top <= mid && r.bottom >= mid) best = n; });
+    return best;
+  }
+
+  function avail() { return window.innerWidth - (open && window.innerWidth > 900 ? DW : 0); }
+  function fit() {
+    mobile = !embedded && window.innerWidth < 760;
+    root.classList.toggle('m', mobile);
+    if (mobile) { stage.style.left = ''; stage.style.transform = ''; return; }
+    var w = avail();
+    var k = Math.min(w / 1280, window.innerHeight / 720);
+    stage.style.left = (w / 2) + 'px';
+    stage.style.transform = 'translate(-50%,-50%) scale(' + k + ')';
+  }
+  function hash() { try { history.replaceState(null, '', '#' + (i + 1) + (open ? 'n' : '')); } catch (e) {} }
+  function show(n, stay) {
+    i = Math.max(0, Math.min(slides.length - 1, n));
+    if (mobile && !stay) slides[i].scrollIntoView();
+    slides.forEach(function (s, k) { s.classList.toggle('active', k === i); });
+    bar.style.width = ((i + 1) / slides.length * 100) + '%';
+    var h = slides[i].querySelector('h2, h1');
+    var notes = slides[i].querySelector('.notes');
+    dTitle.textContent = h ? h.textContent : '';
+    dBody.innerHTML = notes ? notes.innerHTML : '';
+    dBody.scrollTop = 0;
+    dCount.textContent = (i + 1) + ' / ' + slides.length;
+    hash();
+  }
+  function toggle(v) {
+    open = v === undefined ? !open : v;
+    document.body.classList.toggle('open', open);
+    help.textContent = open ? '×' : '?';
+    fit(); hash();
+  }
+
+  help.addEventListener('click', function () { if (mobile && !open) show(current(), true); toggle(); });
+  document.getElementById('d-close').addEventListener('click', function () { toggle(false); });
+  document.getElementById('d-prev').addEventListener('click', function () { show(i - 1); });
+  document.getElementById('d-next').addEventListener('click', function () { show(i + 1); });
+
+  document.addEventListener('keydown', function (e) {
+    if (e.key === '?' || e.key === '/' || e.key === 'i' || e.key === 'I') { e.preventDefault(); toggle(); }
+    else if (e.key === 'Escape') toggle(false);
+    else if (['ArrowRight', 'PageDown', ' ', 'Enter'].indexOf(e.key) > -1) {
+      if (e.target.closest && e.target.closest('button')) return;
+      e.preventDefault(); show(i + 1);
+    }
+    else if (['ArrowLeft', 'PageUp', 'Backspace'].indexOf(e.key) > -1) { e.preventDefault(); show(i - 1); }
+    else if (e.key === 'Home') show(0);
+    else if (e.key === 'End') show(slides.length - 1);
+    else if (e.key === 'f' || e.key === 'F') {
+      if (document.fullscreenElement) document.exitFullscreen();
+      else if (document.documentElement.requestFullscreen) document.documentElement.requestFullscreen();
+    }
+  });
+  document.addEventListener('click', function (e) {
+    if (mobile || e.target.closest('#drawer, #help, #dl, a')) return;
+    show(e.clientX < avail() * 0.3 ? i - 1 : i + 1);
+  });
+  var x0 = null;
+  document.addEventListener('touchstart', function (e) {
+    x0 = (mobile || e.target.closest('#drawer, #help, #dl, a')) ? null : e.touches[0].clientX;
+  }, { passive: true });
+  document.addEventListener('touchend', function (e) {
+    if (x0 === null) return;
+    var dx = e.changedTouches[0].clientX - x0;
+    if (Math.abs(dx) > 40) show(dx < 0 ? i + 1 : i - 1);
+    x0 = null;
+  });
+  window.addEventListener('resize', fit);
+
+  // links between the two parts: jump inside this file when the other part is here,
+  // otherwise follow the href to the other file (after a future split)
+  Array.prototype.forEach.call(document.querySelectorAll('a[data-goto]'), function (a) {
+    a.addEventListener('click', function (e) {
+      var t = document.getElementById('part-' + a.getAttribute('data-goto'));
+      if (t) { e.preventDefault(); show(slides.indexOf(t)); }
+    });
+  });
+
+  var h0 = location.hash.slice(1);
+  if (/n$/.test(h0)) { open = true; document.body.classList.add('open'); help.textContent = '×'; }
+  fit();
+  show((parseInt(h0, 10) || 1) - 1);
+  setTimeout(function () { document.body.classList.add('ready'); }, 100);
+})();
+</script>
+</body>
+</html>
