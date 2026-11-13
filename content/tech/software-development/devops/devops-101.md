@@ -9,14 +9,15 @@ attachments: [_files/devops-101.html]
 
 A slide deck for people who work with engineers but are not engineers themselves - HR, recruiting, sales, finance. It explains the words, the people and the process behind every app, without a single line of code, and then shows how one company's products (JFrog) fit into that picture.
 
+<p><a href="/blearning/tech/software-development/devops/_files/devops-101.html" style="display:block; text-align:center; padding:0.8rem 1rem; border-radius:999px; background:#40be46; color:#fff; font-weight:700; text-decoration:none">Open the slides (best on a phone)</a></p>
+
 <div style="position:relative; width:100%; aspect-ratio:16/9; margin:1rem 0; border:1px solid var(--sl-color-gray-5); border-radius:6px; overflow:hidden">
 <iframe src="/blearning/tech/software-development/devops/_files/devops-101.html" title="Hi-tech, DevOps and JFrog 101 - slides" loading="lazy" allowfullscreen style="position:absolute; inset:0; width:100%; height:100%; border:0"></iframe>
 </div>
 
-- [Open the slides in a full window](_files/devops-101.html) - best for reading, and the way to view them **on a phone**.
 - <a href="/blearning/tech/software-development/devops/_files/devops-101.html" download="devops-101.html">Download the slides</a> - one HTML file that works offline in any browser.
 
-**How to use the slides:** click the slides first, then use the arrow keys to move. Press **?** (or the **?** button at the top right) to open a side panel - every slide has a full explanation, written for reading on your own. `F` is full screen. On a phone the slides become one scrolling page, with an "Explain this slide" button under each one.
+**How to use the slides:** click the slides first, then use the arrow keys to move. Press **?** (or the **?** button at the top right) to open a side panel - every slide has a full explanation, written for reading on your own. `F` is full screen. On a phone the slides become one scrolling page: a top bar has the contents list, "Explain all" and download, and every slide has its own "Explain this slide" button.
 
 ## What's inside
 
