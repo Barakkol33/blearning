@@ -66,7 +66,7 @@ The talk is the big picture. This guide goes deeper, step by step:
 
 - [What is DevOps](01-get-started/intro.md) - the core ideas
 - [Kubernetes](02-containers/kubernetes.md) - build a cluster on your laptop and learn every object
-- [Kafka](03-data-sources/kafka.md) - producers, consumers, lag
-- [The final exercise](06-exercise/exercise.md) - deploy a real app to Kubernetes
+- [Kafka](08-services/kafka.md) - producers, consumers, lag
+- [The final exercise](12-exercise/exercise.md) - deploy a real app to Kubernetes
 
 The talk's source - the slides, the diagrams, the demo and a presenter guide - is in [examples/devops-talk](https://github.com/Barakkol33/blearning/tree/main/examples/devops-talk) on GitHub, or as a [zip](https://github.com/Barakkol33/blearning/releases/download/devops-talk-latest/devops-talk.zip).

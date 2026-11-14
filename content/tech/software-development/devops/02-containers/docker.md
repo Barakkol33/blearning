@@ -1,10 +1,13 @@
 ---
-title: Docker — Self-Learning Guide
+title: Docker
 order: 1
 lang: en
+tags: [beginner]
 ---
 
-# Docker — Self-Learning Guide
+# Docker
+
+**Level: beginner**
 
 This guide will walk you through Docker from the ground up. By the end, you'll understand what Docker is, why it exists, and how to use it day-to-day. Each section builds on the previous one, so work through them in order.
 

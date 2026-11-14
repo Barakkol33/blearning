@@ -1,10 +1,13 @@
 ---
-title: Kubernetes (K8s) — Self-Learning Guide
+title: Kubernetes
 order: 2
 lang: en
+tags: [beginner]
 ---
 
-# Kubernetes (K8s) — Self-Learning Guide
+# Kubernetes
+
+**Level: beginner**
 
 This guide teaches you Kubernetes from the ground up. It assumes you already understand Docker (containers, images, networking). Each section introduces a concept, explains *why* it exists, and gives you hands-on commands to try.
 

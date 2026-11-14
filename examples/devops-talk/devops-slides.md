@@ -851,7 +851,7 @@ How do you fix growing lag? More cooks. Consumers that share the work join one *
 
 So to fix lag: add consumers (up to the number of partitions), make the consumer code faster, or both.
 
-To go deeper: the [Kafka page on blearning](https://barakkol33.github.io/blearning/tech/software-development/devops/data-sources/kafka/).
+To go deeper: the [Kafka page on blearning](https://barakkol33.github.io/blearning/tech/software-development/devops/services/kafka/).
 -->
 
 ---
@@ -1223,7 +1223,7 @@ Self-learning guides, from zero, with hands-on commands:
 - [DevOps guide](https://barakkol33.github.io/blearning/tech/software-development/devops/) - the full course, start with [Setup](https://barakkol33.github.io/blearning/tech/software-development/devops/prerequisites/)
 - [What is DevOps](https://barakkol33.github.io/blearning/tech/software-development/devops/get-started/intro/) - the core ideas
 - [Kubernetes](https://barakkol33.github.io/blearning/tech/software-development/devops/containers/kubernetes/) - a cluster on your laptop
-- [Kafka](https://barakkol33.github.io/blearning/tech/software-development/devops/data-sources/kafka/) - producers, consumers, lag
+- [Kafka](https://barakkol33.github.io/blearning/tech/software-development/devops/services/kafka/) - producers, consumers, lag
 - [Final exercise](https://barakkol33.github.io/blearning/tech/software-development/devops/exercise/exercise/) - deploy a real app
 
 <!-- notes:

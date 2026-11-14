@@ -2,9 +2,12 @@
 title: Linux — Practical Guide for DevOps
 order: 3
 lang: en
+tags: [beginner]
 ---
 
 # Linux — Practical Guide for DevOps
+
+**Level: beginner**
 
 This is a reference of the Linux knowledge you'll use daily when working with Docker, Kubernetes, CI/CD pipelines, and infrastructure automation.
 

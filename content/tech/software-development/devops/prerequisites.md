@@ -12,7 +12,7 @@ Run these steps **while you have internet** so everything is cached locally. Aft
 
 The guides are written in markdown. To read them comfortably, use one of these:
 
-- **Obsidian** — open the `docs/` folder as a vault. Best reading experience with sidebar navigation.
+- **Obsidian** — open the guide's folder as a vault. Best reading experience with sidebar navigation.
 - **VS Code** — open any `.md` file and press `Ctrl+Shift+V` (or click the preview icon in the top-right) to see the rendered view.
 
 Either works. The important thing is that you're not reading raw markdown — tables, code blocks, and formatting are much easier to follow in a rendered view.
@@ -128,13 +128,14 @@ helm pull bitnami/nginx --untar -d /tmp/helm-cache
 The exercise app has both Node.js and Python options. Install dependencies for whichever you plan to use:
 
 ```bash
+# From the guide's folder (content/tech/software-development/devops)
 # Node.js
-cd docs/2-devops/6-exercise/app/node
+cd 12-exercise/_files/app/node
 npm install
 cd -
 
 # Python
-cd docs/2-devops/6-exercise/app/python
+cd 12-exercise/_files/app/python
 pip install -r requirements.txt
 cd -
 ```

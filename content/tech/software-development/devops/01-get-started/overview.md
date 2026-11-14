@@ -2,9 +2,12 @@
 title: DevOps
 order: 1
 lang: en
+tags: [intro]
 ---
 
 # DevOps
+
+**Level: intro**
 
 DevOps is about making software delivery and production operations reliable, repeatable, and efficient.
 
