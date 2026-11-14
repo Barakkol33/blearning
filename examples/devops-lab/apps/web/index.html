@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>DevOps lab shop</title>
+<style>
+	:root { color-scheme: light dark; --line: #8884; --accent: #2a7ae2; }
+	body { font: 16px/1.5 system-ui, sans-serif; max-width: 860px; margin: 0 auto; padding: 16px; }
+	h1 { margin: 0 0 4px; font-size: 1.5rem; }
+	.sub { opacity: .7; margin: 0 0 16px; }
+	form, .row { display: flex; gap: 8px; flex-wrap: wrap; margin: 12px 0; }
+	input, button { font: inherit; padding: 8px 10px; border: 1px solid var(--line); border-radius: 6px; background: transparent; color: inherit; }
+	input[name=item], #q { flex: 1 1 200px; }
+	input[name=quantity] { width: 80px; }
+	button { background: var(--accent); color: #fff; border-color: var(--accent); cursor: pointer; }
+	.cards { display: flex; gap: 8px; flex-wrap: wrap; }
+	.card { border: 1px solid var(--line); border-radius: 8px; padding: 8px 12px; min-width: 110px; }
+	.card b { display: block; font-size: 1.3rem; }
+	.table { overflow-x: auto; }
+	table { border-collapse: collapse; width: 100%; }
+	th, td { text-align: left; padding: 6px 8px; border-bottom: 1px solid var(--line); white-space: nowrap; }
+	.new { color: #d9822b; } .processed { color: #2e9e5b; }
+	small { opacity: .7; }
+</style>
+</head>
+<body>
+<h1>DevOps lab shop</h1>
+<p class="sub">A page from nginx, an API on Node.js, orders in PostgreSQL, the list cached in Redis, events through Kafka to a worker.</p>
+
+<form id="order">
+	<input name="item" placeholder="What to order" value="red bicycle" required>
+	<input name="quantity" type="number" min="1" value="1" required>
+	<button>Order</button>
+</form>
+
+<div class="cards" id="stats"></div>
+<p><small id="meta"></small></p>
+
+<h2>Latest orders</h2>
+<div class="table"><table><thead><tr><th>#</th><th>Item</th><th>Qty</th><th>Status</th><th>Created</th></tr></thead><tbody id="orders"></tbody></table></div>
+
+<h2>Search</h2>
+<div class="row"><input id="q" placeholder="bicycle"><button id="search" type="button">Search</button></div>
+<div id="results"></div>
+
+<script>
+const $ = (id) => document.getElementById(id);
+const esc = (text) => String(text).replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+
+async function refresh() {
+	try {
+		const list = await fetch('/api/orders');
+		const orders = await list.json();
+		$('orders').innerHTML = orders.map((o) =>
+			`<tr><td>${o.id}</td><td>${esc(o.item)}</td><td>${o.quantity}</td><td class="${esc(o.status)}">${esc(o.status)}</td><td>${new Date(o.created_at).toLocaleTimeString()}</td></tr>`).join('');
+		const stats = await (await fetch('/api/stats')).json();
+		$('stats').innerHTML = stats.orders.map((s) => `<div class="card"><b>${s.count}</b>${esc(s.status)}</div>`).join('') || '<div class="card"><b>0</b>orders</div>';
+		$('meta').textContent = `served by pod ${stats.served_by}, version ${stats.version}, orders list from cache: ${list.headers.get('x-cache')}`;
+	} catch (error) {
+		$('meta').textContent = `API unreachable: ${error.message}`;
+	}
+}
+
+$('order').addEventListener('submit', async (event) => {
+	event.preventDefault();
+	const form = new FormData(event.target);
+	await fetch('/api/orders', {
+		method: 'POST',
+		headers: { 'content-type': 'application/json' },
+		body: JSON.stringify({ item: form.get('item'), quantity: Number(form.get('quantity')) }),
+	});
+	refresh();
+});
+
+$('search').addEventListener('click', async () => {
+	const response = await fetch(`/api/search?q=${encodeURIComponent($('q').value)}`);
+	const hits = await response.json();
+	$('results').innerHTML = Array.isArray(hits)
+		? (hits.map((h) => `<div>#${h.id} ${esc(h.item)} <small>score ${h.score.toFixed(2)}</small></div>`).join('') || '<small>no results</small>')
+		: `<small>${esc(hits.error)}</small>`;
+});
+
+refresh();
+setInterval(refresh, 2000);
+</script>
+</body>
+</html>

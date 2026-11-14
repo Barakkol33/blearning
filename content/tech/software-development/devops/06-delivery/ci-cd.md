@@ -99,7 +99,7 @@ What it shows:
 - **Fast**: under ten minutes, or people stop waiting for it.
 - **Reliable**: a red pipeline always means a real problem. Flaky tests are fixed or removed.
 - **Reproducible**: pinned versions and lock files.
-- **Secure**: least-privilege tokens, no long-lived cloud keys (see [Security](../10-security/security.md)).
+- **Secure**: least-privilege tokens, no long-lived cloud keys (see [Security](../10-security/_index.md)).
 
 ## Where it goes next
 

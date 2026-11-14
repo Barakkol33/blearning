@@ -1,0 +1,6 @@
+name: devops-lab
+description: A small production-like platform on a local kind cluster
+runtime:
+  name: nodejs
+  options:
+    packagemanager: npm

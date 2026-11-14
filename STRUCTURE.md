@@ -187,6 +187,8 @@ high-school/<subject>/
 - Exception: identifiers that are names in their own right stay as they are (`581`, `grade-3`).
 - **Chapters and parts are ordered by a two-digit prefix**: `01-kinematics`, `02-dynamics`. The prefix is not part of the title.
 - Other nodes and pages are ordered by an optional `order` field in front matter, then alphabetically.
+- **A page is never named like its folder** (`01-basics/basics.md` would give the URL `basics/basics/`). A chapter with a single page keeps its content in `_index.md`. In a chapter with several pages, the page gets its own name (`concepts.md`). The build fails otherwise.
+- When a URL changes, add the old one to `site/src/redirects.json`.
 - Fixed unit sections always appear in this order: overview, tips, allowed aids, material, assignments, summaries, exams, extras.
 
 ---

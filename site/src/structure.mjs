@@ -88,6 +88,11 @@ function validate(node, errors, inSummaries = false) {
 	}
 	const summaries = inSummaries || (node.kind === 'section' && node.name === 'summaries');
 	if (summaries && node.pages.some((p) => p.name === 'solutions')) errors.push(`${node.rel}: summaries never contain exercises (solutions.md)`);
+	// A page named like its folder would repeat the name in the URL (`basics/basics/`).
+	const slug = node.name.replace(PREFIX, '');
+	for (const p of node.pages) {
+		if (p.name.replace(PREFIX, '') === slug) errors.push(`${p.rel}: page named like its folder (URL would repeat "${slug}"); put the content in _index.md or rename the page`);
+	}
 	if ((node.kind === 'chapter' || node.kind === 'part') && !PREFIX.test(node.name)) errors.push(`${node.rel}: ${node.kind} folder needs a two-digit prefix`);
 	for (const c of node.children) validate(c, errors, summaries);
 }
@@ -109,23 +114,26 @@ function compare(a, b, parentKind) {
 	return 0;
 }
 
+/** Sidebar label: `sidebar.label` when the page title is too long for the sidebar. */
+const label = (item) => item.fm.sidebar?.label ?? item.fm.title ?? item.name;
+
 function toSidebar(node, includeDrafts) {
 	const items = [...node.pages.map((p) => ({ ...p, page: true })), ...node.children]
 		.filter((i) => includeDrafts || !i.fm.draft)
 		.sort((a, b) => compare(a, b, node.kind))
 		.map((i) =>
 			i.page
-				? { label: i.fm.title ?? i.name, slug: idFromPath(i.rel) }
+				? { label: label(i), slug: idFromPath(i.rel) }
 				: toSidebar(i, includeDrafts),
 		);
 	const badge = node.fm.status === 'stub' ? { badge: { text: 'בבנייה', variant: 'note' } } : {};
-	if (!items.length) return { label: node.fm.title ?? node.name, slug: idFromPath(node.rel), ...badge };
+	if (!items.length) return { label: label(node), slug: idFromPath(node.rel), ...badge };
 	// A folder with one page and an empty _index has nothing to overview: link straight to the page.
 	if (items.length === 1 && !node.children.length && !node.hasBody) {
-		return { label: node.fm.title ?? node.name, slug: items[0].slug, ...badge };
+		return { label: label(node), slug: items[0].slug, ...badge };
 	}
 	return {
-		label: node.fm.title ?? node.name,
+		label: label(node),
 		...badge,
 		collapsed: true,
 		items: [{ label: 'סקירה', slug: idFromPath(node.rel) }, ...items],

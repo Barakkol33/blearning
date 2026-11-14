@@ -91,5 +91,5 @@ On this single node the index is yellow: its replica shard has no second node to
 
 ## See also
 
-- [Beyond relational](../07-databases/databases.md): more on Elasticsearch concepts
-- [Observability](../09-observability/observability.md), [Loki](../09-observability/loki.md)
+- [Beyond relational](../07-databases/beyond-relational.md): more on Elasticsearch concepts
+- [Observability](../09-observability/concepts.md), [Loki](../09-observability/loki.md)

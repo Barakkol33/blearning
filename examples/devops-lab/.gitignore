@@ -1,0 +1,5 @@
+node_modules/
+bin/
+# Pulumi's local state and the stack's settings: created by lab.sh on each machine
+.pulumi-state/
+Pulumi.*.yaml

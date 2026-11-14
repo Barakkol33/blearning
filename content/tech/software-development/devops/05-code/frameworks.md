@@ -97,4 +97,4 @@ A service that does these six runs well on any platform.
 ## See also
 
 - [APIs](apis.md), [Runtimes and engines](runtimes.md)
-- [Observability](../09-observability/observability.md)
+- [Observability](../09-observability/concepts.md)

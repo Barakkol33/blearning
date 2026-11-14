@@ -1,0 +1,13 @@
+# A smaller cluster: a single node that is both control plane and worker.
+# Use it on a machine with little memory, or when another kind cluster is already running:
+#   LAB_SMALL=1 ./lab.sh up
+# Everything works except the experiments that need a second node (draining a node).
+kind: Cluster
+apiVersion: kind.x-k8s.io/v1alpha4
+name: devops-lab
+nodes:
+  - role: control-plane
+    extraPortMappings:
+      - containerPort: 30080
+        hostPort: 8090
+        protocol: TCP

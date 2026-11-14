@@ -1,6 +1,6 @@
 ---
 title: "Beyond relational: Elasticsearch, MongoDB, Redis, ClickHouse"
-order: 5
+order: 6
 lang: en
 tags: [intro]
 ---

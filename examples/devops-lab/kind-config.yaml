@@ -1,0 +1,14 @@
+# The lab's cluster: one control-plane node and two workers, as Docker containers.
+# Two workers, so there is something to drain and something to spread replicas over.
+kind: Cluster
+apiVersion: kind.x-k8s.io/v1alpha4
+name: devops-lab
+nodes:
+  - role: control-plane
+    extraPortMappings:
+      # http://localhost:8090 on your machine -> node port 30080 -> the ingress controller
+      - containerPort: 30080
+        hostPort: 8090
+        protocol: TCP
+  - role: worker
+  - role: worker

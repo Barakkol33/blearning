@@ -76,6 +76,6 @@ A service is also at most as reliable as what it depends on. Calling three servi
 
 ## See also
 
-- [Observability](../09-observability/observability.md): where SLIs come from
+- [Observability](../09-observability/concepts.md): where SLIs come from
 - [Operating a database](../07-databases/operations.md): RPO and RTO in practice
 - [DevOps intro: reliability](../01-get-started/intro.md)

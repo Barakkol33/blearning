@@ -1,0 +1,127 @@
+name: DevOps lab
+
+# Continuous integration for examples/devops-lab:
+#   app  - install, syntax check, build the image, scan it for known vulnerabilities
+#   e2e  - create a kind cluster, deploy the whole lab with Pulumi, run the smoke test
+
+on:
+  push:
+    paths: ['examples/devops-lab/**', '.github/workflows/devops-lab.yml']
+  pull_request:
+    paths: ['examples/devops-lab/**', '.github/workflows/devops-lab.yml']
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: devops-lab-${{ github.ref }}
+  cancel-in-progress: true
+
+defaults:
+  run:
+    working-directory: examples/devops-lab
+
+jobs:
+  app:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Check the application code
+        working-directory: examples/devops-lab/apps/shop
+        run: |
+          npm ci
+          for file in src/*.js; do node --check "$file"; done
+
+      - name: Type-check the Pulumi program
+        working-directory: examples/devops-lab/infra
+        run: |
+          npm ci
+          npx tsc --noEmit
+
+      - name: Build the image
+        run: docker build -t devops-lab/shop:ci apps/shop
+
+      - name: Scan the image (report only)
+        run: |
+          docker run --rm -v /var/run/docker.sock:/var/run/docker.sock aquasec/trivy:latest \
+            image --severity HIGH,CRITICAL --ignore-unfixed --no-progress devops-lab/shop:ci
+
+  e2e:
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Install kind and Pulumi
+        run: |
+          curl -fsSLo kind https://kind.sigs.k8s.io/dl/v0.26.0/kind-linux-amd64
+          sudo install kind /usr/local/bin/kind && rm kind
+          curl -fsSL https://get.pulumi.com | sh
+          echo "$HOME/.pulumi/bin" >> "$GITHUB_PATH"
+
+      - name: Deploy the lab
+        run: ./lab.sh up
+
+      - name: Smoke test
+        run: ./lab.sh test
+
+      - name: Experiment - load builds Kafka lag, more workers drain it
+        run: |
+          kubectl -n apps scale deployment loadgen --replicas 1
+          sleep 60
+          lag() { kubectl -n data exec kafka-0 -- /opt/kafka/bin/kafka-consumer-groups.sh --bootstrap-server localhost:9092 --describe --group order-workers | awk 'NR>2 && $6 ~ /^[0-9]+$/ {sum += $6} END {print sum + 0}'; }
+          before=$(lag); echo "lag after 60s of load with 1 worker: $before"
+          [ "$before" -gt 50 ]
+          kubectl -n apps get hpa api
+          kubectl -n apps scale deployment loadgen --replicas 0
+          kubectl -n apps scale deployment worker --replicas 3
+          sleep 75
+          after=$(lag); echo "lag 75s after stopping the load, with 3 workers: $after"
+          [ "$after" -lt "$before" ]
+
+      - name: Experiment - a bad image does not take the API down
+        run: |
+          kubectl -n apps set image deployment/api api=devops-lab/shop:does-not-exist
+          sleep 30
+          kubectl -n apps get pods -l app=api
+          curl -fsS localhost:8090/api/stats
+          kubectl -n apps rollout undo deployment/api
+          kubectl -n apps rollout status deployment/api --timeout=120s
+
+      - name: Experiment - PostgreSQL comes back with its data
+        run: |
+          count() { kubectl -n data exec postgres-0 -c postgres -- psql -U postgres -d shop -tAc 'SELECT count(*) FROM orders'; }
+          before=$(count)
+          kubectl -n data delete pod postgres-0
+          kubectl -n data wait --for=condition=Ready pod/postgres-0 --timeout=180s
+          after=$(count); echo "orders before: $before, after: $after"
+          [ "$after" -ge "$before" ]
+          for i in $(seq 1 30); do curl -fsS localhost:8090/api/stats && break; sleep 3; done
+
+      - name: Status
+        if: always()
+        run: |
+          ./lab.sh status || true
+          kubectl top pods -A || true
+
+      - name: Diagnostics
+        if: failure()
+        run: |
+          kubectl get pods -A -o wide || true
+          kubectl get events -A --sort-by=.lastTimestamp | tail -60 || true
+          for ns in platform data apps monitoring; do
+            for pod in $(kubectl -n "$ns" get pods --no-headers 2>/dev/null | awk '$3 != "Running" && $3 != "Completed" {print $1}'); do
+              echo "::group::describe $ns/$pod"; kubectl -n "$ns" describe pod "$pod" | tail -40; echo "::endgroup::"
+            done
+          done
+          for target in apps/deploy/api apps/deploy/worker data/statefulset/kafka data/deploy/kafka-exporter platform/deploy/traefik; do
+            echo "::group::logs $target"; kubectl -n "${target%%/*}" logs "${target#*/}" --all-containers --tail 60 || true; echo "::endgroup::"
+          done

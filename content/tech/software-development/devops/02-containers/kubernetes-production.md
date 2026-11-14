@@ -41,7 +41,7 @@ Getting an application to run on Kubernetes is the easy part, covered in the [Ku
 | DNS records | external-dns |
 | Secrets from a vault | External Secrets Operator |
 | Deployments | [Argo CD or Flux](../06-delivery/gitops.md) |
-| Metrics, logs | Prometheus, Grafana, Loki (see [Observability](../09-observability/observability.md)) |
+| Metrics, logs | Prometheus, Grafana, Loki (see [Observability](../09-observability/concepts.md)) |
 | Policy | Kyverno or OPA Gatekeeper |
 | Node scaling | Cluster Autoscaler or Karpenter |
 

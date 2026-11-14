@@ -17,6 +17,7 @@ What a good DevOps engineer needs to know today, from the first Linux command to
 ## How to use this guide
 
 - **Learning from zero:** read chapters 1 and 2 in order, then do the [exercise](12-exercise/_index.md). After that, take the other chapters in any order.
+- **Practicing:** the [lab](13-lab/_index.md) is a complete small platform on your laptop (applications, PostgreSQL, Redis, Kafka, Elasticsearch, Prometheus and Grafana), deployed with Pulumi, with a list of things to load and break.
 - **Filling gaps:** every page stands on its own. Pick what you need from the table below.
 - **Before the hands-on pages:** follow the [prerequisites](prerequisites.md) to install the tools and pre-pull the Docker images. This matters most if you will work without internet access.
 - **While working:** keep the [cheatsheet](cheatsheet.md) open (Linux, Docker, Kubernetes). There is also a [Windows version](cheatsheet-windows.md).
@@ -60,21 +61,26 @@ Every page is written at one level, marked at the top of the page and in its `ta
 | 7 | Databases | [PostgreSQL](07-databases/postgres.md) | intro |
 | 7 | Databases | [Replication and scaling](07-databases/replication.md) | intro |
 | 7 | Databases | [Operating a database](07-databases/operations.md) | intro |
-| 7 | Databases | [Beyond relational](07-databases/databases.md): Elasticsearch, MongoDB, Redis, ClickHouse | intro |
+| 7 | Databases | [Database health](07-databases/health.md): what to watch and common cases, for PostgreSQL, Elasticsearch, Redis, MongoDB and Kafka | advanced |
+| 7 | Databases | [Beyond relational](07-databases/beyond-relational.md): Elasticsearch, MongoDB, Redis, ClickHouse | intro |
 | 8 | Services | [Messaging and queues](08-services/messaging.md) | intro |
 | 8 | Services | [Kafka](08-services/kafka.md) | intro |
 | 8 | Services | [Caching and Redis](08-services/caching.md) | intro |
 | 8 | Services | [Search](08-services/search.md) | intro |
 | 8 | Services | [Object storage](08-services/object-storage.md) | intro |
 | 8 | Services | [Proxies and load balancers](08-services/proxies.md) | intro |
-| 9 | Observability | [Observability](09-observability/observability.md): metrics, logs, traces, alerts | intro |
+| 9 | Observability | [Observability](09-observability/concepts.md): metrics, logs, traces, alerts | intro |
 | 9 | Observability | [Metrics and Prometheus](09-observability/metrics.md) | intro |
 | 9 | Observability | [Monitoring with Prometheus, Loki and Grafana](09-observability/monitoring.md) | beginner |
 | 9 | Observability | [Loki and LogQL](09-observability/loki.md) | beginner |
-| 10 | Security | [Security](10-security/security.md) | intro |
+| 10 | Security | [Security](10-security/_index.md) | intro |
 | 11 | Reliability | [SRE](11-reliability/sre.md) | intro |
 | 11 | Reliability | [Cost (FinOps)](11-reliability/finops.md) | intro |
-| 12 | Exercise | [Guestbook on Kubernetes](12-exercise/exercise.md), with a [solution](12-exercise/solutions.md) | beginner |
+| 12 | Exercise | [Guestbook on Kubernetes](12-exercise/instructions.md), with a [solution](12-exercise/solutions.md) | beginner |
+| 13 | Lab | [A platform on your laptop](13-lab/_index.md): a cluster with apps, databases and monitoring | beginner |
+| 13 | Lab | [Pulumi: how the lab is deployed](13-lab/pulumi.md) | beginner |
+| 13 | Lab | [Experiments](13-lab/experiments.md): load, failures and database incidents | beginner |
+| 13 | Lab | [The lab in a cloud](13-lab/cloud.md): AWS, GCP, Azure | intro |
 
 When a page moves up a level, update its row here, the level line at the top of the page and its `tags`.
 
