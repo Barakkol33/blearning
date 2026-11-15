@@ -8,11 +8,13 @@ updated: 2026-11-13
 
 # Deployment strategies
 
-**Level: intro**
-
 Replacing version 1 with version 2 while users are on the system is the riskiest routine action in operations. A deployment strategy decides how traffic moves to the new version, and how fast you can go back.
 
-## Terms
+**Levels on this page:** [Intro](#intro)
+
+## Intro
+
+### Terms
 
 | Term | Meaning |
 |---|---|
@@ -26,7 +28,7 @@ Replacing version 1 with version 2 while users are on the system is the riskiest
 | Deploy vs release | Deploy: the code is running in production. Release: users get the feature. Flags separate the two |
 | Expand and contract | Changing a database schema in backward-compatible steps, so old and new code both work during the switch |
 
-## Comparing them
+### Comparing them
 
 | Strategy | Downtime | Rollback | Cost | Risk |
 |---|---|---|---|---|
@@ -35,7 +37,7 @@ Replacing version 1 with version 2 while users are on the system is the riskiest
 | Blue-green | No | Instant: switch back | Double resources for a while | Low |
 | Canary | No | Fast: shift the traffic back | Low to medium | Lowest: few users see a problem |
 
-## A small example: a rolling update in Kubernetes
+### A small example: a rolling update in Kubernetes
 
 ```yaml
 apiVersion: apps/v1
@@ -73,7 +75,7 @@ kubectl rollout undo deployment/web                 # rollback to the previous v
 
 The readiness probe is what makes this safe: a new pod that never becomes ready stops the rollout, and the old pods keep serving.
 
-## The hard part is the database
+### The hard part is the database
 
 Code can go back in seconds. Data cannot. To rename a column without downtime, expand and contract:
 
@@ -83,10 +85,9 @@ Code can go back in seconds. Data cannot. To rename a column without downtime, e
 
 Each step is its own deployment, and each can be rolled back.
 
-## Where it goes next
+## In the lab
 
-- Beginner: a blue-green switch with two Deployments and one Service, a canary with weights at the ingress.
-- Advanced: progressive delivery with automatic analysis (Argo Rollouts, Flagger), feature-flag systems, zero-downtime [database migrations](../07-databases/operations.md).
+- A rolling update with `maxUnavailable: 0`, a release that fails, and a rollback: [experiment 11](../13-lab/experiments.md#11-a-bad-release-and-a-rollback).
 
 ## See also
 

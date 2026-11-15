@@ -8,11 +8,13 @@ updated: 2026-11-13
 
 # SRE
 
-**Level: intro**
-
 Site reliability engineering (SRE) is Google's approach to operations: treat reliability as an engineering problem with numbers. How reliable must this service be? How much unreliability is left to spend on shipping changes? What do we learn from each failure? Its vocabulary is now used across the industry.
 
-## Terms
+**Levels on this page:** [Intro](#intro)
+
+## Intro
+
+### Terms
 
 | Term | Meaning |
 |---|---|
@@ -33,7 +35,7 @@ Site reliability engineering (SRE) is Google's approach to operations: treat rel
 | Chaos engineering | Injecting failures on purpose to check that the system survives them |
 | Capacity planning | Making sure there are enough resources for the expected load |
 
-## A small example: an error budget
+### A small example: an error budget
 
 The SLO: 99.9% of requests succeed, over 30 days.
 
@@ -61,7 +63,7 @@ This turns the old argument between developers ("ship faster") and operations ("
 
 A service is also at most as reliable as what it depends on. Calling three services of 99.9% each, all required, gives about 99.7% at best.
 
-## What a good incident looks like
+### What a good incident looks like
 
 1. **Detect** by an alert, not by a customer.
 2. **Respond**: one person leads, communication goes in one channel, stakeholders get updates.
@@ -69,10 +71,10 @@ A service is also at most as reliable as what it depends on. Calling three servi
 4. **Postmortem** within days, blameless, with action items that have owners.
 5. **Follow up** on the action items. Without this step the same incident returns.
 
-## Where it goes next
+## In the lab
 
-- Beginner: define SLIs and SLOs for a real service and build the dashboard, write a runbook, run a practice incident.
-- Advanced: burn-rate alerting, capacity planning and load testing, disaster-recovery exercises, chaos experiments, on-call health.
+- An alert on a symptom that users feel: [experiment 10](../13-lab/experiments.md#10-errors-and-an-alert).
+- Failure drills: [kill pods](../13-lab/experiments.md#2-kill-a-pod), [lose a database pod](../13-lab/experiments.md#12-lose-a-database-pod), [drain a node](../13-lab/experiments.md#13-drain-a-node), [run out of database connections](../13-lab/experiments.md#8-postgresql-run-out-of-connections).
 
 ## See also
 

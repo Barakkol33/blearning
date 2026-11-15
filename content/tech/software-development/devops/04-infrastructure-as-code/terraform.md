@@ -8,13 +8,15 @@ updated: 2026-11-13
 
 # Terraform
 
-**Level: intro**
-
 Terraform is the most common tool for infrastructure as code. You write what should exist (networks, machines, databases, DNS records), and Terraform works out which API calls will get you there. It works with every cloud and hundreds of other services through providers.
 
 **OpenTofu** is an open-source fork of Terraform, created after Terraform's license changed in 2023. The language and the workflow are the same (`tofu` in place of `terraform`), so everything here applies to both.
 
-## Terms
+**Levels on this page:** [Intro](#intro)
+
+## Intro
+
+### Terms
 
 | Term | Meaning |
 |---|---|
@@ -32,7 +34,7 @@ Terraform is the most common tool for infrastructure as code. You write what sho
 | Drift | When the real infrastructure no longer matches the code, usually after a manual change |
 | Idempotent | Applying twice gives the same result as applying once |
 
-## A small example
+### A small example
 
 This needs only Terraform itself, no cloud account. It manages a local file, and the workflow is the same as for real infrastructure.
 
@@ -79,17 +81,16 @@ terraform destroy
 
 Look at `terraform.tfstate` after an apply: this is how Terraform remembers what it owns.
 
-## Rules that save you later
+### Rules that save you later
 
 - **Always read the plan** before applying, mainly the lines that say destroy or replace.
 - **Keep state remote and locked**, never only on a laptop. It can contain secrets, so never commit it to Git.
 - **Change infrastructure only through code.** A manual fix in the console becomes drift.
 - **Pin provider versions**, and commit `.terraform.lock.hcl`.
 
-## Where it goes next
+## In the lab
 
-- Beginner: a real cloud resource, a remote backend, a module, `terraform import`, workspaces or folders per environment.
-- Advanced: state surgery, module design, testing, policy as code, running Terraform from [CI](../06-delivery/ci-cd.md), large-repo layout.
+- The [lab](../13-lab/_index.md) is deployed with Pulumi and not with Terraform, and the ideas are the same: the desired state in code, a state file, a preview before every change. [How the lab is deployed](../13-lab/pulumi.md) walks through the program.
 
 ## See also
 

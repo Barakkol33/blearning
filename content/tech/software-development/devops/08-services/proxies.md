@@ -8,11 +8,13 @@ updated: 2026-11-13
 
 # Proxies and load balancers
 
-**Level: intro**
-
 Between the user and the application there is almost always at least one proxy. It spreads traffic over servers, handles TLS, hides failed servers and routes by URL. Ingress controllers, API gateways and service meshes are all proxies with different configuration.
 
-## Terms
+**Levels on this page:** [Intro](#intro)
+
+## Intro
+
+### Terms
 
 | Term | Meaning |
 |---|---|
@@ -31,7 +33,7 @@ Between the user and the application there is almost always at least one proxy. 
 | Sidecar proxy | A proxy next to each service instance. The building block of a service mesh |
 | `X-Forwarded-For` | The header in which a proxy passes on the real client address |
 
-## The tools
+### The tools
 
 | Tool | Notes |
 |---|---|
@@ -43,7 +45,7 @@ Between the user and the application there is almost always at least one proxy. 
 | Cloud | AWS ALB (layer 7) and NLB (layer 4), Azure Application Gateway and Load Balancer, GCP Cloud Load Balancing |
 | API gateways | Kong, Apigee, AWS API Gateway |
 
-## A small example: nginx in front of two backends
+### A small example: nginx in front of two backends
 
 `docker-compose.yml`:
 
@@ -94,7 +96,7 @@ for i in 1 2 3 4; do curl -s localhost:8080; done
 # hello from app1  (every time: nginx stopped using the failed backend)
 ```
 
-## Reading proxy errors
+### Reading proxy errors
 
 | Status | What the proxy is telling you |
 |---|---|
@@ -104,10 +106,10 @@ for i in 1 2 3 4; do curl -s localhost:8080; done
 
 In all three, the proxy is healthy and the problem is behind it.
 
-## Where it goes next
+## In the lab
 
-- Beginner: TLS with a real certificate, path-based routing, rate limiting, an Ingress on Kubernetes.
-- Advanced: Envoy and its configuration API, connection draining, HTTP/2 and gRPC balancing, global load balancing, service mesh.
+- The lab's door is a reverse proxy (Traefik) that routes by path and by host name: `/api` to the API, `/` to the web page, and `grafana.localhost` to Grafana.
+- [Experiment 2](../13-lab/experiments.md#2-kill-a-pod) deletes every API pod at once and shows the proxy answering 502 and 504 until one is back.
 
 ## See also
 

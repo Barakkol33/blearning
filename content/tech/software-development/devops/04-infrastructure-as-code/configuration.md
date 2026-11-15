@@ -8,11 +8,13 @@ updated: 2026-11-13
 
 # Configuration and images
 
-**Level: intro**
-
 [Terraform](terraform.md) creates the machine. Something still has to install packages on it, write config files and start services. This page covers the tools for that step, and the other infrastructure-as-code tools you will meet.
 
-## Terms
+**Levels on this page:** [Intro](#intro)
+
+## Intro
+
+### Terms
 
 | Term | Meaning |
 |---|---|
@@ -26,7 +28,7 @@ updated: 2026-11-13
 | Module (Ansible) | One unit of work: install a package, copy a file, restart a service |
 | Agentless | Needs nothing installed on the target. Ansible connects over SSH |
 
-## The tools
+### The tools
 
 | Tool | What it does | When you meet it |
 |---|---|---|
@@ -41,7 +43,7 @@ updated: 2026-11-13
 
 With containers, most of the "install and configure" work moved into the Dockerfile, and configuration management shrank to preparing the hosts.
 
-## A small example: an Ansible playbook
+### A small example: an Ansible playbook
 
 `inventory.ini`:
 
@@ -82,11 +84,6 @@ ansible-playbook -i inventory.ini site.yml
 ```
 
 The first run reports `changed` for each task. The second reports `ok`: each task describes a state, so there is nothing left to do. That is idempotency again, the property all these tools share.
-
-## Where it goes next
-
-- Beginner: roles, variables and templates in Ansible, a Packer image, a Helm chart.
-- Advanced: testing infrastructure code, image pipelines, comparing Terraform, Pulumi and Crossplane on a real project.
 
 ## See also
 

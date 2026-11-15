@@ -67,6 +67,10 @@ export const api = new k8s.apps.v1.Deployment("api", {
                     envFrom,
                     ports: [{ name: "metrics", containerPort: 8080 }], // serves the API and /metrics
                     readinessProbe: { httpGet: { path: "/readyz", port: 8080 }, periodSeconds: 5 },
+                    // When a pod is deleted, it gets SIGTERM at the same moment that it starts to be removed
+                    // from the Service. For a second or two the proxy can still send it requests. This pause
+                    // lets the removal reach everyone first. Without it, a rollout of the lab dropped a request now and then.
+                    lifecycle: { preStop: { exec: { command: ["sleep", "5"] } } },
                     livenessProbe: { httpGet: { path: "/healthz", port: 8080 }, periodSeconds: 10, failureThreshold: 3 },
                     // The HPA works in percent of the CPU request. No request = no autoscaling.
                     resources: { requests: { cpu: "100m", memory: "128Mi" }, limits: { memory: "256Mi" } },
@@ -194,7 +198,13 @@ new k8s.core.v1.Service("web", {
 
 // --- the door: one address, routed by path ---------------------------------------------------
 new k8s.networking.v1.Ingress("shop", {
-    metadata: { name: "shop", namespace: ns },
+    metadata: {
+        name: "shop",
+        namespace: ns,
+        // Pulumi waits for an Ingress to get a load balancer address. On kind there is none
+        // (traffic enters through a node port), so every deploy would wait 10 minutes and fail.
+        annotations: { "pulumi.com/skipAwait": "true" },
+    },
     spec: {
         ingressClassName,
         rules: [{

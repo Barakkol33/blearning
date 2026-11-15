@@ -7,11 +7,11 @@ tags: [beginner]
 
 # DevOps Monitoring with Prometheus, Loki & Grafana
 
-**Level: beginner**
+**Levels on this page:** [Beginner](#beginner)
 
----
+## Beginner
 
-## Table of Contents
+### Table of Contents
 1. [Why Monitor? (The Problem)](#why-monitor-the-problem)
 2. [Stack Overview](#stack-overview)
 3. [Prometheus: Metrics Collection & Querying](#prometheus-metrics-collection--querying)
@@ -27,7 +27,7 @@ tags: [beginner]
 
 ---
 
-## Why Monitor? (The Problem)
+### Why Monitor? (The Problem)
 
 Modern systems emit **a lot** of operational data. Without structure, you can’t answer basic questions:
 
@@ -42,7 +42,7 @@ Modern systems emit **a lot** of operational data. Without structure, you can’
 
 ---
 
-## Stack Overview
+### Stack Overview
 
 A popular, production-proven stack combines **Prometheus (metrics)**, **Loki (logs)**, and **Grafana (visualization & alerts)**.
 
@@ -71,15 +71,15 @@ flowchart LR
 
 ---
 
-## Prometheus: Metrics Collection & Querying
+### Prometheus: Metrics Collection & Querying
 
-### What It Is
+#### What It Is
 
 * **Prometheus** is a metrics server that **scrapes** HTTP endpoints (e.g., `/metrics`).
 * Each scrape produces **samples** labeled with key/value pairs (e.g., `job`, `instance`, `method`, `status`).
 * Samples over time form **time series**.
 
-### Example Exposition Format (from a `/metrics` endpoint)
+#### Example Exposition Format (from a `/metrics` endpoint)
 
 ```
 # HELP http_requests_total Total HTTP requests
@@ -88,7 +88,7 @@ http_requests_total{app="checkout",method="GET",status="200"} 1027
 http_requests_total{app="checkout",method="POST",status="500"} 3
 ```
 
-### PromQL (Query Language) — Practical Examples
+#### PromQL (Query Language) — Practical Examples
 
 * **Average request duration (last 5m):**
 
@@ -128,11 +128,11 @@ histogram_quantile(
 
 ---
 
-## Alerting: Prometheus + Alertmanager
+### Alerting: Prometheus + Alertmanager
 
 **Flow:** PromQL expression ➜ Alert fires ➜ Alertmanager routes ➜ Notification (PagerDuty/Slack/Email/etc.)
 
-### Example Alert Rule (High Error Rate)
+#### Example Alert Rule (High Error Rate)
 
 ```yaml
 groups:
@@ -149,7 +149,7 @@ groups:
           description: "5xx rate > 5 req/s for 10m"
 ```
 
-### Example Alert Rule (Node Disk Almost Full)
+#### Example Alert Rule (Node Disk Almost Full)
 
 ```yaml
 - alert: DiskSpaceLow
@@ -164,7 +164,7 @@ groups:
 
 ---
 
-## VictoriaMetrics: Prometheus-Compatible at Scale
+### VictoriaMetrics: Prometheus-Compatible at Scale
 
 **Why use it?**
 
@@ -172,7 +172,7 @@ groups:
 * Efficient storage & **remote\_write/remote\_read** support.
 * **Cluster mode** that separates **scrape, insert, store, query** for high scale.
 
-### Example: Prometheus ➜ VictoriaMetrics (`remote_write`)
+#### Example: Prometheus ➜ VictoriaMetrics (`remote_write`)
 
 ```yaml
 remote_write:
@@ -183,19 +183,19 @@ remote_write:
 
 ---
 
-## Loki & Promtail: Centralized Logs
+### Loki & Promtail: Centralized Logs
 
-### The Problem with Logs
+#### The Problem with Logs
 
 * Logs live on many machines and containers.
 * SSH’ing around to grep is slow and brittle.
 
-### The Solution
+#### The Solution
 
 * **Promtail** (agent on each node/pod) tails logs and **ships** them to **Loki**.
 * **Loki** stores logs with labels (e.g., `{app="payments", pod="payments-7c9f..."}`) and integrates with Grafana.
 
-### LogQL (Query Language) — Practical Examples
+#### LogQL (Query Language) — Practical Examples
 
 * **All logs for a service:**
 
@@ -231,7 +231,7 @@ sum by (app) (rate(({app="payments"} |= "ERROR")[1m]))
 
 ---
 
-## Grafana: Visualization & Dashboards
+### Grafana: Visualization & Dashboards
 
 **What Grafana does**
 
@@ -239,14 +239,14 @@ sum by (app) (rate(({app="payments"} |= "ERROR")[1m]))
 * Builds **dashboards** with panels: time series, tables, gauges, heatmaps, logs, etc.
 * Supports **alerting**, annotations, and dynamic **variables** (e.g., pick a service by dropdown).
 
-### Useful Dashboard Ideas
+#### Useful Dashboard Ideas
 
 * **Service Health:** p95 latency, error rate, request throughput.
 * **Infra Overview:** Node CPU/Memory/Disk/Network, pod restarts.
 * **Business KPIs:** Daily products created, defects vs. total, labeling by category.
 * **Correlated Views:** Latency panel next to an error-rate panel and a **logs** panel filtered by the same service.
 
-### Panel Query Examples
+#### Panel Query Examples
 
 * **p95 latency (PromQL):**
 
@@ -268,14 +268,14 @@ sum by (app) (rate(http_requests_total{status=~"5.."}[5m]))
 
 ---
 
-## KPIs, SLIs, SLOs & Alerts
+### KPIs, SLIs, SLOs & Alerts
 
 * **KPI (Key Performance Indicator):** Business-facing metrics (e.g., products/day, defect ratio).
 * **SLI (Service Level Indicator):** Measured service behavior (e.g., success rate, latency).
 * **SLO (Service Level Objective):** Target for SLIs (e.g., “99.9% success over 30 days”).
 * **Alert:** A condition indicating we’re violating (or about to violate) an SLO or encountering an incident.
 
-### Examples
+#### Examples
 
 * **KPI:**
   *products\_created\_total* ➜ `increase(products_created_total[24h])`
@@ -289,11 +289,11 @@ sum by (app) (rate(http_requests_total{status=~"5.."}[5m]))
 
 ---
 
-## Deploying on Kubernetes (Quick Start)
+### Deploying on Kubernetes (Quick Start)
 
 > The stack is commonly installed via **Helm** charts with only a few commands.
 
-### 1) Prometheus (kube-prometheus-stack includes Alertmanager & Grafana)
+#### 1) Prometheus (kube-prometheus-stack includes Alertmanager & Grafana)
 
 ```bash
 helm repo add prometheus-community https://prometheus-community.github.io/helm-charts
@@ -303,7 +303,7 @@ helm install monitoring prometheus-community/kube-prometheus-stack \
   --namespace monitoring --create-namespace
 ```
 
-### 2) Loki & Promtail
+#### 2) Loki & Promtail
 
 ```bash
 helm repo add grafana https://grafana.github.io/helm-charts
@@ -317,7 +317,7 @@ helm install promtail grafana/promtail --namespace monitoring \
   --set "loki.serviceName=loki"
 ```
 
-### 3) (Optional) VictoriaMetrics (single-node)
+#### 3) (Optional) VictoriaMetrics (single-node)
 
 ```bash
 helm repo add vm https://victoriametrics.github.io/helm-charts
@@ -326,7 +326,7 @@ helm repo update
 helm install vmsingle vm/victoria-metrics-single --namespace monitoring
 ```
 
-### 4) Hook Prometheus to VictoriaMetrics (remote\_write)
+#### 4) Hook Prometheus to VictoriaMetrics (remote\_write)
 
 Add to Prometheus values (or use `helm upgrade` with `--set-file`):
 
@@ -337,7 +337,7 @@ prometheus:
       - url: http://vmsingle-victoria-metrics-single-server:8428/api/v1/write
 ```
 
-### 5) Access Grafana (if not exposed)
+#### 5) Access Grafana (if not exposed)
 
 ```bash
 kubectl -n monitoring port-forward svc/monitoring-grafana 3000:80
@@ -346,7 +346,7 @@ kubectl -n monitoring port-forward svc/monitoring-grafana 3000:80
 
 ---
 
-## End-to-End Example Walkthrough
+### End-to-End Example Walkthrough
 
 **Scenario:** Product checkout latency spikes and errors rise.
 
@@ -366,7 +366,7 @@ kubectl -n monitoring port-forward svc/monitoring-grafana 3000:80
 
 ---
 
-## Tips, Pitfalls & Best Practices
+### Tips, Pitfalls & Best Practices
 
 * **Label Hygiene (Cardinality Control):**
 
@@ -395,9 +395,9 @@ kubectl -n monitoring port-forward svc/monitoring-grafana 3000:80
 
 ---
 
-## PromQL & LogQL Cheat Sheets
+### PromQL & LogQL Cheat Sheets
 
-### PromQL Snippets
+#### PromQL Snippets
 
 * **Overall success rate (5m):**
 
@@ -425,7 +425,7 @@ sum by (pod) (container_memory_working_set_bytes{container!="",pod!=""}) / 1e6
 topk(5, rate(http_requests_total{status=~"5.."}[5m]) )
 ```
 
-### LogQL Snippets
+#### LogQL Snippets
 
 * **Errors for a service:**
 
@@ -447,7 +447,7 @@ sum(rate(({app="$app"} |~ "(WARN|ERROR)")[5m]))
 
 ---
 
-## Summary
+### Summary
 
 * **Prometheus** gathers **metrics**; **PromQL** makes them explorable.
 * **Loki** centralizes **logs**; **LogQL** makes them searchable.

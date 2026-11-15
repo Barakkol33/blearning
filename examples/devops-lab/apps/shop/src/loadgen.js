@@ -19,7 +19,11 @@ let failed = 0;
 
 async function call(path, options) {
 	try {
-		const response = await fetch(`${API_URL}${path}`, { ...options, signal: AbortSignal.timeout(5000) });
+		// A new connection for every request, like many separate customers. With connections kept open,
+		// all the load stays on the pods that existed when the generator started: Kubernetes balances
+		// connections, not requests, so the pods the autoscaler adds would get nothing.
+		const headers = { ...options?.headers, connection: 'close' };
+		const response = await fetch(`${API_URL}${path}`, { ...options, headers, signal: AbortSignal.timeout(5000) });
 		await response.arrayBuffer();
 		if (!response.ok) failed++;
 	} catch {

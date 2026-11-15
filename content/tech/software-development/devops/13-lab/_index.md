@@ -55,13 +55,15 @@ What happens when you place an order:
 
 ## Where each chapter of the guide shows up
 
+The guide is the theory, and the lab is where part of it is practiced. A page whose topic the lab practices ends with a section "In the lab" that points to the experiment.
+
 | Chapter | In the lab |
 |---|---|
 | [Containers](../02-containers/_index.md) | One image for three roles. Deployments, StatefulSets, Services, probes, requests and limits, an autoscaler, a disruption budget, an Ingress |
 | [Infrastructure as code](../04-infrastructure-as-code/_index.md) | The whole system is one [Pulumi program](pulumi.md), with Helm charts for third-party software |
 | [Code](../05-code/_index.md) | The app follows the rules for an operable service: config from the environment, JSON logs, health endpoints, metrics, graceful shutdown |
 | [Delivery](../06-delivery/_index.md) | Image tags from a content hash, rolling updates, rollback |
-| [Databases](../07-databases/_index.md) | PostgreSQL with query statistics and an exporter. The [health cases](../07-databases/health.md) can be reproduced |
+| [Databases](../07-databases/_index.md) | PostgreSQL, Redis and Elasticsearch with exporters and alert rules. Several of the common cases on each database's page can be reproduced |
 | [Services](../08-services/_index.md) | Kafka with a consumer group and lag, Redis as a cache-aside cache, Elasticsearch, a reverse proxy |
 | [Observability](../09-observability/_index.md) | Prometheus, a Grafana dashboard built on the RED method, four alert rules |
 | [Reliability](../11-reliability/_index.md) | Kill pods, drain a node, exhaust connections, and watch what users would feel |
@@ -114,7 +116,17 @@ cd .. && ./lab.sh deploy
 
 ## Status
 
-This is the first version (November 2026). The application and its four data stores were tested together, and the Pulumi program and Helm charts were validated, but the complete deployment has not yet been run from start to end on a cluster. Expect to fix a detail or two on the first `up`.
+First version, November 2026. The full lab was run from start to end on a three-node kind cluster on 2026-11-15 (WSL, 8 GB of memory): `./lab.sh up`, the smoke test (`./lab.sh test`, 26 checks), all 13 experiments, a release, and a restart of Docker under the running cluster, from which it recovered by itself.
+
+That run found five problems that no review, type check or `pulumi preview` had shown. They are fixed, and each one is a lesson of its own:
+
+| What was seen | The cause | Where it is now |
+|---|---|---|
+| With no traffic at all, the autoscaler raised the API to its maximum of 6 pods | The Kafka client library re-armed a 1 ms timer forever on an idle connection, so an idle pod used 80% of its CPU request. Found with `kubectl top pods`, then by measuring each library alone inside a pod | A fix in `apps/shop/src/common.js`. An idle pod now uses about 15% |
+| A release deleted the Deployments and created them again | Pulumi replaces a changed ConfigMap by default, and everything that refers to it | [Pulumi page](pulumi.md#two-defaults-that-the-first-real-run-exposed) |
+| Every deploy waited 10 minutes and ended with an error | Pulumi waited for the Ingress to get a load balancer address, which kind never gives | The same section |
+| Under load, 2 pods were busy and the 4 new ones idle | The load generator kept its connections open, and a Service balances connections | [Experiment 3](experiments.md#3-load-and-autoscaling) |
+| A rollout dropped a request now and then | A pod being deleted can still receive a request for a moment | [Experiment 11](experiments.md#11-a-bad-release-and-a-rollback) |
 
 ## What the lab is not
 

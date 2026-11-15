@@ -8,11 +8,13 @@ updated: 2026-11-13
 
 # Cloud concepts
 
-**Level: intro**
-
 A cloud rents you computers, storage, networks and ready-made services, by the hour or by use, through an API. The three big ones (AWS, Azure, GCP) use different names for nearly the same building blocks. Learn the blocks once and the names become a translation table.
 
-## Terms
+**Levels on this page:** [Intro](#intro)
+
+## Intro
+
+### Terms
 
 | Term | Meaning |
 |---|---|
@@ -30,7 +32,7 @@ A cloud rents you computers, storage, networks and ready-made services, by the h
 | Egress | Data leaving the cloud. It is billed, and is a common surprise on the invoice |
 | Quota | A per-account limit on how much of a resource you may create |
 
-## The same blocks, three names
+### The same blocks, three names
 
 | Block | AWS | Azure | GCP |
 |---|---|---|---|
@@ -55,7 +57,7 @@ A cloud rents you computers, storage, networks and ready-made services, by the h
 | Image registry | ECR | Container Registry (ACR) | Artifact Registry |
 | Native IaC | CloudFormation, CDK | Bicep (ARM templates) | Infrastructure Manager |
 
-## A small example: one web app, drawn in blocks
+### A small example: one web app, drawn in blocks
 
 A typical web application uses the same six blocks in any cloud:
 
@@ -77,7 +79,7 @@ IAM role on the app servers: may read one bucket and one secret, nothing else.
 
 Each provider page builds part of this with its own CLI: [AWS](aws.md), [Azure](azure.md), [GCP](gcp.md).
 
-## How to choose where to run something
+### How to choose where to run something
 
 From most control to least work:
 
@@ -87,8 +89,3 @@ From most control to least work:
 4. **Functions**: short event-driven code. Limits on runtime and start-up time.
 
 Start as high on the managed side as the workload allows, and move down only for a reason.
-
-## Where it goes next
-
-- Beginner: build the diagram above in one cloud, by hand and then with [Terraform](../04-infrastructure-as-code/terraform.md).
-- Advanced: multi-account layout, network design across regions, identity federation, [cost](../11-reliability/finops.md), multi-cloud trade-offs.

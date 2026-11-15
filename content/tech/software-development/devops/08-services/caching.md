@@ -8,11 +8,13 @@ updated: 2026-11-13
 
 # Caching and Redis
 
-**Level: intro**
-
 A cache keeps the answer to an expensive question in memory, so the next ask is fast. It is the cheapest way to speed up a system and to take load off a database. The price is that the cached answer can be out of date.
 
-## Terms
+**Levels on this page:** [Intro](#intro)
+
+## Intro
+
+### Terms
 
 | Term | Meaning |
 |---|---|
@@ -28,7 +30,7 @@ A cache keeps the answer to an expensive question in memory, so the next ask is 
 | In-memory store | A database that keeps its data in RAM. Fast, and limited by memory |
 | CDN | A cache for HTTP content, on servers near the users |
 
-## The tools
+### The tools
 
 | Tool | Notes |
 |---|---|
@@ -40,7 +42,7 @@ A cache keeps the answer to an expensive question in memory, so the next ask is 
 
 Besides caching, Redis is commonly used for sessions, rate limiting, distributed locks, leaderboards and simple queues.
 
-## A small example
+### A small example
 
 ```bash
 docker run -d --name redis -p 6379:6379 redis:7
@@ -81,19 +83,20 @@ def update_user(user_id: int, data: dict) -> None:
     cache.delete(f"user:{user_id}")               # invalidate
 ```
 
-## What to remember when operating one
+### What to remember when operating one
 
 - **Set a memory limit and an eviction policy** (`maxmemory`, `maxmemory-policy allkeys-lru`). Without them Redis grows until it is killed.
 - **A cache must be allowed to be empty.** If the system cannot survive a cold cache, the cache has become a database, and needs to be run like one.
 - **Always set a TTL.** It bounds how stale any value can get.
 - Watch the hit ratio, memory, evictions and latency.
 
-## Where it goes next
+## In the lab
 
-- Beginner: sessions and rate limiting with Redis, measuring the effect of a cache on a slow endpoint.
-- Advanced: persistence (RDB, AOF), replication and Sentinel, Redis Cluster, stampede protection, cache design for consistency.
+- The lab's API caches the list of orders in Redis with cache-aside and a TTL of 5 seconds. [Experiment 1](../13-lab/experiments.md#1-follow-one-order) shows a miss and then a hit.
+- [Experiment 5](../13-lab/experiments.md#5-the-cache) empties the cache, fills Redis past its memory limit to see evictions, and tries the `noeviction` policy.
 
 ## See also
 
+- [Redis](../07-databases/redis.md): its concepts, and how to keep a server healthy
 - [Replication and scaling](../07-databases/replication.md): caching as a scaling step
 - [Proxies and load balancers](proxies.md)

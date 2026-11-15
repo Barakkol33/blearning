@@ -8,11 +8,13 @@ updated: 2026-11-13
 
 # Frameworks
 
-**Level: intro**
-
 Almost no service is written from zero. A framework supplies the common parts: receiving HTTP requests, routing, talking to the database, configuration. Recognizing the framework tells you how to build the service, configure it, check its health and read its logs.
 
-## Terms
+**Levels on this page:** [Intro](#intro)
+
+## Intro
+
+### Terms
 
 | Term | Meaning |
 |---|---|
@@ -26,7 +28,7 @@ Almost no service is written from zero. A framework supplies the common parts: r
 | Graceful shutdown | On `SIGTERM`: stop taking new requests, finish the open ones, then exit |
 | Twelve-factor app | A known set of rules for services that are easy to operate: config from the environment, logs to stdout, stateless processes |
 
-## The common ones
+### The common ones
 
 | Framework | Language | Notes |
 |---|---|---|
@@ -41,7 +43,7 @@ Almost no service is written from zero. A framework supplies the common parts: r
 | **Ruby on Rails** | Ruby | Classic full web framework |
 | **React, Vue, Angular** | JavaScript | Frontend only. The build output is static files behind a web server or CDN |
 
-## A small example: a service that is easy to operate
+### A small example: a service that is easy to operate
 
 ```python
 # app.py
@@ -78,7 +80,7 @@ curl localhost:8000/healthz          # {"status":"ok"}
 curl localhost:8000/hello/dana       # {"message":"Shalom, dana!"}
 ```
 
-## What to ask of every service you deploy
+### What to ask of every service you deploy
 
 1. **Configuration** comes from environment variables or mounted files, never baked into the image.
 2. **Logs** go to stdout, one event per line, preferably JSON.
@@ -88,11 +90,6 @@ curl localhost:8000/hello/dana       # {"message":"Shalom, dana!"}
 6. **State** is in a database or object storage, never on the local disk.
 
 A service that does these six runs well on any platform.
-
-## Where it goes next
-
-- Beginner: add metrics, structured logs and graceful shutdown to the example, and deploy it to Kubernetes.
-- Advanced: connection pools, async versus threads under load, framework-specific tuning (Spring Boot, Django).
 
 ## See also
 

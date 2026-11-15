@@ -8,11 +8,13 @@ updated: 2026-11-13
 
 # CI/CD
 
-**Level: intro**
-
 CI/CD is the automated road from a commit to production. Every change is built and tested the same way, by a machine, and released by pressing merge. It is the center of DevOps work: most of what you build ends up as a step in a pipeline.
 
-## Terms
+**Levels on this page:** [Intro](#intro)
+
+## Intro
+
+### Terms
 
 | Term | Meaning |
 |---|---|
@@ -29,7 +31,7 @@ CI/CD is the automated road from a commit to production. Every change is built a
 | Environment | A deployment target: dev, staging, production. Often with its own secrets and approvals |
 | Build once, deploy many | The same artifact goes through every environment. Only configuration changes |
 
-## The tools
+### The tools
 
 | Tool | Notes |
 |---|---|
@@ -43,7 +45,7 @@ CI/CD is the automated road from a commit to production. Every change is built a
 
 The ideas are the same in all of them. Only the YAML differs.
 
-## A small example: test, then build and push an image
+### A small example: test, then build and push an image
 
 `.github/workflows/ci.yml`:
 
@@ -94,17 +96,17 @@ What it shows:
 - The image is tagged with the commit hash, so every running version points back to its exact code. (The registry needs the repository name in lowercase.)
 - The registry password is a short-lived token from the platform, not a secret someone typed in.
 
-## What makes a pipeline good
+### What makes a pipeline good
 
 - **Fast**: under ten minutes, or people stop waiting for it.
 - **Reliable**: a red pipeline always means a real problem. Flaky tests are fixed or removed.
 - **Reproducible**: pinned versions and lock files.
 - **Secure**: least-privilege tokens, no long-lived cloud keys (see [Security](../10-security/_index.md)).
 
-## Where it goes next
+## In the lab
 
-- Beginner: a full pipeline for a real app, with tests, image scan, and deployment to a cluster.
-- Advanced: self-hosted runners, caching strategy, monorepo pipelines, supply-chain hardening, measuring delivery (DORA metrics).
+- The [lab](../13-lab/_index.md) has a GitHub Actions workflow that creates a cluster on the runner, deploys the whole lab and runs its smoke test (`.github/workflows/devops-lab.yml`).
+- `./lab.sh test` is that smoke test: it checks every part, and sends one order through all of them.
 
 ## See also
 

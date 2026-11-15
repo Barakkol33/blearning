@@ -8,11 +8,13 @@ updated: 2026-11-13
 
 # Replication and scaling
 
-**Level: intro**
-
 One database server is a single point of failure and has a ceiling. Replication keeps copies on other servers, for survival and for spreading reads. Sharding splits the data itself over servers, for spreading writes. Both add failure modes that you must understand before you rely on them.
 
-## Terms
+**Levels on this page:** [Intro](#intro)
+
+## Intro
+
+### Terms
 
 | Term | Meaning |
 |---|---|
@@ -33,7 +35,7 @@ One database server is a single point of failure and has a ceiling. Replication 
 | Consensus (Raft, Paxos) | Algorithms by which nodes agree on one leader and one order of writes despite failures |
 | CAP theorem | When the network splits, a distributed system must choose: stay consistent, or stay available |
 
-## The usual order of scaling
+### The usual order of scaling
 
 Each step is harder than the one before, so take them in order:
 
@@ -44,7 +46,7 @@ Each step is harder than the one before, so take them in order:
 5. **Partition** very large tables.
 6. **Shard**, or move to a database built to scale out (Spanner, CockroachDB, Cassandra, DynamoDB). A last resort: queries across shards and rebalancing are hard.
 
-## A small example: measuring replication lag
+### A small example: measuring replication lag
 
 On a PostgreSQL primary, one row per connected replica:
 
@@ -65,7 +67,7 @@ What lag means in practice: a user saves a profile (a write to the primary), the
 
 And for failover: with asynchronous replication and a lag of 2 seconds, promoting the replica loses the last 2 seconds of confirmed writes. That number is your real RPO (see [Operating a database](operations.md)).
 
-## Who does the failover
+### Who does the failover
 
 Failover must be automatic and must never produce two primaries. That takes a consensus store that holds the answer to "who is the leader".
 
@@ -75,11 +77,6 @@ Failover must be automatic and must never produce two primaries. That takes a co
 | PostgreSQL on VMs | Patroni (with etcd or Consul) |
 | PostgreSQL on Kubernetes | An operator: CloudNativePG, Zalando, Crunchy |
 | MongoDB, Cassandra, CockroachDB | Built into the database |
-
-## Where it goes next
-
-- Beginner: a primary and a streaming replica with Docker Compose, a manual failover.
-- Advanced: synchronous replication and quorum commits, logical replication, Patroni internals, failover drills, sharding strategies, how Raft works.
 
 ## See also
 

@@ -8,11 +8,13 @@ updated: 2026-11-13
 
 # Object storage
 
-**Level: intro**
-
 Object storage holds files of any size under a key, reached over HTTP. It is cheap, practically unlimited and very durable, so it became the place for everything that is not a database row: uploads, backups, logs, build artifacts, Terraform state, data lakes. Amazon S3 defined the model, and its API is the standard that other products copy.
 
-## Terms
+**Levels on this page:** [Intro](#intro)
+
+## Intro
+
+### Terms
 
 | Term | Meaning |
 |---|---|
@@ -29,7 +31,7 @@ Object storage holds files of any size under a key, reached over HTTP. It is che
 | Presigned URL | A temporary link that gives access to one object without credentials |
 | S3-compatible | Any store that speaks the S3 API, so the same tools and SDKs work |
 
-## Three kinds of storage
+### Three kinds of storage
 
 | | Object | Block | File |
 |---|---|---|---|
@@ -39,7 +41,7 @@ Object storage holds files of any size under a key, reached over HTTP. It is che
 | Price | Lowest | Highest | Medium |
 | Use for | Backups, media, logs, artifacts | Databases, VM disks | Shared files between servers |
 
-## The tools
+### The tools
 
 | Where | Product |
 |---|---|
@@ -49,7 +51,7 @@ Object storage holds files of any size under a key, reached over HTTP. It is che
 | Others | Cloudflare R2, Backblaze B2 |
 | Self-hosted | MinIO, Ceph (RADOS Gateway), SeaweedFS, Garage |
 
-## A small example
+### A small example
 
 With the AWS CLI. For another S3-compatible store, add `--endpoint-url https://...` to each command.
 
@@ -84,17 +86,12 @@ aws s3api put-bucket-lifecycle-configuration \
   --bucket demo-artifacts-123456 --lifecycle-configuration file://lifecycle.json
 ```
 
-## What to remember
+### What to remember
 
 - **Buckets are private by default. Keep them that way.** Public buckets are the classic source of data leaks. Share with presigned URLs or through a CDN.
 - **Turn on versioning** for anything important, such as Terraform state: it is the undo for an overwrite or a delete.
 - **Set lifecycle rules.** Storage that nobody deletes grows forever.
 - **Reading has a price too**: requests and [egress](../11-reliability/finops.md) are billed, and archive classes charge for retrieval.
-
-## Where it goes next
-
-- Beginner: a static website from a bucket, database backups to a bucket from a scheduled job.
-- Advanced: bucket policies and encryption, cross-region replication, object lock for compliance, performance with many small objects, running your own store.
 
 ## See also
 

@@ -8,11 +8,13 @@ updated: 2026-11-13
 
 # How databases work
 
-**Level: intro**
-
 A database has two jobs: never lose data it confirmed, and find data fast. Almost every setting you tune and every incident you debug comes back to how it does these two. The ideas here are shared by PostgreSQL, MySQL, and most other databases.
 
-## Terms
+**Levels on this page:** [Intro](#intro)
+
+## Intro
+
+### Terms
 
 | Term | Meaning |
 |---|---|
@@ -31,7 +33,7 @@ A database has two jobs: never lose data it confirmed, and find data fast. Almos
 | Lock | Exclusive hold on a row or table. Two transactions waiting on each other form a deadlock |
 | Query planner | The part that chooses how to execute a query: which index, which join order |
 
-## The life of one write
+### The life of one write
 
 ```text
 UPDATE accounts SET balance = 50 WHERE id = 7;  COMMIT;
@@ -45,7 +47,7 @@ UPDATE accounts SET balance = 50 WHERE id = 7;  COMMIT;
 
 Why this order: appending to one log file is fast, and writing pages all over the disk is slow. If the server crashes after step 4, the table file is stale and the WAL is not. On restart the database replays the WAL and loses nothing. The same log, shipped to another server, is how [replication](replication.md) works.
 
-## A small example: watch an index change the plan
+### A small example: watch an index change the plan
 
 ```bash
 docker run -d --name pg -e POSTGRES_PASSWORD=secret -p 5432:5432 postgres:17
@@ -74,10 +76,9 @@ EXPLAIN ANALYZE SELECT * FROM users WHERE email = 'user500000@example.com';
 
 Indexes are not free: every one is updated on each write and takes disk and memory. Index what queries filter and join on, not everything.
 
-## Where it goes next
+## In the lab
 
-- Beginner: reading plans, composite and partial indexes, transactions and isolation levels in practice.
-- Advanced: B-tree and LSM internals, WAL and crash recovery in detail, MVCC and vacuum, lock analysis, the planner's statistics and cost model.
+- Query statistics, a plan with a sequential scan, and the same query after adding an index, on the lab's PostgreSQL: [experiment 6](../13-lab/experiments.md#6-postgresql-look-inside).
 
 ## See also
 

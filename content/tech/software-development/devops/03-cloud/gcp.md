@@ -8,11 +8,13 @@ updated: 2026-11-13
 
 # GCP
 
-**Level: intro**
-
 Google Cloud Platform is the smallest of the three and known for data and Kubernetes: BigQuery, and GKE from the company that created Kubernetes. Its style: fewer, more opinionated services, and everything belongs to a project.
 
-## How it is organized
+**Levels on this page:** [Intro](#intro)
+
+## Intro
+
+### How it is organized
 
 ```text
 Organization
@@ -23,7 +25,7 @@ Organization
 
 A project is the main unit. Each service's API is enabled per project, and deleting a project deletes everything in it.
 
-## Terms
+### Terms
 
 | Term | Meaning |
 |---|---|
@@ -43,7 +45,7 @@ A project is the main unit. Each service's API is enabled per project, and delet
 | Artifact Registry | Container images and packages |
 | Cloud Logging / Monitoring | Logs, metrics and alerts |
 
-## A small example: a container on the internet in one command
+### A small example: a container on the internet in one command
 
 ```bash
 gcloud auth login
@@ -70,14 +72,9 @@ gcloud projects add-iam-policy-binding my-demo-project \
   --role "roles/storage.objectViewer"
 ```
 
-## What to learn first
+### What to learn first
 
 Projects and IAM, service accounts, VPC, Compute Engine, Cloud Storage, then GKE or Cloud Run, Cloud SQL and BigQuery.
-
-## Where it goes next
-
-- Beginner: a Cloud Run service that reads from Cloud SQL through a service account.
-- Advanced: organization policies, Shared VPC, Workload Identity, GKE in depth, BigQuery cost control.
 
 ## See also
 

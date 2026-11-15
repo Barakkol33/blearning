@@ -8,11 +8,13 @@ updated: 2026-11-13
 
 # APIs
 
-**Level: intro**
-
 Services talk to each other through APIs. When something breaks between two services, you are the one reading the status code, the headers and the timeout. This page covers the styles of API and the vocabulary around them.
 
-## Terms
+**Levels on this page:** [Intro](#intro)
+
+## Intro
+
+### Terms
 
 | Term | Meaning |
 |---|---|
@@ -31,7 +33,7 @@ Services talk to each other through APIs. When something breaks between two serv
 | OAuth 2.0 / OIDC | Standards for delegated access and login. The caller presents a token, not a password |
 | JWT | A signed token that carries claims (who, what, until when) and can be verified without a database |
 
-## Status codes worth knowing by heart
+### Status codes worth knowing by heart
 
 | Code | Meaning | Whose problem |
 |---|---|---|
@@ -49,7 +51,7 @@ Services talk to each other through APIs. When something breaks between two serv
 
 4xx: the request is wrong. 5xx: the server side is wrong. 502, 503 and 504 usually come from a [load balancer or proxy](../08-services/proxies.md), not from the application.
 
-## A small example: reading a call
+### A small example: reading a call
 
 ```bash
 curl -i -X POST https://api.example.com/v1/orders \
@@ -75,11 +77,6 @@ What each part is for:
 - `Idempotency-Key` lets the client retry after a timeout without creating two orders.
 - `--max-time 5` is the timeout.
 - `x-request-id` appears in the logs of every service the request passed through. It is the first thing to search for when debugging.
-
-## Where it goes next
-
-- Beginner: write an OpenAPI file, call a gRPC service with `grpcurl`, issue and verify a JWT.
-- Advanced: API gateways, versioning, circuit breakers, service-to-service authentication with mTLS.
 
 ## See also
 

@@ -8,11 +8,13 @@ updated: 2026-11-13
 
 # Operating a database
 
-**Level: intro**
-
 Stateless services can be thrown away and recreated. A database cannot: it is the one part of the system where a mistake is permanent. Operating it comes down to four duties: back it up, change its schema safely, watch it, and upgrade it.
 
-## Terms
+**Levels on this page:** [Intro](#intro)
+
+## Intro
+
+### Terms
 
 | Term | Meaning |
 |---|---|
@@ -28,20 +30,20 @@ Stateless services can be thrown away and recreated. A database cannot: it is th
 | Connection saturation | All connections are in use and new clients are refused |
 | Maintenance window | An agreed time for risky work |
 
-## 1. Backups
+### 1. Backups
 
 - Replication is **not** a backup. A `DROP TABLE` replicates to every replica within a second.
 - Keep backups in another place than the database: another account or region.
 - Decide RPO and RTO with the business, then choose the method. "Lose at most 5 minutes" needs PITR. "Lose at most a day" is a nightly dump.
 - Test the restore regularly, and time it. That time is your real RTO.
 
-## 2. Schema changes
+### 2. Schema changes
 
 - Every change is a migration file in Git, applied by the pipeline, never typed by hand in production.
 - Some changes lock the table and block all traffic. On a big table, adding an index needs `CREATE INDEX CONCURRENTLY`.
 - Breaking changes go in backward-compatible steps: [expand and contract](../06-delivery/deployment-strategies.md).
 
-## 3. Monitoring
+### 3. Monitoring
 
 | Watch | Why |
 |---|---|
@@ -53,11 +55,11 @@ Stateless services can be thrown away and recreated. A database cannot: it is th
 | Cache hit ratio | Low means too little memory for the workload |
 | Age of the last successful backup | The alert that matters most |
 
-## 4. Upgrades
+### 4. Upgrades
 
 Minor versions are bug and security fixes: apply them routinely. Major versions change the file format: plan them, test on a copy, and have a way back.
 
-## A small example: back up, destroy, restore
+### A small example: back up, destroy, restore
 
 Using the `pg` container and `users` table from [How databases work](internals.md):
 
@@ -76,11 +78,6 @@ docker exec pg psql -U postgres -d restored -c "SELECT count(*) FROM users;"
 ```
 
 Everything written between the dump and the `DROP` is gone: with a nightly dump the RPO is up to 24 hours. Closing that gap is what WAL archiving and PITR are for.
-
-## Where it goes next
-
-- Beginner: scheduled backups to object storage, a migration tool in a pipeline, a monitoring dashboard with alerts.
-- Advanced: PITR with pgBackRest or WAL-G, zero-downtime migrations on large tables, major upgrades with logical replication, capacity planning, incident playbooks.
 
 ## See also
 

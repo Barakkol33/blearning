@@ -8,11 +8,13 @@ updated: 2026-11-13
 
 # Kubernetes in production
 
-**Level: intro**
-
 Getting an application to run on Kubernetes is the easy part, covered in the [Kubernetes basics](kubernetes.md). Production asks more: the application must survive node failures and upgrades, scale with load, be reachable securely, and not disturb its neighbors. This page names the pieces that do that.
 
-## Terms
+**Levels on this page:** [Intro](#intro)
+
+## Intro
+
+### Terms
 
 | Term | Meaning |
 |---|---|
@@ -32,7 +34,7 @@ Getting an application to run on Kubernetes is the easy part, covered in the [Ku
 | Admission controller | Checks or changes objects when they are created. Used for policy (Kyverno, OPA Gatekeeper) |
 | Service mesh | A layer that adds encryption, retries and traffic control between services (Istio, Linkerd, Cilium) |
 
-## The add-ons almost every cluster has
+### The add-ons almost every cluster has
 
 | Need | Common choice |
 |---|---|
@@ -45,7 +47,7 @@ Getting an application to run on Kubernetes is the easy part, covered in the [Ku
 | Policy | Kyverno or OPA Gatekeeper |
 | Node scaling | Cluster Autoscaler or Karpenter |
 
-## A small example: scale with load, survive a node drain
+### A small example: scale with load, survive a node drain
 
 Starting from a Deployment named `web` whose container declares requests:
 
@@ -95,7 +97,7 @@ kubectl drain <node> --ignore-daemonsets
 
 The HPA works in percent of the **request**, which is one reason every container must declare requests.
 
-## A checklist before production
+### A checklist before production
 
 - Requests on every container, and a memory limit.
 - Readiness and liveness probes.
@@ -104,10 +106,11 @@ The HPA works in percent of the **request**, which is one reason every container
 - NetworkPolicies and least-privilege RBAC.
 - Metrics, logs and alerts in place before the first user.
 
-## Where it goes next
+## In the lab
 
-- Beginner: probes, HPA and Ingress on a kind cluster, with a load test.
-- Advanced: the scheduler, networking (CNI, eBPF), storage, writing an operator, cluster upgrades, multi-cluster.
+- Requests and the autoscaler: [experiment 3](../13-lab/experiments.md#3-load-and-autoscaling) puts load on the API and watches it scale from 2 pods toward 6.
+- Probes and rolling updates: [experiment 11](../13-lab/experiments.md#11-a-bad-release-and-a-rollback) releases a broken image, sees that the old pods keep serving, and rolls back.
+- Disruption budgets and storage: [experiment 13](../13-lab/experiments.md#13-drain-a-node) drains a node, and [experiment 12](../13-lab/experiments.md#12-lose-a-database-pod) deletes a database pod.
 
 ## See also
 

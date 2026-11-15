@@ -7,13 +7,13 @@ tags: [beginner]
 
 # Linux — Practical Guide for DevOps
 
-**Level: beginner**
-
 This is a reference of the Linux knowledge you'll use daily when working with Docker, Kubernetes, CI/CD pipelines, and infrastructure automation.
 
----
+**Levels on this page:** [Beginner](#beginner)
 
-## Core philosophy
+## Beginner
+
+### Core philosophy
 
 - **Everything is a file** — regular files, directories, devices, sockets, and even processes (`/proc`) are represented as files. This is why tools like `cat`, `grep`, and redirects work on so many things.
 - **Small tools, composed together** — Linux commands do one thing well. You combine them with pipes (`|`) and redirects to build powerful workflows.
@@ -21,7 +21,7 @@ This is a reference of the Linux knowledge you'll use daily when working with Do
 
 ---
 
-## Navigation and filesystem
+### Navigation and filesystem
 
 ```bash
 pwd                        # where am I?
@@ -32,7 +32,7 @@ ls -lah                    # same but human-readable sizes (KB, MB, GB)
 tree -L 2                  # visual directory tree, 2 levels deep
 ```
 
-### File operations
+#### File operations
 
 ```bash
 touch file.txt             # create empty file (or update timestamp)
@@ -44,7 +44,7 @@ rm -rf dir/                # delete directory recursively (careful!)
 ln -s /path/to/target link # create symbolic link
 ```
 
-### Viewing file contents
+#### Viewing file contents
 
 ```bash
 cat file.txt               # print entire file
@@ -55,7 +55,7 @@ less file.txt              # scrollable viewer (q to quit)
 wc -l file.txt             # count lines
 ```
 
-### Searching
+#### Searching
 
 ```bash
 grep "error" app.log             # find lines containing "error"
@@ -66,7 +66,7 @@ grep -c "error" app.log          # count matching lines
 grep -v "debug" app.log          # invert — show lines NOT matching
 ```
 
-### Finding files
+#### Finding files
 
 ```bash
 find . -name "*.yaml"                  # find files by name
@@ -78,7 +78,7 @@ which kubectl                          # where is this binary?
 
 ---
 
-## Permissions and ownership
+### Permissions and ownership
 
 Every file has an owner (user), a group, and permission bits (read/write/execute) for user, group, and others.
 
@@ -100,7 +100,7 @@ chown user:devs file.txt  # change owner and group
 
 ---
 
-## Pipes, redirects, and composition
+### Pipes, redirects, and composition
 
 This is where Linux becomes powerful. You chain commands together:
 
@@ -118,7 +118,7 @@ command > out.log 2>&1       # redirect both stdout and stderr to file
 command &>/dev/null          # discard all output
 ```
 
-### Useful text processing
+#### Useful text processing
 
 ```bash
 sort file.txt               # sort lines alphabetically
@@ -139,7 +139,7 @@ grep "ERROR" app.log | awk '{$1=$2=$3=""; print $0}' | sort | uniq -c | sort -rn
 
 ---
 
-## Process management
+### Process management
 
 ```bash
 ps aux                      # list all processes
@@ -158,7 +158,7 @@ jobs                        # list background jobs
 fg %1                       # bring job 1 to foreground
 ```
 
-### Signals (important for Docker)
+#### Signals (important for Docker)
 
 Docker sends `SIGTERM` to containers on `docker stop`, then `SIGKILL` after a timeout. Your app should handle `SIGTERM` for graceful shutdown (close connections, flush data).
 
@@ -169,7 +169,7 @@ trap "echo 'shutting down'; exit 0" SIGTERM SIGINT
 
 ---
 
-## Networking
+### Networking
 
 Networking commands are essential for debugging Docker/K8s connectivity issues.
 
@@ -204,7 +204,7 @@ kubectl exec -it pod/myapp -- sh -c 'nslookup db.default.svc.cluster.local'
 
 ---
 
-## Disk and resource usage
+### Disk and resource usage
 
 ```bash
 df -h                       # disk usage per filesystem
@@ -218,7 +218,7 @@ uptime                      # load averages
 
 ---
 
-## Environment variables
+### Environment variables
 
 Environment variables are how you pass configuration in Docker, K8s, and CI/CD.
 
@@ -238,11 +238,11 @@ export $(cat .env | xargs)  # export all variables from a file
 
 ---
 
-## Bash scripting essentials
+### Bash scripting essentials
 
 CI/CD pipelines, Docker entrypoints, and automation scripts are written in bash. Here's what you need:
 
-### Script template
+#### Script template
 
 ```bash
 #!/usr/bin/env bash
@@ -255,7 +255,7 @@ set -euo pipefail    # exit on error, undefined vars, pipe failures
 
 `set -euo pipefail` should be at the top of every script. Without it, scripts silently continue after errors — a major source of bugs in CI pipelines.
 
-### Variables and conditionals
+#### Variables and conditionals
 
 ```bash
 NAME="world"
@@ -278,7 +278,7 @@ fi
 # "$a" = "$b" string equality
 ```
 
-### Loops
+#### Loops
 
 ```bash
 # Loop over a list
@@ -301,7 +301,7 @@ done
 echo "app is ready"
 ```
 
-### Functions
+#### Functions
 
 ```bash
 deploy() {
@@ -315,7 +315,7 @@ deploy api v1.2.3
 deploy worker v1.2.3
 ```
 
-### Useful patterns
+#### Useful patterns
 
 ```bash
 # Default value if variable is unset
@@ -335,7 +335,7 @@ fi
 
 ---
 
-## systemd (service management)
+### systemd (service management)
 
 On Linux servers, `systemd` manages services (like Docker itself).
 
@@ -352,7 +352,7 @@ journalctl -u kubelet -f         # follow kubelet logs (on K8s nodes)
 
 ---
 
-## SSH (remote access)
+### SSH (remote access)
 
 ```bash
 ssh user@host                         # connect to remote machine
@@ -362,7 +362,7 @@ scp user@host:/var/log/app.log .      # copy file from remote machine
 ssh user@host 'kubectl get pods'      # run a command remotely
 ```
 
-### SSH config (saves typing)
+#### SSH config (saves typing)
 
 ```bash
 # ~/.ssh/config
@@ -377,7 +377,7 @@ ssh myserver
 
 ---
 
-## Common DevOps one-liners
+### Common DevOps one-liners
 
 ```bash
 # Watch a command repeatedly (every 2 seconds)
@@ -409,7 +409,7 @@ tar xzf backup.tar.gz -C /target/   # extract to specific directory
 
 ---
 
-## Key files and directories
+### Key files and directories
 
 | Path | Purpose |
 |---|---|

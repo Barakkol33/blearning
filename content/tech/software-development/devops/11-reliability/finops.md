@@ -8,11 +8,13 @@ updated: 2026-11-13
 
 # Cost (FinOps)
 
-**Level: intro**
-
 In the cloud every engineer spends money with every resource they create, and the bill arrives a month later. FinOps is the practice of making cost visible and owned by the teams that cause it. A DevOps engineer is expected to know what the infrastructure costs and why.
 
-## Terms
+**Levels on this page:** [Intro](#intro)
+
+## Intro
+
+### Terms
 
 | Term | Meaning |
 |---|---|
@@ -28,7 +30,7 @@ In the cloud every engineer spends money with every resource they create, and th
 | Showback / chargeback | Showing each team its cost / actually billing the team for it |
 | Cost anomaly | A sudden change in spending, usually a mistake or a leak |
 
-## Where the money usually goes
+### Where the money usually goes
 
 1. **Compute**: machines, usually oversized or running when nobody uses them.
 2. **Databases**: managed databases are among the most expensive single resources.
@@ -36,7 +38,7 @@ In the cloud every engineer spends money with every resource they create, and th
 4. **Data transfer**: egress, cross-zone traffic and NAT gateways. The hardest to predict.
 5. **Observability**: logs and metrics volume, with commercial tools billed by volume.
 
-## The tools
+### The tools
 
 | Tool | What for |
 |---|---|
@@ -45,7 +47,7 @@ In the cloud every engineer spends money with every resource they create, and th
 | OpenCost, Kubecost | Cost per namespace and workload in Kubernetes |
 | Infracost | Shows the cost of a Terraform change in the pull request |
 
-## A small example: one environment, three prices
+### A small example: one environment, three prices
 
 A development environment of 3 machines at $0.10 per hour each.
 
@@ -65,18 +67,13 @@ Nothing here needed a new technology: a schedule and a smaller machine type. Mos
 
 For production, which runs all the time, the levers are different: commitments for the steady base load, spot for work that tolerates interruption, and autoscaling so that capacity follows the load.
 
-## Habits
+### Habits
 
 - **Tag everything** with an owner and an environment, enforced by policy. Untagged cost belongs to nobody and nobody reduces it.
 - **Set budget alerts** on every account from day one.
 - **Delete what a test created.** Short-lived environments should have an expiry.
 - **Look at the bill monthly**, and at the top ten lines in detail.
 - **Design with cost in mind**: traffic between zones and regions, log volume, and storage classes are architecture decisions.
-
-## Where it goes next
-
-- Beginner: read a real bill, set budgets and tags, add Infracost to a Terraform pipeline.
-- Advanced: commitment strategy, spot at scale, Kubernetes cost allocation, unit economics, cost as part of architecture review.
 
 ## See also
 

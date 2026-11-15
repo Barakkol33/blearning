@@ -201,7 +201,7 @@
 	"/tech/claude-guide/advanced/": "/claude-guide/advanced/",
 	"/tech/claude-guide/advanced/advanced/": "/claude-guide/advanced/",
 	"/tech/software-development/devops/data-sources/": "/tech/software-development/devops/databases/",
-	"/tech/software-development/devops/data-sources/databases/": "/tech/software-development/devops/databases/beyond-relational/",
+	"/tech/software-development/devops/data-sources/databases/": "/tech/software-development/devops/databases/",
 	"/tech/software-development/devops/data-sources/kafka/": "/tech/software-development/devops/services/kafka/",
 	"/tech/software-development/devops/cloud/cloud/": "/tech/software-development/devops/cloud/concepts/",
 	"/tech/software-development/devops-advanced/": "/tech/software-development/devops/",
@@ -247,7 +247,8 @@
 	"/tech/software-development/devops-advanced/reliability/finops/": "/tech/software-development/devops/reliability/finops/",
 	"/claude-guide/basics/basics/": "/claude-guide/basics/",
 	"/claude-guide/advanced/advanced/": "/claude-guide/advanced/",
-	"/tech/software-development/devops/databases/databases/": "/tech/software-development/devops/databases/beyond-relational/",
+	"/tech/software-development/devops/databases/databases/": "/tech/software-development/devops/databases/",
+	"/tech/software-development/devops/databases/beyond-relational/": "/tech/software-development/devops/databases/",
 	"/tech/software-development/devops/observability/observability/": "/tech/software-development/devops/observability/concepts/",
 	"/tech/software-development/devops/security/security/": "/tech/software-development/devops/security/",
 	"/tech/software-development/devops/exercise/exercise/": "/tech/software-development/devops/exercise/instructions/"

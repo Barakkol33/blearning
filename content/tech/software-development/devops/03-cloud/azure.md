@@ -8,11 +8,13 @@ updated: 2026-11-13
 
 # Azure
 
-**Level: intro**
-
 Microsoft's cloud. It is strongest in enterprises that already use Microsoft products: Windows, Active Directory, Microsoft 365, .NET. Its style: everything belongs to a resource group, and identity comes from Entra ID.
 
-## How it is organized
+**Levels on this page:** [Intro](#intro)
+
+## Intro
+
+### How it is organized
 
 ```text
 Tenant (Entra ID: the users and identities of the organization)
@@ -24,7 +26,7 @@ Tenant (Entra ID: the users and identities of the organization)
 
 Permissions and policies set at one level are inherited by everything below it.
 
-## Terms
+### Terms
 
 | Term | Meaning |
 |---|---|
@@ -44,7 +46,7 @@ Permissions and policies set at one level are inherited by everything below it.
 | Key Vault | Secrets, keys and certificates |
 | Azure Monitor | Metrics, logs (Log Analytics) and alerts |
 
-## A small example: a resource group and a storage account
+### A small example: a resource group and a storage account
 
 ```bash
 az login
@@ -75,14 +77,9 @@ Clean up everything in one command, which is the point of resource groups:
 az group delete --name rg-demo --yes
 ```
 
-## What to learn first
+### What to learn first
 
 Entra ID and RBAC, resource groups, VNets and NSGs, virtual machines, storage accounts, then AKS and Key Vault.
-
-## Where it goes next
-
-- Beginner: a VNet with a VM and a managed identity that reads a secret from Key Vault.
-- Advanced: landing zones, Azure Policy, private endpoints, hybrid identity with on-premises Active Directory.
 
 ## See also
 

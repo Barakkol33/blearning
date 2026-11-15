@@ -8,17 +8,19 @@ updated: 2026-11-13
 
 # AWS
 
-**Level: intro**
-
 Amazon Web Services is the oldest and largest cloud, with the widest set of services. Most job descriptions ask for it. Its style: many small building blocks that you wire together yourself, and IAM policies on everything.
 
-## How it is organized
+**Levels on this page:** [Intro](#intro)
+
+## Intro
+
+### How it is organized
 
 - **Account**: the basic container for resources and the billing unit. Companies use many accounts (per team, per environment), grouped in an **Organization**.
 - **Region** and **availability zone**: `eu-central-1` is Frankfurt, `eu-central-1a` is one zone in it. Most resources live in one region.
 - **ARN**: the unique name of every resource, e.g. `arn:aws:s3:::my-bucket`.
 
-## Terms
+### Terms
 
 | Term | Meaning |
 |---|---|
@@ -39,7 +41,7 @@ Amazon Web Services is the oldest and largest cloud, with the widest set of serv
 | CloudTrail | A log of every API call made in the account |
 | Route 53 | DNS |
 
-## A small example: a bucket and a least-privilege policy
+### A small example: a bucket and a least-privilege policy
 
 ```bash
 aws sts get-caller-identity              # who am I, in which account?
@@ -76,14 +78,9 @@ Clean up:
 aws s3 rb s3://demo-notes-123456 --force
 ```
 
-## What to learn first
+### What to learn first
 
 IAM, VPC, EC2, S3, RDS, then EKS or ECS, and CloudWatch. These cover most real systems. The other 200 services can wait until you need one.
-
-## Where it goes next
-
-- Beginner: a VPC with public and private subnets, an instance behind a load balancer, a role instead of keys.
-- Advanced: Organizations and multi-account design, IAM evaluation logic, networking between VPCs, EKS in depth.
 
 ## See also
 

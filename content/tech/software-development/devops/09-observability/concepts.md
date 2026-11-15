@@ -8,11 +8,13 @@ updated: 2026-11-13
 
 # Observability
 
-**Level: intro**
-
 Monitoring answers "is it working?". Observability answers "why not?", including for problems nobody predicted. It rests on three kinds of data that the system emits (metrics, logs and traces) and on the discipline of alerting only on what matters.
 
-## Terms
+**Levels on this page:** [Intro](#intro)
+
+## Intro
+
+### Terms
 
 | Term | Meaning |
 |---|---|
@@ -31,7 +33,7 @@ Monitoring answers "is it working?". Observability answers "why not?", including
 | Alert | A rule that notifies a person when a condition holds |
 | SLI / SLO | A measured indicator of service quality / the target for it. See [SRE](../11-reliability/sre.md) |
 
-## Which signal answers what
+### Which signal answers what
 
 | Signal | Answers | Cost |
 |---|---|---|
@@ -41,13 +43,13 @@ Monitoring answers "is it working?". Observability answers "why not?", including
 
 An investigation flows in this order: an alert on a metric, a trace to find the service, logs to find the cause.
 
-## What to measure
+### What to measure
 
 - **For every service (RED):** Rate of requests, Errors, Duration.
 - **For every resource (USE):** Utilization, Saturation, Errors, for CPU, memory, disk and network.
 - **The four golden signals** (Google SRE): latency, traffic, errors, saturation. The same idea in other words.
 
-## The tools
+### The tools
 
 | Role | Open source | Commercial |
 |---|---|---|
@@ -58,7 +60,7 @@ An investigation flows in this order: an alert on a metric, a trace to find the 
 | Collection | OpenTelemetry Collector, Fluent Bit, Vector | |
 | Alert routing and on-call | Alertmanager | PagerDuty, Opsgenie |
 
-## A small example: an alert on the error rate
+### A small example: an alert on the error rate
 
 Given a counter `http_requests_total` with a `status` label, the share of failed requests over the last five minutes, in PromQL:
 
@@ -92,16 +94,16 @@ Three things make it a good alert:
 - `for: 10m` ignores short blips.
 - It links to a runbook that says what to do.
 
-## Rules for alerts
+### Rules for alerts
 
 - An alert that wakes someone must need a human action now. Everything else is a ticket or a dashboard.
 - Alert on symptoms. Use causes for diagnosis.
 - Every false alert teaches people to ignore alerts. Fix or delete noisy ones.
 
-## Where it goes next
+## In the lab
 
-- Beginner: instrument an application with OpenTelemetry, see its traces in Jaeger or Tempo, build a RED dashboard.
-- Advanced: SLO-based alerting with burn rates, cardinality and cost control, sampling strategies, running Prometheus at scale, eBPF-based observability.
+- The [lab](../13-lab/_index.md) runs Prometheus and Grafana with a dashboard built on rate, errors and duration, and the application writes its logs as JSON lines.
+- [Experiment 10](../13-lab/experiments.md#10-errors-and-an-alert) makes requests fail and watches an alert go from pending to firing.
 
 ## See also
 

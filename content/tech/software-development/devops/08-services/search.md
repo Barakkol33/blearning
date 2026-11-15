@@ -8,11 +8,13 @@ updated: 2026-11-13
 
 # Search
 
-**Level: intro**
-
 A relational database finds rows by exact values. It is poor at "find documents that mention these words, best match first". Search engines are built for that, and the same engines became the standard place to store and query logs. A DevOps engineer usually meets them as the log system.
 
-## Terms
+**Levels on this page:** [Intro](#intro)
+
+## Intro
+
+### Terms
 
 | Term | Meaning |
 |---|---|
@@ -28,7 +30,7 @@ A relational database finds rows by exact values. It is poor at "find documents 
 | Aggregation | Statistics over matching documents: counts per value, averages, histograms |
 | Index lifecycle | Automatic rollover, shrinking and deletion of indexes by age. Essential for logs |
 
-## The tools
+### The tools
 
 | Tool | Notes |
 |---|---|
@@ -41,7 +43,7 @@ A relational database finds rows by exact values. It is poor at "find documents 
 | Typesense, Meilisearch | Small, simple engines for search inside an application |
 | Loki | A lighter approach for logs: it indexes labels only, not the text |
 
-## A small example
+### A small example
 
 ```bash
 docker run -d --name es -p 9200:9200 \
@@ -77,19 +79,19 @@ curl "localhost:9200/_cat/shards?v"      # where each shard lives
 
 On this single node the index is yellow: its replica shard has no second node to go to.
 
-## What to remember when operating one
+### What to remember when operating one
 
 - **It is heavy.** It needs a lot of memory and fast disks, and is one of the more demanding systems to run. Consider the managed service.
 - **Logs grow without limit.** Set a lifecycle policy that deletes old indexes on day one.
 - **Shard count matters.** Too many small shards is the classic cause of an unstable cluster.
 - **It is not the source of truth.** Keep the primary data elsewhere and be able to re-index.
 
-## Where it goes next
+## In the lab
 
-- Beginner: ship container logs with Fluent Bit and explore them in Kibana, write queries and aggregations.
-- Advanced: shard sizing, hot-warm-cold tiers, cluster upgrades, performance tuning, comparing to Loki and ClickHouse for logs.
+- The lab's worker indexes every order in Elasticsearch and the API searches it: [experiment 1](../13-lab/experiments.md#1-follow-one-order).
+- A single-node cluster is yellow. [Experiment 9](../13-lab/experiments.md#9-elasticsearch-a-yellow-cluster) asks the cluster why and fixes it.
 
 ## See also
 
-- [Beyond relational](../07-databases/beyond-relational.md): more on Elasticsearch concepts
+- [Elasticsearch](../07-databases/elasticsearch.md): its concepts, and how to keep a cluster healthy
 - [Observability](../09-observability/concepts.md), [Loki](../09-observability/loki.md)

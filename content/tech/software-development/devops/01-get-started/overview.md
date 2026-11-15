@@ -7,15 +7,15 @@ tags: [intro]
 
 # DevOps
 
-**Level: intro**
-
 DevOps is about making software delivery and production operations reliable, repeatable, and efficient.
 
----
+**Levels on this page:** [Intro](#intro)
 
-## Devops Intro
+## Intro
 
-### Core concepts
+### Devops Intro
+
+#### Core concepts
 
 - **Automation** – Remove manual steps so work is consistent and repeatable (builds, tests, deploys, provisioning).
 - **Infrastructure as Code (IaC)** – Define infrastructure in code so it's reviewable, versioned, and reproducible.
@@ -37,7 +37,7 @@ DevOps is about making software delivery and production operations reliable, rep
 
 ---
 
-### Infrastructure as Code tools
+#### Infrastructure as Code tools
 
 - **Terraform** – Declarative IaC; `plan` → `apply` → `destroy`. Providers for every major cloud.
 - **Pulumi** – IaC using general-purpose languages (TypeScript, Python, Go). Same concept, code instead of HCL.
@@ -45,7 +45,7 @@ DevOps is about making software delivery and production operations reliable, rep
 
 ---
 
-### CI/CD
+#### CI/CD
 
 Automated pipeline that takes code from commit to production:
 
@@ -55,9 +55,9 @@ Each stage adds confidence. Failures stop the pipeline early, preventing broken 
 
 ---
 
-## Containers
+### Containers
 
-### Docker
+#### Docker
 
 Docker packages applications into images and runs them as isolated containers.
 
@@ -74,7 +74,7 @@ RUN pip install -r requirements.txt
 CMD ["python", "main.py"]
 ```
 
-### Kubernetes (K8s)
+#### Kubernetes (K8s)
 
 Container orchestration: the control plane decides *what should run where*, nodes actually run it.
 
@@ -119,20 +119,20 @@ Container orchestration: the control plane decides *what should run where*, node
 
 ---
 
-## Observability
+### Observability
 
-### Prometheus (metrics)
+#### Prometheus (metrics)
 
 - **PromQL** – Query language for time-series data (`rate()`, `sum()`, `histogram_quantile()`).
 - **Scraping** – Prometheus pulls metrics from `/metrics` endpoints at regular intervals.
 - **Alerts** – Rules that fire when a PromQL expression is true for a duration (e.g., high error rate for 5 minutes).
 
-### Loki (logs)
+#### Loki (logs)
 
 - **LogQL** – Query language for logs (filter + aggregate); syntax similar to PromQL.
 - **Promtail** – Agent that ships logs from nodes/pods to Loki.
 
-### Grafana (visualization)
+#### Grafana (visualization)
 
 - **Dashboard** – Panels showing metrics/logs over time.
 - **Variables** – Template variables for dynamic, reusable dashboards (e.g., namespace, service dropdowns).
@@ -140,9 +140,9 @@ Container orchestration: the control plane decides *what should run where*, node
 
 ---
 
-## Data Sources
+### Data Sources
 
-### Databases
+#### Databases
 
 When choosing a database, ask: what's the data model, consistency requirements, query patterns (reads vs writes, analytics vs transactions), and operational needs (backup, replication, upgrades)?
 
@@ -159,7 +159,7 @@ When choosing a database, ask: what's the data model, consistency requirements, 
 SELECT id, name FROM users WHERE id = 123;
 ```
 
-### Kafka (event streaming)
+#### Kafka (event streaming)
 
 Kafka is not a database — it's a distributed event log for async communication and data pipelines.
 

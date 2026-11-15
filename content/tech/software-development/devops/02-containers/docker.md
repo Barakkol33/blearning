@@ -7,13 +7,13 @@ tags: [beginner]
 
 # Docker
 
-**Level: beginner**
-
 This guide will walk you through Docker from the ground up. By the end, you'll understand what Docker is, why it exists, and how to use it day-to-day. Each section builds on the previous one, so work through them in order.
 
----
+**Levels on this page:** [Beginner](#beginner)
 
-## What problem does Docker solve?
+## Beginner
+
+### What problem does Docker solve?
 
 Imagine you wrote an application on your laptop. It works perfectly. You hand it to a colleague — it crashes. Why? Because their machine has a different OS, different library versions, or a missing dependency. This is the classic "it works on my machine" problem.
 
@@ -23,7 +23,7 @@ Think of it like shipping containers in the real world. Before standardized cont
 
 ---
 
-## Core terms you need to know
+### Core terms you need to know
 
 Before diving into commands, make sure you understand these building blocks:
 
@@ -36,7 +36,7 @@ Before diving into commands, make sure you understand these building blocks:
 
 ---
 
-## Getting started: verify your installation
+### Getting started: verify your installation
 
 Before doing anything, make sure Docker is installed and running. These two commands tell you what version you have and whether the Docker daemon (background service) is active:
 
@@ -59,11 +59,11 @@ If `docker version` shows a client but errors on the server section, the Docker 
 
 ---
 
-## Working with images
+### Working with images
 
 Images are the foundation of everything in Docker. You either **pull** an existing image from a registry or **build** your own from a Dockerfile.
 
-### Listing, pulling, and removing images
+#### Listing, pulling, and removing images
 
 To see what images you already have locally:
 
@@ -90,7 +90,7 @@ To remove an image you no longer need:
 docker rmi nginx:stable
 ```
 
-### Building your own image
+#### Building your own image
 
 When you have a `Dockerfile` (covered in detail later), you build an image like this:
 
@@ -112,7 +112,7 @@ You can also re-tag an image (useful before pushing to a registry):
 docker tag myapp:dev myuser/myapp:dev
 ```
 
-### Inspecting an image
+#### Inspecting an image
 
 Want to see what's inside an image — its layers, environment variables, exposed ports? Use:
 
@@ -125,11 +125,11 @@ docker history myapp:dev
 
 ---
 
-## Running containers
+### Running containers
 
 Now that you have images, let's run them. A container is simply a running image.
 
-### Your first container
+#### Your first container
 
 ```bash
 docker run --rm hello-world
@@ -146,7 +146,7 @@ What happened here:
 3. It created a container from that image, ran it, and printed the message.
 4. `--rm` told Docker to automatically remove the container after it exited (cleanup).
 
-### Running in the background (detached mode)
+#### Running in the background (detached mode)
 
 Most real services (web servers, databases) need to keep running. Use `-d` to run them in the background:
 
@@ -170,7 +170,7 @@ CONTAINER ID   IMAGE         COMMAND                  STATUS          NAMES
 
 `docker ps` only shows running containers. To see all containers (including stopped ones), use `docker ps -a`.
 
-### Reading container logs
+#### Reading container logs
 
 Containers write their output (stdout/stderr) to a log you can read:
 
@@ -181,7 +181,7 @@ docker logs -f web           # follow (like tail -f) — press Ctrl+C to stop
 
 Logs are your first stop when something isn't working. If a container crashes on startup, the logs usually tell you why.
 
-### Getting a shell inside a container
+#### Getting a shell inside a container
 
 Sometimes you need to poke around inside a running container — check files, test network connectivity, debug:
 
@@ -195,7 +195,7 @@ docker exec -it web sh
 
 You're now "inside" the container. Type `exit` to leave. The container keeps running — `exec` doesn't stop it.
 
-### Stopping, starting, and removing containers
+#### Stopping, starting, and removing containers
 
 ```bash
 docker stop web      # gracefully stop (sends SIGTERM, then SIGKILL after timeout)
@@ -203,7 +203,7 @@ docker start web     # restart a stopped container
 docker rm -f web     # force-remove (stops + deletes in one step)
 ```
 
-### Inspecting a container
+#### Inspecting a container
 
 `docker inspect` is the Swiss army knife for debugging. It dumps all metadata about a container as JSON — network settings, mounts, environment variables, health status:
 
@@ -215,7 +215,7 @@ docker stats            # live CPU/memory/network usage (like top for containers
 
 ---
 
-## Ports: making containers accessible
+### Ports: making containers accessible
 
 By default, a container is isolated — you can't reach it from your host machine or the outside world. To expose a service, you **publish** ports.
 
@@ -245,13 +245,13 @@ curl -sS http://127.0.0.1:8080/ | head
 
 ---
 
-## Persistent data: volumes and bind mounts
+### Persistent data: volumes and bind mounts
 
 Containers are **ephemeral** — when you remove a container, its filesystem is gone. This is a feature, not a bug: it keeps things clean and reproducible. But what about data you need to keep (databases, uploads, config)?
 
 That's where volumes and bind mounts come in.
 
-### Volumes (Docker-managed storage)
+#### Volumes (Docker-managed storage)
 
 Volumes are the recommended way to persist data. Docker manages them for you — they live in a Docker-controlled area on your host.
 
@@ -283,7 +283,7 @@ hello
 
 The key insight: the volume `mydata` exists independently of any container. Multiple containers can share the same volume.
 
-### Bind mounts (host folder into container)
+#### Bind mounts (host folder into container)
 
 Bind mounts map a specific directory on your host into the container. This is ideal for development — you edit files on your host with your editor, and the container sees the changes immediately:
 
@@ -300,15 +300,15 @@ docker run --rm -v "$PWD":/work -w /work busybox:1.36 ls -la
 
 ---
 
-## Networking: connecting containers
+### Networking: connecting containers
 
 When you run multiple containers (e.g., an app + a database), they need to talk to each other. Docker provides virtual networks for this.
 
-### Why not just use localhost?
+#### Why not just use localhost?
 
 Each container has its own network namespace. From inside a container, `localhost` refers to itself, not to other containers. You need Docker networking to connect them.
 
-### User-defined networks
+#### User-defined networks
 
 The default `bridge` network works but has limitations (no automatic DNS). Create your own network for better behavior:
 
@@ -331,11 +331,11 @@ Notice that the second container reached Redis using the hostname `redis` — th
 
 ---
 
-## Writing a Dockerfile (build recipes)
+### Writing a Dockerfile (build recipes)
 
 A Dockerfile is a text file with instructions for building an image. Each instruction creates a **layer** in the image. Docker caches layers, so unchanged steps are fast on subsequent builds.
 
-### A simple example
+#### A simple example
 
 ```dockerfile
 FROM python:3.12-slim
@@ -355,7 +355,7 @@ Let's break this down line by line:
 | `RUN pip install -r requirements.txt` | Run a command during build. This installs your Python dependencies. The result is baked into the image layer. |
 | `CMD ["python", "main.py"]` | The default command to run when a container starts from this image. |
 
-### Multi-stage builds
+#### Multi-stage builds
 
 A common problem: your build tools (compilers, dev dependencies) make the final image huge, but you only need the compiled output at runtime. Multi-stage builds solve this by using one stage to build and another for the final image:
 
@@ -372,7 +372,7 @@ ENTRYPOINT ["/app"]
 
 The first stage (`build`) compiles the Go binary. The second stage starts from a tiny base image and copies only the compiled binary. The result: a final image that's often under 20MB instead of 1GB+.
 
-### Best practices
+#### Best practices
 
 - **Add a `.dockerignore` file** — just like `.gitignore`, it prevents unnecessary files (`.git`, `node_modules`, `venv`) from being sent to the build context. This speeds up builds and avoids leaking secrets.
 - **Pin versions** — use specific tags (`python:3.12-slim`, not `python:latest`) so your builds are reproducible.
@@ -381,7 +381,7 @@ The first stage (`build`) compiles the Go binary. The second stage starts from a
 
 ---
 
-## Registries: sharing images
+### Registries: sharing images
 
 Once you've built an image, you'll want to share it — with your team, your CI/CD pipeline, or your production servers. That's what registries are for.
 
@@ -396,7 +396,7 @@ Organizations typically use private registries (AWS ECR, Google Artifact Registr
 
 ---
 
-## Docker Compose: running multi-container apps
+### Docker Compose: running multi-container apps
 
 Real applications rarely run as a single container. You usually have an app server, a database, maybe a cache. Docker Compose lets you define all of these in a single `docker-compose.yml` file and manage them together.
 
@@ -440,17 +440,17 @@ Compose handles networking automatically — all services in the same compose fi
 
 ---
 
-## Cleanup and troubleshooting
+### Cleanup and troubleshooting
 
 Over time, Docker accumulates unused images, stopped containers, and orphaned volumes. This eats disk space.
 
-### Check disk usage
+#### Check disk usage
 
 ```bash
 docker system df
 ```
 
-### Prune unused resources
+#### Prune unused resources
 
 These commands delete things you're not using. Be careful — make sure you don't need them first:
 
@@ -461,7 +461,7 @@ docker volume prune        # remove unused volumes (careful: data loss!)
 docker system prune        # all of the above combined
 ```
 
-### Common debug flow
+#### Common debug flow
 
 When a container isn't behaving as expected, follow this sequence:
 
@@ -480,7 +480,7 @@ docker exec -it <container> sh        # 4. If it's running, get a shell and inve
 
 ---
 
-## How Docker relates to Kubernetes
+### How Docker relates to Kubernetes
 
 Docker gets you from "code on my laptop" to "code running in a container." But in production, you often need to run many containers across many machines, handle failures, scale up/down, and route traffic. That's where Kubernetes comes in.
 
@@ -493,15 +493,15 @@ Think of Docker as the packaging and Kubernetes as the fleet management system.
 
 ---
 
-## Under the hood: what Docker actually does
+### Under the hood: what Docker actually does
 
 Containers feel like lightweight VMs, but they're fundamentally different. Understanding the internals helps you debug issues and reason about performance and security.
 
-### A container is just a process
+#### A container is just a process
 
 There is no container "machine." When you run `docker run nginx`, Docker starts a regular Linux process (nginx) on your host. The magic is that this process is **isolated** — it can't see other processes, has its own filesystem view, and thinks it's running alone. But from the host's perspective, it's just a process you can see with `ps aux`.
 
-### Isolation: namespaces
+#### Isolation: namespaces
 
 Linux **namespaces** provide the isolation. Each container gets its own:
 
@@ -513,11 +513,11 @@ Linux **namespaces** provide the isolation. Each container gets its own:
 
 This is why a container feels like a separate machine — it literally can't see anything outside its namespaces.
 
-### Resource limits: cgroups
+#### Resource limits: cgroups
 
 **cgroups** (control groups) limit how much CPU, memory, and I/O a container can use. When you set `--memory=512m` or `--cpus=1.5`, Docker creates a cgroup with those limits. If a container exceeds its memory limit, the kernel kills it (OOMKilled) — a very common issue you'll encounter in production and Kubernetes.
 
-### Images are layered filesystems
+#### Images are layered filesystems
 
 A Docker image isn't a single file — it's a stack of read-only **layers**. Each Dockerfile instruction (`FROM`, `RUN`, `COPY`) creates a new layer containing only the changes from the previous one.
 
@@ -535,6 +535,11 @@ When you run a container, Docker adds a thin **read-write layer** on top. Any fi
 - **Sharing** — If 10 containers run the same image, they share all the read-only layers. Only the thin writable layer is unique per container. This is why containers start instantly and use little disk.
 - **Storage drivers** — Docker uses a union filesystem (OverlayFS on most systems) to stack these layers into a single coherent view.
 
-### Putting it all together
+#### Putting it all together
 
 A container = a regular Linux process + namespace isolation + cgroup resource limits + a layered filesystem. No hypervisor, no separate kernel, no VM overhead. This is why containers start in milliseconds and have near-zero performance overhead compared to running the same process directly on the host.
+
+## In the lab
+
+- The [lab](../13-lab/_index.md) builds one image and runs it in three roles (API, worker, load generator), each with its own command.
+- The image tag is a hash of the application's files, so a code change gives a new tag and a new tag rolls the pods: [experiment 11](../13-lab/experiments.md#11-a-bad-release-and-a-rollback).

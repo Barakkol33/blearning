@@ -8,11 +8,13 @@ updated: 2026-11-13
 
 # Runtimes and engines
 
-**Level: intro**
-
 A runtime is the engine that executes a program: the JVM for Java, V8 inside Node.js, the Python interpreter. Each one manages memory and CPU in its own way. Those differences decide how you size containers, why a service is slow to start and why it gets killed.
 
-## Terms
+**Levels on this page:** [Intro](#intro)
+
+## Intro
+
+### Terms
 
 | Term | Meaning |
 |---|---|
@@ -28,7 +30,7 @@ A runtime is the engine that executes a program: the JVM for Java, V8 inside Nod
 | Static binary | One executable with everything inside. It needs nothing installed on the machine |
 | Cold start | The time from starting a process until it can serve its first request |
 
-## The main engines
+### The main engines
 
 | Engine | Languages | Concurrency | In operations |
 |---|---|---|---|
@@ -39,7 +41,7 @@ A runtime is the engine that executes a program: the JVM for Java, V8 inside Nod
 | **.NET CLR** | C#, F# | Real threads on all cores | Like the JVM, with faster start |
 | **Native** (no runtime) | Rust, C, C++ | Threads | Smallest and fastest. No GC pauses |
 
-## A small example: memory limits in a container
+### A small example: memory limits in a container
 
 A container has a memory limit ([a cgroup](../01-get-started/linux-internals.md)). The runtime must know about it, or it grows past the limit and the kernel kills the process (`OOMKilled` in Kubernetes).
 
@@ -67,11 +69,6 @@ gunicorn --workers 2 app:app
 ```
 
 The same thinking applies to CPU. A Node.js or Python process cannot use more than one core, so a CPU limit of 4 on one such process wastes three. Run more replicas with one core each.
-
-## Where it goes next
-
-- Beginner: watch a JVM and a Go service under load, reading heap and GC metrics.
-- Advanced: garbage collectors and their tuning, profiling (flame graphs), thread dumps and heap dumps, GraalVM native images, WebAssembly.
 
 ## See also
 

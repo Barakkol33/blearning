@@ -7,13 +7,13 @@ tags: [beginner]
 
 # Loki & LogQL
 
-**Level: beginner**
-
 LogQL is the query language for **Grafana Loki** logs.
 
----
+**Levels on this page:** [Beginner](#beginner)
 
-## Useful UI features (Grafana Explore)
+## Beginner
+
+### Useful UI features (Grafana Explore)
 - **Logs view** shows matching log lines for your query.
 - **Sort** logs by newest/oldest.
 - **Expand / Collapse** log lines to see full details.
@@ -21,21 +21,21 @@ LogQL is the query language for **Grafana Loki** logs.
 
 ---
 
-## Core idea: select streams, then filter/process lines
+### Core idea: select streams, then filter/process lines
 Most LogQL queries look like:
 
 1) Pick log streams by **labels**
 2) Apply **pipeline stages** (filter, parse, format)
 
-### 1. Stream selector (labels)
+#### 1. Stream selector (labels)
 ```logql
 {container="myapp"}
 ```
 
 ---
 
-## Common filters
-### Substring match / exclude
+### Common filters
+#### Substring match / exclude
 ```logql
 {container="myapp"} |= "error"
 ```
@@ -44,7 +44,7 @@ Most LogQL queries look like:
 {container="myapp"} != "healthcheck"
 ```
 
-### Regex match / exclude
+#### Regex match / exclude
 ```logql
 {container="myapp"} |~ "timeout|reset"
 ```
@@ -55,7 +55,7 @@ Most LogQL queries look like:
 
 ---
 
-## Parse JSON and filter by fields
+### Parse JSON and filter by fields
 If your log lines are JSON, you can parse them and then filter on keys:
 
 ```logql
@@ -64,7 +64,7 @@ If your log lines are JSON, you can parse them and then filter on keys:
 
 ---
 
-## Format the output line
+### Format the output line
 After parsing JSON, you can format the displayed log line:
 
 ```logql
@@ -73,7 +73,7 @@ After parsing JSON, you can format the displayed log line:
 
 ---
 
-## Full example (search + parse + format)
+### Full example (search + parse + format)
 ```logql
 {container="myapp"} |= "error" | json | line_format "{{.downstream_local_address}} {{.response_code}} {{.method}} {{.path}}"
 ```

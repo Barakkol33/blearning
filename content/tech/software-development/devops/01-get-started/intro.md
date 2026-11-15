@@ -7,67 +7,69 @@ tags: [intro]
 
 # DevOps Intro
 
-**Level: intro**
-
 DevOps is about making software delivery and production operations reliable and repeatable.
 
-## Core concepts
+**Levels on this page:** [Intro](#intro)
+
+## Intro
+
+### Core concepts
 
 DevOps isn’t a single tool or job title; it’s a set of practices that reduce the time and risk of changes:
 
-### Automation
+#### Automation
 
 Automation removes manual steps so work is consistent, repeatable, and less error-prone. Typical targets include builds, tests, deployments, backups, and environment provisioning. The goal is to make the “happy path” the default path.
 
 Why it matters beyond day-to-day efficiency: if there's a massive or unexplained failure, you can tear everything down and start clean — because the entire setup is automated and reproducible.   
 And when you need to grow, scaling is straightforward: spin up more of what you already have instead of manually configuring each new instance.
 
-### Infrastructure as Code (IaC)
+#### Infrastructure as Code (IaC)
 
 IaC means defining infrastructure with code so it can be reviewed, versioned, and reproduced. This makes environments consistent across dev/staging/prod and allows safe changes through pull requests. IaC also supports fast recovery by recreating infrastructure from source-of-truth.
 
-### CI/CD
+#### CI/CD
 
 CI/CD is the practice of validating and delivering changes continuously via an automated pipeline. It enables small, frequent releases by running tests and checks on every change and deploying in a controlled way. Good CI/CD reduces fear of deploys and shortens feedback loops.
 
-### Observability
+#### Observability
 
 Observability is the ability to understand what your system is doing from the outside, typically via metrics, logs, and traces. Monitoring turns that data into alerts and dashboards so you can detect and respond to issues quickly. Strong observability shortens incident time-to-diagnosis and helps validate changes.
 
-### High Availability (HA)
+#### High Availability (HA)
 
 High availability is designing systems to keep serving traffic even when components fail. It usually combines redundancy plus automated failover, so a single outage doesn’t become total downtime. Common building blocks include:
 - replication (leader/follower or multi-primary)
 - load balancing (spread traffic across instances)
 - sharding/partitioning (split workload/data across nodes)
 
-### Shift left
+#### Shift left
 
 Shift left means moving quality and security checks earlier in the lifecycle (before production). Examples include unit/integration tests, linting, static analysis, and dependency or secret scanning in CI. Catching problems earlier is cheaper and prevents avoidable incidents.
 
-### Shift right
+#### Shift right
 
 Shift right focuses on learning from production using real user behavior and real system conditions. It includes runtime visibility, feature flags, gradual rollouts, and production-safe experiments. The outcome is better reliability and faster iteration grounded in reality.
 
-### Recovery
+#### Recovery
 
 Recovery is planning for failure so incidents are survivable and repeatable to handle. It includes backups and restore drills, incident response, runbooks, and clear ownership during outages. Recovery work turns “we hope it works” into a practiced capability.
 
-### Patterns
+#### Patterns
 
-#### Retries (with backoff/jitter)
+##### Retries (with backoff/jitter)
 
 Retries handle transient failures (e.g., network blips) by attempting an operation again. Backoff and jitter spread retries over time so you don’t create a retry storm that amplifies an outage. Retries should be bounded and paired with timeouts.
 
-#### Circuit breaker
+##### Circuit breaker
 
 A circuit breaker stops calling a failing dependency after a threshold of errors, so the caller fails fast instead of piling on. It protects the system during partial outages and gives downstream services time to recover. When conditions improve, the breaker gradually allows traffic again.
 
-#### Rate limiting
+##### Rate limiting
 
 Rate limiting caps request volume to protect services from overload and abusive clients. It helps preserve availability under spikes by forcing fairness and graceful degradation. Limits are often applied per user, per API key, or per endpoint.
 
-## Motivation: from code to production
+### Motivation: from code to production
 
 You wrote an application. Now what? Each real-world need leads to a DevOps tool or practice:
 
@@ -88,32 +90,32 @@ Each layer solves a problem created by the previous one. Together, they form the
 
 ---
 
-## Reliability fundamentals
+### Reliability fundamentals
 
-### SLIs/SLOs (what “good” looks like)
+#### SLIs/SLOs (what “good” looks like)
 
 - **SLI**: a measured signal (e.g., % of HTTP 2xx, p95 latency).
 - **SLO**: a target for an SLI (e.g., 99.9% success over 30 days).
 - **Error budget**: how much failure you can “spend”; drives release speed vs stability.
 
-### Deployment strategies
+#### Deployment strategies
 
 - **Rolling update**: replace instances gradually (common default).
 - **Blue/green**: switch traffic between two environments (fast rollback).
 - **Canary**: send small % of traffic to new version, then increase.
 
-### Backups and restores
+#### Backups and restores
 
 - Backups without restores are only a hope. Schedule restore drills.
 - Define RPO/RTO targets (how much data you can lose / how fast to recover).
 
 ---
 
-## Infrastructure as Code tools
+### Infrastructure as Code tools
 
 IaC makes infrastructure reviewable and reproducible (like application code).
 
-### Terraform (declarative IaC)
+#### Terraform (declarative IaC)
 
 Typical workflow:
 
@@ -125,7 +127,7 @@ terraform apply
 terraform destroy
 ```
 
-### Pulumi (IaC with general-purpose languages)
+#### Pulumi (IaC with general-purpose languages)
 
 Typical workflow:
 
@@ -135,7 +137,7 @@ pulumi up
 pulumi destroy
 ```
 
-### SOPS (encrypt secrets stored in Git)
+#### SOPS (encrypt secrets stored in Git)
 
 SOPS encrypts YAML/JSON/env files so you can store them in Git safely (keys come from KMS/GPG/Age).
 
@@ -146,13 +148,13 @@ sops -d secrets.yaml | head
 
 ---
 
-## CI/CD
+### CI/CD
 
 - Flow: test → build → deploy (staging) → approve → deploy (prod)
 
-### Gitlab CI/CD
+#### Gitlab CI/CD
 
-## A typical delivery flow
+### A typical delivery flow
 
 Common pipeline stages (not all are mandatory on day 1):
 - **Validate**: lint/format, unit tests, type checks.
@@ -210,23 +212,23 @@ Notes:
 
 ---
 
-## Shift right
+### Shift right
 
 Shift right means validating and improving software **after** it reaches production, using real traffic and real user behavior.
 
-### A/B testing
+#### A/B testing
 
 A/B testing splits users into groups that see different variants (A vs B) and measures which performs better on a chosen metric (conversion, latency, engagement, etc.). It turns product decisions into data-driven experiments instead of guesses. Key ingredients: random assignment, sufficient sample size, and a clear success metric.
 
-### Canary deployments
+#### Canary deployments
 
 A canary deployment routes a small percentage of production traffic to the new version while the majority stays on the current one. If error rates, latency, or other SLIs stay healthy, traffic is gradually shifted until the new version takes 100%. If something breaks, only a small fraction of users are affected and rollback is immediate.
 
-### Blue-green deployments
+#### Blue-green deployments
 
 Blue-green keeps two identical production environments. One (blue) serves live traffic while the other (green) receives the new release. After the green environment is validated (health checks, smoke tests), traffic is switched over in one step. Rollback is just switching back. The tradeoff is cost — you pay for two full environments.
 
-### Runtime security
+#### Runtime security
 
 Runtime security monitors and enforces security policies on running workloads, not just at build time. Examples include:
 - **Container runtime policies**: detect unexpected syscalls, file access, or network connections inside containers.

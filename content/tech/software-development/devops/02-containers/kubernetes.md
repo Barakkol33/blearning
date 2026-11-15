@@ -7,13 +7,13 @@ tags: [beginner]
 
 # Kubernetes
 
-**Level: beginner**
-
 This guide teaches you Kubernetes from the ground up. It assumes you already understand Docker (containers, images, networking). Each section introduces a concept, explains *why* it exists, and gives you hands-on commands to try.
 
----
+**Levels on this page:** [Beginner](#beginner)
 
-## What is Kubernetes and why do you need it?
+## Beginner
+
+### What is Kubernetes and why do you need it?
 
 Docker lets you run containers on a single machine. But in production, you need more:
 - What if the machine crashes? Your containers die with it.
@@ -26,11 +26,11 @@ The core idea is **declarative management**: you describe the desired state in Y
 
 ---
 
-## Setting up a local cluster with `kind`
+### Setting up a local cluster with `kind`
 
 Before learning Kubernetes, you need a cluster. In production this would be managed by a cloud provider, but for learning you can run everything locally using **`kind`** (Kubernetes IN Docker) — it creates a Kubernetes cluster inside Docker containers on your machine.
 
-### Create a cluster
+#### Create a cluster
 
 ```bash
 kind create cluster --name demo
@@ -49,7 +49,7 @@ Set kubectl context to "kind-demo"
 
 Kind created a single-node cluster and configured `kubectl` (the Kubernetes CLI) to talk to it.
 
-### Verify it's working
+#### Verify it's working
 
 ```bash
 kubectl cluster-info
@@ -63,7 +63,7 @@ demo-control-plane   Ready    control-plane   45s   v1.29.2   172.18.0.2    Debi
 
 You have one node with the `control-plane` role. In a real cluster you'd have multiple worker nodes too.
 
-### Delete the cluster (when you're done)
+#### Delete the cluster (when you're done)
 
 ```bash
 kind delete cluster --name demo
@@ -71,11 +71,11 @@ kind delete cluster --name demo
 
 ---
 
-## Architecture: how Kubernetes works under the hood
+### Architecture: how Kubernetes works under the hood
 
 Understanding the architecture helps you debug problems later. Kubernetes has two main layers:
 
-### Control plane (the "brain")
+#### Control plane (the "brain")
 
 The control plane makes all the decisions. It runs these components:
 
@@ -90,7 +90,7 @@ You can see these components running as pods:
 kubectl get pods -n kube-system | grep -E "kube-apiserver|kube-scheduler|kube-controller-manager|etcd"
 ```
 
-### Nodes (the "muscle")
+#### Nodes (the "muscle")
 
 Nodes are the machines (or containers, in kind's case) that actually run your workloads. Each node runs:
 
@@ -103,7 +103,7 @@ Nodes are the machines (or containers, in kind's case) that actually run your wo
 kubectl get pods -n kube-system | grep -E "kube-proxy|kindnet"
 ```
 
-### Putting it together
+#### Putting it together
 
 When you run `kubectl create deployment web --image=nginx`, here's what happens:
 1. `kubectl` sends the request to the **API server**.
@@ -115,7 +115,7 @@ When you run `kubectl create deployment web --image=nginx`, here's what happens:
 
 This chain — from desired state to running container — is the heart of Kubernetes.
 
-### System components at a glance
+#### System components at a glance
 
 ```bash
 kubectl get pods -n kube-system
@@ -137,11 +137,11 @@ Notice **coredns** — this provides DNS inside the cluster, so pods can find ea
 
 ---
 
-## Kubernetes objects: the building blocks
+### Kubernetes objects: the building blocks
 
 Everything in Kubernetes is an **object** — a record of intent stored in etcd. You create objects (usually via YAML), and Kubernetes controllers work to make reality match.
 
-### How objects are structured
+#### How objects are structured
 
 Every Kubernetes object has three key sections:
 
@@ -159,7 +159,7 @@ The rest of this guide walks through the most important object types, building f
 
 ---
 
-## Namespaces: organizing your cluster
+### Namespaces: organizing your cluster
 
 Namespaces are like folders — they partition a cluster so different teams, projects, or environments don't collide. Resources in different namespaces can have the same name without conflict.
 
@@ -197,13 +197,13 @@ YAML
 
 ---
 
-## Pods: the smallest unit
+### Pods: the smallest unit
 
 A **Pod** is the smallest thing Kubernetes deploys. It's one or more containers that share the same network (they can reach each other on `localhost`) and can share volumes.
 
 In practice, most Pods contain a single container. Multi-container Pods are used for sidecars (e.g., a log shipper running alongside your app).
 
-### Running a Pod directly
+#### Running a Pod directly
 
 ```bash
 kubectl run nginx --image=nginx:stable --port=80
@@ -248,7 +248,7 @@ YAML
 
 Note the `labels` field — this is a good time to understand labels and annotations, since they're everywhere in Kubernetes.
 
-### Labels and annotations
+#### Labels and annotations
 
 **Labels** are key-value pairs attached to objects. They are the primary mechanism for **selection and grouping** — Services find Pods by label, Deployments manage Pods by label, and you filter `kubectl` output by label. Labels are meant to be queried and matched against.
 
@@ -280,7 +280,7 @@ metadata:
 
 ---
 
-## Deployments: running apps reliably
+### Deployments: running apps reliably
 
 A **Deployment** is the standard way to run stateless applications. It provides:
 - **Desired replica count** — "I want 3 copies of my app running."
@@ -290,7 +290,7 @@ A **Deployment** is the standard way to run stateless applications. It provides:
 
 Under the hood, a Deployment creates a **ReplicaSet**, which in turn creates the Pods. The hierarchy is: Deployment → ReplicaSet → Pods.
 
-### Create and scale a Deployment
+#### Create and scale a Deployment
 
 ```bash
 kubectl create deployment web --image=nginx:stable
@@ -349,19 +349,19 @@ A few things to understand in this YAML:
 
 ---
 
-## Services: stable networking for Pods
+### Services: stable networking for Pods
 
 Pods are ephemeral — they get created, destroyed, and rescheduled constantly. Each time, they get a new IP address. So how do other parts of your system find them?
 
 A **Service** provides a stable endpoint (a fixed IP and DNS name) that routes traffic to the right Pods. It uses label selectors to find which Pods to send traffic to.
 
-### Service types
+#### Service types
 
 - **`ClusterIP`** (default) — An internal virtual IP, reachable only inside the cluster. Most services use this.
 - **`NodePort`** — Opens a port on every node in the cluster, making the service accessible from outside. Handy for local development.
 - **`LoadBalancer`** — Provisions an external load balancer (cloud environments only).
 
-### Create a Service
+#### Create a Service
 
 ```bash
 cat <<'YAML' | kubectl apply -f -
@@ -390,7 +390,7 @@ web    ClusterIP   10.96.201.146   <none>        80/TCP    6s
 
 The Service got a stable `CLUSTER-IP`. Any pod in the cluster can now reach nginx at `web.demo.svc.cluster.local:80` (or just `web` if it's in the same namespace).
 
-### Accessing a Service from your machine
+#### Accessing a Service from your machine
 
 Since `ClusterIP` is internal-only, you can use `port-forward` to tunnel traffic from your host:
 
@@ -408,7 +408,7 @@ In another terminal:
 curl -sS http://127.0.0.1:8080/ | head
 ```
 
-### Headless Services
+#### Headless Services
 
 A **headless** Service sets `clusterIP: None`. Instead of a single virtual IP, DNS returns the individual Pod IPs. This is used with StatefulSets where you need to address specific pods (e.g., `db-0.db.demo.svc.cluster.local`).
 
@@ -428,7 +428,7 @@ spec:
 YAML
 ```
 
-### DNS in Kubernetes
+#### DNS in Kubernetes
 
 Kubernetes runs CoreDNS, which gives every Service a DNS name:
 - Full form: `<service>.<namespace>.svc.cluster.local`
@@ -438,11 +438,11 @@ This means your app code just connects to `db:5432` or `redis:6379` — no hardc
 
 ---
 
-## Configuration: ConfigMaps and Secrets
+### Configuration: ConfigMaps and Secrets
 
 Applications need configuration — database URLs, feature flags, API keys. Kubernetes provides two objects for this:
 
-### ConfigMap (non-sensitive config)
+#### ConfigMap (non-sensitive config)
 
 A **ConfigMap** stores plain-text configuration. You can inject it into Pods as environment variables or mounted files.
 
@@ -468,7 +468,7 @@ data:
 YAML
 ```
 
-### Secret (sensitive config)
+#### Secret (sensitive config)
 
 A **Secret** is like a ConfigMap but for sensitive data (passwords, tokens, keys). Values are base64-encoded in the YAML, and depending on cluster configuration, can be encrypted at rest in etcd.
 
@@ -502,11 +502,11 @@ YAML
 
 ---
 
-## Jobs and CronJobs: running tasks to completion
+### Jobs and CronJobs: running tasks to completion
 
 Not everything is a long-running service. Sometimes you need to run a one-off task (database migration, data export) or a scheduled task (nightly report, cleanup).
 
-### Job (run once)
+#### Job (run once)
 
 A **Job** creates a Pod that runs to completion and then stops. If the Pod fails, the Job can retry it.
 
@@ -536,7 +536,7 @@ job.batch/hello condition met
 hello from job
 ```
 
-### CronJob (run on a schedule)
+#### CronJob (run on a schedule)
 
 A **CronJob** is a Job that runs on a cron schedule. The syntax is the same as Unix cron.
 
@@ -564,7 +564,7 @@ This creates a new Job (and Pod) every 5 minutes. Each Job runs to completion in
 
 ---
 
-## StatefulSets: stateful workloads
+### StatefulSets: stateful workloads
 
 Deployments are great for stateless apps — every Pod is interchangeable. But databases and other stateful systems need:
 - **Stable identities** — Pods get predictable names like `db-0`, `db-1`, `db-2` (not random hashes).
@@ -631,7 +631,7 @@ kubectl get statefulset,pods,pvc -l app=db
 
 ---
 
-## DaemonSets: one Pod per node
+### DaemonSets: one Pod per node
 
 A **DaemonSet** ensures that a copy of a Pod runs on every node (or a subset of nodes). This is used for infrastructure-level concerns:
 - Log collectors (Fluentd, Fluent Bit)
@@ -685,7 +685,7 @@ When you add a new node to the cluster, the DaemonSet automatically schedules a 
 
 ---
 
-## Horizontal Pod Autoscaler (HPA): scaling by demand
+### Horizontal Pod Autoscaler (HPA): scaling by demand
 
 An **HPA** automatically adjusts the number of Pod replicas based on metrics like CPU or memory usage. When load increases, it scales up; when load decreases, it scales down.
 
@@ -733,7 +733,7 @@ This says: "Keep average CPU utilization at 50%. Scale between 1 and 5 replicas 
 
 ---
 
-## Ingress: HTTP routing into the cluster
+### Ingress: HTTP routing into the cluster
 
 So far, we've used `port-forward` to access Services. In production, you use **Ingress** — an object that defines HTTP(S) routing rules (by hostname and path) to route external traffic to Services.
 
@@ -770,13 +770,13 @@ Without an Ingress Controller installed, the Ingress object will exist but won't
 
 ---
 
-## Receiving real traffic locally with MetalLB
+### Receiving real traffic locally with MetalLB
 
 So far we've used `port-forward` to access services — but that's a debugging tool, not how real traffic flows. In cloud environments, a `LoadBalancer` Service gets a real external IP from the cloud provider. Locally (kind, bare-metal), there's no cloud provider to hand out IPs. **MetalLB** fills that gap.
 
 MetalLB is a load balancer implementation for bare-metal / local clusters. It assigns real IPs from a pool you define, so `LoadBalancer` Services actually work.
 
-### Install MetalLB
+#### Install MetalLB
 
 ```bash
 kubectl apply -f https://raw.githubusercontent.com/metallb/metallb/v0.14.9/config/manifests/metallb-native.yaml
@@ -785,7 +785,7 @@ kubectl wait --namespace metallb-system --for=condition=ready pod --selector=app
 
 - YAML file is attached in `resources` directory.
 
-### Configure an IP pool
+#### Configure an IP pool
 
 First, find the Docker network range that kind uses:
 
@@ -815,7 +815,7 @@ metadata:
 YAML
 ```
 
-### Use it
+#### Use it
 
 Now create a `LoadBalancer` Service:
 
@@ -852,7 +852,7 @@ curl -sS http://172.18.255.200/
 
 This is how traffic flows in production: client → LoadBalancer IP → Service → Pods. No port-forwarding needed.
 
-### Making it feel real: local DNS with `/etc/hosts`
+#### Making it feel real: local DNS with `/etc/hosts`
 
 With a real IP from MetalLB and an Ingress, you can map a hostname to that IP in your local DNS so it feels like a real domain:
 
@@ -880,11 +880,11 @@ sudo sed -i '/web\.local/d' /etc/hosts
 
 ---
 
-## `kubectl` cheat sheet
+### `kubectl` cheat sheet
 
 These are the commands you'll use every day. They're grouped by what you're trying to do.
 
-### Viewing resources
+#### Viewing resources
 
 ```bash
 kubectl get all                    # overview of common resources
@@ -892,7 +892,7 @@ kubectl get pods -o wide           # pods with IP and node info
 kubectl get events --sort-by=.metadata.creationTimestamp | tail -n 20
 ```
 
-### Debugging
+#### Debugging
 
 ```bash
 kubectl describe deploy/web        # detailed info + events
@@ -903,7 +903,7 @@ kubectl logs pod/<pod> -c <container>  # specific container's logs
 
 `describe` is your best friend for debugging. It shows events at the bottom — these tell you *why* something failed (image pull errors, insufficient resources, crash loops).
 
-### Modifying resources
+#### Modifying resources
 
 ```bash
 kubectl edit deploy/web            # opens in your editor
@@ -911,14 +911,14 @@ kubectl apply -f some.yaml        # apply a YAML file
 kubectl diff -f some.yaml         # preview what would change
 ```
 
-### Deleting resources
+#### Deleting resources
 
 ```bash
 kubectl delete pod/nginx
 kubectl delete ns demo             # deletes namespace and EVERYTHING in it
 ```
 
-### Working with labels
+#### Working with labels
 
 Labels are how you organize, select, and filter resources:
 
@@ -928,21 +928,21 @@ kubectl label pod nginx tier=frontend  # add a label
 kubectl get pods --show-labels     # show all labels
 ```
 
-### Getting a shell inside a Pod
+#### Getting a shell inside a Pod
 
 ```bash
 kubectl exec -it deploy/web -- sh
 kubectl exec -it pod/<pod> -- sh -lc 'env | sort | head'
 ```
 
-### Accessing services locally
+#### Accessing services locally
 
 ```bash
 kubectl port-forward pod/nginx 8081:80
 kubectl port-forward svc/web 8080:80
 ```
 
-### JSON output and jq
+#### JSON output and jq
 
 Kubernetes outputs JSON natively. Combined with `jq`, you can extract exactly what you need:
 
@@ -970,7 +970,7 @@ kubectl get pods -o json | jq '.items[] | {pod: .metadata.name, containers: [.sp
 
 ---
 
-## Helm: package management for Kubernetes
+### Helm: package management for Kubernetes
 
 Writing YAML for every resource gets tedious, especially for complex applications. **Helm** is a package manager for Kubernetes.
 
@@ -980,7 +980,7 @@ The idea is simple: someone already wrote all the YAML templates needed to deplo
 - A **Release** is an installed instance of a chart in your cluster.
 - A **values.yaml** is how you configure a chart — replica count, image version, resource limits, feature toggles, etc.
 
-### Common Helm workflow
+#### Common Helm workflow
 
 ```bash
 helm repo add bitnami https://charts.bitnami.com/bitnami
@@ -998,7 +998,7 @@ my-nginx   demo       1         2026-02-14 10:40:12 +0000 UTC         deployed  
 
 Helm also supports `values.yaml` files, letting you customize chart behavior without editing templates directly.
 
-### Creating your own Helm chart
+#### Creating your own Helm chart
 
 When you want to package your own application as a chart:
 
@@ -1084,7 +1084,7 @@ Key templating patterns:
 - `{{ include "myapp.fullname" . }}` — calls a helper from `_helpers.tpl`.
 - `{{- toYaml ... | nindent N }}` — renders a YAML block with proper indentation.
 
-### Developing and testing a chart
+#### Developing and testing a chart
 
 ```bash
 # Render templates locally (see what YAML would be generated, without applying)
@@ -1109,7 +1109,7 @@ helm install myapp ./myapp --set replicaCount=3 --set image.tag=v2.0.0
 helm install myapp ./myapp --dry-run --debug
 ```
 
-### Packaging and sharing
+#### Packaging and sharing
 
 ```bash
 # Package into a .tgz file
@@ -1124,11 +1124,11 @@ The typical flow in CI/CD: `helm lint` → `helm template` (validate) → `helm 
 
 ---
 
-## Persistent storage: StorageClass and PersistentVolumeClaims
+### Persistent storage: StorageClass and PersistentVolumeClaims
 
 Containers are ephemeral, so Kubernetes provides a storage abstraction with three layers:
 
-### StorageClass (how storage is provisioned)
+#### StorageClass (how storage is provisioned)
 
 A **StorageClass** defines *what kind* of storage is available and *how* it gets created. It's like a template: "when someone asks for storage, use this provisioner to create it with these settings."
 
@@ -1145,7 +1145,7 @@ In kind, the default StorageClass uses local-path provisioner (storage on the no
 
 When a PVC doesn't specify a StorageClass, Kubernetes uses the one marked `(default)`.
 
-### PV and PVC (requesting and using storage)
+#### PV and PVC (requesting and using storage)
 
 - **PersistentVolume (PV)** — A piece of storage provisioned in the cluster (like a physical disk). With dynamic provisioning (via StorageClass), PVs are created automatically — you rarely create them manually.
 - **PersistentVolumeClaim (PVC)** — A request for storage from a Pod. Kubernetes binds it to an available PV (or dynamically creates one via the StorageClass).
@@ -1168,7 +1168,7 @@ Because kind has a default StorageClass, this PVC will be automatically provisio
 
 ---
 
-## Concepts you'll encounter in real clusters
+### Concepts you'll encounter in real clusters
 
 As you move beyond local development, you'll encounter these:
 
@@ -1178,7 +1178,7 @@ As you move beyond local development, you'll encounter these:
 - **cert-manager** — Automates TLS certificate issuance and renewal (e.g., from Let's Encrypt).
 - **Karpenter** — Node autoscaler that provisions new nodes when pods can't be scheduled (primarily cloud environments).
 
-### k9s: terminal UI for Kubernetes
+#### k9s: terminal UI for Kubernetes
 
 **k9s** is an interactive terminal-based UI for Kubernetes. Instead of typing `kubectl` commands repeatedly, you get a live, navigable dashboard of your cluster. Highly recommended for day-to-day work.
 
@@ -1212,7 +1212,7 @@ k9s auto-refreshes, so you can watch pods start, crash, and restart in real time
 
 ---
 
-## Cleanup
+### Cleanup
 
 To remove all the resources created during this guide:
 
@@ -1238,3 +1238,8 @@ Or simply delete the entire cluster:
 ```bash
 kind delete cluster --name demo
 ```
+
+## In the lab
+
+- The [lab](../13-lab/_index.md) is a three-node kind cluster that uses the objects of this page together: Namespaces, Deployments, StatefulSets, Services, ConfigMaps, Secrets and an Ingress. [How the lab is deployed](../13-lab/pulumi.md) shows each of them in code.
+- [Experiment 1](../13-lab/experiments.md#1-follow-one-order) follows one request through all of them, and [experiment 2](../13-lab/experiments.md#2-kill-a-pod) deletes pods and watches the Deployment bring them back.

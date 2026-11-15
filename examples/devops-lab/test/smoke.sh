@@ -35,7 +35,9 @@ search_on=true; monitoring_on=true
 
 echo "Kubernetes"
 check "all deployments in apps are available" 180 k -n apps wait --for=condition=Available deployment/api deployment/web deployment/worker --timeout=5s
-check "postgres, redis and kafka are ready" 180 k -n data wait --for=condition=Ready pod/postgres-0 pod/kafka-0 pod -l app=redis --timeout=5s
+# kubectl takes names or a label selector, not both in one command
+check "postgres and kafka are ready" 180 k -n data wait --for=condition=Ready pod/postgres-0 pod/kafka-0 --timeout=5s
+check "redis is ready" 180 k -n data wait --for=condition=Ready pod -l app=redis --timeout=5s
 hpa_has_metrics() { k -n apps get hpa api -o jsonpath='{.status.currentMetrics[0].resource.current.averageUtilization}' | grep -Eq '^[0-9]+$'; }
 check "the autoscaler reads CPU metrics (metrics-server works)" 240 hpa_has_metrics
 
@@ -78,7 +80,18 @@ if $monitoring_on; then
 	if $search_on; then
 		check "Elasticsearch exporter: cluster health" 180 prom_positive 'sum(elasticsearch_cluster_health_status{color=~"green|yellow"})'
 	fi
-	rules_loaded() { curl -fsS -H 'Host: prometheus.localhost' "$BASE/api/v1/rules" | grep -q ShopHighErrorRate; }
+	# Every metric the alert rules and the dashboard rely on must exist under exactly this name
+	names=$(curl -fsS -H 'Host: prometheus.localhost' "$BASE/api/v1/label/__name__/values" || true)
+	wanted="pg_stat_activity_max_tx_duration pg_stat_database_deadlocks pg_stat_user_tables_n_dead_tup pg_stat_user_tables_n_live_tup
+		pg_stat_database_blks_hit pg_stat_database_blks_read pg_stat_database_xact_commit
+		redis_up redis_evicted_keys_total redis_rejected_connections_total kafka_brokers kafka_topic_partition_under_replicated_partition"
+	$search_on && wanted="$wanted elasticsearch_jvm_memory_used_bytes elasticsearch_jvm_memory_max_bytes
+		elasticsearch_filesystem_data_available_bytes elasticsearch_filesystem_data_size_bytes elasticsearch_thread_pool_rejected_count"
+	missing=""
+	for name in $wanted; do has "$names" "\"$name\"" || missing="$missing $name"; done
+	if [ -z "$missing" ]; then pass "all metrics used by the alert rules exist"; else fail "metrics missing:$missing"; fi
+
+	rules_loaded() { curl -fsS -H 'Host: prometheus.localhost' "$BASE/api/v1/rules" | grep ShopHighErrorRate | grep -q ElasticsearchWriteRejections; }
 	check "the alert rules are loaded" 120 rules_loaded
 	dashboard() { curl -fsS -u admin:admin -H 'Host: grafana.localhost' "$BASE/api/dashboards/uid/shop" | grep -q '"title":"Shop"'; }
 	check "Grafana serves the Shop dashboard" 240 dashboard

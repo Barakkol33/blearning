@@ -1,6 +1,23 @@
 // Shared by the api, the worker and the load generator: config from the environment,
 // JSON logs to stdout, retries for dependencies that are not up yet, graceful shutdown.
 
+import RequestQueue from 'kafkajs/src/network/requestQueue/index.js';
+
+// A fix for kafkajs 2.2.4, its last release. While a broker connection is idle and not throttled,
+// the library re-arms a timer with a negative delay, which Node runs every 1 ms, forever: an idle
+// pod then uses about 80m of CPU, and the autoscaler scales the API to its maximum with no traffic.
+// Found by running the lab: `kubectl top pods` showed idle pods at 80% of their CPU request.
+// Here the check is scheduled only when there is something to wait for.
+RequestQueue.prototype.scheduleCheckPendingRequests = function () {
+	if (this.throttleCheckTimeoutId) return;
+	const throttledFor = this.throttledUntil - Date.now();
+	if (throttledFor <= 0 && this.pending.length === 0) return;
+	this.throttleCheckTimeoutId = setTimeout(() => {
+		this.throttleCheckTimeoutId = null;
+		this.checkPendingRequests();
+	}, throttledFor > 0 ? throttledFor : 10);
+};
+
 export const config = {
 	port: Number(process.env.PORT ?? 8080),
 	databaseUrl: process.env.DATABASE_URL ?? 'postgresql://postgres:postgres@localhost:5432/shop',

@@ -8,11 +8,13 @@ updated: 2026-11-13
 
 # Linux internals
 
-**Level: intro**
-
 Almost everything you operate runs on Linux, and a container is only a Linux process with a few restrictions. Knowing what the kernel does for a process explains most of what you see in Docker and Kubernetes. The commands themselves are in the [Linux practical guide](linux.md).
 
-## Terms
+**Levels on this page:** [Intro](#intro)
+
+## Intro
+
+### Terms
 
 | Term | Meaning |
 |---|---|
@@ -30,7 +32,7 @@ Almost everything you operate runs on Linux, and a container is only a Linux pro
 
 **A container = a process + namespaces (what it sees) + cgroups (what it may use) + an image (its files).**
 
-## A small example: a container without Docker
+### A small example: a container without Docker
 
 `unshare` starts a process in new namespaces. Here, a shell with its own PID namespace:
 
@@ -56,11 +58,6 @@ docker rm -f limited
 ```
 
 `--memory 100m` in Docker and `resources.limits.memory` in Kubernetes both end up as that one number.
-
-## Where it goes next
-
-- Beginner: systemd units and `journalctl`, reading `top`, `vmstat` and `iostat`, tracing a process with `strace`.
-- Advanced: the scheduler, memory management and the page cache, the I/O stack, eBPF, kernel tuning.
 
 ## See also
 

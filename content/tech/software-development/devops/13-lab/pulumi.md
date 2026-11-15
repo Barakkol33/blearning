@@ -141,6 +141,17 @@ pulumi up
 
 The preview shows an update to the ConfigMap, and to the `api` and `worker` Deployments because their hash annotation changed. Kubernetes then rolls the pods.
 
+## Two defaults that the first real run exposed
+
+Both passed `pulumi preview` and showed only on a running cluster.
+
+| Default | What it did | The fix in the lab |
+|---|---|---|
+| Pulumi **replaces** a ConfigMap or Secret whose content changed: it deletes it and creates a new one. Everything that refers to it is replaced too | A new image tag changed the ConfigMap, so the `api` and `worker` Deployments were deleted and created again: downtime on every release | `enableConfigMapMutable` and `enableSecretMutable` on the provider (`config.ts`). The change is then an update in place, and the pods are rolled by the hash annotation |
+| Pulumi **waits** for an Ingress to receive a load balancer address | kind has no load balancer, so every `pulumi up` waited 10 minutes and ended with an error | The annotation `pulumi.com/skipAwait: "true"` on the Ingress (`apps.ts`). In a cloud, remove it: there the wait is useful |
+
+The lesson is general: a plan that looks right is not a deployment that works. Read the summary line of every run (`updated`, `replaced`, `errored`), and treat an unexpected `replaced` as a warning.
+
 **2. Switch a layer off.**
 
 ```bash

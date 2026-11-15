@@ -9,11 +9,13 @@ updated: 2026-11-13
 
 # Security
 
-**Level: intro**
-
 The DevOps engineer holds the keys: cloud accounts, pipelines, clusters, secrets. An attacker who gets into the pipeline gets into production. Security here is not a separate team's checklist at the end. It is built into the daily tools, which is what "DevSecOps" and "shift left" mean.
 
-## Terms
+**Levels on this page:** [Intro](#intro)
+
+## Intro
+
+### Terms
 
 | Term | Meaning |
 |---|---|
@@ -37,7 +39,7 @@ The DevOps engineer holds the keys: cloud accounts, pipelines, clusters, secrets
 | Image signing | A cryptographic proof of who built an image, verified before it runs |
 | Policy as code | Security rules written as code and enforced automatically |
 
-## The areas and their tools
+### The areas and their tools
 
 | Area | Tools |
 |---|---|
@@ -50,7 +52,7 @@ The DevOps engineer holds the keys: cloud accounts, pipelines, clusters, secrets
 | Cluster policy | Kyverno, OPA Gatekeeper |
 | Runtime detection | Falco |
 
-## A small example: scan an image
+### A small example: scan an image
 
 ```bash
 docker run --rm aquasec/trivy image nginx:1.21
@@ -75,7 +77,7 @@ docker run --rm aquasec/trivy image --severity HIGH,CRITICAL nginx:stable-alpine
 
 The lessons: **rebuild images regularly** on updated bases, and **use small base images**, because a package that is not there cannot be vulnerable. In a pipeline, the same command with `--exit-code 1` fails the build on serious findings.
 
-## The habits that matter most
+### The habits that matter most
 
 1. **No secrets in Git, in images or in pipeline logs.** A secret that was pushed is leaked, even if deleted later. Rotate it.
 2. **No long-lived cloud keys.** People use single sign-on with MFA, workloads use roles, pipelines use OIDC federation.
@@ -83,11 +85,6 @@ The lessons: **rebuild images regularly** on updated bases, and **use small base
 4. **Patch continuously.** Automated dependency updates and image rebuilds.
 5. **Everything is logged**: who did what, in the cloud (audit logs) and in the cluster.
 6. **Private by default**: networks, buckets, databases. Open only what must be open.
-
-## Where it goes next
-
-- Beginner: a Vault dev server and an application that reads a secret from it, Trivy and gitleaks in a pipeline, OIDC from GitHub Actions to a cloud.
-- Advanced: threat modeling, supply-chain hardening (SLSA, signing, admission policies), network segmentation and mTLS, incident response, compliance frameworks (SOC 2, ISO 27001).
 
 ## See also
 

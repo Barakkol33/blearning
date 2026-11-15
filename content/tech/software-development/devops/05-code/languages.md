@@ -8,11 +8,13 @@ updated: 2026-11-13
 
 # Languages
 
-**Level: intro**
-
 A DevOps engineer writes code every day: scripts, pipelines, infrastructure definitions, small tools. And reads much more: the applications being deployed. You need to write well in two or three languages and to read the rest.
 
-## Terms
+**Levels on this page:** [Intro](#intro)
+
+## Intro
+
+### Terms
 
 | Term | Meaning |
 |---|---|
@@ -25,7 +27,7 @@ A DevOps engineer writes code every day: scripts, pipelines, infrastructure defi
 | Linter | A tool that finds mistakes and style problems without running the code |
 | Standard library | What comes with the language, with nothing to install |
 
-## Languages you write
+### Languages you write
 
 | Language | Used for | Know at least |
 |---|---|---|
@@ -38,7 +40,7 @@ A DevOps engineer writes code every day: scripts, pipelines, infrastructure defi
 
 A simple rule: Bash up to about 50 lines, Python beyond that, Go when it must ship as one fast binary.
 
-## Languages you run
+### Languages you run
 
 | Language | Typical use | What you notice in operations |
 |---|---|---|
@@ -51,7 +53,7 @@ A simple rule: Bash up to about 50 lines, Python beyond that, Go when it must sh
 
 More on what this means in practice in [Runtimes and engines](runtimes.md).
 
-## A small example: the same health check, twice
+### A small example: the same health check, twice
 
 Bash, good for a pipeline step:
 
@@ -88,8 +90,3 @@ sys.exit(1 if failed else 0)
 ```
 
 Both end with an **exit code**: 0 for success, anything else for failure. That is how a pipeline, a Kubernetes probe or a cron job knows what happened.
-
-## Where it goes next
-
-- Beginner: a real CLI tool in Python and the same one in Go, packaged in a container.
-- Advanced: writing a Kubernetes operator, a Terraform provider, performance profiling.

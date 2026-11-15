@@ -20,7 +20,15 @@ export const settings = {
     dbPassword: cfg.getSecret("dbPassword") ?? pulumi.secret("lab-password"),
 };
 
-export const provider = new k8s.Provider("cluster", { context: settings.kubeContext });
+export const provider = new k8s.Provider("cluster", {
+    context: settings.kubeContext,
+    // By default Pulumi replaces a ConfigMap or Secret whose content changed (delete, then create),
+    // and everything that refers to it is replaced with it: a new image tag would delete the
+    // Deployments and cause downtime. With these two, the change is an update in place,
+    // and the pods are rolled by the config hash in their template (see apps.ts).
+    enableConfigMapMutable: true,
+    enableSecretMutable: true,
+});
 
 /** Pods with this label and a container port named "metrics" are scraped by Prometheus (see monitoring.ts). */
 export const scrapeLabel = { "lab-metrics": "true" };

@@ -68,6 +68,65 @@ const dashboard = {
     ],
 };
 
+// Alert rules for the data layer: one per "worry when" in the Advanced sections of the guide's database pages
+// that the exporters can measure. severity "page" = wake someone, "ticket" = look at it today.
+function alertRule(alert: string, severity: "page" | "ticket", wait: string, expr: string, summary: string) {
+    return { alert, expr, for: wait, labels: { severity }, annotations: { summary } };
+}
+
+const dataAlerts = {
+    name: "data",
+    rules: [
+        // PostgreSQL
+        alertRule("PostgresIdleInTransaction", "ticket", "1m",
+            `max(pg_stat_activity_max_tx_duration{state="idle in transaction"}) > 60`,
+            "A session has been idle in a transaction for over a minute: it holds locks and blocks vacuum"),
+        alertRule("PostgresLongTransaction", "ticket", "1m",
+            `max(pg_stat_activity_max_tx_duration{state="active"}) > 300`,
+            "A query or transaction has been running for over 5 minutes"),
+        alertRule("PostgresDeadlocks", "ticket", "0m",
+            `increase(pg_stat_database_deadlocks{datname="shop"}[5m]) > 0`,
+            "Deadlocks were detected in the last 5 minutes"),
+        alertRule("PostgresDeadRows", "ticket", "10m",
+            `sum(pg_stat_user_tables_n_dead_tup) > 10000 and sum(pg_stat_user_tables_n_dead_tup) / sum(pg_stat_user_tables_n_live_tup) > 0.2`,
+            "Dead rows are over 20% of live rows: vacuum is not keeping up, or is blocked"),
+        alertRule("PostgresCacheHitRatioLow", "ticket", "10m",
+            `sum(rate(pg_stat_database_blks_hit{datname="shop"}[5m])) / (sum(rate(pg_stat_database_blks_hit{datname="shop"}[5m])) + sum(rate(pg_stat_database_blks_read{datname="shop"}[5m]))) < 0.95`,
+            "Under 95% of page reads are served from memory"),
+        // Redis
+        alertRule("RedisDown", "page", "30s", `redis_up == 0`, "The exporter cannot reach Redis"),
+        alertRule("RedisEvicting", "ticket", "2m",
+            `rate(redis_evicted_keys_total[1m]) > 0`,
+            "Redis is evicting keys: the cache is full. Check the hit ratio and the load on the database"),
+        alertRule("RedisRejectedConnections", "page", "0m",
+            `increase(redis_rejected_connections_total[5m]) > 0`,
+            "Redis refused connections: the client limit was reached"),
+        // Kafka
+        alertRule("KafkaBrokerMissing", "page", "1m",
+            `absent(kafka_brokers) or kafka_brokers < 1`,
+            "No Kafka broker is reachable"),
+        alertRule("KafkaUnderReplicatedPartitions", "page", "2m",
+            `sum(kafka_topic_partition_under_replicated_partition) > 0`,
+            "Some partitions have fewer in-sync replicas than configured"),
+        // Elasticsearch
+        alertRule("ElasticsearchRed", "page", "1m",
+            `elasticsearch_cluster_health_status{color="red"} == 1`,
+            "A primary shard is missing: part of the data is unavailable"),
+        alertRule("ElasticsearchYellow", "ticket", "5m",
+            `elasticsearch_cluster_health_status{color="yellow"} == 1`,
+            "Replica shards are unassigned: there is no spare copy (see experiment 9 in the guide)"),
+        alertRule("ElasticsearchHeapHigh", "ticket", "5m",
+            `elasticsearch_jvm_memory_used_bytes{area="heap"} / elasticsearch_jvm_memory_max_bytes{area="heap"} > 0.9`,
+            "JVM heap has stayed above 90%"),
+        alertRule("ElasticsearchDiskHigh", "ticket", "5m",
+            `1 - elasticsearch_filesystem_data_available_bytes / elasticsearch_filesystem_data_size_bytes > 0.8`,
+            "A data node's disk is over 80% full. At 85% it stops receiving shards"),
+        alertRule("ElasticsearchWriteRejections", "ticket", "0m",
+            `increase(elasticsearch_thread_pool_rejected_count{type="write"}[5m]) > 0`,
+            "Indexing requests were rejected: the write queue was full"),
+    ],
+};
+
 if (settings.monitoring) {
     const stack = new k8s.helm.v3.Release("monitoring", {
         name: "monitoring",
@@ -122,7 +181,7 @@ if (settings.monitoring) {
         kind: "PrometheusRule",
         metadata: { name: "lab-alerts", namespace: ns },
         spec: {
-            groups: [{
+            groups: [dataAlerts, {
                 name: "shop",
                 rules: [
                     {

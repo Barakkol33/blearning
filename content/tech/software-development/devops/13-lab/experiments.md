@@ -14,7 +14,7 @@ updated: 2026-11-14
 
 Things to do with the running [lab](_index.md). Each experiment says what to do, what to watch and what it teaches. Keep two things open: the shop at http://localhost:8090, and the Grafana dashboard "Shop" at http://grafana.localhost:8090 (admin / admin).
 
-Experiments 1, 4 and 5 were run as written. The others describe the expected behavior and have not yet been run on a cluster (see Status on the [lab page](_index.md)).
+All 13 experiments were run on the full lab (three nodes, on WSL with 8 GB of memory) on 2026-11-15, and the text describes what happened. Times are from that machine and will differ on yours.
 
 All commands run from the `devops-lab` folder. `kubectl` commands assume the current context is `kind-devops-lab`, which is what kind sets when it creates the cluster.
 
@@ -46,10 +46,18 @@ The same order in each store:
 ```bash
 kubectl -n apps get pods -w                  # leave running in a second terminal
 
+kubectl -n apps delete "$(kubectl -n apps get pod -l app=api -o name | head -1)"
+```
+
+**Watch:** a new pod appears within seconds. The page keeps working, because the other pod serves while the new one starts, and a pod only gets traffic after its readiness probe passes. The line "served by pod" at the top of the page changes.
+
+Now delete all of them at once:
+
+```bash
 kubectl -n apps delete pod -l app=api --wait=false
 ```
 
-**Watch:** new pods appear within seconds. The page keeps working, because a pod only gets traffic after its readiness probe passes, and the line "served by pod" at the top of the page changes.
+New pods are running about ten seconds later, but for a few seconds requests fail with 502 and 504: nothing was left to serve. Replicas protect you from losing one pod, not from losing all of them.
 
 **Teaches:** a Deployment keeps the declared number of pods. Nobody restarted anything.
 
@@ -60,18 +68,20 @@ kubectl -n apps delete pod -l app=api --wait=false
 kubectl -n apps get hpa api -w
 ```
 
-**Watch:** on the dashboard, requests per second jump. Within a minute or two CPU passes 70% of the request, and the autoscaler raises the API from 2 pods toward 6. After `./lab.sh load off` it scales back down, slowly: about five minutes, on purpose, to avoid flapping.
+**Watch:** on the dashboard, requests per second jump to about 60. Before the load, each API pod uses about 15% of its CPU request. Within a minute the two pods are far above the 70% target, and the autoscaler raises the API to 6 pods, its maximum. After `./lab.sh load off` it scales back down, slowly: about five minutes, on purpose, to avoid flapping.
 
 ```bash
 kubectl -n apps top pods
 kubectl -n apps describe hpa api             # the decisions, with reasons
 ```
 
-**Teaches:** the HPA, why every container needs a CPU request, and that scaling takes time.
+The load must also reach the new pods. A Service balances connections, not requests: a client that keeps its connections open stays on the pods it first connected to, and the pods added later get nothing. The load generator therefore opens a new connection for every request (see `apps/shop/src/loadgen.js`). In the first run of this lab it did not, and two pods carried all the load while four new ones stood idle.
+
+**Teaches:** the HPA, why every container needs a CPU request, that scaling takes time, and that more pods help only if traffic is spread over them.
 
 ## 4. Kafka lag, and its fix
 
-With the load on, customers create about 20 orders a second. One worker handles 10 a second (100 ms each).
+With the load on, customers create about 20 orders a second. One worker handles fewer than 10 a second (100 ms of "work" each, plus a database update and indexing).
 
 ```bash
 ./lab.sh load on
@@ -86,7 +96,7 @@ Fix it:
 kubectl -n apps scale deployment worker --replicas 3
 ```
 
-Each worker takes one partition, the three together handle 30 a second, and the lag drains. Now try 5 workers: the lag drains no faster, because the topic has only 3 partitions and the extra workers sit idle.
+Each worker takes one partition. The three together handle a little more than the 20 a second that arrive, so for the first minute the lag still grows (the group is rebalancing), and then it drains slowly: a few hundred a minute. Now try 5 workers: the lag drains no faster, because the topic has only 3 partitions and the extra workers sit idle. To empty the queue quickly, stop the load.
 
 **Teaches:** lag as the health signal of a queue, consumer groups, and partitions as the limit of parallelism. See [Kafka](../08-services/kafka.md).
 
@@ -118,7 +128,7 @@ kubectl -n data exec deploy/redis -c redis -- redis-benchmark -q -t set -n 10000
 ./lab.sh redis FLUSHALL
 ```
 
-**Teaches:** a cache needs a memory limit and an eviction policy. See the Redis cases in [Database health](../07-databases/health.md#redis-and-valkey).
+**Teaches:** a cache needs a memory limit and an eviction policy. See the common cases in [Redis](../07-databases/redis.md#common-cases).
 
 ## 6. PostgreSQL: look inside
 
@@ -146,7 +156,7 @@ Run the load for a few minutes first, so the table has enough rows for the plans
 
 ## 7. PostgreSQL: a lock queue
 
-The case from [Database health](../07-databases/health.md#postgresql) where one open transaction stops a whole table. Terminal 1:
+The case from [PostgreSQL](../07-databases/postgres.md#common-cases) where one open transaction stops a whole table. Terminal 1:
 
 ```bash
 ./lab.sh psql
@@ -186,15 +196,15 @@ The lab's server allows 50 connections.
 
 ```bash
 kubectl -n data exec postgres-0 -c postgres -- sh -c \
-  'for i in $(seq 1 60); do psql -U postgres -d shop -c "SELECT pg_sleep(90)" >/dev/null 2>&1 & done; wait' &
+  'for i in $(seq 1 60); do psql -U postgres -d shop -c "SELECT pg_sleep(200)" >/dev/null 2>&1 & done; wait' &
 
 ./lab.sh psql -c "SELECT 1"
 # FATAL: sorry, too many clients already
 ```
 
-**Watch:** "PostgreSQL: connections" on the dashboard reaches the maximum line, the alert `PostgresConnectionsNearLimit` fires, API pods fail their readiness probe (`kubectl -n apps get pods`) and the page shows errors. After 90 seconds the sleeping sessions end and the system recovers by itself.
+**Watch:** "PostgreSQL: connections" on the dashboard reaches the maximum line. The alert `PostgresConnectionsNearLimit` goes pending, and after a minute firing. And the shop keeps working: every API pod already holds its own few connections in a pool, and uses them again and again. What fails is whoever needs a **new** connection: your `psql`, a migration, a backup, the pods of a scale-up under load. After 200 seconds the sleeping sessions end and the alert clears.
 
-**Teaches:** connections are a hard limit, and what its exhaustion looks like from the application, from Kubernetes and from the database.
+**Teaches:** connections are a hard limit, and its exhaustion is easy to miss: the application looks healthy while the database refuses everyone else, including the person who comes to fix it. PostgreSQL keeps a few connections for superusers for this reason (`superuser_reserved_connections`).
 
 ## 9. Elasticsearch: a yellow cluster
 
@@ -235,7 +245,7 @@ kubectl -n apps set image deployment/api api=devops-lab/shop:does-not-exist
 kubectl -n apps get pods -l app=api
 ```
 
-**Watch:** one new pod is stuck in `ErrImagePull`. The old pods keep serving, because the rollout is configured to never go below the current number of ready pods (`maxUnavailable: 0`). The page works throughout.
+**Watch:** one new pod is stuck in `ErrImagePull`, and then `ImagePullBackOff`. The old pods keep serving, because the rollout is configured to never go below the current number of ready pods (`maxUnavailable: 0`). The page works throughout.
 
 ```bash
 kubectl -n apps rollout undo deployment/api
@@ -250,6 +260,17 @@ kubectl -n apps rollout status deployment/api
 
 The new image gets a new tag from the hash of the code, Pulumi updates the Deployment, and Kubernetes replaces the pods one at a time. The version on the shop page changes.
 
+Is a rollout really free for users? Measure it. In one terminal send a request every 100 ms and count the answers, in another restart the pods:
+
+```bash
+while true; do curl -s -o /dev/null -m 3 -w '%{http_code}\n' localhost:8090/api/orders; sleep 0.1; done | tee /tmp/codes
+
+kubectl -n apps rollout restart deployment/api     # then stop the loop with Ctrl+C
+sort /tmp/codes | uniq -c
+```
+
+Expect only `200`. In the first run of the lab a request was dropped now and then (`000`): a pod that is being deleted can still receive a request for a moment after it got the signal to stop. The API's `preStop` pause in `infra/apps.ts` covers that moment. Remove it, deploy, and measure again.
+
 ## 12. Lose a database pod
 
 ```bash
@@ -257,11 +278,17 @@ kubectl -n data delete pod postgres-0
 kubectl -n apps get pods -w
 ```
 
-**Watch:** for a few seconds the API pods are not ready and the page shows errors. The StatefulSet brings back `postgres-0` with the same disk, the API reconnects, and every order is still there.
+**Watch:** a request or two fails while the database is away. Within about 15 seconds the StatefulSet brings back `postgres-0` with the same disk, the API reconnects, and every order is still there.
 
-Now the same with Kafka: `kubectl -n data delete pod kafka-0`. Its data was in an `emptyDir`, so the topic's contents and the consumer group's position are gone. Orders that arrive while it is down fail, because the API needs Kafka to accept an order.
+Now the same with Kafka: `kubectl -n data delete pod kafka-0`. Its data was in an `emptyDir`, so the topic's contents and the consumer group's position are gone. Orders that arrive while it is down fail, because the API needs Kafka to accept an order. Send one during the outage and then look:
 
-**Teaches:** what a persistent volume gives you, and a design question: should accepting an order depend on the queue being up? (The usual answer is the outbox pattern: write the event to PostgreSQL in the same transaction, and ship it to Kafka afterwards.)
+```bash
+./lab.sh psql -c "SELECT status, count(*) FROM orders GROUP BY 1"
+```
+
+One order stays `new` forever. The API wrote the row to PostgreSQL, failed to publish the event, and answered with an error: the two stores now disagree, and no worker will ever hear of that order.
+
+**Teaches:** what a persistent volume gives you, and a design question: should accepting an order depend on the queue being up? (The usual answer is the outbox pattern: write the event to PostgreSQL in the same transaction, and ship it to Kafka afterwards. It also removes the order that was stuck as `new`.)
 
 ## 13. Drain a node
 
@@ -272,11 +299,23 @@ kubectl get pods -A -o wide | grep devops-lab-worker2
 kubectl drain devops-lab-worker2 --ignore-daemonsets --delete-emptydir-data
 ```
 
-**Watch:** pods are evicted and start on the other worker. The API's disruption budget makes the drain wait, so at least one API pod is always up. If `postgres-0` was on that node it stays `Pending`: its volume is a local disk of that node, so the pod cannot follow. In a cloud the disk is network storage and moves with the pod.
+**Watch:** pods are evicted and start on the other worker. The API's disruption budget makes the drain wait, so at least one API pod is always up, and the shop keeps answering.
 
 ```bash
 kubectl uncordon devops-lab-worker2
 ```
+
+Now drain the node that holds the database:
+
+```bash
+kubectl -n data get pod postgres-0 -o wide          # which node?
+kubectl drain <that node> --ignore-daemonsets --delete-emptydir-data
+kubectl -n data describe pod postgres-0 | tail -5
+```
+
+`postgres-0` stays `Pending`, with the reason `volume node affinity conflict`: its volume is a local disk of the drained node, so the pod cannot start anywhere else. The API pods become not ready and the shop answers 503 until you `uncordon` the node. Then PostgreSQL returns with all its data. In a cloud the disk is network storage and moves with the pod.
+
+If Traefik was on the drained node, the shop is also unreachable for a few seconds while it restarts elsewhere: the door has a single replica.
 
 **Teaches:** planned maintenance, disruption budgets, and why local storage pins a pod to a node.
 
@@ -285,7 +324,7 @@ kubectl uncordon devops-lab-worker2
 - Lower the API's memory limit to 64Mi in `infra/apps.ts` and deploy: watch `OOMKilled` and restarts under load.
 - Break the readiness probe's path, deploy, and see a rollout that never completes and never takes traffic.
 - Add a `NetworkPolicy` that lets only the `apps` namespace reach PostgreSQL, and prove it from a pod in another namespace.
-- Write a new alert rule in `infra/monitoring.ts` for Redis evictions, and make it fire.
+- The rule `RedisEvicting` in `infra/monitoring.ts` needs two minutes of evictions. Make it fire.
 - Raise `workerMs` to 1000 with `pulumi config set` and find how many workers the load now needs.
 
 ## See also

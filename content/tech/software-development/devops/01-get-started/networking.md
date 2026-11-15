@@ -8,11 +8,13 @@ updated: 2026-11-13
 
 # Networking
 
-**Level: intro**
-
 Most production problems end up being network problems: a name that does not resolve, a port that is closed, a certificate that expired. You do not need to be a network engineer, but you need to follow one request from the client to the server and know what can break at each step.
 
-## Terms
+**Levels on this page:** [Intro](#intro)
+
+## Intro
+
+### Terms
 
 | Term | Meaning |
 |---|---|
@@ -30,7 +32,7 @@ Most production problems end up being network problems: a name that does not res
 | Load balancer | Spreads incoming traffic across several servers. Layer 4 works on TCP connections, layer 7 understands HTTP |
 | Reverse proxy | A server that receives requests and passes them to the real servers behind it |
 
-## A small example: follow one request
+### A small example: follow one request
 
 When `curl https://example.com` runs, four things happen in order. Each has its own tool.
 
@@ -55,11 +57,6 @@ Read the failure by the step that failed:
 - Step 2 hangs: a firewall drops the traffic. "Connection refused" means the machine answered but nothing listens on that port.
 - Step 3 fails: an expired certificate, or a certificate for another name.
 - Step 4 returns 5xx: the network is fine and the application is broken.
-
-## Where it goes next
-
-- Beginner: build a small network yourself, with subnets, routing and a firewall, and capture packets with `tcpdump`.
-- Advanced: TCP in depth, HTTP/2 and HTTP/3, BGP and how cloud networks are built, Kubernetes networking.
 
 ## See also
 

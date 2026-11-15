@@ -8,11 +8,13 @@ updated: 2026-11-13
 
 # Messaging and queues
 
-**Level: intro**
-
 When service A calls service B directly, A waits for B and fails when B is down. A message system sits between them: A hands over a message and moves on, and B takes it when it can. This decouples services, absorbs bursts of load and lets work be retried. [Kafka](kafka.md) is the best known, and it is one of several kinds.
 
-## Terms
+**Levels on this page:** [Intro](#intro)
+
+## Intro
+
+### Terms
 
 | Term | Meaning |
 |---|---|
@@ -30,7 +32,7 @@ When service A calls service B directly, A waits for B and fails when B is down.
 | Backpressure | Slowing producers when consumers cannot keep up |
 | Ordering | Whether messages are handled in the order they were sent. Usually guaranteed only per partition or per key |
 
-## The tools
+### The tools
 
 | Tool | Model | Use it for |
 |---|---|---|
@@ -46,7 +48,7 @@ When service A calls service B directly, A waits for B and fails when B is down.
 
 Queue or log? If messages are **tasks** to do once (send this email), a queue. If they are **events** that several systems read and may replay (an order was placed), a log.
 
-## A small example: a work queue with RabbitMQ
+### A small example: a work queue with RabbitMQ
 
 ```bash
 docker run -d --name rabbit -p 5672:5672 -p 15672:15672 rabbitmq:4-management
@@ -90,10 +92,9 @@ channel.start_consuming()
 
 Run `send.py` with no worker: the messages wait in the queue (see them at `http://localhost:15672`, user and password `guest`). Start two workers: they share the work. Kill a worker in the middle of a message: it was never acknowledged, so the broker gives it to the other worker.
 
-## Where it goes next
+## In the lab
 
-- Beginner: exchanges and routing in RabbitMQ, a dead-letter queue, the same flow on SQS.
-- Advanced: Kafka in depth (replication, KRaft, tuning), exactly-once semantics, the outbox pattern, schema registries, running brokers in production.
+- In the lab, the API publishes every order to a Kafka topic and a worker consumes it. [Experiment 4](../13-lab/experiments.md#4-kafka-lag-and-its-fix) makes the producers faster than the consumer, watches the lag grow and drains it with more workers.
 
 ## See also
 
