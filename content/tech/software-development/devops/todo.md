@@ -42,7 +42,7 @@ Each chunk brings its pages to the page pattern and adds a **Beginner** section 
 | # | Chunk | Roadmap sections | Pages | Lab |
 |---|---|---|---|---|
 | ✓ 1 | Operating system and terminal (done 2026-11-15) | 2, 3 | Linux in the page pattern. Linux internals: a Beginner section on troubleshooting a server (processes, memory, disk, network, systemd, logs) | |
-| 2 | Networking and protocols | 7 | Networking: Beginner with DNS, TLS and certificates, HTTP, SSH keys and tunnels, a firewall | |
+| ✓ 2 | Networking and protocols (done 2026-11-15) | 7 | Networking: Beginner with DNS, TLS and certificates, HTTP, SSH keys and tunnels, a firewall | |
 | 3 | Git | 4 | Git: Beginner with rebase, conflicts, `reflog`, hooks, a protected branch with required checks | |
 | 4 | Containers | 5 | Docker in the page pattern, Beginner on small and safe images: multi-stage builds, non-root, build cache, scanning | The shop's Dockerfile checked against it |
 | 5 | Web servers and proxies | 6 | Proxies: Beginner with nginx as reverse proxy, load balancer, cache and TLS terminator, and Caddy | |

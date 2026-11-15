@@ -25,7 +25,7 @@ Use it in two ways: as a study order, from top to bottom, and as a check of what
 | 4 | Version control and hosting | Git, GitHub, GitLab, Bitbucket | [Git and code hosting](06-delivery/git.md) | intro | |
 | 5 | Containers | Docker, LXC | [Docker](02-containers/docker.md) | beginner | One image, three roles |
 | 6 | Setting up servers | Reverse and forward proxy, load balancer, caching server, firewall, nginx, Apache, Caddy | [Proxies and load balancers](08-services/proxies.md), [Caching](08-services/caching.md) | intro | Traefik as the door, Redis as the cache |
-| 7 | Networking and protocols | OSI model, DNS, HTTP, HTTPS, TLS, SSH, FTP, email protocols | [Networking](01-get-started/networking.md), [APIs](05-code/apis.md) | intro | |
+| 7 | Networking and protocols | OSI model, DNS, HTTP, HTTPS, TLS, SSH, FTP, email protocols | [Networking](01-get-started/networking.md) (DNS, TLS and a CA, HTTP timing, SSH through a bastion, a firewall), [APIs](05-code/apis.md) | beginner | Routing by host name, cluster DNS |
 | 8 | Cloud providers | AWS, Azure, GCP and smaller providers | [Cloud concepts](03-cloud/concepts.md), [AWS](03-cloud/aws.md), [Azure](03-cloud/azure.md), [GCP](03-cloud/gcp.md) | intro | [The lab in a cloud](13-lab/cloud.md), as a plan |
 | 9 | Serverless | Lambda, Azure Functions, Cloud Run functions, Cloudflare, Vercel, Netlify | [Serverless](03-cloud/serverless.md) | intro | |
 | 10 | Provisioning | Terraform, Pulumi, CloudFormation, CDK | [Terraform](04-infrastructure-as-code/terraform.md), [Pulumi in the lab](13-lab/pulumi.md) | beginner | The whole lab is one Pulumi program |
