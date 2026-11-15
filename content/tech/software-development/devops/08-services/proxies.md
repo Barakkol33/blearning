@@ -115,3 +115,4 @@ In all three, the proxy is healthy and the problem is behind it.
 
 - [Networking](../01-get-started/networking.md), [APIs](../05-code/apis.md)
 - [Kubernetes in production](../02-containers/kubernetes-production.md)
+- [Service mesh](service-mesh.md): a proxy next to every service

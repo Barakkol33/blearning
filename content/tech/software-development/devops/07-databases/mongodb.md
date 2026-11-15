@@ -8,22 +8,78 @@ updated: 2026-11-15
 
 # MongoDB
 
-A document-oriented NoSQL database. Stores data as flexible, JSON-like documents (BSON). Great when your data schema evolves or is hierarchical.
+MongoDB is a document database. It stores records as JSON-like documents that can be nested and can differ from each other, in place of rows with fixed columns. It fits data that is naturally hierarchical, and data whose shape changes often.
 
 **Levels on this page:** [Intro](#intro) · [Advanced](#advanced)
 
 ## Intro
 
-### Key concepts
+### Terms
 
-- **Document** – A single record, like a JSON object.
-- **Collection** – Group of documents (similar to a table).
-- **BSON** – Binary JSON format Mongo uses internally.
-- **Schema-flexible** – Documents in the same collection can have different fields.
-- **Index** – Speeds up queries; supports single-field, compound, text, geospatial.
-- **Aggregation Pipeline** – Framework for analytics/transformations (stages like `$match`, `$group`, `$project`).
-- **Replica Set** – High availability via primary + secondary nodes, automatic failover.
-- **Sharding** – Horizontal scaling by splitting collections across servers.
+| Term | Meaning |
+|---|---|
+| Document | One record, like a JSON object. Up to 16 MB |
+| Collection | A group of documents, like a table. It does not enforce one schema by default |
+| BSON | The binary form of JSON that MongoDB stores, with more types (dates, binary, 64-bit numbers) |
+| `_id` | The primary key of a document. Created automatically when not given |
+| Embedding | Putting related data inside the document (the customer inside the order), in place of a join |
+| Reference | Keeping only the ID of another document, like a foreign key |
+| Index | Speeds up queries. Single-field, compound, text, geospatial |
+| Aggregation pipeline | Processing in stages: `$match`, `$group`, `$sort`, `$lookup` |
+| Replica set | A primary and secondaries with automatic failover. The normal way to run MongoDB |
+| Oplog | The log of changes that secondaries copy from the primary |
+| Sharding | Splitting a collection over several replica sets by a shard key |
+| `mongos` | The router that sends each query to the right shard |
+| WiredTiger | The storage engine |
+| Write concern / read concern | How many members must confirm a write, and how fresh a read must be |
+| Atlas | MongoDB's managed cloud service |
+
+### What is different about it
+
+- **The schema lives in the application.** The database accepts any shape, so the code and the team must keep the shapes under control. Schema validation rules can be added per collection.
+- **Model for the queries.** Data that is read together is stored together. One document read replaces a join of several tables.
+- **A replica set from day one.** Failover is built in, and a single node is only for development.
+
+### A small example: documents, a query, an index
+
+```bash
+docker run -d --name mongo mongo:8
+docker exec -it mongo mongosh shop
+```
+
+```javascript
+// Three orders. They do not have the same fields.
+db.orders.insertMany([
+  { item: "red bicycle", quantity: 1, customer: { name: "Dana", city: "Haifa" }, tags: ["sport"] },
+  { item: "coffee machine", quantity: 2, customer: { name: "Omer", city: "Tel Aviv" } },
+  { item: "coffee beans", quantity: 5, customer: { name: "Dana", city: "Haifa" }, gift: true },
+])
+
+// Query by a nested field
+db.orders.find({ "customer.city": "Haifa" }, { item: 1, quantity: 1, _id: 0 })
+// [ { item: 'red bicycle', quantity: 1 }, { item: 'coffee beans', quantity: 5 } ]
+
+// Items per customer
+db.orders.aggregate([
+  { $group: { _id: "$customer.name", items: { $sum: "$quantity" } } },
+  { $sort: { items: -1 } },
+])
+// [ { _id: 'Dana', items: 6 }, { _id: 'Omer', items: 2 } ]
+
+// How was the query executed?
+db.orders.find({ "customer.city": "Haifa" }).explain("executionStats").executionStats.executionStages.stage
+// COLLSCAN: every document was read
+
+db.orders.createIndex({ "customer.city": 1 })
+db.orders.find({ "customer.city": "Haifa" }).explain("executionStats").executionStats.executionStages.inputStage.stage
+// IXSCAN: the index was used
+```
+
+```bash
+docker rm -f mongo
+```
+
+`COLLSCAN` in a frequent query is the first thing to look for when MongoDB is slow, as a sequential scan is in PostgreSQL.
 
 ## Advanced
 

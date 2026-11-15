@@ -80,4 +80,4 @@ A service is also at most as reliable as what it depends on. Calling three servi
 
 - [Observability](../09-observability/concepts.md): where SLIs come from
 - [Operating a database](../07-databases/operations.md): RPO and RTO in practice
-- [DevOps intro: reliability](../01-get-started/intro.md)
+- [What is DevOps](../01-get-started/intro.md#staying-up): the building blocks of availability

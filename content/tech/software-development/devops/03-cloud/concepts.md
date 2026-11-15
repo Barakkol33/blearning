@@ -89,3 +89,8 @@ From most control to least work:
 4. **Functions**: short event-driven code. Limits on runtime and start-up time.
 
 Start as high on the managed side as the workload allows, and move down only for a reason.
+
+## See also
+
+- [Serverless](serverless.md): options 3 and 4 in detail
+- [AWS](aws.md), [Azure](azure.md), [GCP](gcp.md)

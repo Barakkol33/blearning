@@ -8,54 +8,118 @@ updated: 2026-11-15
 
 # Elasticsearch
 
-A distributed search and analytics engine built on Lucene. Optimized for full-text search, filtering, and near real-time aggregation over large datasets. It is also the classic store for logs. OpenSearch is a fork with a very similar API, and everything here applies to it too.
+Elasticsearch is a distributed search and analytics engine built on the Lucene library. It finds text by relevance, filters and aggregates over large amounts of data in near real time, and is the classic store for logs. OpenSearch is a fork with a very similar API, and everything here applies to it too.
 
 **Levels on this page:** [Intro](#intro) · [Advanced](#advanced)
 
 ## Intro
 
-What search engines are for, the tools around them and a first example with `curl` are in [Search](../08-services/search.md). This section lists the concepts of Elasticsearch itself.
+What search engines are for, and the tools around them, are in [Search](../08-services/search.md). This section is about Elasticsearch itself.
 
-### Key concepts
+### Terms
 
-- **Index** – Logical namespace for documents (like a DB/table).
-- **Document** – JSON record you search over.
-- **Field / Mapping** – Field types and how they’re indexed (text, keyword, date, numeric).
-- **Inverted Index** – Core search structure enabling fast text search.
-- **Analyzer** – How text is tokenized/normalized (tokenizer + filters).
-- **Shard** – A partition of an index; enables horizontal scale. Each index is split into primary shards, each with multiple replicas.
-  - **Primary** – Source-of-truth for the index.
-  - **Replica** – Copy for availability + read scaling.
-- **Query DSL** – JSON-based query language (match, bool, term, range, aggregations).
-- **Aggregations** – Built-in analytics (histograms, terms, metrics).
-- **Near real-time** – Data searchable shortly after indexing (refresh interval).
+| Term | Meaning |
+|---|---|
+| Document | One JSON record. The unit that is stored and searched |
+| Index | A collection of documents with one mapping, like a table |
+| Mapping | The schema: the type of each field, and so how it is indexed |
+| `text` field | Analyzed: split into lowercase words, for full-text search with a `match` query |
+| `keyword` field | Stored as one exact value, for filters, sorting and aggregations with a `term` query |
+| Analyzer | The steps that turn text into terms: a tokenizer and filters |
+| Inverted index | For each term, the list of documents that contain it. What makes search fast |
+| Shard | A piece of an index, and a Lucene index of its own. An index has a fixed number of primary shards |
+| Replica | A copy of a shard on another node, for survival and for read capacity |
+| Node roles | Master (manages the cluster), data (holds shards), ingest, coordinating |
+| Refresh | Makes newly indexed documents searchable. Once a second by default, which is the "near" in near real time |
+| Query DSL | The JSON query language: `match`, `term`, `range`, `bool` |
+| Aggregation | Statistics over the matching documents: counts per value, averages, histograms |
+| Index lifecycle management (ILM) | Automatic rollover to a new index, and deletion of old ones |
+| Snapshot | A backup of indexes to object storage |
 
-### Examples
+### What is different about it
 
-Get all:
+- **The mapping decides what you can ask.** A field mapped as `text` can be searched by words and cannot be aggregated well. A field mapped as `keyword` is the opposite. Decide before the data arrives: changing the type of a field means reindexing.
+- **The number of primary shards is fixed** when the index is created. Too few and the index cannot spread, too many and the cluster drowns in small shards.
+- **It is not the source of truth.** Keep the primary data elsewhere, and be able to index it again.
 
-```json
-GET <index>/_search
-{
-  "query": {
-    "match_all": {}
-  }
-}
+### A small example: a mapping, two kinds of query, an aggregation
+
+```bash
+docker run -d --name es -p 9200:9200 \
+  -e discovery.type=single-node -e xpack.security.enabled=false \
+  -e ES_JAVA_OPTS="-Xms512m -Xmx512m" \
+  docker.elastic.co/elasticsearch/elasticsearch:8.15.0
 ```
 
-Search:
+Wait about half a minute. Then create an index with an explicit mapping, and index four log lines:
 
-```json
-GET <index>/_search
-{
-  "query": {
-    "match": {
-      "type": {
-        "query": "process"
-      }
-    }
-  }
-}
+```bash
+curl -s -X PUT localhost:9200/logs -H 'Content-Type: application/json' -d '{
+  "settings": { "number_of_shards": 1, "number_of_replicas": 0 },
+  "mappings": { "properties": {
+    "time":    { "type": "date" },
+    "service": { "type": "keyword" },
+    "level":   { "type": "keyword" },
+    "message": { "type": "text" },
+    "ms":      { "type": "integer" }
+  } }
+}'
+
+curl -s -X POST 'localhost:9200/logs/_bulk?refresh' -H 'Content-Type: application/x-ndjson' --data-binary '{"index":{}}
+{"time":"2026-11-15T10:00:00Z","service":"api","level":"error","message":"Payment failed for order 17","ms":950}
+{"index":{}}
+{"time":"2026-11-15T10:00:05Z","service":"api","level":"info","message":"Payment succeeded for order 18","ms":120}
+{"index":{}}
+{"time":"2026-11-15T10:00:09Z","service":"worker","level":"error","message":"Email to customer failed","ms":3000}
+{"index":{}}
+{"time":"2026-11-15T10:00:12Z","service":"worker","level":"info","message":"Order 18 shipped","ms":40}
+'
+```
+
+Full-text search on the `text` field. Case does not matter, and results come back best match first:
+
+```bash
+curl -s 'localhost:9200/logs/_search?filter_path=hits.hits._source.message,hits.hits._score' \
+  -H 'Content-Type: application/json' -d '{"query": {"match": {"message": "payment FAILED"}}}'
+```
+
+```text
+1.29  Payment failed for order 17         both words
+0.71  Email to customer failed            one word
+0.65  Payment succeeded for order 18      one word
+```
+
+An exact filter on the `keyword` field, and the same kind of query on the `text` field:
+
+```bash
+# 2 hits
+curl -s 'localhost:9200/logs/_search?filter_path=hits.total.value' \
+  -H 'Content-Type: application/json' -d '{"query": {"term": {"level": "error"}}}'
+
+# 0 hits: a keyword is exact, and "Error" is not "error"
+curl -s 'localhost:9200/logs/_search?filter_path=hits.total.value' \
+  -H 'Content-Type: application/json' -d '{"query": {"term": {"level": "Error"}}}'
+
+# 0 hits: the text field was indexed as the lowercase word "payment"
+curl -s 'localhost:9200/logs/_search?filter_path=hits.total.value' \
+  -H 'Content-Type: application/json' -d '{"query": {"term": {"message": "Payment"}}}'
+```
+
+The third query is the most common mistake with Elasticsearch: a `term` query on a `text` field. Use `match` for text and `term` for keywords.
+
+And an aggregation: errors per service, with the slowest one in each:
+
+```bash
+curl -s 'localhost:9200/logs/_search?filter_path=aggregations' -H 'Content-Type: application/json' -d '{
+  "size": 0,
+  "query": { "term": { "level": "error" } },
+  "aggs": { "by_service": { "terms": { "field": "service" },
+                            "aggs": { "slowest": { "max": { "field": "ms" } } } } }
+}'
+# api: 1 error, slowest 950.   worker: 1 error, slowest 3000.
+
+curl -s 'localhost:9200/_cat/indices/logs?v'     # green: the index asked for 0 replicas
+docker rm -f es
 ```
 
 ## Advanced

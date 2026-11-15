@@ -1,6 +1,6 @@
 ---
 title: GitOps
-order: 3
+order: 4
 lang: en
 tags: [intro]
 updated: 2026-11-13

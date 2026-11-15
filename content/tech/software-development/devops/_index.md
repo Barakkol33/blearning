@@ -16,6 +16,7 @@ What a good DevOps engineer needs to know today, from the first Linux command to
 
 ## How to use this guide
 
+- **What should I know, and in what order?** The [roadmap](roadmap.md) follows the industry's best-known list of DevOps topics, and shows where each one is in the guide and in the lab.
 - **Learning from zero:** read chapters 1 and 2 in order, then do the [exercise](12-exercise/_index.md). After that, take the other chapters in any order.
 - **Theory and practice:** the pages are the theory. The more useful parts can also be practiced, and a page whose topic is practiced ends with a section "In the lab". The [lab](13-lab/_index.md) is a complete small platform on your laptop (applications, PostgreSQL, Redis, Kafka, Elasticsearch, Prometheus and Grafana), deployed with Pulumi, with a list of things to load and break.
 - **Filling gaps:** every page stands on its own, and is divided into levels. Pick the page and the level you need from the table below.
@@ -38,8 +39,7 @@ A link in a level column opens that section of the page. An empty cell means the
 
 | # | Chapter | Page | Intro | Beginner | Advanced |
 |---|---|---|---|---|---|
-| 1 | Get started | [DevOps overview](01-get-started/overview.md): core concepts and the tools landscape | [intro](01-get-started/overview.md#intro) |  |  |
-| 1 | Get started | [DevOps intro](01-get-started/intro.md): motivation, reliability, IaC, CI/CD | [intro](01-get-started/intro.md#intro) |  |  |
+| 1 | Get started | [What is DevOps](01-get-started/intro.md): the ideas, the stack and how delivery is measured | [intro](01-get-started/intro.md#intro) |  |  |
 | 1 | Get started | [Linux](01-get-started/linux.md): filesystem, text processing, networking, bash scripting |  | [beginner](01-get-started/linux.md#beginner) |  |
 | 1 | Get started | [Networking](01-get-started/networking.md) | [intro](01-get-started/networking.md#intro) |  |  |
 | 1 | Get started | [Linux internals](01-get-started/linux-internals.md) | [intro](01-get-started/linux-internals.md#intro) |  |  |
@@ -50,13 +50,16 @@ A link in a level column opens that section of the page. An empty cell means the
 | 3 | Cloud | [AWS](03-cloud/aws.md) | [intro](03-cloud/aws.md#intro) |  |  |
 | 3 | Cloud | [Azure](03-cloud/azure.md) | [intro](03-cloud/azure.md#intro) |  |  |
 | 3 | Cloud | [GCP](03-cloud/gcp.md) | [intro](03-cloud/gcp.md#intro) |  |  |
+| 3 | Cloud | [Serverless](03-cloud/serverless.md) | [intro](03-cloud/serverless.md#intro) |  |  |
 | 4 | Infrastructure as code | [Terraform](04-infrastructure-as-code/terraform.md) | [intro](04-infrastructure-as-code/terraform.md#intro) |  |  |
 | 4 | Infrastructure as code | [Configuration and images](04-infrastructure-as-code/configuration.md) | [intro](04-infrastructure-as-code/configuration.md#intro) |  |  |
 | 5 | Code | [Languages](05-code/languages.md) | [intro](05-code/languages.md#intro) |  |  |
 | 5 | Code | [Runtimes and engines](05-code/runtimes.md) | [intro](05-code/runtimes.md#intro) |  |  |
 | 5 | Code | [Frameworks](05-code/frameworks.md) | [intro](05-code/frameworks.md#intro) |  |  |
 | 5 | Code | [APIs](05-code/apis.md) | [intro](05-code/apis.md#intro) |  |  |
+| 6 | Delivery | [Git and code hosting](06-delivery/git.md) | [intro](06-delivery/git.md#intro) |  |  |
 | 6 | Delivery | [CI/CD](06-delivery/ci-cd.md) | [intro](06-delivery/ci-cd.md#intro) |  |  |
+| 6 | Delivery | [Artifacts and registries](06-delivery/artifacts.md) | [intro](06-delivery/artifacts.md#intro) |  |  |
 | 6 | Delivery | [Deployment strategies](06-delivery/deployment-strategies.md) | [intro](06-delivery/deployment-strategies.md#intro) |  |  |
 | 6 | Delivery | [GitOps](06-delivery/gitops.md) | [intro](06-delivery/gitops.md#intro) |  |  |
 | 7 | Databases | [How databases work](07-databases/internals.md) | [intro](07-databases/internals.md#intro) |  |  |
@@ -74,6 +77,7 @@ A link in a level column opens that section of the page. An empty cell means the
 | 8 | Services | [Search](08-services/search.md) | [intro](08-services/search.md#intro) |  |  |
 | 8 | Services | [Object storage](08-services/object-storage.md) | [intro](08-services/object-storage.md#intro) |  |  |
 | 8 | Services | [Proxies and load balancers](08-services/proxies.md) | [intro](08-services/proxies.md#intro) |  |  |
+| 8 | Services | [Service mesh](08-services/service-mesh.md) | [intro](08-services/service-mesh.md#intro) |  |  |
 | 9 | Observability | [Observability](09-observability/concepts.md): metrics, logs, traces, alerts | [intro](09-observability/concepts.md#intro) |  |  |
 | 9 | Observability | [Metrics and Prometheus](09-observability/metrics.md) | [intro](09-observability/metrics.md#intro) |  |  |
 | 9 | Observability | [Monitoring with Prometheus, Loki and Grafana](09-observability/monitoring.md) |  | [beginner](09-observability/monitoring.md#beginner) |  |

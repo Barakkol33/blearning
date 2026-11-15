@@ -25,6 +25,8 @@ A knowledge hub (Barak, 2026-11-15): someone reads the theoretical material in t
 - **Health** in an Advanced section uses two tables: "what to watch" (signal, where, healthy, worry when) and "common cases" (what happens, how it shows, what to do), then "alert rules" when the lab has them.
 - **Theory points to practice:** a page whose topic the lab practices has a section `## In the lab` before `## See also`, with links to the experiments. Add or update it whenever the lab gains something.
 - **Choosing what goes into the lab:** usefulness first. Before adding a piece, ask how often an engineer meets it, and prefer that over completeness.
+- **The roadmap is the coverage check** (Barak, 2026-11-15): [roadmap.md](roadmap.md) maps the roadmap.sh DevOps roadmap to the guide's pages, levels and the lab. When a page or a level is added, or the lab gains something, update its row. Choose what to write next from its gaps.
+- **Examples are run before they are written.** Every command and every output on a page comes from a real run (Docker in WSL is enough for most). An example that could not be run says so on the page.
 - **Practical first:** a new hands-on topic is added to the lab (`examples/devops-lab`) and gets an experiment in [Experiments](13-lab/experiments.md), in preference to a separate small example.
 - **Lab code is tested before it is described.** Type-check and `pulumi preview` at least. An experiment is written up only after it was run.
 - **Terraform stays at intro/beginner.** No advanced Terraform (Barak, 2026-11-14). The lab uses Pulumi with TypeScript.
@@ -249,10 +251,8 @@ What each page's missing level sections should hold. These lists were the "Where
 
 ## Make the older pages even
 
-- [ ] Older pages (overview, intro, Linux, Docker, Kubernetes, Kafka, monitoring, Loki) are wrapped in one level section as they were. Give each a terms table and a small example in Intro, and move the long hands-on parts to Beginner
-- [ ] Elasticsearch, Redis, MongoDB and ClickHouse: the Intro sections are lists of concepts taken from the old "Beyond relational" page. Rewrite them in the page pattern (terms table, small example)
+- [ ] Older pages (Linux, Docker, Kubernetes, Kafka, monitoring, Loki) are wrapped in one level section as they were. Give each a terms table and a small example in Intro, and move the long hands-on parts to Beginner
 - [ ] Redis and Elasticsearch each have two pages (the database page in chapter 7, and Caching / Search in chapter 8). Check that nothing repeats
-- [ ] DevOps overview and DevOps intro overlap: merge into one page
 - [ ] Metrics page is very short: fold it into Observability or grow it
 - [ ] Prerequisites: check the steps against the current chapter layout, and add the lab's tools (Node.js, Pulumi)
 - [ ] Exercise and lab overlap in purpose: say on both pages when to use which
@@ -261,10 +261,11 @@ What each page's missing level sections should hold. These lists were the "Where
 
 - [ ] Pulumi at intro level in chapter 4 (the lab page is the hands-on one)
 - [ ] Other databases, a page each: MySQL, Cassandra, time-series and vector databases
-- [ ] Git in depth and branching models
-- [ ] Build systems and artifact repositories (Maven, npm, Artifactory, Nexus)
-- [ ] Service mesh (Istio, Linkerd, Cilium)
-- [ ] Serverless (Lambda, Cloud Run, event-driven design)
+- [ ] Git, a Beginner section: rebase, conflicts, recovering with `reflog`, hooks, a protected branch with required checks
+- [ ] Build systems (Maven, Gradle, npm) at intro level. Artifacts, a Beginner section: Artifactory or Nexus in a container with a remote repository in front of Docker Hub and npmjs, promotion between repositories, a retention policy
+- [ ] Service mesh, a Beginner section: Linkerd on the lab's cluster, mTLS and a traffic split that were really run (the example on the page was not)
+- [ ] Serverless, a Beginner section: a function behind a queue in a real account, with its IAM role, deployed from code
+- [ ] Secret management as its own page in chapter 10 (Vault or OpenBao, SOPS, External Secrets), with a hands-on example. It turns Security into a chapter of two pages, so `_index.md` content moves to its own page with a redirect
 - [ ] Data pipelines (Airflow, Spark, dbt) at intro level
 - [ ] Platform engineering and internal developer platforms (Backstage)
 - [ ] AI in operations: running models (GPUs, inference servers), AI coding agents in the workflow
@@ -284,3 +285,7 @@ What each page's missing level sections should hold. These lists were the "Where
 - [x] One page per database: PostgreSQL, Elasticsearch, Redis, MongoDB, ClickHouse. Database health keeps what is common, Kafka's health moved to the Kafka page, "Beyond relational" removed with a redirect (2026-11-15)
 - [x] The lab run end to end on a kind cluster: smoke test, all 13 experiments, a release. Five problems found and fixed, experiment text corrected (2026-11-15)
 - [x] "In the lab" sections on the theory pages that the lab practices, and the hub goal written into the rules (2026-11-15)
+- [x] Roadmap page: the roadmap.sh DevOps roadmap mapped to the guide's pages, levels and the lab, with what is not covered (2026-11-15)
+- [x] New pages from the roadmap's gaps: Git and code hosting, Artifacts and registries, Serverless, Service mesh (2026-11-15)
+- [x] Elasticsearch, Redis, MongoDB and ClickHouse: Intro sections rewritten with a terms table, "what is different" and an example that was run (2026-11-15)
+- [x] "DevOps overview" and "DevOps intro" merged into one page, "What is DevOps", in the page pattern, with the DORA metrics. The GitLab CI example moved to CI/CD, the SOPS note to Security (2026-11-15)

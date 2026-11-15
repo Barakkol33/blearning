@@ -52,6 +52,15 @@ The DevOps engineer holds the keys: cloud accounts, pipelines, clusters, secrets
 | Cluster policy | Kyverno, OPA Gatekeeper |
 | Runtime detection | Falco |
 
+### Secrets in Git, encrypted
+
+Sometimes a secret has to live next to the code, for example in a GitOps repository. SOPS encrypts the values of a YAML, JSON or env file and leaves the keys readable, so the file can be committed and reviewed. The encryption key comes from a cloud KMS, or from an `age` or GPG key:
+
+```bash
+sops -e -i secrets.yaml          # encrypt in place
+sops -d secrets.yaml | head      # decrypt to the screen
+```
+
 ### A small example: scan an image
 
 ```bash

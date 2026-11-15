@@ -32,7 +32,7 @@ Getting an application to run on Kubernetes is the easy part, covered in the [Ku
 | CRD | Custom Resource Definition: a new object type added to the Kubernetes API |
 | Operator | A controller that manages an application through CRDs, e.g. a database with its backups and failover |
 | Admission controller | Checks or changes objects when they are created. Used for policy (Kyverno, OPA Gatekeeper) |
-| Service mesh | A layer that adds encryption, retries and traffic control between services (Istio, Linkerd, Cilium) |
+| Service mesh | A layer that adds encryption, retries and traffic control between services (Istio, Linkerd, Cilium). See [Service mesh](../08-services/service-mesh.md) |
 
 ### The add-ons almost every cluster has
 

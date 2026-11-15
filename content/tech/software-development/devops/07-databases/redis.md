@@ -8,32 +8,79 @@ updated: 2026-11-15
 
 # Redis
 
-An in-memory key-value data store. Extremely fast; used as cache, message broker, or lightweight database. Can persist to disk but primarily memory-first. Valkey is an open-source fork that is compatible with it, and everything here applies to it too.
+Redis is a data store that keeps everything in memory, which makes it very fast: a single server answers tens of thousands of commands a second. It is the standard cache, and it is also used for sessions, rate limits, locks, counters and simple queues. Valkey is an open-source fork that is compatible with it, and everything here applies to it too.
 
 **Levels on this page:** [Intro](#intro) · [Advanced](#advanced)
 
 ## Intro
 
-Caching as a pattern, a first session with `redis-cli` and cache-aside in code are in [Caching and Redis](../08-services/caching.md). This section lists the concepts of Redis itself.
+Caching as a pattern, and cache-aside in code, are in [Caching and Redis](../08-services/caching.md). This section is about Redis itself.
 
-### Key concepts
+### Terms
 
-- **Key-Value Store** – Data accessed by key.
-- **Data Structures** – Strings, hashes, lists, sets, sorted sets, streams, bitmaps, hyperloglogs.
-- **TTL / Expiration** – Keys auto-expire; core to caching.
-- **Persistence:**
-  - RDB snapshots (periodic dump)
-  - AOF – Append Only File (log of writes)
-- **Replication** – Primary + replicas for read scaling / high availability.
-- **Sentinel** – Monitoring + automatic failover.
-- **Cluster Mode** – Sharding across nodes.
-- **Pub/Sub** – Message broadcasting channel system.
-- **Lua Scripting** – Atomic server-side logic.
-- **Pipelining** – Batch commands to reduce network overhead.
+| Term | Meaning |
+|---|---|
+| Key | The name of a value. By convention parts are joined with colons: `user:42:cart` |
+| String, hash, list, set, sorted set, stream | The value types. Each has its own commands |
+| TTL / expiration | A time after which the key is deleted automatically |
+| Single-threaded | Commands run one at a time. Every command is atomic, and one slow command delays all the others |
+| `maxmemory` | The memory limit. Without it Redis grows until the operating system kills it |
+| Eviction policy | What to remove when memory is full: `allkeys-lru` for a cache. The default is `noeviction`, which refuses writes |
+| RDB | Persistence by snapshots: the whole dataset written to a file from time to time |
+| AOF | Persistence by a log: every write appended to a file |
+| Replica | A read-only copy that follows a primary |
+| Sentinel | Processes that watch a primary and promote a replica when it fails |
+| Redis Cluster | Sharding: keys are divided over several primaries by a hash of the key |
+| Pub/Sub | Messages broadcast to whoever is listening now. Nothing is stored |
+| Pipeline | Several commands sent in one network round trip |
+| Lua script | Several commands run on the server as one atomic step |
 
-### Resources
+### What is different about it
 
-- https://redis.io/try-free/
+- **Memory is the database.** The dataset must fit in RAM, and memory is the first thing to watch.
+- **One thread.** No locks are needed, and one `KEYS *` on a large database stops everyone.
+- **Data can be lost by design.** With the default persistence, a crash loses the last seconds or minutes of writes. That is fine for a cache and must be a decision for anything else.
+
+### A small example: five jobs for one server
+
+```bash
+docker run -d --name redis redis:7
+docker exec -it redis redis-cli
+```
+
+```text
+# 1. A session that expires by itself
+SET session:abc '{"user":42}' EX 1800
+TTL session:abc                              # 1800
+
+# 2. An object with fields
+HSET user:42 name Dana plan pro
+HGETALL user:42                              # name, Dana, plan, pro
+
+# 3. A queue
+LPUSH jobs send-email resize-image
+RPOP jobs                                    # "send-email": first in, first out
+
+# 4. A leaderboard, kept sorted by score
+ZADD scores 120 dana 95 omer 150 noa
+ZREVRANGE scores 0 1 WITHSCORES              # noa 150, dana 120
+
+# 5. A lock: NX sets the key only if it does not exist
+SET lock:report worker-1 NX EX 30            # OK: worker-1 has the lock for 30 seconds
+SET lock:report worker-2 NX EX 30            # (nil): taken
+
+# And a rate limit: count the requests of one client in a minute
+INCR rate:ip:1.2.3.4                         # 1
+EXPIRE rate:ip:1.2.3.4 60
+
+CONFIG GET maxmemory-policy                  # noeviction: the default
+```
+
+```bash
+docker rm -f redis
+```
+
+Each of these would take a table, an index and a background job in a relational database. Here each one is a command, which is why Redis ends up next to almost every application.
 
 ## Advanced
 

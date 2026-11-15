@@ -1,6 +1,6 @@
 ---
 title: Deployment strategies
-order: 2
+order: 3
 lang: en
 tags: [intro]
 updated: 2026-11-13

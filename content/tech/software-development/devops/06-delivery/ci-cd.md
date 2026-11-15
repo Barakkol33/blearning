@@ -96,6 +96,50 @@ What it shows:
 - The image is tagged with the commit hash, so every running version points back to its exact code. (The registry needs the repository name in lowercase.)
 - The registry password is a short-lived token from the platform, not a secret someone typed in.
 
+### The same flow in GitLab CI
+
+The stages are the same in every tool. This is the shape of a pipeline with a staging deployment and a manual approval before production, in `.gitlab-ci.yml`. The deploy jobs are placeholders: with Kubernetes they usually run `helm upgrade --install` or `kubectl apply`, or only update a Git repository that [GitOps](gitops.md) watches.
+
+```yaml
+stages: [test, build, deploy_staging, approve_prod, deploy_prod]
+
+test:
+  stage: test
+  image: alpine:3.20
+  script:
+    - echo "run unit tests here"
+
+build:
+  stage: build
+  image: docker:27
+  services: ["docker:27-dind"]
+  variables:
+    DOCKER_TLS_CERTDIR: ""
+  script:
+    - docker build -t "$CI_REGISTRY_IMAGE:$CI_COMMIT_SHA" .
+    - docker push "$CI_REGISTRY_IMAGE:$CI_COMMIT_SHA"
+
+deploy_staging:
+  stage: deploy_staging
+  image: alpine:3.20
+  script:
+    - echo "deploy to staging"
+
+approve_prod:
+  stage: approve_prod
+  when: manual                     # a person presses the button
+  script:
+    - echo "approval gate"
+
+deploy_prod:
+  stage: deploy_prod
+  image: alpine:3.20
+  script:
+    - echo "deploy to production"
+```
+
+Real pipelines add caching, artifacts, environments and protected variables.
+
 ### What makes a pipeline good
 
 - **Fast**: under ten minutes, or people stop waiting for it.
@@ -110,5 +154,7 @@ What it shows:
 
 ## See also
 
+- [Git and code hosting](git.md): where a pipeline starts
+- [Artifacts and registries](artifacts.md): where its output goes
 - [Deployment strategies](deployment-strategies.md), [GitOps](gitops.md)
-- [DevOps intro: CI/CD](../01-get-started/intro.md)
+- [What is DevOps](../01-get-started/intro.md#getting-a-change-to-users): the stages of a delivery flow
