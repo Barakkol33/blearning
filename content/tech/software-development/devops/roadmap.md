@@ -4,7 +4,7 @@ sidebar:
   label: Roadmap
 order: 1
 lang: en
-updated: 2026-11-15
+updated: 2026-11-16
 ---
 
 # Roadmap: what the industry expects, and where it is in the guide
@@ -22,7 +22,7 @@ Use it in two ways: as a study order, from top to bottom, and as a check of what
 | 1 | A programming language | Python, Go, JavaScript, Ruby, Rust | [Languages](05-code/languages.md), [Runtimes](05-code/runtimes.md) | intro | The application is Node.js, the infrastructure is TypeScript |
 | 2 | Operating system | Linux distributions, BSD, Windows | [Linux](01-get-started/linux.md), [Linux internals](01-get-started/linux-internals.md) | beginner | The CPU problem of the lab's first run was found with these tools |
 | 3 | Terminal knowledge | Bash, text tools, process and performance monitoring, networking tools, editors | [Linux](01-get-started/linux.md) (text tools, Bash), [Linux internals](01-get-started/linux-internals.md#troubleshooting-a-server) (process, memory, disk monitoring, `strace`, systemd), [cheatsheet](cheatsheet.md) | beginner | `lab.sh` is a Bash script worth reading |
-| 4 | Version control and hosting | Git, GitHub, GitLab, Bitbucket | [Git and code hosting](06-delivery/git.md) | intro | |
+| 4 | Version control and hosting | Git, GitHub, GitLab, Bitbucket | [Git and code hosting](06-delivery/git.md) (rebase, conflicts, `reflog`, hooks, protected branches, force push with a lease) | beginner | The lab's workflow: path filters, the jobs a protected branch would require |
 | 5 | Containers | Docker, LXC | [Docker](02-containers/docker.md) | beginner | One image, three roles |
 | 6 | Setting up servers | Reverse and forward proxy, load balancer, caching server, firewall, nginx, Apache, Caddy | [Proxies and load balancers](08-services/proxies.md), [Caching](08-services/caching.md) | intro | Traefik as the door, Redis as the cache |
 | 7 | Networking and protocols | OSI model, DNS, HTTP, HTTPS, TLS, SSH, FTP, email protocols | [Networking](01-get-started/networking.md) (DNS, TLS and a CA, HTTP timing, SSH through a bastion, a firewall), [APIs](05-code/apis.md) | beginner | Routing by host name, cluster DNS |

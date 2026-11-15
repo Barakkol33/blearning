@@ -43,7 +43,7 @@ Each chunk brings its pages to the page pattern and adds a **Beginner** section 
 |---|---|---|---|---|
 | ✓ 1 | Operating system and terminal (done 2026-11-15) | 2, 3 | Linux in the page pattern. Linux internals: a Beginner section on troubleshooting a server (processes, memory, disk, network, systemd, logs) | |
 | ✓ 2 | Networking and protocols (done 2026-11-15) | 7 | Networking: Beginner with DNS, TLS and certificates, HTTP, SSH keys and tunnels, a firewall | |
-| 3 | Git | 4 | Git: Beginner with rebase, conflicts, `reflog`, hooks, a protected branch with required checks | |
+| ✓ 3 | Git (done 2026-11-16) | 4 | Git: Beginner with rebase, conflicts, `reflog`, hooks, a protected branch with required checks | |
 | 4 | Containers | 5 | Docker in the page pattern, Beginner on small and safe images: multi-stage builds, non-root, build cache, scanning | The shop's Dockerfile checked against it |
 | 5 | Web servers and proxies | 6 | Proxies: Beginner with nginx as reverse proxy, load balancer, cache and TLS terminator, and Caddy | |
 | 6 | Infrastructure as code | 10 | Terraform: Beginner with state, a module, `import`, run against a local target. A Pulumi page at intro level | |
@@ -290,7 +290,7 @@ What each page's missing level sections should hold. These lists were the "Where
 
 - [ ] Pulumi at intro level in chapter 4 (the lab page is the hands-on one)
 - [ ] Other databases, a page each: MySQL, Cassandra, time-series and vector databases
-- [ ] Git, a Beginner section: rebase, conflicts, recovering with `reflog`, hooks, a protected branch with required checks
+- [x] Git, a Beginner section: rebase, conflicts, recovering with `reflog`, hooks, a protected branch with required checks
 - [ ] Build systems (Maven, Gradle, npm) at intro level. Artifacts, a Beginner section: Artifactory or Nexus in a container with a remote repository in front of Docker Hub and npmjs, promotion between repositories, a retention policy
 - [ ] Service mesh, a Beginner section: Linkerd on the lab's cluster, mTLS and a traffic split that were really run (the example on the page was not)
 - [ ] Serverless, a Beginner section: a function behind a queue in a real account, with its IAM role, deployed from code

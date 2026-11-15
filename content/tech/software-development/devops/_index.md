@@ -57,7 +57,7 @@ A link in a level column opens that section of the page. An empty cell means the
 | 5 | Code | [Runtimes and engines](05-code/runtimes.md) | [intro](05-code/runtimes.md#intro) |  |  |
 | 5 | Code | [Frameworks](05-code/frameworks.md) | [intro](05-code/frameworks.md#intro) |  |  |
 | 5 | Code | [APIs](05-code/apis.md) | [intro](05-code/apis.md#intro) |  |  |
-| 6 | Delivery | [Git and code hosting](06-delivery/git.md) | [intro](06-delivery/git.md#intro) |  |  |
+| 6 | Delivery | [Git and code hosting](06-delivery/git.md) | [intro](06-delivery/git.md#intro) | [beginner](06-delivery/git.md#beginner) |  |
 | 6 | Delivery | [CI/CD](06-delivery/ci-cd.md) | [intro](06-delivery/ci-cd.md#intro) |  |  |
 | 6 | Delivery | [Artifacts and registries](06-delivery/artifacts.md) | [intro](06-delivery/artifacts.md#intro) |  |  |
 | 6 | Delivery | [Deployment strategies](06-delivery/deployment-strategies.md) | [intro](06-delivery/deployment-strategies.md#intro) |  |  |
