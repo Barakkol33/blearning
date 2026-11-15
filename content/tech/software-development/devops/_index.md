@@ -40,9 +40,9 @@ A link in a level column opens that section of the page. An empty cell means the
 | # | Chapter | Page | Intro | Beginner | Advanced |
 |---|---|---|---|---|---|
 | 1 | Get started | [What is DevOps](01-get-started/intro.md): the ideas, the stack and how delivery is measured | [intro](01-get-started/intro.md#intro) |  |  |
-| 1 | Get started | [Linux](01-get-started/linux.md): filesystem, text processing, networking, bash scripting |  | [beginner](01-get-started/linux.md#beginner) |  |
+| 1 | Get started | [Linux and the command line](01-get-started/linux.md): filesystem, text processing, networking, bash scripting | [intro](01-get-started/linux.md#intro) | [beginner](01-get-started/linux.md#beginner) |  |
 | 1 | Get started | [Networking](01-get-started/networking.md) | [intro](01-get-started/networking.md#intro) |  |  |
-| 1 | Get started | [Linux internals](01-get-started/linux-internals.md) | [intro](01-get-started/linux-internals.md#intro) |  |  |
+| 1 | Get started | [Linux internals](01-get-started/linux-internals.md): processes, cgroups, troubleshooting a server | [intro](01-get-started/linux-internals.md#intro) | [beginner](01-get-started/linux-internals.md#beginner) |  |
 | 2 | Containers | [Docker](02-containers/docker.md): images, containers, volumes, networking, Dockerfile, Compose |  | [beginner](02-containers/docker.md#beginner) |  |
 | 2 | Containers | [Kubernetes](02-containers/kubernetes.md): architecture, objects, kubectl, Helm, kind |  | [beginner](02-containers/kubernetes.md#beginner) |  |
 | 2 | Containers | [Kubernetes in production](02-containers/kubernetes-production.md) | [intro](02-containers/kubernetes-production.md#intro) |  |  |

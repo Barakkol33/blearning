@@ -1,25 +1,81 @@
 ---
-title: Linux — Practical Guide for DevOps
+title: Linux and the command line
+updated: 2026-11-15
 order: 3
 lang: en
-tags: [beginner]
+tags: [intro, beginner]
 ---
 
-# Linux — Practical Guide for DevOps
+# Linux and the command line
 
-This is a reference of the Linux knowledge you'll use daily when working with Docker, Kubernetes, CI/CD pipelines, and infrastructure automation.
+Almost every server, container and CI runner is Linux, and you reach it through a terminal. The command line is the DevOps engineer's main tool: it is how you look inside a machine, how you automate, and often the only way in during an incident. This page is the everyday command set. What the kernel does underneath, and how to troubleshoot a sick server, are in [Linux internals](linux-internals.md).
 
-**Levels on this page:** [Beginner](#beginner)
+**Levels on this page:** [Intro](#intro) · [Beginner](#beginner)
+
+## Intro
+
+### Terms
+
+| Term | Meaning |
+|---|---|
+| Distribution | A Linux kernel with a package manager and a set of tools: Ubuntu and Debian (`apt`), RHEL, Rocky and Fedora (`dnf`), Alpine (`apk`, small, common in containers) |
+| Shell | The program that reads your commands. Bash is the default almost everywhere, zsh on macOS |
+| Terminal | The window the shell runs in. Over the network, SSH gives you a terminal on another machine |
+| Standard input, output, error | Every program reads from stdin and writes to stdout, and writes errors to stderr. The basis of pipes and redirects |
+| Pipe (`\|`) | Sends the output of one command to the input of the next |
+| Exit code | The number a command returns: 0 is success, anything else is failure. Scripts and pipelines decide by it |
+| Root and `sudo` | Root is the administrator. `sudo` runs one command as root |
+| Permissions | Read, write and execute, for the owner, the group and everyone else |
+| Package manager | Installs and updates software from the distribution's repositories |
+| Environment variable | A named value a process inherits from its parent: `PATH`, `HOME`, and the configuration of most containers |
+| `PATH` | The directories the shell searches for a command |
+| Editor | You will edit files on servers: `nano` is the easy one, `vim` is on every machine and worth learning the basics of |
+
+### What is different about it
+
+- **Everything is a file.** Regular files, directories, devices, and even running processes (`/proc`) look like files. That is why `cat`, `grep` and redirects work on so many things.
+- **Small tools, composed.** Each command does one thing. You combine them with pipes into an answer, with no program to write.
+- **Text is the interface.** Configuration is text, logs are text, command output is text. Text processing is the skill with the highest return.
+
+### A small example: questions to a log file
+
+A web server's access log, one request per line:
+
+```text
+10.0.0.5 - - [15/Nov/2026:10:00:01 +0000] "GET /api/orders HTTP/1.1" 200 512
+10.0.0.7 - - [15/Nov/2026:10:00:02 +0000] "POST /api/orders HTTP/1.1" 500 87
+10.0.0.5 - - [15/Nov/2026:10:00:02 +0000] "GET /api/stats HTTP/1.1" 200 120
+10.0.0.9 - - [15/Nov/2026:10:00:03 +0000] "POST /api/orders HTTP/1.1" 500 87
+10.0.0.7 - - [15/Nov/2026:10:00:04 +0000] "GET /healthz HTTP/1.1" 200 15
+10.0.0.9 - - [15/Nov/2026:10:00:05 +0000] "GET /api/search HTTP/1.1" 502 0
+10.0.0.5 - - [15/Nov/2026:10:00:06 +0000] "POST /api/orders HTTP/1.1" 201 140
+```
+
+Four questions you ask in an incident, each one line. `awk` splits a line into fields by spaces: the status is field 9, the path field 7, the client field 1.
+
+```bash
+grep -c ' 50[0-9] ' access.log                                   # how many server errors?
+# 3
+
+awk '$9 >= 500 {print $7}' access.log | sort | uniq -c | sort -rn  # which paths fail?
+#       2 /api/orders
+#       1 /api/search
+
+awk '{print $1}' access.log | sort | uniq -c | sort -rn | head -3   # who sends the most?
+#       3 10.0.0.5
+#       2 10.0.0.9
+#       2 10.0.0.7
+
+awk '{print $9}' access.log | sort | uniq -c                       # all status codes
+#       3 200
+#       1 201
+#       2 500
+#       1 502
+```
+
+`sort | uniq -c | sort -rn` is the pattern to remember: count each distinct value, biggest first. On a real log of millions of lines it answers in seconds, on the server itself, with nothing installed.
 
 ## Beginner
-
-### Core philosophy
-
-- **Everything is a file** — regular files, directories, devices, sockets, and even processes (`/proc`) are represented as files. This is why tools like `cat`, `grep`, and redirects work on so many things.
-- **Small tools, composed together** — Linux commands do one thing well. You combine them with pipes (`|`) and redirects to build powerful workflows.
-- **Text is the universal interface** — config files are text, logs are text, command output is text. Mastering text processing tools is the highest-leverage Linux skill for DevOps.
-
----
 
 ### Navigation and filesystem
 
@@ -422,3 +478,13 @@ tar xzf backup.tar.gz -C /target/   # extract to specific directory
 | `/etc/environment` | System-wide environment variables |
 | `~/.bashrc` | User shell config (aliases, exports) |
 | `~/.ssh/` | SSH keys and config |
+
+## In the lab
+
+- The [lab](../13-lab/_index.md) is driven by a Bash script, `examples/devops-lab/lab.sh`. It uses most of this page: `set -euo pipefail`, functions, a `case` over the command, here-documents, and a pipeline that hashes the application's files into an image tag.
+
+## See also
+
+- [Linux internals](linux-internals.md): processes, memory and troubleshooting
+- [Networking](networking.md)
+- [Cheatsheet](../cheatsheet.md), [Windows cheatsheet](../cheatsheet-windows.md)

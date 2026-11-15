@@ -20,8 +20,8 @@ Use it in two ways: as a study order, from top to bottom, and as a check of what
 | # | Roadmap section | Its topics | In the guide | Level | In the lab |
 |---|---|---|---|---|---|
 | 1 | A programming language | Python, Go, JavaScript, Ruby, Rust | [Languages](05-code/languages.md), [Runtimes](05-code/runtimes.md) | intro | The application is Node.js, the infrastructure is TypeScript |
-| 2 | Operating system | Linux distributions, BSD, Windows | [Linux](01-get-started/linux.md), [Linux internals](01-get-started/linux-internals.md) | beginner | |
-| 3 | Terminal knowledge | Bash, text tools, process and performance monitoring, networking tools, editors | [Linux](01-get-started/linux.md), [cheatsheet](cheatsheet.md), [Windows cheatsheet](cheatsheet-windows.md) | beginner | `lab.sh` is a Bash script worth reading |
+| 2 | Operating system | Linux distributions, BSD, Windows | [Linux](01-get-started/linux.md), [Linux internals](01-get-started/linux-internals.md) | beginner | The CPU problem of the lab's first run was found with these tools |
+| 3 | Terminal knowledge | Bash, text tools, process and performance monitoring, networking tools, editors | [Linux](01-get-started/linux.md) (text tools, Bash), [Linux internals](01-get-started/linux-internals.md#troubleshooting-a-server) (process, memory, disk monitoring, `strace`, systemd), [cheatsheet](cheatsheet.md) | beginner | `lab.sh` is a Bash script worth reading |
 | 4 | Version control and hosting | Git, GitHub, GitLab, Bitbucket | [Git and code hosting](06-delivery/git.md) | intro | |
 | 5 | Containers | Docker, LXC | [Docker](02-containers/docker.md) | beginner | One image, three roles |
 | 6 | Setting up servers | Reverse and forward proxy, load balancer, caching server, firewall, nginx, Apache, Caddy | [Proxies and load balancers](08-services/proxies.md), [Caching](08-services/caching.md) | intro | Traefik as the door, Redis as the cache |

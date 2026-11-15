@@ -9,7 +9,7 @@ order: 99
 
 Working list for this guide. The page is a draft, so it shows in local preview and never on the published site.
 
-**To continue the work:** say "continue the DevOps guide". Take the first open item under [Next up](#next-up), unless a specific item is named. When an item is done, tick it, move it to [Done](#done) with the date, and update the level table in the [overview](_index.md) if a page got a new level section.
+**To continue the work:** say "next chunk" for the next [roadmap chunk](#roadmap-chunks), or "continue the DevOps guide" for the first open item under [Next up](#next-up), unless a specific item is named. When an item is done, tick it, move it to [Done](#done) with the date, and update the level table in the [overview](_index.md) if a page got a new level section.
 
 ## Goal
 
@@ -32,6 +32,35 @@ A knowledge hub (Barak, 2026-11-15): someone reads the theoretical material in t
 - **Terraform stays at intro/beginner.** No advanced Terraform (Barak, 2026-11-14). The lab uses Pulumi with TypeScript.
 - A page is never named like its folder (STRUCTURE.md). When a URL changes, add a redirect.
 - The guide is public. New pages can be written here directly, or in the private repo first when they should not be public yet.
+
+## Roadmap chunks
+
+The guide is filled in by the sections of the [roadmap](roadmap.md), one chunk at a time (Barak, 2026-11-15). **To do the next chunk:** say "next chunk" (or "chunk 7" for a specific one). Take the first unticked chunk, finish all of it, tick it here with the date, update its rows in the roadmap page and the level table in the [overview](_index.md), build the site, commit and push.
+
+Each chunk brings its pages to the page pattern and adds a **Beginner** section (hands-on, every command run and its real output shown). Where the lab can practice the topic, the chunk adds it to the lab and writes an experiment. Advanced sections come in a second round, after all chunks.
+
+| # | Chunk | Roadmap sections | Pages | Lab |
+|---|---|---|---|---|
+| ✓ 1 | Operating system and terminal (done 2026-11-15) | 2, 3 | Linux in the page pattern. Linux internals: a Beginner section on troubleshooting a server (processes, memory, disk, network, systemd, logs) | |
+| 2 | Networking and protocols | 7 | Networking: Beginner with DNS, TLS and certificates, HTTP, SSH keys and tunnels, a firewall | |
+| 3 | Git | 4 | Git: Beginner with rebase, conflicts, `reflog`, hooks, a protected branch with required checks | |
+| 4 | Containers | 5 | Docker in the page pattern, Beginner on small and safe images: multi-stage builds, non-root, build cache, scanning | The shop's Dockerfile checked against it |
+| 5 | Web servers and proxies | 6 | Proxies: Beginner with nginx as reverse proxy, load balancer, cache and TLS terminator, and Caddy | |
+| 6 | Infrastructure as code | 10 | Terraform: Beginner with state, a module, `import`, run against a local target. A Pulumi page at intro level | |
+| 7 | Configuration management | 11 | Configuration: Beginner with Ansible against containers: inventory, a playbook, a role, idempotency | |
+| 8 | CI/CD | 12 | CI/CD: Beginner with the lab's workflow explained, caching, a matrix, OIDC to a cloud | CI for the lab: test, build, Trivy scan, push to ghcr.io |
+| 9 | Secret management | 13 | A new Secrets page in Security: Vault or OpenBao, SOPS with age, External Secrets | Secrets from OpenBao through External Secrets |
+| 10 | Kubernetes in production | 17 | Kubernetes in production: Beginner, every term pointed at the lab | NetworkPolicies and RBAC, with experiments |
+| 11 | Monitoring and alerting | 14 | Metrics and Monitoring: Beginner with PromQL on the lab, writing an alert, Alertmanager | Alertmanager with a webhook receiver, experiments that fire the remaining data alerts |
+| 12 | Logs | 15 | Loki: Beginner on the lab, LogQL for incidents | Loki and Grafana Alloy |
+| 13 | Tracing | 16 | Observability: Beginner with OpenTelemetry | OpenTelemetry through api, Kafka and worker, with Tempo |
+| 14 | GitOps | 19 | GitOps: Beginner with Argo CD | Argo CD deploying the shop from Git |
+| 15 | Artifact management | 18 | Artifacts: Beginner with a repository manager, a remote proxy, promotion, retention | |
+| 16 | Cloud and serverless | 8, 9 | One cloud at Beginner (AWS): CLI, IAM role, VPC, a function behind a queue, deployed from code | [The lab in a cloud](13-lab/cloud.md), step 1 |
+| 17 | Service mesh | 20 | Service mesh: Beginner with Linkerd: mTLS, a traffic split | Linkerd on the lab |
+| 18 | Cloud design patterns | 21, 1 | A page on availability patterns (retries, timeouts, circuit breakers, bulkheads, queues), with a load test | k6 and fault experiments |
+
+Not in the chunks, and still open below: the database and lab items under Next up.
 
 ## Next up
 
@@ -251,7 +280,7 @@ What each page's missing level sections should hold. These lists were the "Where
 
 ## Make the older pages even
 
-- [ ] Older pages (Linux, Docker, Kubernetes, Kafka, monitoring, Loki) are wrapped in one level section as they were. Give each a terms table and a small example in Intro, and move the long hands-on parts to Beginner
+- [ ] Older pages (Docker, Kubernetes, Kafka, monitoring, Loki) are wrapped in one level section as they were. Give each a terms table and a small example in Intro, and move the long hands-on parts to Beginner
 - [ ] Redis and Elasticsearch each have two pages (the database page in chapter 7, and Caching / Search in chapter 8). Check that nothing repeats
 - [ ] Metrics page is very short: fold it into Observability or grow it
 - [ ] Prerequisites: check the steps against the current chapter layout, and add the lab's tools (Node.js, Pulumi)
