@@ -2,544 +2,582 @@
 title: Docker
 order: 1
 lang: en
-tags: [beginner]
+tags: [intro, beginner]
+updated: 2026-11-17
 ---
 
 # Docker
 
-This guide will walk you through Docker from the ground up. By the end, you'll understand what Docker is, why it exists, and how to use it day-to-day. Each section builds on the previous one, so work through them in order.
+Docker packages an application together with everything it needs to run (the libraries, the runtime, the configuration) into one file, an **image**, and runs it as an isolated process, a **container**. The same image runs on a laptop, in CI and in production, which ends "it works on my machine". Almost everything in modern delivery is built on it: CI builds an image, a registry stores it, and [Kubernetes](kubernetes.md) runs it.
 
-**Levels on this page:** [Beginner](#beginner)
+**Levels on this page:** [Intro](#intro) · [Beginner](#beginner)
+
+## Intro
+
+### Terms
+
+| Term | Meaning |
+|---|---|
+| Image | A read-only package: a filesystem with the application and its dependencies, plus metadata (the command to run, the user, the ports). Built once, run many times |
+| Container | A running instance of an image. A normal Linux process with its own view of files, network and processes |
+| Dockerfile | The recipe an image is built from, one instruction per line |
+| Layer | Each instruction in a Dockerfile adds a layer: the files it changed. An image is a stack of layers, and unchanged layers are reused |
+| Build context | The folder sent to the builder. `COPY` can only take files from it |
+| Base image | The image a Dockerfile starts `FROM`: `node:22-alpine`, `python:3.12-slim`, `debian:12` |
+| Registry | A server that stores images: Docker Hub, GitHub Container Registry (ghcr.io), ECR, Artifact Registry, ACR, Artifactory |
+| Tag | A movable name for an image version: `nginx:1.27-alpine`. `latest` is only the default tag, not "the newest" |
+| Digest | The fixed ID of an image's content, `sha256:...`. Unlike a tag it never moves |
+| Volume | Storage managed by Docker that outlives a container: database files, uploads |
+| Bind mount | A host folder mounted into a container, mostly for development |
+| Network | A virtual network between containers. On a network you create, containers find each other by name |
+| Compose | A YAML file that describes several containers that run together, started with `docker compose up` |
+
+### What is different about it
+
+A container is not a small virtual machine. A VM has its own kernel on emulated hardware. A container is a process on the host's kernel that the kernel isolates:
+
+| Mechanism | What it gives the container |
+|---|---|
+| **Namespaces** | Its own view: process IDs (the app is PID 1), network interfaces and ports, the filesystem, the host name, users |
+| **cgroups** | Limits: CPU, memory, I/O. Above its memory limit, the kernel kills it (`OOMKilled`, exit code 137) |
+| **A layered filesystem** (OverlayFS) | The image's read-only layers, with a thin writable layer on top. The writable layer is thrown away with the container |
+
+What follows from it:
+
+- A container starts in milliseconds and costs almost nothing beyond its own process.
+- Many containers of the same image share its layers on disk.
+- Anything written inside a container that is not on a volume is lost when the container is removed. That is a feature: a container can be replaced at any time, which is what Kubernetes does all day.
+- The isolation is weaker than a VM's: all containers share one kernel. A process that is root in a container, with the wrong settings, is close to root on the host. This is why [the image should not run as root](#run-as-a-normal-user).
+- A container lives as long as its main process. When it exits, the container stops.
+
+### A small example: a web server
+
+```bash
+docker run -d --name web -p 127.0.0.1:8088:80 nginx:1.27-alpine
+docker ps
+curl -s 127.0.0.1:8088/ | grep title
+docker logs web | tail -1
+docker stop web && docker rm web
+```
+
+```text
+CONTAINER ID   IMAGE               STATUS        PORTS                    NAMES
+4178d62f0b62   nginx:1.27-alpine   Up 1 second   127.0.0.1:8088->80/tcp   web
+
+<title>Welcome to nginx!</title>
+
+172.17.0.1 - - [17/Nov/2026:19:20:23 +0000] "GET / HTTP/1.1" 200 615 "-" "curl/8.5.0" "-"
+```
+
+Docker pulled the image from Docker Hub, started nginx as a process, and forwarded port 8088 on the host to port 80 in the container (`-p HOST:CONTAINER`). The `127.0.0.1` in front makes the port reachable only from this machine. Without it, the port is open to the whole network.
+
+### Docker and Kubernetes
+
+The image is the unit of delivery. On one machine, Docker (or Compose) runs it. On many machines, Kubernetes runs the same image as a container in a Pod, and adds what one machine cannot: scheduling, restarts on another node, scaling, rolling updates, load balancing. Kubernetes does not use Docker itself to run containers (it uses containerd), but it runs exactly the images that `docker build` makes.
 
 ## Beginner
 
-### What problem does Docker solve?
+The commands you use every day, and then the part that matters most in production: building images that are small, quick to build and safe. Every command was run with Docker 27.4 in WSL (Ubuntu). Your IDs, times and dates will be different.
 
-Imagine you wrote an application on your laptop. It works perfectly. You hand it to a colleague — it crashes. Why? Because their machine has a different OS, different library versions, or a missing dependency. This is the classic "it works on my machine" problem.
+### Everyday commands
 
-Docker solves this by packaging your application **together with everything it needs** (OS libraries, dependencies, config) into a single portable unit called an **image**. When you run that image, you get a **container** — an isolated process that behaves the same everywhere: your laptop, a test server, or production.
+#### Images
 
-Think of it like shipping containers in the real world. Before standardized containers, loading cargo onto ships was chaos — every item had a different shape. Standardized containers made it possible to move anything, anywhere, on any ship. Docker does the same for software.
+| Command | What it does |
+|---|---|
+| `docker pull nginx:1.27-alpine` | Download an image. Name the tag: without one, you get `latest`, which changes under you |
+| `docker images` | List local images and their sizes |
+| `docker build -t myapp:dev .` | Build the Dockerfile in the current folder, and name the result |
+| `docker tag myapp:dev ghcr.io/me/myapp:1.0.0` | Give an image a second name, usually a registry address before a push |
+| `docker push ghcr.io/me/myapp:1.0.0` | Upload to a registry (after `docker login ghcr.io`) |
+| `docker history myapp:dev` | The layers and how much each one added |
+| `docker rmi myapp:dev` | Remove a local image |
 
----
+#### Containers
 
-### Core terms you need to know
-
-Before diving into commands, make sure you understand these building blocks:
-
-- **Image** — A read-only template containing your app, its OS layers, and all dependencies. Think of it as a snapshot or a recipe. Images are built once and can be shared.
-- **Container** — A running instance of an image. It's just a process on your machine, but with its own isolated filesystem, network, and process tree. You can run many containers from the same image.
-- **Registry** — A remote store where images are uploaded and downloaded. [Docker Hub](https://hub.docker.com) is the most common public registry. Organizations often run private registries too.
-- **Volume** — Managed persistent storage for containers. Since containers are ephemeral (they can be destroyed and recreated), volumes let you keep data across container restarts.
-- **Bind mount** — Mounts a specific folder from your host machine into a container. This is especially useful during development, so you can edit code on your host and see changes inside the container immediately.
-- **Network** — Docker creates virtual networks so containers can talk to each other (or be isolated from each other).
-
----
-
-### Getting started: verify your installation
-
-Before doing anything, make sure Docker is installed and running. These two commands tell you what version you have and whether the Docker daemon (background service) is active:
-
-```bash
-docker version
-docker info
-```
-
-You should see output like this:
-
-```text
-Client: Docker Engine - Community
- Version:           26.1.0
-Server: Docker Engine - Community
- Engine:
-  Version:          26.1.0
-```
-
-If `docker version` shows a client but errors on the server section, the Docker daemon isn't running. Start it with `sudo systemctl start docker` (Linux) or open Docker Desktop (Mac/Windows).
-
----
-
-### Working with images
-
-Images are the foundation of everything in Docker. You either **pull** an existing image from a registry or **build** your own from a Dockerfile.
-
-#### Listing, pulling, and removing images
-
-To see what images you already have locally:
+| Command | What it does |
+|---|---|
+| `docker run --rm -it alpine:3.20 sh` | A throwaway container with a shell. `--rm` deletes it on exit |
+| `docker run -d --name web -p 127.0.0.1:8088:80 nginx:1.27-alpine` | Run in the background, with a name and a published port |
+| `docker ps`, `docker ps -a` | Running containers; all of them, including stopped ones |
+| `docker logs web --tail 50`, `docker logs -f web` | Its output (stdout and stderr); follow it |
+| `docker exec -it web sh` | A shell inside a running container |
+| `docker stats --no-stream` | CPU and memory per container |
+| `docker inspect web` | Everything about it as JSON: exit code, mounts, networks, environment |
+| `docker stop web`, `docker rm web` | Stop it (SIGTERM, then SIGKILL after 10 seconds), then remove it |
 
 ```bash
-docker images
+docker exec web nginx -v
+docker stats --no-stream --format "table {{.Name}}\t{{.CPUPerc}}\t{{.MemUsage}}" web
 ```
 
 ```text
-REPOSITORY   TAG      IMAGE ID       CREATED        SIZE
-nginx        stable   8c1b...         2 weeks ago    192MB
+nginx version: nginx/1.27.5
+NAME      CPU %     MEM USAGE / LIMIT
+web       0.00%     12.49MiB / 7.624GiB
 ```
 
-To download an image from Docker Hub:
+The limit is the whole machine, because none was set. Set one with `--memory` and see what happens above it:
 
 ```bash
-docker pull nginx:stable
-```
-
-The format is `name:tag`. The tag is a version label — `stable`, `latest`, `3.12-slim`, etc. If you omit the tag, Docker defaults to `latest`, but it's better to be explicit so you know exactly what you're running.
-
-To remove an image you no longer need:
-
-```bash
-docker rmi nginx:stable
-```
-
-#### Building your own image
-
-When you have a `Dockerfile` (covered in detail later), you build an image like this:
-
-```bash
-docker build -t myapp:dev .
-```
-
-- `-t myapp:dev` gives the image a name and tag.
-- `.` tells Docker to use the current directory as the **build context** (where it looks for your Dockerfile and source files).
-
-```text
-[+] Building 8.4s (9/9) FINISHED
- => naming to docker.io/library/myapp:dev
-```
-
-You can also re-tag an image (useful before pushing to a registry):
-
-```bash
-docker tag myapp:dev myuser/myapp:dev
-```
-
-#### Inspecting an image
-
-Want to see what's inside an image — its layers, environment variables, exposed ports? Use:
-
-```bash
-docker image inspect myapp:dev | head
-docker history myapp:dev
-```
-
-`docker history` shows each layer (each instruction in the Dockerfile) and how much space it added. This is helpful when you're trying to make images smaller.
-
----
-
-### Running containers
-
-Now that you have images, let's run them. A container is simply a running image.
-
-#### Your first container
-
-```bash
-docker run --rm hello-world
+docker run --rm --memory 32m node:22-alpine node -e "const a=[]; for(;;) a.push(Buffer.alloc(1e6,1))"
+echo "exit code $?"
 ```
 
 ```text
-Hello from Docker!
-This message shows that your installation appears to be working correctly.
+exit code 137
 ```
 
-What happened here:
-1. Docker looked for the `hello-world` image locally.
-2. It didn't find it, so it pulled it from Docker Hub automatically.
-3. It created a container from that image, ran it, and printed the message.
-4. `--rm` told Docker to automatically remove the container after it exited (cleanup).
+137 is 128 + 9: the process got signal 9 (SIGKILL) from the kernel. In Kubernetes the same thing shows as `OOMKilled`.
 
-#### Running in the background (detached mode)
-
-Most real services (web servers, databases) need to keep running. Use `-d` to run them in the background:
-
-```bash
-docker run -d --name web nginx:stable
-```
-
-- `-d` — detached mode (runs in background).
-- `--name web` — gives the container a human-readable name instead of a random one.
-
-Check what's running:
-
-```bash
-docker ps
-```
-
-```text
-CONTAINER ID   IMAGE         COMMAND                  STATUS          NAMES
-3c2a...        nginx:stable  "/docker-entrypoint..."  Up 10 seconds   web
-```
-
-`docker ps` only shows running containers. To see all containers (including stopped ones), use `docker ps -a`.
-
-#### Reading container logs
-
-Containers write their output (stdout/stderr) to a log you can read:
-
-```bash
-docker logs web --tail=20    # last 20 lines
-docker logs -f web           # follow (like tail -f) — press Ctrl+C to stop
-```
-
-Logs are your first stop when something isn't working. If a container crashes on startup, the logs usually tell you why.
-
-#### Getting a shell inside a container
-
-Sometimes you need to poke around inside a running container — check files, test network connectivity, debug:
-
-```bash
-docker exec -it web sh
-```
-
-- `exec` runs a command inside an already-running container.
-- `-it` gives you an interactive terminal.
-- `sh` is the shell (some images have `bash`, others only `sh`).
-
-You're now "inside" the container. Type `exit` to leave. The container keeps running — `exec` doesn't stop it.
-
-#### Stopping, starting, and removing containers
-
-```bash
-docker stop web      # gracefully stop (sends SIGTERM, then SIGKILL after timeout)
-docker start web     # restart a stopped container
-docker rm -f web     # force-remove (stops + deletes in one step)
-```
-
-#### Inspecting a container
-
-`docker inspect` is the Swiss army knife for debugging. It dumps all metadata about a container as JSON — network settings, mounts, environment variables, health status:
-
-```bash
-docker inspect web | head
-docker port web         # show published ports
-docker stats            # live CPU/memory/network usage (like top for containers)
-```
-
----
-
-### Ports: making containers accessible
-
-By default, a container is isolated — you can't reach it from your host machine or the outside world. To expose a service, you **publish** ports.
-
-```bash
-docker run -d --name web -p 8080:80 nginx:stable
-```
-
-The syntax is `-p HOST_PORT:CONTAINER_PORT`. This means: "take traffic arriving on my host at port 8080 and forward it to port 80 inside the container."
-
-Now you can access it:
-
-```bash
-curl -sS http://127.0.0.1:8080/ | head
-```
-
-```text
-<!DOCTYPE html>
-<html>
-<head>
-<title>Welcome to nginx!</title>
-```
-
-**Tips:**
-- `-p 8080:80` binds to all interfaces (reachable from your network). Use `-p 127.0.0.1:8080:80` to bind only to localhost (safer for dev).
-- You can publish multiple ports: `-p 8080:80 -p 8443:443`.
-- The container port is defined by the application inside the image (nginx uses 80 by default). The host port is whatever you choose.
-
----
-
-### Persistent data: volumes and bind mounts
-
-Containers are **ephemeral** — when you remove a container, its filesystem is gone. This is a feature, not a bug: it keeps things clean and reproducible. But what about data you need to keep (databases, uploads, config)?
-
-That's where volumes and bind mounts come in.
-
-#### Volumes (Docker-managed storage)
-
-Volumes are the recommended way to persist data. Docker manages them for you — they live in a Docker-controlled area on your host.
+#### Data that must survive: volumes
 
 ```bash
 docker volume create mydata
-docker volume ls
-docker volume inspect mydata
-```
-
-Attach a volume to a container with `-v VOLUME_NAME:PATH_INSIDE_CONTAINER`:
-
-```bash
-docker run --rm -v mydata:/data busybox:1.36 sh -lc 'echo hello >/data/msg && cat /data/msg'
+docker run --rm -v mydata:/data busybox:1.36 sh -c "echo hello > /data/msg"
+docker run --rm -v mydata:/data busybox:1.36 cat /data/msg       # a new container
+docker volume rm mydata
 ```
 
 ```text
 hello
 ```
 
-The data survives even after the container is removed. Prove it by running a new container that reads the same volume:
+The first container is gone, the file is not. A bind mount (`-v "$PWD":/work`) maps a host folder instead, which is handy in development to edit code on the host and run it in the container.
 
-```bash
-docker run --rm -v mydata:/data busybox:1.36 sh -lc 'cat /data/msg'
-```
-
-```text
-hello
-```
-
-The key insight: the volume `mydata` exists independently of any container. Multiple containers can share the same volume.
-
-#### Bind mounts (host folder into container)
-
-Bind mounts map a specific directory on your host into the container. This is ideal for development — you edit files on your host with your editor, and the container sees the changes immediately:
-
-```bash
-docker run --rm -v "$PWD":/work -w /work busybox:1.36 ls -la
-```
-
-- `-v "$PWD":/work` mounts your current directory into `/work` inside the container.
-- `-w /work` sets the working directory inside the container to `/work`.
-
-**When to use which:**
-- **Volumes** — for production data, databases, anything the container "owns."
-- **Bind mounts** — for development, when you want host files visible inside the container.
-
----
-
-### Networking: connecting containers
-
-When you run multiple containers (e.g., an app + a database), they need to talk to each other. Docker provides virtual networks for this.
-
-#### Why not just use localhost?
-
-Each container has its own network namespace. From inside a container, `localhost` refers to itself, not to other containers. You need Docker networking to connect them.
-
-#### User-defined networks
-
-The default `bridge` network works but has limitations (no automatic DNS). Create your own network for better behavior:
+#### Containers that talk to each other: networks
 
 ```bash
 docker network create appnet
-```
-
-Now run containers on that network:
-
-```bash
-docker run -d --name redis --network appnet redis:7
-docker run --rm --network appnet redis:7 redis-cli -h redis PING
+docker run -d --name redis --network appnet redis:7-alpine
+docker run --rm --network appnet redis:7-alpine redis-cli -h redis PING    # on the network
+docker run --rm redis:7-alpine redis-cli -h redis PING                     # not on it
+docker rm -f redis && docker network rm appnet
 ```
 
 ```text
 PONG
+Could not connect to Redis at redis:6379: Name does not resolve
 ```
 
-Notice that the second container reached Redis using the hostname `redis` — that's the container name. On user-defined networks, Docker provides automatic DNS resolution between containers. This is much cleaner than using IP addresses.
+On a network you created, Docker runs a DNS server, and a container's name is its host name. `localhost` inside a container is the container itself, never another container.
 
----
-
-### Writing a Dockerfile (build recipes)
-
-A Dockerfile is a text file with instructions for building an image. Each instruction creates a **layer** in the image. Docker caches layers, so unchanged steps are fast on subsequent builds.
-
-#### A simple example
-
-```dockerfile
-FROM python:3.12-slim
-WORKDIR /app
-COPY . .
-RUN pip install -r requirements.txt
-CMD ["python", "main.py"]
-```
-
-Let's break this down line by line:
-
-| Instruction | What it does |
-|---|---|
-| `FROM python:3.12-slim` | Start from an existing base image (Python 3.12 on a minimal Debian). Every Dockerfile starts with `FROM`. |
-| `WORKDIR /app` | Set the working directory inside the image. All subsequent commands run from here. Creates the directory if it doesn't exist. |
-| `COPY . .` | Copy everything from your build context (your project folder) into `/app` inside the image. |
-| `RUN pip install -r requirements.txt` | Run a command during build. This installs your Python dependencies. The result is baked into the image layer. |
-| `CMD ["python", "main.py"]` | The default command to run when a container starts from this image. |
-
-#### Multi-stage builds
-
-A common problem: your build tools (compilers, dev dependencies) make the final image huge, but you only need the compiled output at runtime. Multi-stage builds solve this by using one stage to build and another for the final image:
-
-```dockerfile
-FROM golang:1.22 AS build
-WORKDIR /src
-COPY . .
-RUN CGO_ENABLED=0 go build -o /out/app ./...
-
-FROM gcr.io/distroless/static
-COPY --from=build /out/app /app
-ENTRYPOINT ["/app"]
-```
-
-The first stage (`build`) compiles the Go binary. The second stage starts from a tiny base image and copies only the compiled binary. The result: a final image that's often under 20MB instead of 1GB+.
-
-#### Best practices
-
-- **Add a `.dockerignore` file** — just like `.gitignore`, it prevents unnecessary files (`.git`, `node_modules`, `venv`) from being sent to the build context. This speeds up builds and avoids leaking secrets.
-- **Pin versions** — use specific tags (`python:3.12-slim`, not `python:latest`) so your builds are reproducible.
-- **Order layers by change frequency** — put things that change rarely (installing OS packages) at the top and things that change often (copying your source code) at the bottom. This maximizes Docker's layer cache.
-- **Run as non-root** — add `RUN useradd appuser` and `USER appuser` to avoid running your app as root inside the container.
-
----
-
-### Registries: sharing images
-
-Once you've built an image, you'll want to share it — with your team, your CI/CD pipeline, or your production servers. That's what registries are for.
-
-```bash
-docker login                            # authenticate (Docker Hub by default)
-docker tag myapp:dev myuser/myapp:dev   # tag with your registry username
-docker push myuser/myapp:dev            # upload to registry
-docker pull myuser/myapp:dev            # download from registry (on another machine)
-```
-
-Organizations typically use private registries (AWS ECR, Google Artifact Registry, GitLab Container Registry) so images aren't publicly accessible.
-
----
-
-### Docker Compose: running multi-container apps
-
-Real applications rarely run as a single container. You usually have an app server, a database, maybe a cache. Docker Compose lets you define all of these in a single `docker-compose.yml` file and manage them together.
-
-A typical `docker-compose.yml` might look like:
+#### Several containers together: Compose
 
 ```yaml
+# compose.yaml
 services:
   api:
     build: .
     ports:
-      - "8080:8080"
+      - "127.0.0.1:8089:8080"
     depends_on:
       - db
   db:
-    image: postgres:16
-    volumes:
-      - pgdata:/var/lib/postgresql/data
+    image: postgres:16-alpine
     environment:
       POSTGRES_PASSWORD: devpass
+    volumes:
+      - pgdata:/var/lib/postgresql/data
 
 volumes:
   pgdata:
 ```
 
-Then manage everything with:
-
 ```bash
-docker compose up -d       # start all services in the background
-docker compose ps          # see status of all services
-docker compose logs -f     # follow logs from all services
-docker compose down -v     # stop and remove everything (including volumes)
+docker compose up -d --build
+docker compose ps
+docker compose exec api getent hosts db      # services find each other by name
+docker compose down -v                       # stop, remove, and delete the volume
 ```
 
 ```text
-[+] Running 2/2
- Container app-db-1   Started
- Container app-api-1  Started
+SERVICE   STATUS        PORTS
+api       Up 1 second   127.0.0.1:8089->8080/tcp
+db        Up 1 second   5432/tcp
+
+172.20.0.2        db  db
 ```
 
-Compose handles networking automatically — all services in the same compose file can reach each other by service name (e.g., the `api` container can connect to `db:5432`).
+Compose creates a network for the project, so `api` reaches the database at `db:5432`. `depends_on` only orders the start: it does not wait until PostgreSQL accepts connections. The application should retry, as it must in production anyway.
 
----
+#### When a container misbehaves
 
-### Cleanup and troubleshooting
+1. `docker ps -a`: is it running, or did it exit? With which exit code?
+2. `docker logs <name> --tail 200`: what did it print before it stopped? A missing variable or file shows up here.
+3. `docker inspect <name>`: exit code, `OOMKilled`, mounts, networks, environment.
+4. `docker exec -it <name> sh`: if it is running, look from inside.
 
-Over time, Docker accumulates unused images, stopped containers, and orphaned volumes. This eats disk space.
+| Symptom | Usual cause |
+|---|---|
+| Exits right after it starts | The main process failed: read the logs. Or the command finished, because a container lives only as long as its main process |
+| Exit code 137 | Killed: out of memory, or did not stop within the timeout after SIGTERM |
+| `port is already allocated`, `address already in use` | Something else holds the host port. Choose another one |
+| Cannot reach another container | Not on the same network, or using `localhost` |
+| Data gone after a restart | It was not on a volume |
+| Disk full | Old images and build cache: `docker system df`, then `docker image prune`, `docker builder prune` |
 
-#### Check disk usage
+### Small and safe images
+
+A real image is built thousands of times and runs in production, so three things matter: how big it is (pull time, disk, start time), how fast it builds (every CI run), and what an attacker finds inside it. This section takes a small TypeScript web service from a first, careless Dockerfile to a good one, measuring each step.
+
+The service: `src/server.ts` with Express, compiled by `tsc` (a dev dependency) into `dist/`. The folder also has a `.git` folder, a local `node_modules`, and a `.env` file with a password, as a real project folder does:
+
+```typescript
+import express from "express";
+
+const app = express();
+app.get("/", (_req, res) => { res.send("hello\n"); });
+
+const server = app.listen(8080, () => console.log("listening on 8080"));
+process.on("SIGTERM", () => server.close(() => process.exit(0)));
+```
+
+#### The starting point
+
+```dockerfile
+FROM node:22
+WORKDIR /app
+COPY . .
+RUN npm install
+RUN npm run build
+EXPOSE 8080
+CMD ["npm", "start"]
+```
 
 ```bash
-docker system df
+docker build -t hello:naive .
+docker images hello
+docker run --rm hello:naive ls -a
+docker run --rm hello:naive cat .env
+docker run --rm hello:naive id
 ```
-
-#### Prune unused resources
-
-These commands delete things you're not using. Be careful — make sure you don't need them first:
-
-```bash
-docker image prune        # remove dangling (untagged) images
-docker container prune     # remove all stopped containers
-docker volume prune        # remove unused volumes (careful: data loss!)
-docker system prune        # all of the above combined
-```
-
-#### Common debug flow
-
-When a container isn't behaving as expected, follow this sequence:
-
-```bash
-docker ps -a                          # 1. Is the container running? Did it exit?
-docker logs <container> --tail=200    # 2. What did it print before dying?
-docker inspect <container> | head     # 3. Check config, mounts, network, exit code
-docker exec -it <container> sh        # 4. If it's running, get a shell and investigate
-```
-
-**Common issues and what to check:**
-- Container exits immediately — check logs; often a missing env var or config file.
-- "Port already in use" — another process (or container) is using that host port. Use `docker ps` or `lsof -i :PORT` to find it.
-- Container can't reach another container — make sure they're on the same Docker network.
-- Filesystem changes disappear — you're not using a volume. Container filesystems are ephemeral.
-
----
-
-### How Docker relates to Kubernetes
-
-Docker gets you from "code on my laptop" to "code running in a container." But in production, you often need to run many containers across many machines, handle failures, scale up/down, and route traffic. That's where Kubernetes comes in.
-
-The relationship is straightforward:
-- **Docker images** are still the artifact you build and push — Kubernetes doesn't replace this.
-- **Kubernetes** takes those images and runs them as **Pods** (the smallest deployable unit, usually one container per Pod).
-- Kubernetes adds orchestration on top: scheduling, scaling, self-healing, service discovery, load balancing, rolling updates, and more.
-
-Think of Docker as the packaging and Kubernetes as the fleet management system.
-
----
-
-### Under the hood: what Docker actually does
-
-Containers feel like lightweight VMs, but they're fundamentally different. Understanding the internals helps you debug issues and reason about performance and security.
-
-#### A container is just a process
-
-There is no container "machine." When you run `docker run nginx`, Docker starts a regular Linux process (nginx) on your host. The magic is that this process is **isolated** — it can't see other processes, has its own filesystem view, and thinks it's running alone. But from the host's perspective, it's just a process you can see with `ps aux`.
-
-#### Isolation: namespaces
-
-Linux **namespaces** provide the isolation. Each container gets its own:
-
-- **PID namespace** — the container sees only its own processes (PID 1 is the main app).
-- **Network namespace** — its own IP address, ports, and routing table.
-- **Mount namespace** — its own filesystem tree.
-- **UTS namespace** — its own hostname.
-- **User namespace** — can map container root to a non-root user on the host.
-
-This is why a container feels like a separate machine — it literally can't see anything outside its namespaces.
-
-#### Resource limits: cgroups
-
-**cgroups** (control groups) limit how much CPU, memory, and I/O a container can use. When you set `--memory=512m` or `--cpus=1.5`, Docker creates a cgroup with those limits. If a container exceeds its memory limit, the kernel kills it (OOMKilled) — a very common issue you'll encounter in production and Kubernetes.
-
-#### Images are layered filesystems
-
-A Docker image isn't a single file — it's a stack of read-only **layers**. Each Dockerfile instruction (`FROM`, `RUN`, `COPY`) creates a new layer containing only the changes from the previous one.
 
 ```text
-Layer 4: COPY . .              (your app code)
-Layer 3: RUN pip install ...   (installed packages)
-Layer 2: WORKDIR /app          (metadata change)
-Layer 1: FROM python:3.12-slim (base OS + Python)
+REPOSITORY   TAG       IMAGE ID       CREATED         SIZE
+hello        naive     9f16a24ce110   2 seconds ago   1.16GB
+
+.  ..  .env  .git  .gitignore  Dockerfile  dist  node_modules  package-lock.json  package.json  src  tsconfig.json
+
+DB_PASSWORD=s3cret
+
+uid=0(root) gid=0(root) groups=0(root)
 ```
 
-When you run a container, Docker adds a thin **read-write layer** on top. Any file changes inside the container go to this layer. When the container is removed, this layer is discarded — that's why container filesystems are ephemeral.
+It works, and it has five problems:
 
-**Why layers matter:**
-- **Caching** — If a layer hasn't changed, Docker reuses it on the next build. This is why putting `COPY requirements.txt` before `COPY . .` speeds up builds: dependencies are cached separately from code.
-- **Sharing** — If 10 containers run the same image, they share all the read-only layers. Only the thin writable layer is unique per container. This is why containers start instantly and use little disk.
-- **Storage drivers** — Docker uses a union filesystem (OverlayFS on most systems) to stack these layers into a single coherent view.
+1. **1.16 GB.** The `node:22` base is a full Debian with compilers, and the image keeps TypeScript and every dev dependency.
+2. **The password is in the image.** `COPY . .` took `.env`, and `.git` with the whole history. Anyone who can pull the image can read them. `.gitignore` does not apply to Docker.
+3. **The host's `node_modules` was copied in**, built for another system perhaps, before `npm install` ran over it.
+4. **It runs as root.**
+5. **Every code change reinstalls all dependencies.** Change one line and build again:
 
-#### Putting it all together
+```bash
+echo "// a comment" >> src/server.ts
+docker build --progress=plain -t hello:naive .
+```
 
-A container = a regular Linux process + namespace isolation + cgroup resource limits + a layered filesystem. No hypervisor, no separate kernel, no VM overhead. This is why containers start in milliseconds and have near-zero performance overhead compared to running the same process directly on the host.
+```text
+#6 [2/5] WORKDIR /app
+#6 CACHED
+#7 [3/5] COPY . .
+#7 DONE 0.2s
+#8 [4/5] RUN npm install
+#8 DONE 2.2s
+#9 [5/5] RUN npm run build
+#9 DONE 3.5s
+```
+
+#### The build cache and `.dockerignore`
+
+Docker reuses a layer only when the instruction and everything before it are unchanged. For `COPY`, unchanged means the copied files are the same. `COPY . .` copies everything, so any change to any file invalidates it and every step after it.
+
+The fix is to copy what changes rarely first. The dependency list changes rarely, the code changes all the time:
+
+```dockerfile
+FROM node:22
+WORKDIR /app
+COPY package.json package-lock.json ./
+RUN npm ci
+COPY . .
+RUN npm run build
+EXPOSE 8080
+CMD ["npm", "start"]
+```
+
+`npm ci` installs exactly what `package-lock.json` says, and fails if it does not match `package.json`. Use it in builds, never `npm install`. And a `.dockerignore` keeps the rest out of the build context:
+
+```text
+node_modules
+dist
+.git
+.env
+Dockerfile
+.dockerignore
+```
+
+The same one-line change now:
+
+```text
+#7 [3/6] COPY package.json package-lock.json ./
+#7 CACHED
+#8 [4/6] RUN npm ci
+#8 CACHED
+#9 [5/6] COPY . .
+#10 [6/6] RUN npm run build
+#10 DONE 3.1s
+```
+
+The install is `CACHED`. In a project with hundreds of dependencies that is minutes saved on every build. And `.env` and `.git` are no longer in the image:
+
+```text
+.  ..  .gitignore  dist  node_modules  package-lock.json  package.json  src  tsconfig.json
+```
+
+The same rule works in every language: copy `requirements.txt` before the code in Python, `go.mod` and `go.sum` in Go, `pom.xml` in Maven.
+
+When the dependencies do change, a **cache mount** keeps npm's download cache between builds, so only new packages are downloaded: `RUN --mount=type=cache,target=/root/.npm npm ci`. It is used in the next Dockerfile.
+
+#### A multi-stage build
+
+The compiler is needed to build, not to run. A multi-stage build uses one image to build, and starts the final image from a small base, copying only the result:
+
+```dockerfile
+# syntax=docker/dockerfile:1
+
+# Stage 1: build. Has the compiler and all the dev dependencies
+FROM node:22 AS build
+WORKDIR /app
+COPY package.json package-lock.json ./
+RUN --mount=type=cache,target=/root/.npm npm ci
+COPY . .
+RUN npm run build
+RUN npm prune --omit=dev
+
+# Stage 2: run. Only the compiled code and the production dependencies
+FROM node:22-alpine
+WORKDIR /app
+ENV NODE_ENV=production
+COPY --from=build /app/node_modules ./node_modules
+COPY --from=build /app/dist ./dist
+USER node
+EXPOSE 8080
+CMD ["node", "dist/server.js"]
+```
+
+```text
+REPOSITORY   TAG       IMAGE ID       CREATED          SIZE
+hello        small     1d2c350222d7   1 second ago     172MB
+hello        cache     c17267748ed2   26 seconds ago   1.17GB
+hello        naive     ff3d62fd2666   48 seconds ago   1.16GB
+```
+
+From 1.16 GB to 172 MB. The stage `build` is thrown away; only what `COPY --from=build` takes reaches the final image. `npm prune --omit=dev` removes the dev dependencies after the build, so only the production ones are copied.
+
+Of the 172 MB, `node:22-alpine` itself is 168 MB. Alpine is a small Linux built on musl and BusyBox. It is the usual choice for Node and Python services, and fine for most, but a few native modules behave differently on musl. The `-slim` Debian images are the other common choice.
+
+For a compiled language the gain is bigger: a Go binary needs no runtime at all, and the final stage can be `FROM scratch` or `gcr.io/distroless/static`, a few megabytes.
+
+#### Run as a normal user
+
+`USER node` makes the process run as the user `node` (uid 1000), which the Node images create for this:
+
+```bash
+docker run --rm hello:small id
+docker run --rm hello:naive sh -c "echo hacked > /usr/local/bin/node && echo wrote to the node binary"
+docker run --rm hello:small sh -c "echo hacked > /usr/local/bin/node"
+docker run --rm hello:small sh -c "echo x > dist/server.js"
+```
+
+```text
+uid=1000(node) gid=1000(node) groups=1000(node)
+wrote to the node binary
+sh: can't create /usr/local/bin/node: Permission denied
+sh: can't create dist/server.js: Permission denied
+```
+
+As root, someone who breaks into the application can replace any file in the container, install tools, and is one kernel bug or one bad setting away from the host. As `node`, they cannot even change the application's own code, because the files were copied in as root and are only readable. Kubernetes can enforce this with `runAsNonRoot: true`, and many clusters refuse root containers.
+
+Notice also the command: `node dist/server.js`, not `npm start`. With `npm start`, npm is PID 1 and node is its grandchild:
+
+```text
+    PID    PPID COMMAND
+      1       0 npm start
+     18       1 sh -c node dist/server.js
+     19      18 node dist/server.js
+```
+
+`docker stop` sends SIGTERM to PID 1 only. The npm of this image passes it on, but then reports a failure, so every normal stop looks like a crash (exit code 1, and `npm error signal SIGTERM` in the logs). Older npm versions, and shell scripts as entrypoint, often do not pass it on at all, and the container is killed after the timeout without finishing its requests. Start the process itself, in the JSON form of `CMD` (`["node", "..."]`, not `node ...`, which wraps it in a shell):
+
+```text
+naive: stopped in 1.2s, exit code 1
+small: stopped in 0.5s, exit code 0
+```
+
+#### Scan the image
+
+An image scanner lists the packages in an image and checks them against known vulnerabilities (CVEs). Trivy is the common free one, and runs as a container:
+
+```bash
+docker run --rm -v /var/run/docker.sock:/var/run/docker.sock \
+  aquasec/trivy:0.58.1 image -q --scanners vuln hello:naive
+```
+
+The totals, for the naive image and the multi-stage one:
+
+```text
+hello:naive (debian 12.15)
+Total: 4391 (UNKNOWN: 92, LOW: 1543, MEDIUM: 2054, HIGH: 682, CRITICAL: 20)
+Node.js (node-pkg)
+Total: 31 (UNKNOWN: 0, LOW: 3, MEDIUM: 16, HIGH: 12, CRITICAL: 0)
+
+hello:small (alpine 3.24.4)
+Total: 1 (UNKNOWN: 0, LOW: 0, MEDIUM: 1, HIGH: 0, CRITICAL: 0)
+Node.js (node-pkg)
+Total: 31 (UNKNOWN: 0, LOW: 3, MEDIUM: 16, HIGH: 12, CRITICAL: 0)
+```
+
+The small base removed thousands of findings in operating system packages that the service never used. The Node.js findings stayed. `--severity HIGH,CRITICAL` and `--format json` show where they are (shortened):
+
+```text
+HIGH body-parser 1.20.3 -> 1.20.9     app/node_modules/body-parser
+HIGH path-to-regexp 0.1.12 -> 0.1.13  app/node_modules/path-to-regexp
+HIGH brace-expansion 2.0.2 -> 2.1.6   usr/local/lib/node_modules/npm/node_modules/brace-expansion
+HIGH pacote 19.0.2 -> 21.5.1          usr/local/lib/node_modules/npm/node_modules/pacote
+HIGH sigstore 3.1.0 -> 4.1.1          usr/local/lib/node_modules/npm/node_modules/sigstore
+...
+```
+
+Two sources, two fixes:
+
+- **`app/node_modules`**: the service's own dependencies. `express` was pinned to an old version, 4.21.2. Updating it to 4.22.3 brings fixed versions of both.
+- **`usr/local/lib/node_modules/npm`**: npm, which comes with the base image. The service runs `node`, never `npm`. Remove it in the final stage:
+
+```dockerfile
+FROM node:22-alpine
+RUN rm -rf /usr/local/lib/node_modules/npm /usr/local/bin/npm /usr/local/bin/npx
+```
+
+```text
+hello:safe (alpine 3.24.4)
+Total: 1 (UNKNOWN: 0, LOW: 0, MEDIUM: 1, HIGH: 0, CRITICAL: 0)
+```
+
+No HIGH and no CRITICAL left. Removing npm did not make the image smaller (171 MB): its files are in a layer of the base image, and a later layer can only hide them, not take them out. It did remove the findings, and a tool that someone inside the container could use.
+
+How to use a scanner in practice:
+
+- **In CI, on every build.** Fail the build on `CRITICAL` (and `HIGH`, when the team can keep up) with `--exit-code 1 --severity CRITICAL,HIGH`. `--ignore-unfixed` hides findings that have no fix yet, which you cannot act on.
+- **Again on a schedule.** New CVEs are published every day, so an image that was clean last month is not clean today. Registries such as ECR, Artifactory and Harbor scan stored images.
+- **Rebuild often.** Most fixes arrive by rebuilding on the current base image. A bot such as Renovate or Dependabot opens a pull request when the base image or a dependency has a new version.
+- A finding is a lead, not a verdict. A HIGH in a package the service never loads matters less than a MEDIUM in the web framework. Read where it is, as above.
+
+**Smaller is not always cleaner.** A distroless image (only the runtime, no shell, no package manager) was smaller still, and had more findings, because its Debian packages were older than Alpine's:
+
+```text
+REPOSITORY   TAG          SIZE
+hello        distroless   150MB
+
+hello:distroless (debian 12.13)
+Total: 96 (UNKNOWN: 5, LOW: 31, MEDIUM: 53, HIGH: 6, CRITICAL: 1)
+```
+
+Distroless images have a real advantage, no shell for an attacker (`exec: "sh": executable file not found`), and a real cost, no shell for you during an incident either. Whichever base you choose, measure it with the scanner rather than assume.
+
+#### Pin what you build from
+
+`FROM node:22-alpine` is a tag, and it moves: next week it is another image. Builds are then not reproducible, and a broken base image arrives without anyone changing anything. The strongest pin is the digest:
+
+```bash
+docker inspect --format "{{index .RepoDigests 0}}" node:22-alpine
+```
+
+```text
+node@sha256:1314fb30ec37592d5845e5a160d522c0e680972aa534549940b8d73bde88481a
+```
+
+```dockerfile
+FROM node:22-alpine@sha256:1314fb30ec37592d5845e5a160d522c0e680972aa534549940b8d73bde88481a
+```
+
+A digest never gets security fixes by itself, so it needs Renovate or Dependabot to move it. Without such a bot, a specific tag (`node:22.23-alpine3.24`) is a reasonable middle ground. Never `latest`.
+
+#### Limit the container at run time
+
+The image decides the user. The way it is run can take away more:
+
+```bash
+docker run -d --name hello -p 127.0.0.1:8082:8080 \
+  --read-only --cap-drop ALL --security-opt no-new-privileges \
+  --memory 128m --cpus 0.5 hello:safe
+curl -s 127.0.0.1:8082/
+docker exec hello sh -c "touch /tmp/x"
+```
+
+```text
+hello
+touch: /tmp/x: Read-only file system
+```
+
+| Option | What it takes away | In Kubernetes |
+|---|---|---|
+| `--read-only` | Writing anywhere in the container's filesystem. Mount a volume (or `--tmpfs /tmp`) where the app must write | `readOnlyRootFilesystem: true` |
+| `--cap-drop ALL` | Linux capabilities such as changing file owners or binding ports below 1024 | `capabilities: drop: [ALL]` |
+| `--security-opt no-new-privileges` | Gaining privileges through setuid programs | `allowPrivilegeEscalation: false` |
+| `--memory`, `--cpus` | Using more than its share of the machine | `resources.limits` |
+
+#### Checklist
+
+| | Check | Why |
+|---|---|---|
+| 1 | A `.dockerignore` with `.git`, `.env`, `node_modules` and build output | Secrets and junk stay out, the build context is small |
+| 2 | Dependency files copied and installed before the code | The install is cached |
+| 3 | `npm ci` (or the language's lock-file install) | The image has exactly the tested dependencies |
+| 4 | Multi-stage: build tools only in the build stage | Size, and fewer packages to attack |
+| 5 | A small base image, pinned by a specific tag or a digest | Size, findings, reproducible builds |
+| 6 | Tools the app does not use removed (package managers, compilers) | Fewer findings, fewer tools for an attacker |
+| 7 | `USER` with a non-root user, files owned by root | A break-in cannot change the code or the system |
+| 8 | `CMD ["the-process", ...]` in JSON form, and the app handles SIGTERM | Clean stops and rolling updates |
+| 9 | No secrets in the image, in `ENV` or in build arguments | Images are copied to many places. Secrets come at run time, from the platform |
+| 10 | A scan in CI that can fail the build, and regular rebuilds | Known vulnerabilities are found and fixed |
+
+### The lab's Dockerfile, checked
+
+The [lab](../13-lab/_index.md) builds one image for its shop (API, worker and load generator). It was checked against the list above:
+
+| | Check | The shop | |
+|---|---|---|---|
+| 1 | `.dockerignore` | `node_modules` and `npm-debug.log`. The build context is `apps/shop`, which has no `.git` or `.env` | ✓ |
+| 2 | Dependencies before code | `package.json` and `package-lock.json`, then `src` | ✓ |
+| 3 | Lock-file install | `npm ci --omit=dev` | ✓ |
+| 4 | Multi-stage | Not needed for the build: plain JavaScript, nothing to compile. Added for check 6 | ✓ now |
+| 5 | Small, pinned base | `node:22-alpine`: small, but a moving tag. Kept, so the lab gets fixes on every rebuild. A real service would pin and let a bot update | ~ |
+| 6 | Unused tools removed | npm was in the image. Trivy found 10 HIGH, **all** in npm's own packages; the shop's dependencies had none | ✓ now |
+| 7 | Non-root | `USER node` | ✓ |
+| 8 | Process as PID 1, handles SIGTERM | `CMD ["node", "src/api.js"]`, and `common.js` closes its connections on SIGTERM within Kubernetes' 30 seconds | ✓ |
+| 9 | No secrets in the image | The database password comes from a Kubernetes Secret at run time | ✓ |
+| 10 | Scan in CI | The lab's workflow runs Trivy, report only (it does not fail the build) | ~ |
+
+The change: install the dependencies in a first stage, and start the final stage without npm. The scan before and after:
+
+```text
+shop:check (alpine 3.24.4)          Total: 1 (MEDIUM: 1)
+Node.js                             Total: 23 (LOW: 1, MEDIUM: 12, HIGH: 10)
+
+shop:check2 (alpine 3.24.4)         Total: 1 (MEDIUM: 1)
+```
+
+The image is 174 MB, runs as `node`, and its modules load.
 
 ## In the lab
 
-- The [lab](../13-lab/_index.md) builds one image and runs it in three roles (API, worker, load generator), each with its own command.
+- The [lab](../13-lab/_index.md) builds one image and runs it in three roles (API, worker, load generator), each with its own command. Its Dockerfile is [checked above](#the-labs-dockerfile-checked).
 - The image tag is a hash of the application's files, so a code change gives a new tag and a new tag rolls the pods: [experiment 11](../13-lab/experiments.md#11-a-bad-release-and-a-rollback).
+- The pods run with a memory limit. Above it they are `OOMKilled`, exactly as the `docker run --memory 32m` example above.
+
+## See also
+
+- [Kubernetes](kubernetes.md): running the images on a cluster
+- [Linux internals](../01-get-started/linux-internals.md): processes, signals and cgroups underneath
+- [Artifacts and registries](../06-delivery/artifacts.md): where images are stored and promoted
+- [Security](../10-security/_index.md): scanning and the supply chain

@@ -44,7 +44,7 @@ Each chunk brings its pages to the page pattern and adds a **Beginner** section 
 | ✓ 1 | Operating system and terminal (done 2026-11-15) | 2, 3 | Linux in the page pattern. Linux internals: a Beginner section on troubleshooting a server (processes, memory, disk, network, systemd, logs) | |
 | ✓ 2 | Networking and protocols (done 2026-11-15) | 7 | Networking: Beginner with DNS, TLS and certificates, HTTP, SSH keys and tunnels, a firewall | |
 | ✓ 3 | Git (done 2026-11-16) | 4 | Git: Beginner with rebase, conflicts, `reflog`, hooks, a protected branch with required checks | |
-| 4 | Containers | 5 | Docker in the page pattern, Beginner on small and safe images: multi-stage builds, non-root, build cache, scanning | The shop's Dockerfile checked against it |
+| ✓ 4 | Containers (done 2026-11-17) | 5 | Docker in the page pattern, Beginner on small and safe images: multi-stage builds, non-root, build cache, scanning | The shop's Dockerfile checked against it |
 | 5 | Web servers and proxies | 6 | Proxies: Beginner with nginx as reverse proxy, load balancer, cache and TLS terminator, and Caddy | |
 | 6 | Infrastructure as code | 10 | Terraform: Beginner with state, a module, `import`, run against a local target. A Pulumi page at intro level | |
 | 7 | Configuration management | 11 | Configuration: Beginner with Ansible against containers: inventory, a playbook, a role, idempotency | |
@@ -88,6 +88,7 @@ Not verified yet:
 - The other data alert rules were not made to fire (idle in transaction, deadlocks, dead rows, cache hit ratio, Redis evictions and rejected connections, Kafka broker, Elasticsearch heap, disk and write rejections).
 - `LAB_SMALL=1` (the single-node layout), and the settings `search false` and `monitoring false`.
 - The GitHub Actions workflow `.github/workflows/devops-lab.yml` with the changes of 2026-11-15.
+- The shop's two-stage Dockerfile (2026-11-17, without npm): built, scanned and its modules load, but not yet deployed to the cluster with `./lab.sh images && ./lab.sh deploy` and `./lab.sh test`. On 2026-11-17 the lab cluster was unhealthy because the `devops-demo` cluster was running too (kube-proxy: "too many open files").
 - The Grafana dashboard was checked through its API (it loads, and its queries return data in Prometheus), not by eye.
 
 Notes for the next run on this machine:
@@ -280,7 +281,7 @@ What each page's missing level sections should hold. These lists were the "Where
 
 ## Make the older pages even
 
-- [ ] Older pages (Docker, Kubernetes, Kafka, monitoring, Loki) are wrapped in one level section as they were. Give each a terms table and a small example in Intro, and move the long hands-on parts to Beginner
+- [ ] Older pages (Kubernetes, Kafka, monitoring, Loki; Docker done 2026-11-17) are wrapped in one level section as they were. Give each a terms table and a small example in Intro, and move the long hands-on parts to Beginner
 - [ ] Redis and Elasticsearch each have two pages (the database page in chapter 7, and Caching / Search in chapter 8). Check that nothing repeats
 - [ ] Metrics page is very short: fold it into Observability or grow it
 - [ ] Prerequisites: check the steps against the current chapter layout, and add the lab's tools (Node.js, Pulumi)

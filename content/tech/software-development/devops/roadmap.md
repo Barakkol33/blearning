@@ -4,7 +4,7 @@ sidebar:
   label: Roadmap
 order: 1
 lang: en
-updated: 2026-11-16
+updated: 2026-11-17
 ---
 
 # Roadmap: what the industry expects, and where it is in the guide
@@ -23,7 +23,7 @@ Use it in two ways: as a study order, from top to bottom, and as a check of what
 | 2 | Operating system | Linux distributions, BSD, Windows | [Linux](01-get-started/linux.md), [Linux internals](01-get-started/linux-internals.md) | beginner | The CPU problem of the lab's first run was found with these tools |
 | 3 | Terminal knowledge | Bash, text tools, process and performance monitoring, networking tools, editors | [Linux](01-get-started/linux.md) (text tools, Bash), [Linux internals](01-get-started/linux-internals.md#troubleshooting-a-server) (process, memory, disk monitoring, `strace`, systemd), [cheatsheet](cheatsheet.md) | beginner | `lab.sh` is a Bash script worth reading |
 | 4 | Version control and hosting | Git, GitHub, GitLab, Bitbucket | [Git and code hosting](06-delivery/git.md) (rebase, conflicts, `reflog`, hooks, protected branches, force push with a lease) | beginner | The lab's workflow: path filters, the jobs a protected branch would require |
-| 5 | Containers | Docker, LXC | [Docker](02-containers/docker.md) | beginner | One image, three roles |
+| 5 | Containers | Docker, LXC | [Docker](02-containers/docker.md) (images, Compose, [small and safe images](02-containers/docker.md#small-and-safe-images): build cache, multi-stage, non-root, scanning with Trivy, pinning, run-time limits) | beginner | One image, three roles. Its Dockerfile [checked](02-containers/docker.md#the-labs-dockerfile-checked) and npm removed from it |
 | 6 | Setting up servers | Reverse and forward proxy, load balancer, caching server, firewall, nginx, Apache, Caddy | [Proxies and load balancers](08-services/proxies.md), [Caching](08-services/caching.md) | intro | Traefik as the door, Redis as the cache |
 | 7 | Networking and protocols | OSI model, DNS, HTTP, HTTPS, TLS, SSH, FTP, email protocols | [Networking](01-get-started/networking.md) (DNS, TLS and a CA, HTTP timing, SSH through a bastion, a firewall), [APIs](05-code/apis.md) | beginner | Routing by host name, cluster DNS |
 | 8 | Cloud providers | AWS, Azure, GCP and smaller providers | [Cloud concepts](03-cloud/concepts.md), [AWS](03-cloud/aws.md), [Azure](03-cloud/azure.md), [GCP](03-cloud/gcp.md) | intro | [The lab in a cloud](13-lab/cloud.md), as a plan |
