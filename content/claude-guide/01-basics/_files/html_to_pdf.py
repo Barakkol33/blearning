@@ -72,10 +72,16 @@ def main() -> None:
         page.evaluate("""() => {
             const hideSelectors = ['.nav', '.slide-counter', '#counter', '.cursor',
                                    '.cursor-dot', '.slide-dots', '.progress', '.progress-bar',
-                                   '#bar', '#hud', '#dots', '#hint'];
+                                   '#bar', '#hud', '#dots', '#hint', '.chrome', '.hint'];
             hideSelectors.forEach(sel => {
                 document.querySelectorAll(sel).forEach(el => el.style.display = 'none');
             });
+            // Letterboxed decks (e.g. pypresent's .deck): fill the viewport, no frame.
+            const style = document.createElement('style');
+            style.textContent = '.deck{width:100vw !important; height:100vh !important;' +
+                                'border:none !important; box-shadow:none !important}';
+            document.head.appendChild(style);
+            window.dispatchEvent(new Event('resize'));
         }""")
 
         screenshots = []
