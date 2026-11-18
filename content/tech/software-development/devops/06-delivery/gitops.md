@@ -2,7 +2,7 @@
 title: GitOps
 order: 4
 lang: en
-tags: [intro]
+tags: [intro, advanced]
 updated: 2026-11-13
 ---
 
@@ -10,7 +10,7 @@ updated: 2026-11-13
 
 In GitOps, a Git repository holds the full description of what should run, and a controller inside the cluster keeps the cluster equal to it. Nobody runs `kubectl apply` by hand and the pipeline does not push to the cluster. To change production you merge a commit.
 
-**Levels on this page:** [Intro](#intro)
+**Levels on this page:** [Intro](#intro) · [Advanced](#advanced)
 
 ## Intro
 
@@ -87,6 +87,25 @@ kubectl -n guestbook get deployment guestbook-ui -w
 3. The GitOps controller sees the commit and syncs the cluster.
 
 CI never touches the cluster.
+
+## Advanced
+
+### Topics to know
+
+The topics and technologies to know at this level. Each line is a name to search for, and what it is. The lists of all pages are together in [Topics to know](../topics.md).
+
+- **Argo CD**: applications, sync policies, sync waves and hooks, ApplicationSets
+- **Flux**: sources, Kustomizations, HelmReleases, image automation
+- **Pull vs push deployment**: why the cluster pulling from Git is safer
+- **Repository layout**: app repo vs config repo, a folder or branch per environment
+- **Environment promotion**: promoting a version through Git: Kargo, pull requests
+- **Drift detection and self-heal**: reverting changes made by hand
+- **Secrets in GitOps**: Sealed Secrets, SOPS, External Secrets
+- **App of apps**: one application that creates the others
+- **Multi-cluster GitOps**: one Argo CD for many clusters, or one per cluster
+- **Image updaters**: Argo CD Image Updater, Flux image automation
+- **Rendered manifests pattern**: committing the final YAML, not only the templates
+- **OpenGitOps principles**: declarative, versioned, pulled, continuously reconciled
 
 ## See also
 

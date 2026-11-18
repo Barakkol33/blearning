@@ -2,7 +2,7 @@
 title: APIs
 order: 4
 lang: en
-tags: [intro]
+tags: [intro, advanced]
 updated: 2026-11-13
 ---
 
@@ -10,7 +10,7 @@ updated: 2026-11-13
 
 Services talk to each other through APIs. When something breaks between two services, you are the one reading the status code, the headers and the timeout. This page covers the styles of API and the vocabulary around them.
 
-**Levels on this page:** [Intro](#intro)
+**Levels on this page:** [Intro](#intro) · [Advanced](#advanced)
 
 ## Intro
 
@@ -77,6 +77,26 @@ What each part is for:
 - `Idempotency-Key` lets the client retry after a timeout without creating two orders.
 - `--max-time 5` is the timeout.
 - `x-request-id` appears in the logs of every service the request passed through. It is the first thing to search for when debugging.
+
+## Advanced
+
+### Topics to know
+
+The topics and technologies to know at this level. Each line is a name to search for, and what it is. The lists of all pages are together in [Topics to know](../topics.md).
+
+- **OpenAPI**: describing an HTTP API, generating clients and docs
+- **gRPC and Protocol Buffers**: fast typed calls between services, and their load-balancing quirks
+- **GraphQL**: one endpoint, queries chosen by the client, and the cost of that
+- **Webhooks**: calls back to you, signatures and retries
+- **WebSockets and server-sent events**: long-lived connections and what they do to proxies
+- **API versioning**: URL vs header versions, deprecating old versions
+- **Authentication**: OAuth 2.0, OpenID Connect, JWT, API keys
+- **Rate limiting**: token bucket, 429 and `Retry-After`
+- **Idempotency keys**: making retries of POST safe
+- **Pagination**: offset vs cursor
+- **API gateways**: Kong, Apigee, AWS API Gateway
+- **Contract testing**: Pact, schema checks in CI
+- **AsyncAPI**: describing event-driven APIs
 
 ## See also
 

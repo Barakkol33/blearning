@@ -2,7 +2,7 @@
 title: Runtimes and engines
 order: 2
 lang: en
-tags: [intro]
+tags: [intro, advanced]
 updated: 2026-11-13
 ---
 
@@ -10,7 +10,7 @@ updated: 2026-11-13
 
 A runtime is the engine that executes a program: the JVM for Java, V8 inside Node.js, the Python interpreter. Each one manages memory and CPU in its own way. Those differences decide how you size containers, why a service is slow to start and why it gets killed.
 
-**Levels on this page:** [Intro](#intro)
+**Levels on this page:** [Intro](#intro) · [Advanced](#advanced)
 
 ## Intro
 
@@ -69,6 +69,25 @@ gunicorn --workers 2 app:app
 ```
 
 The same thinking applies to CPU. A Node.js or Python process cannot use more than one core, so a CPU limit of 4 on one such process wastes three. Run more replicas with one core each.
+
+## Advanced
+
+### Topics to know
+
+The topics and technologies to know at this level. Each line is a name to search for, and what it is. The lists of all pages are together in [Topics to know](../topics.md).
+
+- **JVM tuning**: heap sizing, G1 and ZGC, GC logs, container awareness, `MaxRAMPercentage`
+- **Thread dumps and heap dumps**: `jstack`, `jcmd`, finding deadlocks and leaks
+- **Node.js event loop**: blocking the loop, `--max-old-space-size`, worker threads
+- **Python: the GIL and process models**: gunicorn and uvicorn workers, asyncio
+- **Go runtime**: goroutines, `GOMAXPROCS` in containers, `GOMEMLIMIT`, pprof
+- **.NET runtime**: server GC, container limits, `dotnet-counters`, `dotnet-trace`
+- **Garbage collection**: pauses, generations, why memory grows before it drops
+- **Memory leaks**: how a leak shows on a dashboard, and how to find it
+- **Profiling in production**: continuous profiling with Pyroscope or Parca
+- **Connection pools**: database and HTTP pools, sizing them per instance
+- **Graceful shutdown**: handling SIGTERM, draining requests, `preStop` hooks
+- **WebAssembly on the server**: Wasm runtimes like Wasmtime and Spin
 
 ## See also
 

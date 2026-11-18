@@ -2,7 +2,7 @@
 title: Artifacts and registries
 order: 2
 lang: en
-tags: [intro]
+tags: [intro, advanced]
 updated: 2026-11-15
 ---
 
@@ -10,7 +10,7 @@ updated: 2026-11-15
 
 An artifact is what a build produces and a deployment consumes: a container image, a Java `.jar`, an npm package, a Helm chart. An artifact repository stores them with versions and access control. It sits between CI and CD: the pipeline's build stage ends with a push to it, and every deployment starts with a pull from it.
 
-**Levels on this page:** [Intro](#intro)
+**Levels on this page:** [Intro](#intro) · [Advanced](#advanced)
 
 ## Intro
 
@@ -99,6 +99,26 @@ docker rm -f registry
 - **Go through the proxy.** Developers and pipelines pull from the internal virtual repository, not from the internet.
 - **Clean up automatically.** Snapshots and images of merged branches pile up fast, and storage is the main cost of a repository.
 - **Know what is inside.** Generate an SBOM at build time, scan it, and keep it next to the artifact, so that on the day a vulnerability is announced you can answer "where do we run this?" in minutes.
+
+## Advanced
+
+### Topics to know
+
+The topics and technologies to know at this level. Each line is a name to search for, and what it is. The lists of all pages are together in [Topics to know](../topics.md).
+
+- **Repository managers**: JFrog Artifactory, Sonatype Nexus, Harbor
+- **Local, remote and virtual repositories**: your packages, proxies of public ones, one URL for both
+- **Artifact promotion**: moving the same build from dev to staging to production
+- **Immutable tags and digests**: why production deploys by digest
+- **Retention and cleanup policies**: keeping storage under control
+- **Package formats**: OCI, Helm, npm, PyPI, Maven, Go modules, Debian and RPM
+- **OCI artifacts and ORAS**: storing charts, SBOMs and signatures in a container registry
+- **Dependency confusion and typosquatting**: attacks through package names
+- **Vulnerability scanning of artifacts**: Xray, Trivy, Grype
+- **SBOMs**: SPDX and CycloneDX, what is inside every artifact
+- **Signing and attestations**: cosign, in-toto, Notary
+- **Replication and air-gapped registries**: registries in several regions, or without internet
+- **Build info and traceability**: from an artifact back to its commit and pipeline
 
 ## In the lab
 

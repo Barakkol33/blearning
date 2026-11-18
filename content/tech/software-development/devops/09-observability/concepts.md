@@ -2,7 +2,7 @@
 title: Observability
 order: 1
 lang: en
-tags: [intro]
+tags: [intro, advanced]
 updated: 2026-11-13
 ---
 
@@ -10,7 +10,7 @@ updated: 2026-11-13
 
 Monitoring answers "is it working?". Observability answers "why not?", including for problems nobody predicted. It rests on three kinds of data that the system emits (metrics, logs and traces) and on the discipline of alerting only on what matters.
 
-**Levels on this page:** [Intro](#intro)
+**Levels on this page:** [Intro](#intro) · [Advanced](#advanced)
 
 ## Intro
 
@@ -99,6 +99,26 @@ Three things make it a good alert:
 - An alert that wakes someone must need a human action now. Everything else is a ticket or a dashboard.
 - Alert on symptoms. Use causes for diagnosis.
 - Every false alert teaches people to ignore alerts. Fix or delete noisy ones.
+
+## Advanced
+
+### Topics to know
+
+The topics and technologies to know at this level. Each line is a name to search for, and what it is. The lists of all pages are together in [Topics to know](../topics.md).
+
+- **OpenTelemetry**: the SDKs, the Collector, OTLP, semantic conventions
+- **Distributed tracing**: spans, context propagation (W3C Trace Context), sampling
+- **Tracing backends**: Jaeger, Grafana Tempo, Zipkin
+- **Structured logging and correlation**: trace IDs in every log line
+- **RED and USE methods**: rate, errors, duration for services; utilization, saturation, errors for resources
+- **The four golden signals**: latency, traffic, errors, saturation
+- **Cardinality**: why a label with user IDs breaks a metrics system
+- **Exemplars**: jumping from a metric to a trace
+- **Continuous profiling**: the fourth signal: Pyroscope, Parca
+- **eBPF observability**: Pixie, Beyla, Cilium Hubble
+- **Alerting philosophy**: alert on symptoms, not causes; every page must be actionable
+- **Commercial platforms**: Datadog, New Relic, Dynatrace, Honeycomb, Splunk
+- **Real user monitoring and synthetic checks**: the user's view of the system
 
 ## In the lab
 

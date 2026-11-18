@@ -2,7 +2,7 @@
 title: Operating a database
 order: 4
 lang: en
-tags: [intro]
+tags: [intro, advanced]
 updated: 2026-11-13
 ---
 
@@ -10,7 +10,7 @@ updated: 2026-11-13
 
 Stateless services can be thrown away and recreated. A database cannot: it is the one part of the system where a mistake is permanent. Operating it comes down to four duties: back it up, change its schema safely, watch it, and upgrade it.
 
-**Levels on this page:** [Intro](#intro)
+**Levels on this page:** [Intro](#intro) · [Advanced](#advanced)
 
 ## Intro
 
@@ -78,6 +78,26 @@ docker exec pg psql -U postgres -d restored -c "SELECT count(*) FROM users;"
 ```
 
 Everything written between the dump and the `DROP` is gone: with a nightly dump the RPO is up to 24 hours. Closing that gap is what WAL archiving and PITR are for.
+
+## Advanced
+
+### Topics to know
+
+The topics and technologies to know at this level. Each line is a name to search for, and what it is. The lists of all pages are together in [Topics to know](../topics.md).
+
+- **Backup types**: logical vs physical, full, incremental, continuous archiving
+- **Point-in-time recovery (PITR)**: restoring to any second, with base backups and WAL
+- **Backup tools**: pgBackRest, WAL-G, Barman, Percona XtraBackup
+- **Restore drills**: a backup is real only after a tested restore
+- **RPO and RTO**: how much data and how much time you can lose
+- **Schema migrations**: Flyway, Liquibase, online schema change tools (gh-ost, pt-online-schema-change)
+- **Major version upgrades**: `pg_upgrade`, logical replication upgrades, blue-green databases
+- **Connection pooling**: PgBouncer, ProxySQL, RDS Proxy
+- **Databases on Kubernetes**: operators: CloudNativePG, Zalando, Percona, Strimzi
+- **Managed databases**: RDS, Cloud SQL, Azure Database: what you still own
+- **Capacity planning**: storage growth, IOPS, connections
+- **Data retention and archiving**: partitioning and dropping old data
+- **Encryption and access**: TLS, encryption at rest, roles, auditing
 
 ## See also
 

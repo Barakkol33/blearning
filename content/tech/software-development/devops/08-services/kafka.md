@@ -188,6 +188,25 @@ Prometheus rules for the signals above, as loaded by the [lab](../13-lab/_index.
 | KafkaUnderReplicatedPartitions | `sum(kafka_topic_partition_under_replicated_partition) > 0` | page |
 | ShopOrdersLagging | `sum(kafka_consumergroup_lag{consumergroup="..."}) > 500` | ticket |
 
+### Topics to know
+
+The topics and technologies to know at this level. Each line is a name to search for, and what it is. The lists of all pages are together in [Topics to know](../topics.md).
+
+- **Partitions and keys**: how many partitions, choosing a key, hot partitions
+- **Replication**: ISR, `min.insync.replicas`, `acks=all`, unclean leader election
+- **Consumer groups and rebalances**: cooperative rebalancing, static membership
+- **Offsets and lag**: committing offsets, measuring lag (Burrow, kafka-exporter)
+- **Exactly-once semantics**: idempotent producers, transactions
+- **KRaft**: Kafka without ZooKeeper
+- **Retention and compaction**: time and size retention, log-compacted topics
+- **Producer tuning**: `linger.ms`, `batch.size`, compression
+- **Schema Registry**: Avro and Protobuf schemas, compatibility rules
+- **Kafka Connect and Debezium**: moving data in and out, change data capture
+- **Stream processing**: Kafka Streams, ksqlDB, Apache Flink
+- **Strimzi**: running Kafka on Kubernetes
+- **Tiered storage**: old segments on object storage
+- **Alternatives**: Redpanda, Apache Pulsar, managed Kafka (MSK, Confluent Cloud)
+
 ## In the lab
 
 [Experiment 4](../13-lab/experiments.md) builds consumer lag under load and drains it by adding workers, up to the number of partitions.

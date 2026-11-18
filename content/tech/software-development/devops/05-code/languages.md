@@ -2,7 +2,7 @@
 title: Languages
 order: 1
 lang: en
-tags: [intro]
+tags: [intro, advanced]
 updated: 2026-11-13
 ---
 
@@ -10,7 +10,7 @@ updated: 2026-11-13
 
 A DevOps engineer writes code every day: scripts, pipelines, infrastructure definitions, small tools. And reads much more: the applications being deployed. You need to write well in two or three languages and to read the rest.
 
-**Levels on this page:** [Intro](#intro)
+**Levels on this page:** [Intro](#intro) · [Advanced](#advanced)
 
 ## Intro
 
@@ -90,3 +90,22 @@ sys.exit(1 if failed else 0)
 ```
 
 Both end with an **exit code**: 0 for success, anything else for failure. That is how a pipeline, a Kubernetes probe or a cron job knows what happened.
+
+## Advanced
+
+### Topics to know
+
+The topics and technologies to know at this level. Each line is a name to search for, and what it is. The lists of all pages are together in [Topics to know](../topics.md).
+
+- **Go for tooling**: static binaries, the language of Kubernetes, Docker and Terraform
+- **Python for automation**: virtual environments, uv and pip, packaging scripts as tools
+- **Bash vs Python**: when a script should stop being a shell script
+- **Dependency management and lock files**: reproducible installs in every ecosystem
+- **Semantic versioning**: what a major, minor and patch version promise
+- **Build tools**: Make, Gradle and Maven, npm scripts, Bazel
+- **Monorepos**: Nx, Turborepo, Bazel; building only what changed
+- **Static analysis and linting**: linters, formatters, SonarQube
+- **Testing pyramid**: unit, integration, end-to-end and contract tests
+- **YAML, JSON and HCL pitfalls**: the languages of configuration, and their traps
+- **Templating vs real languages for infrastructure**: Jinja, Helm templates, CUE, Jsonnet vs Pulumi and CDK
+- **Reading stack traces**: finding the cause in Java, Python, Node.js and Go errors

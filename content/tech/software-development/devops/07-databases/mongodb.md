@@ -108,6 +108,23 @@ Keeping a replica set healthy: the signals to watch, and the incidents that repe
 | **Cache pressure.** Writes arrive faster than changed pages can be flushed to disk. | Dirty cache above 20%, and application threads are made to do the flushing. Latency spikes on everything. | Faster disks, more memory, or a slower write burst (throttle the batch job). |
 | **A hot shard.** The shard key always increases (a timestamp, an auto-increment ID), so every insert goes to the last chunk on one shard. | One shard at full load while the others are idle. The balancer moves chunks all the time. | Choose a hashed or compound shard key that spreads writes. An existing key can be refined or the collection resharded, which is a heavy operation: choose well at the start. |
 
+### Topics to know
+
+The topics and technologies to know at this level. Each line is a name to search for, and what it is. The lists of all pages are together in [Topics to know](../topics.md).
+
+- **Replica sets**: elections, priority, arbiters
+- **Read and write concerns**: `w: majority`, read preference, what is durable
+- **Sharding**: shard keys, chunks, the balancer, jumbo chunks
+- **Indexes**: compound, multikey, TTL indexes; the ESR rule
+- **The aggregation pipeline**: and its performance
+- **WiredTiger**: the storage engine, its cache and compression
+- **Schema design**: embedding vs referencing, unbounded arrays
+- **The oplog**: its size and replication window
+- **Change streams**: reacting to data changes
+- **Profiler and slow queries**: `explain()`, the database profiler
+- **Backups**: mongodump, filesystem snapshots, Percona Backup for MongoDB
+- **MongoDB on Kubernetes**: the community and Percona operators, Atlas as a service
+
 ## See also
 
 - [Replication and scaling](replication.md): replica sets, failover and sharding in general

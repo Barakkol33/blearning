@@ -2,7 +2,7 @@
 title: Messaging and queues
 order: 1
 lang: en
-tags: [intro]
+tags: [intro, advanced]
 updated: 2026-11-13
 ---
 
@@ -10,7 +10,7 @@ updated: 2026-11-13
 
 When service A calls service B directly, A waits for B and fails when B is down. A message system sits between them: A hands over a message and moves on, and B takes it when it can. This decouples services, absorbs bursts of load and lets work be retried. [Kafka](kafka.md) is the best known, and it is one of several kinds.
 
-**Levels on this page:** [Intro](#intro)
+**Levels on this page:** [Intro](#intro) · [Advanced](#advanced)
 
 ## Intro
 
@@ -91,6 +91,26 @@ channel.start_consuming()
 ```
 
 Run `send.py` with no worker: the messages wait in the queue (see them at `http://localhost:15672`, user and password `guest`). Start two workers: they share the work. Kill a worker in the middle of a message: it was never acknowledged, so the broker gives it to the other worker.
+
+## Advanced
+
+### Topics to know
+
+The topics and technologies to know at this level. Each line is a name to search for, and what it is. The lists of all pages are together in [Topics to know](../topics.md).
+
+- **Queues vs streams**: a message consumed once vs a log read many times
+- **Delivery guarantees**: at most once, at least once, exactly once
+- **Idempotent consumers**: processing the same message twice safely
+- **Dead-letter queues and retries**: poison messages, backoff
+- **Ordering**: per key, per partition, and what breaks it
+- **Backpressure**: what happens when consumers fall behind
+- **The outbox pattern**: saving data and sending a message reliably
+- **Sagas**: transactions across services, compensation
+- **RabbitMQ**: exchanges, bindings, quorum queues, prefetch
+- **NATS and JetStream**: light, fast messaging
+- **Cloud queues**: SQS, SNS, Pub/Sub, Azure Service Bus
+- **Event sourcing and CQRS**: state as a log of events
+- **Schema evolution**: Avro, Protobuf, schema registries
 
 ## In the lab
 

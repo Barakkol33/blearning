@@ -2,7 +2,7 @@
 title: Cost (FinOps)
 order: 2
 lang: en
-tags: [intro]
+tags: [intro, advanced]
 updated: 2026-11-13
 ---
 
@@ -10,7 +10,7 @@ updated: 2026-11-13
 
 In the cloud every engineer spends money with every resource they create, and the bill arrives a month later. FinOps is the practice of making cost visible and owned by the teams that cause it. A DevOps engineer is expected to know what the infrastructure costs and why.
 
-**Levels on this page:** [Intro](#intro)
+**Levels on this page:** [Intro](#intro) · [Advanced](#advanced)
 
 ## Intro
 
@@ -74,6 +74,25 @@ For production, which runs all the time, the levers are different: commitments f
 - **Delete what a test created.** Short-lived environments should have an expiry.
 - **Look at the bill monthly**, and at the top ten lines in detail.
 - **Design with cost in mind**: traffic between zones and regions, log volume, and storage classes are architecture decisions.
+
+## Advanced
+
+### Topics to know
+
+The topics and technologies to know at this level. Each line is a name to search for, and what it is. The lists of all pages are together in [Topics to know](../topics.md).
+
+- **The FinOps framework**: inform, optimize, operate; the FinOps Foundation
+- **Cost allocation**: tags and labels, showback and chargeback
+- **Unit economics**: cost per customer, per request, per order
+- **Commitments**: Reserved Instances, Savings Plans, committed use discounts
+- **Spot and preemptible capacity**: cheap capacity that can be taken away
+- **Right-sizing**: instances and pods sized to real usage
+- **Kubernetes cost**: OpenCost, Kubecost; requests vs usage, idle capacity
+- **Storage and data transfer costs**: egress, cross-zone traffic, NAT gateway fees
+- **Autoscaling and scheduling**: scaling down at night, turning off dev environments
+- **Budgets and anomaly detection**: alerts before the bill arrives
+- **FOCUS**: the open standard format for cost data
+- **Cost in the design**: choosing architectures with cost as a requirement, Infracost in pull requests
 
 ## See also
 

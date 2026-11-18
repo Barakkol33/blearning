@@ -2,7 +2,7 @@
 title: Docker
 order: 1
 lang: en
-tags: [intro, beginner]
+tags: [intro, beginner, advanced]
 updated: 2026-11-17
 ---
 
@@ -10,7 +10,7 @@ updated: 2026-11-17
 
 Docker packages an application together with everything it needs to run (the libraries, the runtime, the configuration) into one file, an **image**, and runs it as an isolated process, a **container**. The same image runs on a laptop, in CI and in production, which ends "it works on my machine". Almost everything in modern delivery is built on it: CI builds an image, a registry stores it, and [Kubernetes](kubernetes.md) runs it.
 
-**Levels on this page:** [Intro](#intro) · [Beginner](#beginner)
+**Levels on this page:** [Intro](#intro) · [Beginner](#beginner) · [Advanced](#advanced)
 
 ## Intro
 
@@ -568,6 +568,27 @@ shop:check2 (alpine 3.24.4)         Total: 1 (MEDIUM: 1)
 ```
 
 The image is 174 MB, runs as `node`, and its modules load.
+
+## Advanced
+
+### Topics to know
+
+The topics and technologies to know at this level. Each line is a name to search for, and what it is. The lists of all pages are together in [Topics to know](../topics.md).
+
+- **OCI image and runtime specs**: the open standards behind images and containers
+- **containerd and runc**: the layers under Docker that actually run containers
+- **Image layers and OverlayFS**: how layers are stored and combined, copy-on-write
+- **BuildKit and buildx**: parallel builds, cache mounts, secrets at build time, multi-platform images
+- **Distroless and scratch images**: images without a shell or a package manager
+- **Rootless containers and user namespaces**: running containers without root on the host
+- **Seccomp, capabilities and AppArmor profiles**: limiting what a container can ask of the kernel
+- **Podman and Buildah**: daemonless alternatives to Docker
+- **Container networking**: bridge, host and macvlan networks, port publishing, embedded DNS
+- **Storage drivers and volume plugins**: where container data lives
+- **Image scanning and SBOMs**: Trivy, Grype, Syft
+- **Signing images**: cosign and Sigstore
+- **Logging drivers**: json-file, journald, and log rotation
+- **Resource limits**: `--memory`, `--cpus`, and the cgroups underneath
 
 ## In the lab
 

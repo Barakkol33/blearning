@@ -2,7 +2,7 @@
 title: Git and code hosting
 order: 0
 lang: en
-tags: [intro, beginner]
+tags: [intro, beginner, advanced]
 updated: 2026-11-16
 ---
 
@@ -10,7 +10,7 @@ updated: 2026-11-16
 
 Git records every change to a set of files: who made it, when and why. In DevOps it holds much more than application code. Pipelines, infrastructure, Kubernetes manifests and dashboards all live in Git, and a merge is what starts a release. If it is not in Git, it did not happen.
 
-**Levels on this page:** [Intro](#intro) · [Beginner](#beginner)
+**Levels on this page:** [Intro](#intro) · [Beginner](#beginner) · [Advanced](#advanced)
 
 ## Intro
 
@@ -465,6 +465,26 @@ c923283 SHOP-42 Comment
 | Find lost commits | `git reflog` |
 | Who last changed this line, and in which commit | `git blame -L 10,20 <file>`, then `git show <hash>` |
 | A secret was pushed | Rotate the secret first. Then remove it from history with `git filter-repo` if needed, and force push with the team's agreement |
+
+## Advanced
+
+### Topics to know
+
+The topics and technologies to know at this level. Each line is a name to search for, and what it is. The lists of all pages are together in [Topics to know](../topics.md).
+
+- **Git internals**: objects (blobs, trees, commits), refs, the index, packfiles
+- **Branching strategies**: trunk-based development, GitHub flow, GitFlow
+- **Merge vs rebase vs squash**: what each does to history
+- **Interactive rebase, cherry-pick and bisect**: editing history and finding the commit that broke something
+- **Monorepo vs polyrepo**: and sparse checkout, partial clone
+- **Git LFS**: large files outside the repository
+- **Submodules and subtrees**: repositories inside repositories
+- **Signed commits**: GPG, SSH and gitsign signatures
+- **Secret scanning**: gitleaks, trufflehog, push protection; removing a leaked secret from history
+- **CODEOWNERS and branch protection rules**: who must review what
+- **Conventional commits**: commit messages that generate changelogs and versions
+- **Pre-commit hooks**: the pre-commit framework, formatting and checks before a commit
+- **Code review practice**: small pull requests, review checklists
 
 ## In the lab
 

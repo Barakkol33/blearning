@@ -2,7 +2,7 @@
 title: Frameworks
 order: 3
 lang: en
-tags: [intro]
+tags: [intro, advanced]
 updated: 2026-11-13
 ---
 
@@ -10,7 +10,7 @@ updated: 2026-11-13
 
 Almost no service is written from zero. A framework supplies the common parts: receiving HTTP requests, routing, talking to the database, configuration. Recognizing the framework tells you how to build the service, configure it, check its health and read its logs.
 
-**Levels on this page:** [Intro](#intro)
+**Levels on this page:** [Intro](#intro) · [Advanced](#advanced)
 
 ## Intro
 
@@ -90,6 +90,25 @@ curl localhost:8000/hello/dana       # {"message":"Shalom, dana!"}
 6. **State** is in a database or object storage, never on the local disk.
 
 A service that does these six runs well on any platform.
+
+## Advanced
+
+### Topics to know
+
+The topics and technologies to know at this level. Each line is a name to search for, and what it is. The lists of all pages are together in [Topics to know](../topics.md).
+
+- **The twelve-factor app**: config in the environment, stateless processes, logs as streams
+- **Health endpoints**: liveness vs readiness, Spring Boot Actuator, what a check should test
+- **Configuration and feature flags**: OpenFeature, LaunchDarkly, Unleash
+- **Structured logging**: JSON logs with request IDs
+- **Metrics and tracing in frameworks**: Micrometer, OpenTelemetry auto-instrumentation
+- **Database migrations**: Flyway, Liquibase, Alembic, run once per release
+- **ORMs and the N+1 problem**: how one page becomes a thousand queries
+- **Background jobs**: Celery, Sidekiq, BullMQ; workers separate from the web process
+- **Application servers**: gunicorn, uvicorn, Puma, Tomcat; workers and threads
+- **Resilience libraries**: Resilience4j, Polly; retries, timeouts, circuit breakers
+- **Dapr**: a sidecar that gives any framework state, pub/sub and secrets
+- **Microservices vs a modular monolith**: what each costs to operate
 
 ## See also
 

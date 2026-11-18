@@ -2,7 +2,7 @@
 title: Kubernetes in production
 order: 3
 lang: en
-tags: [intro]
+tags: [intro, advanced]
 updated: 2026-11-13
 ---
 
@@ -10,7 +10,7 @@ updated: 2026-11-13
 
 Getting an application to run on Kubernetes is the easy part, covered in the [Kubernetes basics](kubernetes.md). Production asks more: the application must survive node failures and upgrades, scale with load, be reachable securely, and not disturb its neighbors. This page names the pieces that do that.
 
-**Levels on this page:** [Intro](#intro)
+**Levels on this page:** [Intro](#intro) · [Advanced](#advanced)
 
 ## Intro
 
@@ -105,6 +105,29 @@ The HPA works in percent of the **request**, which is one reason every container
 - No secrets in manifests or images.
 - NetworkPolicies and least-privilege RBAC.
 - Metrics, logs and alerts in place before the first user.
+
+## Advanced
+
+### Topics to know
+
+The topics and technologies to know at this level. Each line is a name to search for, and what it is. The lists of all pages are together in [Topics to know](../topics.md).
+
+- **Managed Kubernetes**: EKS, AKS, GKE: what the cloud runs and what you still run
+- **Cluster upgrades**: version skew policy, node pool rotation, deprecated APIs
+- **Autoscaling**: HPA, VPA, Cluster Autoscaler, Karpenter, KEDA
+- **PodDisruptionBudgets**: keeping enough replicas during drains and upgrades
+- **RBAC**: Roles, ClusterRoles, ServiceAccounts, least privilege
+- **NetworkPolicies**: default deny, allowing only the traffic you need
+- **Pod Security Standards**: privileged, baseline and restricted profiles
+- **Policy engines**: Kyverno and OPA Gatekeeper
+- **Secrets in production**: External Secrets Operator, Sealed Secrets, encryption at rest
+- **cert-manager**: automatic TLS certificates from Let's Encrypt or an internal CA
+- **ExternalDNS**: DNS records created from Services and Ingresses
+- **Multi-tenancy**: namespaces, quotas and LimitRanges, vCluster
+- **Backup and restore**: Velero, etcd snapshots
+- **Multi-cluster**: fleet management, Cluster API, cluster per environment or region
+- **Cost and right-sizing**: requests vs real usage, bin packing, spot nodes
+- **Hardening**: CIS Kubernetes Benchmark, kube-bench, audit logs
 
 ## In the lab
 

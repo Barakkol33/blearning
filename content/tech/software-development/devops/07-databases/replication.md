@@ -2,7 +2,7 @@
 title: Replication and scaling
 order: 3
 lang: en
-tags: [intro]
+tags: [intro, advanced]
 updated: 2026-11-13
 ---
 
@@ -10,7 +10,7 @@ updated: 2026-11-13
 
 One database server is a single point of failure and has a ceiling. Replication keeps copies on other servers, for survival and for spreading reads. Sharding splits the data itself over servers, for spreading writes. Both add failure modes that you must understand before you rely on them.
 
-**Levels on this page:** [Intro](#intro)
+**Levels on this page:** [Intro](#intro) · [Advanced](#advanced)
 
 ## Intro
 
@@ -77,6 +77,25 @@ Failover must be automatic and must never produce two primaries. That takes a co
 | PostgreSQL on VMs | Patroni (with etcd or Consul) |
 | PostgreSQL on Kubernetes | An operator: CloudNativePG, Zalando, Crunchy |
 | MongoDB, Cassandra, CockroachDB | Built into the database |
+
+## Advanced
+
+### Topics to know
+
+The topics and technologies to know at this level. Each line is a name to search for, and what it is. The lists of all pages are together in [Topics to know](../topics.md).
+
+- **Synchronous vs asynchronous replication**: durability vs latency
+- **Replication lag**: reading your own writes, monotonic reads
+- **Failover and leader election**: Patroni, orchestrators, fencing and split brain
+- **Consensus**: Raft and Paxos, quorums
+- **The CAP theorem and PACELC**: what a distributed database can promise
+- **Consistency models**: strong, eventual, causal consistency
+- **Sharding**: hash vs range sharding, resharding, hot shards
+- **Consistent hashing**: spreading keys so that adding a node moves little
+- **Multi-leader and leaderless replication**: conflicts, last-write-wins, CRDTs
+- **Read replicas and connection routing**: sending reads away from the primary
+- **Distributed SQL**: CockroachDB, YugabyteDB, Spanner, Vitess
+- **Cross-region replication**: latency, disaster recovery, data residency
 
 ## See also
 

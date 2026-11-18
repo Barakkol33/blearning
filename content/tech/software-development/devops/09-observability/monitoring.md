@@ -2,12 +2,12 @@
 title: "DevOps Monitoring with Prometheus, Loki & Grafana"
 order: 3
 lang: en
-tags: [beginner]
+tags: [beginner, advanced]
 ---
 
 # DevOps Monitoring with Prometheus, Loki & Grafana
 
-**Levels on this page:** [Beginner](#beginner)
+**Levels on this page:** [Beginner](#beginner) · [Advanced](#advanced)
 
 ## Beginner
 
@@ -456,3 +456,21 @@ sum(rate(({app="$app"} |~ "(WARN|ERROR)")[5m]))
 * With a few **Kubernetes + Helm** steps, you can stand up a comprehensive monitoring stack that supports **KPIs**, **SLIs/SLOs**, and **reliable alerting**.
 
 ```
+
+## Advanced
+
+### Topics to know
+
+The topics and technologies to know at this level. Each line is a name to search for, and what it is. The lists of all pages are together in [Topics to know](../topics.md).
+
+- **Alertmanager in depth**: routing trees, grouping, inhibition, silences
+- **Alert design**: `for` durations, severities, avoiding alert fatigue
+- **SLO-based alerting**: multi-window, multi-burn-rate alerts; Sloth, Pyrra
+- **On-call tools**: PagerDuty, Opsgenie, Grafana OnCall
+- **Runbooks linked from alerts**: every alert says what to do
+- **Grafana in depth**: variables, dashboards as code (Grafonnet, Terraform), provisioning
+- **Dashboard design**: the overview first, then drill down; RED dashboards per service
+- **Blackbox and synthetic monitoring**: probing endpoints from outside
+- **Monitoring the monitoring**: a dead man's switch alert (Watchdog)
+- **Grafana Alloy and the OpenTelemetry Collector**: one agent for metrics, logs and traces
+- **kube-prometheus-stack**: the standard Helm chart for Kubernetes monitoring

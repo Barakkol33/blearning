@@ -152,6 +152,25 @@ Prometheus rules for the signals above, as loaded by the [lab](../13-lab/_index.
 | PostgresDeadRows | dead rows above 20% of live rows, for 10 minutes | ticket |
 | PostgresCacheHitRatioLow | `blks_hit / (blks_hit + blks_read) < 0.95`, for 10 minutes | ticket |
 
+### Topics to know
+
+The topics and technologies to know at this level. Each line is a name to search for, and what it is. The lists of all pages are together in [Topics to know](../topics.md).
+
+- **VACUUM, autovacuum and bloat**: dead rows, tuning autovacuum, pg_repack
+- **Transaction ID wraparound**: the freeze that can stop a database
+- **pg_stat_statements**: the most expensive queries
+- **EXPLAIN ANALYZE and auto_explain**: reading query plans
+- **Index types**: B-tree, GIN, GiST, BRIN, partial and expression indexes
+- **Locks**: `pg_locks`, lock queues behind an `ALTER TABLE`, `lock_timeout`
+- **Connection pooling with PgBouncer**: transaction vs session pooling
+- **Memory settings**: `shared_buffers`, `work_mem`, `effective_cache_size`
+- **Checkpoints and WAL tuning**: `max_wal_size`, checkpoint spikes
+- **Streaming and logical replication**: replicas, replication slots, publications
+- **High availability**: Patroni, CloudNativePG, repmgr
+- **Partitioning**: declarative partitioning by time or key
+- **Extensions**: PostGIS, pgvector, TimescaleDB, Citus
+- **Backups**: pgBackRest, WAL-G, `pg_dump`
+
 ## In the lab
 
 The [lab experiments](../13-lab/experiments.md) reproduce three of these cases on a running server: a lock queue behind an open transaction (experiment 7), running out of connections (8), and looking inside with `pg_stat_statements` and `EXPLAIN` (6).

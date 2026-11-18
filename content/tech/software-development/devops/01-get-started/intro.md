@@ -2,7 +2,7 @@
 title: What is DevOps
 order: 1
 lang: en
-tags: [intro]
+tags: [intro, advanced]
 updated: 2026-11-15
 ---
 
@@ -10,7 +10,7 @@ updated: 2026-11-15
 
 DevOps is the set of practices that take software from a developer's editor to users, and keep it working there. It is not a tool and not only a job title: it is a way of working in which the people who write software and the people who run it share one goal, small changes that reach production often and safely. This page gives the ideas and the map. Every other page of the guide goes deeper into one part.
 
-**Levels on this page:** [Intro](#intro)
+**Levels on this page:** [Intro](#intro) · [Advanced](#advanced)
 
 ## Intro
 
@@ -140,6 +140,25 @@ and then, with nobody involved:
 5. If it does, `git revert` and a push run the same path backwards.
 
 The [lab](../13-lab/_index.md) has this loop for real: [experiment 11](../13-lab/experiments.md#11-a-bad-release-and-a-rollback) releases a new version, measures that no request is lost, and rolls back a broken one.
+
+## Advanced
+
+### Topics to know
+
+The topics and technologies to know at this level. Each line is a name to search for, and what it is. The lists of all pages are together in [Topics to know](../topics.md).
+
+- **DORA metrics**: deployment frequency, lead time for changes, change failure rate, time to restore; how delivery is measured
+- **Accelerate and the State of DevOps reports**: the research behind the DORA metrics
+- **Platform engineering**: a team that builds an internal platform so product teams can ship by themselves
+- **Internal developer platform (IDP) and Backstage**: a self-service portal of services, templates and docs
+- **Golden paths**: the supported, paved way to build and run a service
+- **Team Topologies**: stream-aligned, platform, enabling and complicated-subsystem teams, and how they interact
+- **Value stream mapping**: drawing every step from idea to production to find where time is lost
+- **Toil**: manual, repetitive operational work that automation should remove
+- **Blameless postmortems**: learning from incidents without looking for someone to blame
+- **Conway's law**: systems mirror the communication structure of the organization that builds them
+- **Developer experience (DevEx) and the SPACE framework**: measuring how productive and satisfied engineers are
+- **DevSecOps and shift left**: security checks moved into the daily work of developers
 
 ## In the lab
 

@@ -2,7 +2,7 @@
 title: Configuration and images
 order: 2
 lang: en
-tags: [intro]
+tags: [intro, advanced]
 updated: 2026-11-13
 ---
 
@@ -10,7 +10,7 @@ updated: 2026-11-13
 
 [Terraform](terraform.md) creates the machine. Something still has to install packages on it, write config files and start services. This page covers the tools for that step, and the other infrastructure-as-code tools you will meet.
 
-**Levels on this page:** [Intro](#intro)
+**Levels on this page:** [Intro](#intro) · [Advanced](#advanced)
 
 ## Intro
 
@@ -84,6 +84,25 @@ ansible-playbook -i inventory.ini site.yml
 ```
 
 The first run reports `changed` for each task. The second reports `ok`: each task describes a state, so there is nothing left to do. That is idempotency again, the property all these tools share.
+
+## Advanced
+
+### Topics to know
+
+The topics and technologies to know at this level. Each line is a name to search for, and what it is. The lists of all pages are together in [Topics to know](../topics.md).
+
+- **Ansible in depth**: roles, collections, Galaxy, handlers, Jinja2 templates, facts
+- **Inventories**: static and dynamic inventories from a cloud
+- **Ansible Vault**: encrypted variables in the repository
+- **Idempotency and check mode**: `--check`, `--diff`, running a playbook twice safely
+- **Testing roles**: Molecule, ansible-lint
+- **AWX and Ansible Automation Platform**: running playbooks from a central service
+- **Chef, Puppet and Salt**: agent-based configuration management, still common in older estates
+- **Packer**: building machine images from code
+- **Golden images and immutable infrastructure**: replacing servers instead of changing them
+- **cloud-init**: configuring a VM on its first boot
+- **Configuration drift**: detecting and correcting servers that changed by hand
+- **NixOS and declarative systems**: a whole operating system described in code
 
 ## See also
 

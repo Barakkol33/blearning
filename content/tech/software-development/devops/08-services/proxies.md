@@ -2,7 +2,7 @@
 title: Proxies and load balancers
 order: 6
 lang: en
-tags: [intro]
+tags: [intro, advanced]
 updated: 2026-11-13
 ---
 
@@ -10,7 +10,7 @@ updated: 2026-11-13
 
 Between the user and the application there is almost always at least one proxy. It spreads traffic over servers, handles TLS, hides failed servers and routes by URL. Ingress controllers, API gateways and service meshes are all proxies with different configuration.
 
-**Levels on this page:** [Intro](#intro)
+**Levels on this page:** [Intro](#intro) · [Advanced](#advanced)
 
 ## Intro
 
@@ -105,6 +105,26 @@ for i in 1 2 3 4; do curl -s localhost:8080; done
 | 504 Gateway Timeout | The backend did not answer within the proxy's timeout |
 
 In all three, the proxy is healthy and the problem is behind it.
+
+## Advanced
+
+### Topics to know
+
+The topics and technologies to know at this level. Each line is a name to search for, and what it is. The lists of all pages are together in [Topics to know](../topics.md).
+
+- **nginx in depth**: `upstream`, `proxy_pass`, buffering, timeouts, `map`, rate limiting
+- **HAProxy**: L4 and L7 balancing, health checks, stick tables
+- **Envoy**: the proxy behind most meshes and gateways, xDS configuration
+- **Traefik and Caddy**: proxies that configure themselves, automatic HTTPS
+- **Load-balancing algorithms**: round robin, least connections, consistent hashing
+- **Health checks**: active vs passive, outlier detection
+- **TLS termination and passthrough**: and re-encryption to the backend
+- **Timeouts and keepalives**: the 502 and 504 errors and where they come from
+- **Headers through proxies**: `X-Forwarded-For`, `Forwarded`, PROXY protocol
+- **Rate limiting and WAF**: ModSecurity, Coraza, cloud WAFs
+- **Ingress controllers**: ingress-nginx, Traefik, Contour, HAProxy Ingress
+- **API gateways**: Kong, Envoy Gateway, Apache APISIX
+- **Global load balancing**: DNS-based (GSLB), anycast
 
 ## In the lab
 

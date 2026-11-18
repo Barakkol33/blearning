@@ -2,14 +2,14 @@
 title: "Loki & LogQL"
 order: 4
 lang: en
-tags: [beginner]
+tags: [beginner, advanced]
 ---
 
 # Loki & LogQL
 
 LogQL is the query language for **Grafana Loki** logs.
 
-**Levels on this page:** [Beginner](#beginner)
+**Levels on this page:** [Beginner](#beginner) · [Advanced](#advanced)
 
 ## Beginner
 
@@ -77,3 +77,21 @@ After parsing JSON, you can format the displayed log line:
 ```logql
 {container="myapp"} |= "error" | json | line_format "{{.downstream_local_address}} {{.response_code}} {{.method}} {{.path}}"
 ```
+
+## Advanced
+
+### Topics to know
+
+The topics and technologies to know at this level. Each line is a name to search for, and what it is. The lists of all pages are together in [Topics to know](../topics.md).
+
+- **Loki architecture**: distributor, ingester, querier, compactor; object storage for chunks
+- **Labels vs log content**: few labels, and filtering the rest at query time
+- **Structured metadata**: high-cardinality fields without labels
+- **LogQL metric queries**: `rate`, `count_over_time`, `unwrap`
+- **Log alerting**: Loki ruler rules
+- **Retention and deletion**: per-tenant retention, the compactor
+- **Collectors**: Grafana Alloy, Promtail (deprecated), Fluent Bit, Vector
+- **Multi-tenancy**: the `X-Scope-OrgID` header
+- **Scaling**: monolithic, simple scalable and microservices modes
+- **Other log stacks**: ELK and EFK, OpenSearch, ClickHouse for logs, Splunk
+- **Log levels and sampling**: keeping costs down at high volume

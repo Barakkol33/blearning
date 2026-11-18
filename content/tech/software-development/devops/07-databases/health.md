@@ -54,6 +54,19 @@ What these rules cannot see, and what you still need: disk space of the database
 
 The [lab](../13-lab/_index.md) runs PostgreSQL, Redis, Kafka and Elasticsearch with exporters and a dashboard, so several of these cases can be caused on purpose and watched. The [experiments page](../13-lab/experiments.md) walks through them: exhausting PostgreSQL connections, a transaction left open, Redis evictions, Kafka lag and a yellow Elasticsearch cluster.
 
+### Topics to know
+
+The topics and technologies to know at this level. Each line is a name to search for, and what it is. The lists of all pages are together in [Topics to know](../topics.md).
+
+- **The four golden signals for a database**: latency, traffic, errors, saturation
+- **Exporters**: postgres_exporter, redis_exporter, mongodb_exporter, kafka-exporter
+- **Slow query logs**: finding the queries that cost the most
+- **Saturation signals**: connections, CPU, IO wait, memory, disk
+- **Replication health**: lag, broken replicas, WAL or binlog piling up
+- **Runbooks**: a written procedure for each alert
+- **Capacity trends**: predicting when the disk fills (`predict_linear`)
+- **Incident response for data systems**: stop the bleeding, protect the data, then find the cause
+
 ## See also
 
 - [PostgreSQL](postgres.md), [Elasticsearch](elasticsearch.md), [Redis](redis.md), [MongoDB](mongodb.md), [ClickHouse](clickhouse.md), [Kafka](../08-services/kafka.md)

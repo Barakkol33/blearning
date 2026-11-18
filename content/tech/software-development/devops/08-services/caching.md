@@ -2,7 +2,7 @@
 title: Caching and Redis
 order: 3
 lang: en
-tags: [intro]
+tags: [intro, advanced]
 updated: 2026-11-13
 ---
 
@@ -10,7 +10,7 @@ updated: 2026-11-13
 
 A cache keeps the answer to an expensive question in memory, so the next ask is fast. It is the cheapest way to speed up a system and to take load off a database. The price is that the cached answer can be out of date.
 
-**Levels on this page:** [Intro](#intro)
+**Levels on this page:** [Intro](#intro) · [Advanced](#advanced)
 
 ## Intro
 
@@ -89,6 +89,25 @@ def update_user(user_id: int, data: dict) -> None:
 - **A cache must be allowed to be empty.** If the system cannot survive a cold cache, the cache has become a database, and needs to be run like one.
 - **Always set a TTL.** It bounds how stale any value can get.
 - Watch the hit ratio, memory, evictions and latency.
+
+## Advanced
+
+### Topics to know
+
+The topics and technologies to know at this level. Each line is a name to search for, and what it is. The lists of all pages are together in [Topics to know](../topics.md).
+
+- **Caching patterns**: cache-aside, read-through, write-through, write-behind
+- **Invalidation**: TTLs, explicit deletes, versioned keys
+- **Cache stampede**: many misses at once; locks, request coalescing, early refresh
+- **Hit ratio**: measuring whether a cache helps
+- **Hot keys**: one key that a whole cluster waits on, local caches in front
+- **HTTP caching**: `Cache-Control`, ETags, `Vary`, stale-while-revalidate
+- **CDNs**: Cloudflare, CloudFront, Fastly; purging
+- **Reverse-proxy caches**: Varnish, nginx proxy cache
+- **Memcached vs Redis**: and when each is the right choice
+- **Negative caching**: caching "not found" answers
+- **Multi-level caching**: in-process, shared, CDN
+- **Consistency**: stale reads and when they are acceptable
 
 ## In the lab
 

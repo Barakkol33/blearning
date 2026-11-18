@@ -2,7 +2,7 @@
 title: ClickHouse
 order: 9
 lang: en
-tags: [intro]
+tags: [intro, advanced]
 updated: 2026-11-15
 ---
 
@@ -10,7 +10,7 @@ updated: 2026-11-15
 
 ClickHouse is a columnar database for analytics: questions such as "requests per service per minute over the last month" over billions of rows, answered in under a second. It is built for appending large amounts of data and scanning it fast, and it is poor at what PostgreSQL does well: many small transactions that update single rows. It is widely used for logs, metrics, events and product analytics.
 
-**Levels on this page:** [Intro](#intro)
+**Levels on this page:** [Intro](#intro) · [Advanced](#advanced)
 
 ## Intro
 
@@ -102,6 +102,24 @@ The data takes 3% of its raw size, because each column holds similar values. Gen
 ```bash
 docker rm -f ch
 ```
+
+## Advanced
+
+### Topics to know
+
+The topics and technologies to know at this level. Each line is a name to search for, and what it is. The lists of all pages are together in [Topics to know](../topics.md).
+
+- **MergeTree engines**: ReplacingMergeTree, AggregatingMergeTree, SummingMergeTree
+- **Primary key and ORDER BY**: sparse indexes, granules, choosing the sort key
+- **Partitions and parts**: too many parts, merges, `system.parts`
+- **Materialized views**: aggregating at insert time
+- **Inserts**: batching, async inserts, why many small inserts hurt
+- **Replication and sharding**: ReplicatedMergeTree, Distributed tables, ClickHouse Keeper
+- **Compression and codecs**: LZ4, ZSTD, Delta, Gorilla
+- **TTL**: moving or deleting old data automatically
+- **Query performance**: `system.query_log`, skipping indexes, projections
+- **Integrations**: Kafka engine, S3 table functions
+- **Other columnar stores**: Apache Druid, Apache Pinot, BigQuery, Snowflake
 
 ## See also
 

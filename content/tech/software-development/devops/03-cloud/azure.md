@@ -2,7 +2,7 @@
 title: Azure
 order: 3
 lang: en
-tags: [intro]
+tags: [intro, advanced]
 updated: 2026-11-13
 ---
 
@@ -10,7 +10,7 @@ updated: 2026-11-13
 
 Microsoft's cloud. It is strongest in enterprises that already use Microsoft products: Windows, Active Directory, Microsoft 365, .NET. Its style: everything belongs to a resource group, and identity comes from Entra ID.
 
-**Levels on this page:** [Intro](#intro)
+**Levels on this page:** [Intro](#intro) · [Advanced](#advanced)
 
 ## Intro
 
@@ -80,6 +80,27 @@ az group delete --name rg-demo --yes
 ### What to learn first
 
 Entra ID and RBAC, resource groups, VNets and NSGs, virtual machines, storage accounts, then AKS and Key Vault.
+
+## Advanced
+
+### Topics to know
+
+The topics and technologies to know at this level. Each line is a name to search for, and what it is. The lists of all pages are together in [Topics to know](../topics.md).
+
+- **Microsoft Entra ID**: the identity platform, formerly Azure AD; managed identities
+- **Management groups, subscriptions and Azure Policy**: governance over many subscriptions
+- **Azure RBAC**: role assignments at each scope
+- **VNets**: subnets, NSGs, VNet peering, hub and spoke, Private Link
+- **Azure Load Balancer, Application Gateway and Front Door**: L4, L7 and global entry points
+- **AKS**: Azure's Kubernetes, workload identity, node pools
+- **Virtual Machine Scale Sets**: groups of VMs that scale together
+- **Storage accounts**: Blob, Files, Queues, redundancy options (LRS, ZRS, GRS)
+- **Azure SQL and Cosmos DB**: managed relational and globally distributed databases
+- **Key Vault**: keys, secrets and certificates
+- **Azure Monitor and Log Analytics**: metrics, logs and KQL queries
+- **Bicep and ARM templates**: Azure's own infrastructure as code
+- **Azure DevOps**: Boards, Repos, Pipelines, Artifacts
+- **Cost Management and reservations**: budgets, Azure Hybrid Benefit
 
 ## See also
 

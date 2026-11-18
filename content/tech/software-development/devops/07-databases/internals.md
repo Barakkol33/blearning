@@ -2,7 +2,7 @@
 title: How databases work
 order: 1
 lang: en
-tags: [intro]
+tags: [intro, advanced]
 updated: 2026-11-13
 ---
 
@@ -10,7 +10,7 @@ updated: 2026-11-13
 
 A database has two jobs: never lose data it confirmed, and find data fast. Almost every setting you tune and every incident you debug comes back to how it does these two. The ideas here are shared by PostgreSQL, MySQL, and most other databases.
 
-**Levels on this page:** [Intro](#intro)
+**Levels on this page:** [Intro](#intro) · [Advanced](#advanced)
 
 ## Intro
 
@@ -75,6 +75,25 @@ EXPLAIN ANALYZE SELECT * FROM users WHERE email = 'user500000@example.com';
 `EXPLAIN ANALYZE` shows the planner's choice and the real time. "Seq Scan" on a large table for a query that returns few rows is the most common cause of a slow database.
 
 Indexes are not free: every one is updated on each write and takes disk and memory. Index what queries filter and join on, not everything.
+
+## Advanced
+
+### Topics to know
+
+The topics and technologies to know at this level. Each line is a name to search for, and what it is. The lists of all pages are together in [Topics to know](../topics.md).
+
+- **B-trees and LSM trees**: the two families of storage engines and their trade-offs
+- **Write-ahead log (WAL)**: durability, crash recovery, `fsync`
+- **Pages and the buffer pool**: why the working set should fit in memory
+- **Indexes in depth**: composite indexes, covering indexes, partial indexes, index selectivity
+- **Query planner**: `EXPLAIN ANALYZE`, statistics, why the planner picks a bad plan
+- **Transactions and ACID**: atomicity, consistency, isolation, durability
+- **Isolation levels and anomalies**: read committed, repeatable read, serializable; dirty and phantom reads
+- **MVCC**: readers do not block writers, and the dead rows it leaves
+- **Locks and deadlocks**: row and table locks, lock waits
+- **Compaction**: how LSM engines merge files in the background
+- **Row vs column storage**: OLTP vs OLAP
+- **Normalization and denormalization**: when duplicating data is right
 
 ## In the lab
 

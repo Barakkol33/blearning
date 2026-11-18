@@ -2,7 +2,7 @@
 title: CI/CD
 order: 1
 lang: en
-tags: [intro]
+tags: [intro, advanced]
 updated: 2026-11-13
 ---
 
@@ -10,7 +10,7 @@ updated: 2026-11-13
 
 CI/CD is the automated road from a commit to production. Every change is built and tested the same way, by a machine, and released by pressing merge. It is the center of DevOps work: most of what you build ends up as a step in a pipeline.
 
-**Levels on this page:** [Intro](#intro)
+**Levels on this page:** [Intro](#intro) · [Advanced](#advanced)
 
 ## Intro
 
@@ -146,6 +146,27 @@ Real pipelines add caching, artifacts, environments and protected variables.
 - **Reliable**: a red pipeline always means a real problem. Flaky tests are fixed or removed.
 - **Reproducible**: pinned versions and lock files.
 - **Secure**: least-privilege tokens, no long-lived cloud keys (see [Security](../10-security/_index.md)).
+
+## Advanced
+
+### Topics to know
+
+The topics and technologies to know at this level. Each line is a name to search for, and what it is. The lists of all pages are together in [Topics to know](../topics.md).
+
+- **Pipeline as code**: GitHub Actions, GitLab CI, Jenkins pipelines, Azure Pipelines
+- **Runners**: hosted vs self-hosted, ephemeral runners on Kubernetes (Actions Runner Controller)
+- **Caching and artifacts between jobs**: dependency caches, build caches, Docker layer cache
+- **Matrix builds**: one job over many versions and platforms
+- **Reusable workflows and templates**: shared pipeline code across repositories
+- **OIDC to clouds**: deploying without stored cloud keys
+- **Secrets in pipelines**: masked variables, environments, approvals
+- **Test strategy in CI**: fast feedback, parallel tests, flaky tests and quarantine
+- **Merge queues**: testing the merged result before it lands
+- **Supply chain security**: SLSA levels, provenance, SBOMs, pinning actions by digest
+- **Release automation**: semantic-release, release-please, changelogs
+- **Preview environments**: an environment per pull request
+- **Pipeline metrics**: duration, queue time, failure rate, DORA metrics from CI
+- **Other tools**: Tekton, Argo Workflows, Buildkite, CircleCI, Dagger
 
 ## In the lab
 

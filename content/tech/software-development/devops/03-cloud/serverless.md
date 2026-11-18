@@ -2,7 +2,7 @@
 title: Serverless
 order: 5
 lang: en
-tags: [intro]
+tags: [intro, advanced]
 updated: 2026-11-15
 ---
 
@@ -10,7 +10,7 @@ updated: 2026-11-15
 
 Serverless means you hand the provider a function or a container, and the provider decides where and when to run it. There are servers, but you never see, patch or size them. You pay for what runs, and when nothing runs you pay nothing. It trades control for less operations work, and it changes what a DevOps engineer does: fewer machines to keep alive, more permissions, events and limits to get right.
 
-**Levels on this page:** [Intro](#intro)
+**Levels on this page:** [Intro](#intro) · [Advanced](#advanced)
 
 ## Intro
 
@@ -95,6 +95,27 @@ In a real account the same file is deployed with a tool (AWS SAM, the Serverless
 - **Make handlers idempotent.** Most triggers deliver "at least once", so the same event can arrive twice.
 - **Logs, metrics and traces come from the platform.** With many small functions, tracing a request across them matters more than in one service (see [Observability](../09-observability/concepts.md)).
 - **Keep the deployment in code.** A system of 40 functions and their triggers that was clicked together in a console cannot be reviewed or rebuilt.
+
+## Advanced
+
+### Topics to know
+
+The topics and technologies to know at this level. Each line is a name to search for, and what it is. The lists of all pages are together in [Topics to know](../topics.md).
+
+- **Cold starts**: what makes them slow, provisioned concurrency, SnapStart
+- **Concurrency limits and throttling**: account and function limits, reserved concurrency
+- **Event sources**: queues, streams, object events, schedules, API gateways
+- **Retries, dead-letter queues and idempotency**: what happens when an invocation fails
+- **Step Functions and workflows**: orchestrating several functions, Durable Functions on Azure
+- **Event-driven architecture**: EventBridge, Event Grid, Eventarc
+- **API Gateway**: routes, authorizers, throttling, usage plans
+- **Function URLs and Lambda layers**: simple endpoints and shared code
+- **Serverless containers**: Cloud Run, Fargate, Azure Container Apps
+- **Knative and OpenFaaS**: serverless on your own Kubernetes
+- **Edge functions**: Cloudflare Workers, Lambda@Edge
+- **Frameworks**: AWS SAM, Serverless Framework, SST
+- **Observability for functions**: structured logs, X-Ray and OpenTelemetry, per-invocation cost
+- **Cost model**: pay per request and duration, and when a server becomes cheaper
 
 ## See also
 

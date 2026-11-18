@@ -164,6 +164,24 @@ Prometheus rules for the signals above, as loaded by the [lab](../13-lab/_index.
 | ElasticsearchDiskHigh | data disk more than 80% full | ticket |
 | ElasticsearchWriteRejections | `increase(elasticsearch_thread_pool_rejected_count{type="write"}[5m]) > 0` | ticket |
 
+### Topics to know
+
+The topics and technologies to know at this level. Each line is a name to search for, and what it is. The lists of all pages are together in [Topics to know](../topics.md).
+
+- **Shards and replicas**: sizing, allocation, rebalancing
+- **Mappings and analyzers**: text vs keyword, tokenizers, dynamic mapping
+- **Index lifecycle management (ILM)**: hot, warm, cold and delete phases, rollover
+- **Data streams and index templates**: time-series indexes done right
+- **Snapshots and restore**: snapshot repositories on object storage
+- **Node roles**: master, data, ingest, coordinating; dedicated masters
+- **JVM heap and circuit breakers**: heap at half the memory, under about 31 GB
+- **Query performance**: the profile API, slow logs, filters vs queries
+- **Relevance scoring**: BM25, boosting
+- **Cross-cluster replication and search**: several clusters as one
+- **Security**: users, roles, TLS between nodes, API keys
+- **OpenSearch**: the open source fork, and how it differs
+- **ECK**: Elastic Cloud on Kubernetes, the operator
+
 ## In the lab
 
 [Experiment 9](../13-lab/experiments.md) shows a yellow cluster, explains it with `_cluster/allocation/explain` and fixes it.

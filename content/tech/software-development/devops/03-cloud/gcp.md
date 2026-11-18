@@ -2,7 +2,7 @@
 title: GCP
 order: 4
 lang: en
-tags: [intro]
+tags: [intro, advanced]
 updated: 2026-11-13
 ---
 
@@ -10,7 +10,7 @@ updated: 2026-11-13
 
 Google Cloud Platform is the smallest of the three and known for data and Kubernetes: BigQuery, and GKE from the company that created Kubernetes. Its style: fewer, more opinionated services, and everything belongs to a project.
 
-**Levels on this page:** [Intro](#intro)
+**Levels on this page:** [Intro](#intro) · [Advanced](#advanced)
 
 ## Intro
 
@@ -75,6 +75,27 @@ gcloud projects add-iam-policy-binding my-demo-project \
 ### What to learn first
 
 Projects and IAM, service accounts, VPC, Compute Engine, Cloud Storage, then GKE or Cloud Run, Cloud SQL and BigQuery.
+
+## Advanced
+
+### Topics to know
+
+The topics and technologies to know at this level. Each line is a name to search for, and what it is. The lists of all pages are together in [Topics to know](../topics.md).
+
+- **Resource hierarchy**: organization, folders, projects; organization policies
+- **IAM and service accounts**: roles, workload identity federation, impersonation
+- **VPC**: global VPCs, Shared VPC, firewall rules, Private Service Connect, Cloud NAT
+- **Cloud Load Balancing**: the global external load balancer, backend services, Cloud Armor
+- **GKE**: Autopilot vs Standard, node pools, Workload Identity
+- **Cloud Run**: containers without servers, concurrency, min instances
+- **Compute Engine**: machine types, managed instance groups, preemptible and spot VMs
+- **Cloud Storage**: storage classes, lifecycle, signed URLs
+- **Cloud SQL, Spanner and Firestore**: managed relational, global relational and document databases
+- **BigQuery**: the serverless data warehouse, cost per query
+- **Pub/Sub**: managed messaging
+- **Cloud Logging and Cloud Monitoring**: the operations suite
+- **Secret Manager and Cloud KMS**: secrets and keys
+- **Cloud Build and Artifact Registry**: builds and images on GCP
 
 ## See also
 

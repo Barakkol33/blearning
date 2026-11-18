@@ -2,7 +2,7 @@
 title: AWS
 order: 2
 lang: en
-tags: [intro]
+tags: [intro, advanced]
 updated: 2026-11-13
 ---
 
@@ -10,7 +10,7 @@ updated: 2026-11-13
 
 Amazon Web Services is the oldest and largest cloud, with the widest set of services. Most job descriptions ask for it. Its style: many small building blocks that you wire together yourself, and IAM policies on everything.
 
-**Levels on this page:** [Intro](#intro)
+**Levels on this page:** [Intro](#intro) · [Advanced](#advanced)
 
 ## Intro
 
@@ -81,6 +81,28 @@ aws s3 rb s3://demo-notes-123456 --force
 ### What to learn first
 
 IAM, VPC, EC2, S3, RDS, then EKS or ECS, and CloudWatch. These cover most real systems. The other 200 services can wait until you need one.
+
+## Advanced
+
+### Topics to know
+
+The topics and technologies to know at this level. Each line is a name to search for, and what it is. The lists of all pages are together in [Topics to know](../topics.md).
+
+- **AWS Organizations and Control Tower**: many accounts, guardrails, service control policies (SCPs)
+- **IAM in depth**: policies, roles, trust policies, permission boundaries, IAM Identity Center
+- **VPC in depth**: subnets, route tables, NAT gateways, security groups vs NACLs, VPC endpoints, Transit Gateway
+- **EC2**: instance families, Auto Scaling groups, launch templates, spot instances
+- **Elastic Load Balancing**: ALB, NLB, target groups, health checks
+- **EKS and ECS**: containers on AWS, Fargate, IRSA and Pod Identity
+- **S3 in depth**: storage classes, lifecycle rules, versioning, bucket policies, replication
+- **RDS and Aurora**: managed databases, Multi-AZ, read replicas, snapshots
+- **DynamoDB**: partition keys, capacity modes, hot partitions
+- **Route 53**: DNS, health checks, routing policies
+- **CloudFront**: the CDN in front of S3 and applications
+- **CloudWatch and CloudTrail**: metrics, logs and alarms; the audit log of every API call
+- **KMS and Secrets Manager**: encryption keys and secret storage
+- **Cost tools**: Cost Explorer, Budgets, Savings Plans, Reserved Instances
+- **CloudFormation and CDK**: AWS's own infrastructure as code
 
 ## See also
 

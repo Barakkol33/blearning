@@ -2,7 +2,7 @@
 title: Search
 order: 4
 lang: en
-tags: [intro]
+tags: [intro, advanced]
 updated: 2026-11-13
 ---
 
@@ -10,7 +10,7 @@ updated: 2026-11-13
 
 A relational database finds rows by exact values. It is poor at "find documents that mention these words, best match first". Search engines are built for that, and the same engines became the standard place to store and query logs. A DevOps engineer usually meets them as the log system.
 
-**Levels on this page:** [Intro](#intro)
+**Levels on this page:** [Intro](#intro) · [Advanced](#advanced)
 
 ## Intro
 
@@ -85,6 +85,23 @@ On this single node the index is yellow: its replica shard has no second node to
 - **Logs grow without limit.** Set a lifecycle policy that deletes old indexes on day one.
 - **Shard count matters.** Too many small shards is the classic cause of an unstable cluster.
 - **It is not the source of truth.** Keep the primary data elsewhere and be able to re-index.
+
+## Advanced
+
+### Topics to know
+
+The topics and technologies to know at this level. Each line is a name to search for, and what it is. The lists of all pages are together in [Topics to know](../topics.md).
+
+- **Inverted index**: how full-text search finds documents
+- **Analyzers**: tokenizers, stemming, stop words, synonyms, languages
+- **Relevance**: BM25, boosting, function scores
+- **Indexing pipelines**: keeping the index in sync with the database (change data capture, outbox)
+- **Reindexing without downtime**: aliases, building a new index beside the old
+- **Autocomplete and fuzzy search**: edge n-grams, typo tolerance
+- **Facets and aggregations**: filters by category and counts
+- **Vector search**: embeddings, HNSW, hybrid search, pgvector
+- **Engines**: Elasticsearch, OpenSearch, Solr, Meilisearch, Typesense
+- **Search for logs vs search for users**: different needs, often different engines
 
 ## In the lab
 

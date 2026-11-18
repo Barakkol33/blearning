@@ -2,7 +2,7 @@
 title: Cloud concepts
 order: 1
 lang: en
-tags: [intro]
+tags: [intro, advanced]
 updated: 2026-11-13
 ---
 
@@ -10,7 +10,7 @@ updated: 2026-11-13
 
 A cloud rents you computers, storage, networks and ready-made services, by the hour or by use, through an API. The three big ones (AWS, Azure, GCP) use different names for nearly the same building blocks. Learn the blocks once and the names become a translation table.
 
-**Levels on this page:** [Intro](#intro)
+**Levels on this page:** [Intro](#intro) · [Advanced](#advanced)
 
 ## Intro
 
@@ -89,6 +89,26 @@ From most control to least work:
 4. **Functions**: short event-driven code. Limits on runtime and start-up time.
 
 Start as high on the managed side as the workload allows, and move down only for a reason.
+
+## Advanced
+
+### Topics to know
+
+The topics and technologies to know at this level. Each line is a name to search for, and what it is. The lists of all pages are together in [Topics to know](../topics.md).
+
+- **The Well-Architected Framework**: the pillars: operations, security, reliability, performance, cost, sustainability
+- **Shared responsibility model**: what the provider secures and what you do
+- **Regions, availability zones and edge locations**: designing for the failure of a zone or a region
+- **Landing zones**: a prepared multi-account setup: organizations, guardrails, networking
+- **Identity federation and SSO**: logging in with the company identity, no long-lived keys
+- **Workload identity**: machines and pipelines getting short-lived credentials (OIDC)
+- **Network design**: hub and spoke, transit gateways, peering, private endpoints
+- **Hybrid connectivity**: site-to-site VPN, Direct Connect, ExpressRoute, Interconnect
+- **Disaster recovery strategies**: backup and restore, pilot light, warm standby, active-active; RPO and RTO
+- **Multi-cloud and cloud-agnostic design**: when it is worth it and what it costs
+- **Quotas and service limits**: the ceilings you hit at scale
+- **Tagging strategy**: ownership, environment and cost center on every resource
+- **The 6 Rs of migration**: rehost, replatform, refactor, repurchase, retire, retain
 
 ## See also
 

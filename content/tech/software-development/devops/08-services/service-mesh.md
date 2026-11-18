@@ -2,7 +2,7 @@
 title: Service mesh
 order: 7
 lang: en
-tags: [intro]
+tags: [intro, advanced]
 updated: 2026-11-15
 ---
 
@@ -10,7 +10,7 @@ updated: 2026-11-15
 
 When dozens of services call each other, every call needs the same things: encryption, a timeout, a retry, a metric, and a rule about who may call whom. A service mesh takes these out of the application code and puts them in the network layer of the platform, so they work the same for every service in every language. It is powerful, and it is one more complex system to run. Many teams do not need one.
 
-**Levels on this page:** [Intro](#intro)
+**Levels on this page:** [Intro](#intro) · [Advanced](#advanced)
 
 ## Intro
 
@@ -95,6 +95,24 @@ Start from the need, not the tool:
 - For **canary releases**: an ingress controller or Argo Rollouts may be enough.
 - For **metrics**: instrumenting the services gives you more than the proxies can see.
 - With **a handful of services**: a mesh is rarely worth its weight.
+
+## Advanced
+
+### Topics to know
+
+The topics and technologies to know at this level. Each line is a name to search for, and what it is. The lists of all pages are together in [Topics to know](../topics.md).
+
+- **Sidecar vs sidecar-less**: Istio ambient mode, Cilium service mesh
+- **Istio**: istiod, VirtualService, DestinationRule, Gateway
+- **Linkerd**: a light mesh, automatic mTLS
+- **mTLS and workload identity**: SPIFFE and SPIRE
+- **Traffic management**: splits, retries, timeouts, circuit breaking, fault injection
+- **Authorization policies**: which service may call which
+- **Mesh observability**: golden metrics per service, without code changes
+- **Multi-cluster mesh**: one mesh across clusters
+- **Gateway API for meshes (GAMMA)**: one API for ingress and mesh routing
+- **The cost**: latency, memory, upgrades, debugging through proxies
+- **Consul**: service discovery and mesh outside Kubernetes too
 
 ## See also
 

@@ -3,7 +3,7 @@ title: Security
 kind: chapter
 description: "Security as part of everyday DevOps work (DevSecOps): access, secrets, and the software supply chain."
 lang: en
-tags: [intro]
+tags: [intro, advanced]
 updated: 2026-11-13
 ---
 
@@ -11,7 +11,7 @@ updated: 2026-11-13
 
 The DevOps engineer holds the keys: cloud accounts, pipelines, clusters, secrets. An attacker who gets into the pipeline gets into production. Security here is not a separate team's checklist at the end. It is built into the daily tools, which is what "DevSecOps" and "shift left" mean.
 
-**Levels on this page:** [Intro](#intro)
+**Levels on this page:** [Intro](#intro) · [Advanced](#advanced)
 
 ## Intro
 
@@ -94,6 +94,30 @@ The lessons: **rebuild images regularly** on updated bases, and **use small base
 4. **Patch continuously.** Automated dependency updates and image rebuilds.
 5. **Everything is logged**: who did what, in the cloud (audit logs) and in the cluster.
 6. **Private by default**: networks, buckets, databases. Open only what must be open.
+
+## Advanced
+
+### Topics to know
+
+The topics and technologies to know at this level. Each line is a name to search for, and what it is. The lists of all pages are together in [Topics to know](../topics.md).
+
+- **Threat modeling**: STRIDE, data-flow diagrams, attack trees
+- **OWASP Top 10**: the most common web application risks
+- **Identity and access management**: least privilege, SSO, MFA, just-in-time access
+- **Zero trust**: never trust the network, verify every request
+- **Secrets management**: HashiCorp Vault, OpenBao, SOPS with age, External Secrets, rotation
+- **PKI and certificates**: internal CAs, cert-manager, short-lived certificates
+- **Supply chain security**: SLSA, SBOMs, Sigstore and cosign, in-toto, dependency pinning
+- **SAST, DAST and SCA**: scanning code, running apps and dependencies: Semgrep, CodeQL, OWASP ZAP, Dependabot, Renovate
+- **Container and Kubernetes security**: image scanning, Pod Security, RBAC, NetworkPolicies, kube-bench
+- **Runtime security**: Falco, Tetragon; detecting unusual behavior
+- **Policy as code**: OPA and Rego, Kyverno, Checkov, tfsec
+- **Cloud security posture**: CSPM, Prowler, cloud audit logs, GuardDuty and Defender
+- **Encryption**: in transit and at rest, envelope encryption, KMS
+- **Network security**: segmentation, WAF, DDoS protection, egress control
+- **Incident response and forensics**: detection, containment, evidence, postmortem
+- **Compliance frameworks**: SOC 2, ISO 27001, PCI DSS, GDPR, CIS Benchmarks
+- **CVEs and CVSS**: reading a vulnerability report, deciding what to patch first
 
 ## See also
 

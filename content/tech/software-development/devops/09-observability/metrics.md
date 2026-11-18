@@ -2,12 +2,12 @@
 title: "Metrics & Prometheus (Quick Intro)"
 order: 2
 lang: en
-tags: [intro]
+tags: [intro, advanced]
 ---
 
 # Metrics & Prometheus (Quick Intro)
 
-**Levels on this page:** [Intro](#intro)
+**Levels on this page:** [Intro](#intro) · [Advanced](#advanced)
 
 ## Intro
 
@@ -45,6 +45,25 @@ rate(http_requests_total{status="500"}[5m])
 
 * **Prometheus pulls metrics** from endpoints (`/metrics`) on apps/services at regular intervals
 * Each scrape adds a new **sample** to the timeseries
+
+## Advanced
+
+### Topics to know
+
+The topics and technologies to know at this level. Each line is a name to search for, and what it is. The lists of all pages are together in [Topics to know](../topics.md).
+
+- **Metric types**: counter, gauge, histogram, summary; native histograms
+- **PromQL in depth**: `rate` vs `irate`, `histogram_quantile`, aggregation, `offset`
+- **Recording rules**: precomputing expensive queries
+- **Labels and cardinality**: which labels are safe
+- **Service discovery**: Kubernetes discovery, relabeling
+- **Exporters**: node_exporter, kube-state-metrics, blackbox_exporter
+- **Prometheus Operator**: ServiceMonitor, PodMonitor, PrometheusRule
+- **Long-term storage and scale**: Thanos, Grafana Mimir, Cortex, VictoriaMetrics
+- **Remote write**: sending metrics to central storage
+- **Federation and high availability**: two Prometheus servers and deduplication
+- **Pushgateway**: metrics from short jobs, and its pitfalls
+- **StatsD and OpenTelemetry metrics**: the other ways metrics are sent
 
 ## In the lab
 

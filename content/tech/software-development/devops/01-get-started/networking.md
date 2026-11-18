@@ -2,7 +2,7 @@
 title: Networking
 order: 4
 lang: en
-tags: [intro, beginner]
+tags: [intro, beginner, advanced]
 updated: 2026-11-15
 ---
 
@@ -10,7 +10,7 @@ updated: 2026-11-15
 
 Most production problems end up being network problems: a name that does not resolve, a port that is closed, a certificate that expired. You do not need to be a network engineer, but you need to follow one request from the client to the server and know what can break at each step.
 
-**Levels on this page:** [Intro](#intro) · [Beginner](#beginner)
+**Levels on this page:** [Intro](#intro) · [Beginner](#beginner) · [Advanced](#advanced)
 
 ## Intro
 
@@ -376,6 +376,29 @@ Cloud security groups and network ACLs drop, they never reject, so a missing rul
 ```bash
 docker rm -f web shop fw && docker network rm lab
 ```
+
+## Advanced
+
+### Topics to know
+
+The topics and technologies to know at this level. Each line is a name to search for, and what it is. The lists of all pages are together in [Topics to know](../topics.md).
+
+- **The TCP handshake and states**: SYN, ACK, FIN, TIME_WAIT, retransmits, window size
+- **Subnets and CIDR**: address ranges, private ranges, planning non-overlapping networks
+- **Routing**: route tables, default gateway, BGP between networks and in data centers
+- **NAT**: SNAT, DNAT, port exhaustion on NAT gateways
+- **iptables and nftables**: the kernel's packet filter; how Docker and Kubernetes use it
+- **Conntrack**: the connection tracking table and what happens when it is full
+- **MTU and fragmentation**: why VPNs and overlays break large packets, MSS clamping
+- **VLANs and overlay networks**: VXLAN, Geneve; how container networks span hosts
+- **Load balancing: L4 vs L7**: connection-level vs request-level balancing
+- **Anycast and CDNs**: one address served from many places
+- **DNS in depth**: recursive vs authoritative, TTL and caching, split-horizon, DNSSEC
+- **TLS in depth**: the TLS 1.3 handshake, SNI, ALPN, mTLS, certificate chains, OCSP
+- **HTTP/2 and HTTP/3 (QUIC)**: multiplexing, head-of-line blocking, UDP transport
+- **VPNs: WireGuard and IPsec**: connecting networks and people securely
+- **tcpdump and Wireshark**: capturing and reading packets
+- **Network performance**: latency vs bandwidth, bandwidth-delay product, `iperf3`, `mtr`
 
 ## In the lab
 

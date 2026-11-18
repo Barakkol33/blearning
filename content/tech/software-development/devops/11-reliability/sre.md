@@ -2,7 +2,7 @@
 title: SRE
 order: 1
 lang: en
-tags: [intro]
+tags: [intro, advanced]
 updated: 2026-11-13
 ---
 
@@ -10,7 +10,7 @@ updated: 2026-11-13
 
 Site reliability engineering (SRE) is Google's approach to operations: treat reliability as an engineering problem with numbers. How reliable must this service be? How much unreliability is left to spend on shipping changes? What do we learn from each failure? Its vocabulary is now used across the industry.
 
-**Levels on this page:** [Intro](#intro)
+**Levels on this page:** [Intro](#intro) · [Advanced](#advanced)
 
 ## Intro
 
@@ -70,6 +70,27 @@ A service is also at most as reliable as what it depends on. Calling three servi
 3. **Mitigate first.** Roll back, fail over, scale up. Finding the root cause comes after the users are fine.
 4. **Postmortem** within days, blameless, with action items that have owners.
 5. **Follow up** on the action items. Without this step the same incident returns.
+
+## Advanced
+
+### Topics to know
+
+The topics and technologies to know at this level. Each line is a name to search for, and what it is. The lists of all pages are together in [Topics to know](../topics.md).
+
+- **SLIs, SLOs and SLAs**: choosing indicators, setting objectives
+- **Error budgets and policies**: what happens when the budget runs out
+- **Burn-rate alerts**: alerting on the speed of budget loss
+- **Incident management**: incident commander, roles, severity levels, status pages
+- **Postmortems**: blameless writing, action items that get done
+- **On-call**: rotations, handoffs, sustainable load
+- **Toil reduction**: measuring and automating repetitive work
+- **Capacity planning and load testing**: k6, Locust, Gatling; finding the limit before users do
+- **Chaos engineering**: Chaos Mesh, LitmusChaos, Gremlin, game days
+- **Resilience patterns**: timeouts, retries with backoff and jitter, circuit breakers, bulkheads, load shedding
+- **Graceful degradation**: serving a smaller product instead of an error
+- **Disaster recovery**: RPO, RTO, DR drills, multi-region
+- **Release engineering**: safe rollouts, change management
+- **The Google SRE books**: Site Reliability Engineering and The Site Reliability Workbook, free online
 
 ## In the lab
 

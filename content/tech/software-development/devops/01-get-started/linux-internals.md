@@ -2,7 +2,7 @@
 title: Linux internals
 order: 5
 lang: en
-tags: [intro, beginner]
+tags: [intro, beginner, advanced]
 updated: 2026-11-15
 ---
 
@@ -10,7 +10,7 @@ updated: 2026-11-15
 
 Almost everything you operate runs on Linux, and a container is only a Linux process with a few restrictions. Knowing what the kernel does for a process explains most of what you see in Docker and Kubernetes. The everyday commands are in [Linux and the command line](linux.md).
 
-**Levels on this page:** [Intro](#intro) · [Beginner](#beginner)
+**Levels on this page:** [Intro](#intro) · [Beginner](#beginner) · [Advanced](#advanced)
 
 ## Intro
 
@@ -235,6 +235,29 @@ systemctl --user stop ticker
 ```
 
 `Restart=on-failure` is the same idea as a Kubernetes Deployment bringing a pod back: the supervisor knows what should run, and makes it so. A system service is the same file in `/etc/systemd/system/`, used with `sudo systemctl` and without `--user`. `systemctl enable` makes it start at boot.
+
+## Advanced
+
+### Topics to know
+
+The topics and technologies to know at this level. Each line is a name to search for, and what it is. The lists of all pages are together in [Topics to know](../topics.md).
+
+- **The boot process**: firmware, bootloader (GRUB), kernel, initramfs, systemd targets
+- **System calls**: the interface between programs and the kernel, traced with `strace`
+- **Process states and signals**: R, S, D, Z; zombies, orphans, SIGTERM vs SIGKILL
+- **Virtual memory**: pages, page cache, swap, overcommit, the OOM killer and `oom_score_adj`
+- **Namespaces**: pid, net, mnt, uts, ipc, user, cgroup: the isolation behind containers
+- **cgroups v2**: CPU, memory and IO limits; CPU throttling and the CFS quota
+- **The CPU scheduler**: CFS/EEVDF, nice values, load average and what it really counts
+- **I/O and disks**: IO schedulers, `iostat`, `iotop`, IO wait
+- **File descriptors and limits**: `ulimit`, `/proc/<pid>/fd`, `fs.file-max`
+- **The /proc and /sys filesystems**: the kernel's state, readable as files
+- **Kernel tuning with sysctl**: network buffers, `somaxconn`, `vm.swappiness`, conntrack table size
+- **perf and flame graphs**: finding where CPU time goes
+- **eBPF and bpftrace**: safe programs inside the kernel for tracing and networking
+- **USE method**: utilization, saturation and errors for every resource, by Brendan Gregg
+- **SELinux and AppArmor**: mandatory access control
+- **Kernel modules**: `lsmod`, `modprobe`, and what loads at boot
 
 ## In the lab
 

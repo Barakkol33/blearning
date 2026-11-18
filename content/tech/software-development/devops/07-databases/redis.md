@@ -123,6 +123,23 @@ Prometheus rules for the signals above, as loaded by the [lab](../13-lab/_index.
 | RedisEvicting | `rate(redis_evicted_keys_total[1m]) > 0`, for 2 minutes | ticket |
 | RedisRejectedConnections | `increase(redis_rejected_connections_total[5m]) > 0` | page |
 
+### Topics to know
+
+The topics and technologies to know at this level. Each line is a name to search for, and what it is. The lists of all pages are together in [Topics to know](../topics.md).
+
+- **Persistence: RDB and AOF**: snapshots, the append-only file, fsync policies
+- **Eviction policies**: `maxmemory`, LRU and LFU, `noeviction`
+- **Replication and Sentinel**: automatic failover
+- **Redis Cluster**: hash slots, resharding, multi-key commands
+- **Data types**: strings, hashes, lists, sets, sorted sets, streams, HyperLogLog
+- **Big keys and hot keys**: finding them with `--bigkeys` and `--hotkeys`
+- **Latency**: `SLOWLOG`, `LATENCY DOCTOR`, why `KEYS` is dangerous
+- **Memory fragmentation**: `INFO memory`, active defragmentation
+- **Pipelining and Lua scripts**: fewer round trips, atomic operations
+- **Redis Streams**: a log with consumer groups
+- **Valkey and the license change**: the open source fork, and alternatives like KeyDB and Dragonfly
+- **Security**: ACLs, TLS, never on a public port
+
 ## In the lab
 
 [Experiment 5](../13-lab/experiments.md) empties the cache, fills Redis past its memory limit to see evictions, and then switches the policy to `noeviction` to see writes fail.

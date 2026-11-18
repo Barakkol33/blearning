@@ -3,14 +3,14 @@ title: Linux and the command line
 updated: 2026-11-15
 order: 3
 lang: en
-tags: [intro, beginner]
+tags: [intro, beginner, advanced]
 ---
 
 # Linux and the command line
 
 Almost every server, container and CI runner is Linux, and you reach it through a terminal. The command line is the DevOps engineer's main tool: it is how you look inside a machine, how you automate, and often the only way in during an incident. This page is the everyday command set. What the kernel does underneath, and how to troubleshoot a sick server, are in [Linux internals](linux-internals.md).
 
-**Levels on this page:** [Intro](#intro) · [Beginner](#beginner)
+**Levels on this page:** [Intro](#intro) · [Beginner](#beginner) · [Advanced](#advanced)
 
 ## Intro
 
@@ -478,6 +478,26 @@ tar xzf backup.tar.gz -C /target/   # extract to specific directory
 | `/etc/environment` | System-wide environment variables |
 | `~/.bashrc` | User shell config (aliases, exports) |
 | `~/.ssh/` | SSH keys and config |
+
+## Advanced
+
+### Topics to know
+
+The topics and technologies to know at this level. Each line is a name to search for, and what it is. The lists of all pages are together in [Topics to know](../topics.md).
+
+- **Advanced bash**: `set -euo pipefail`, arrays, parameter expansion, `trap`, here-docs, subshells
+- **ShellCheck**: a linter that finds the common bugs in shell scripts
+- **awk and sed in depth**: field processing and stream editing for one-line reports
+- **jq and yq**: querying and editing JSON and YAML on the command line
+- **find, xargs and GNU parallel**: running a command over many files or inputs, in parallel
+- **Package management**: apt, dnf, apk; repositories, pinning versions, unattended upgrades
+- **Users, sudo and sudoers**: privilege rules, least privilege for operators
+- **ACLs, setuid and capabilities**: permissions beyond user/group/other
+- **SSH hardening**: keys only, no root login, `AllowUsers`, fail2ban, bastion hosts
+- **tmux**: sessions that survive a dropped SSH connection
+- **cron and systemd timers**: scheduled jobs, and why timers are easier to monitor
+- **Filesystems, LVM and RAID**: ext4 and XFS, resizing volumes, mount options, `/etc/fstab`
+- **Logs: journald and rsyslog**: `journalctl` filters, log rotation with logrotate
 
 ## In the lab
 

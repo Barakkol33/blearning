@@ -2,7 +2,7 @@
 title: Object storage
 order: 5
 lang: en
-tags: [intro]
+tags: [intro, advanced]
 updated: 2026-11-13
 ---
 
@@ -10,7 +10,7 @@ updated: 2026-11-13
 
 Object storage holds files of any size under a key, reached over HTTP. It is cheap, practically unlimited and very durable, so it became the place for everything that is not a database row: uploads, backups, logs, build artifacts, Terraform state, data lakes. Amazon S3 defined the model, and its API is the standard that other products copy.
 
-**Levels on this page:** [Intro](#intro)
+**Levels on this page:** [Intro](#intro) · [Advanced](#advanced)
 
 ## Intro
 
@@ -92,6 +92,25 @@ aws s3api put-bucket-lifecycle-configuration \
 - **Turn on versioning** for anything important, such as Terraform state: it is the undo for an overwrite or a delete.
 - **Set lifecycle rules.** Storage that nobody deletes grows forever.
 - **Reading has a price too**: requests and [egress](../11-reliability/finops.md) are billed, and archive classes charge for retrieval.
+
+## Advanced
+
+### Topics to know
+
+The topics and technologies to know at this level. Each line is a name to search for, and what it is. The lists of all pages are together in [Topics to know](../topics.md).
+
+- **The S3 API**: buckets, keys, prefixes, the de facto standard
+- **Storage classes and lifecycle rules**: moving and deleting objects by age
+- **Versioning and object lock**: protection from deletes and ransomware (WORM)
+- **Presigned URLs**: temporary access without credentials
+- **Multipart uploads**: large files in parts, cleaning unfinished uploads
+- **Consistency**: strong read-after-write consistency in S3
+- **Replication**: cross-region replication
+- **Bucket policies and public access**: the classic data leak, and blocking public access
+- **Encryption**: server-side with managed keys or KMS, client-side
+- **Self-hosted object storage**: MinIO, Ceph (RADOS Gateway), SeaweedFS, Garage
+- **Cost**: requests, egress and retrieval fees
+- **Data lakes**: Parquet files, Apache Iceberg tables on object storage
 
 ## See also
 

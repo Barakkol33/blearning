@@ -2,14 +2,14 @@
 title: Kubernetes
 order: 2
 lang: en
-tags: [beginner]
+tags: [beginner, advanced]
 ---
 
 # Kubernetes
 
 This guide teaches you Kubernetes from the ground up. It assumes you already understand Docker (containers, images, networking). Each section introduces a concept, explains *why* it exists, and gives you hands-on commands to try.
 
-**Levels on this page:** [Beginner](#beginner)
+**Levels on this page:** [Beginner](#beginner) · [Advanced](#advanced)
 
 ## Beginner
 
@@ -1238,6 +1238,28 @@ Or simply delete the entire cluster:
 ```bash
 kind delete cluster --name demo
 ```
+
+## Advanced
+
+### Topics to know
+
+The topics and technologies to know at this level. Each line is a name to search for, and what it is. The lists of all pages are together in [Topics to know](../topics.md).
+
+- **The control plane in depth**: API server, etcd, scheduler, controller manager; the reconcile loop
+- **etcd**: backup, restore, compaction and quorum
+- **Scheduling**: requests, affinity and anti-affinity, taints and tolerations, topology spread
+- **QoS classes and eviction**: Guaranteed, Burstable, BestEffort; what the kubelet kills first
+- **Probes**: liveness, readiness and startup probes, and how they go wrong
+- **CNI plugins**: Calico, Cilium, Flannel: how pods get addresses and talk
+- **kube-proxy modes**: iptables, IPVS, and eBPF replacement
+- **CoreDNS**: service discovery inside the cluster, `ndots`
+- **Storage: CSI, PersistentVolumes, StorageClasses**: dynamic provisioning, access modes, volume snapshots
+- **Gateway API**: the successor of Ingress
+- **Custom resources and operators**: CRDs and controllers that extend Kubernetes
+- **Admission controllers and webhooks**: validating and mutating objects on the way in
+- **Kustomize**: overlays for YAML, built into kubectl
+- **Helm in depth**: hooks, dependencies, library charts, OCI chart registries
+- **Debugging**: `kubectl debug`, ephemeral containers, events, `CrashLoopBackOff`, `ImagePullBackOff`
 
 ## In the lab
 
