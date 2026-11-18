@@ -89,6 +89,9 @@ def main() -> None:
         for i in range(slide_count):
             # Activate only the current slide
             page.evaluate("""(idx) => {
+                // Hash-navigated decks (e.g. pypresent) run their own show(),
+                // which also shrinks overflowing slides to fit.
+                location.hash = '#' + (idx + 1);
                 document.querySelectorAll('.slide').forEach((s, j) => {
                     if (j === idx) {
                         s.style.display = 'flex';
