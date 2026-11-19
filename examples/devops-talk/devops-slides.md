@@ -21,10 +21,8 @@ This talk is not about how to write code - AI already does a lot of that. It's a
 
 | | Who knows what it is? | Who has done it? |
 | --- | --- | --- |
-| **Code** | a programming language | written code |
 | **AI** | ChatGPT, Claude, Copilot | built something with AI |
 | **The cloud** | a server | put something online for others |
-| **Linux** | a terminal | typed commands in one |
 | **Docker** | a container | run one |
 | **Kubernetes** | what it does | used it |
 | **DevOps** | what it means | - |
@@ -34,53 +32,26 @@ The talk opened with these questions, to see what the room already knew. Try the
 
 It's completely fine to answer "no" to most of them - every one of these words is explained later in the talk:
 - **a server / the cloud:** a computer that runs all the time and serves many people over the internet. "The cloud" means renting servers from a company like Amazon, Google or Microsoft instead of owning them.
-- **Linux / a terminal:** the operating system most servers run, and the text window where you type commands to control it.
-- **Docker / a container:** explained on the Kubernetes slide and in the self-study part.
-- **Kubernetes** and **DevOps:** the subject of this talk.
+- **Docker / a container:** step 1 of the journey, slide 7.
+- **Kubernetes** and **DevOps:** the subject of this talk - built up one step at a time.
 -->
 
 ---
 
-## The map
-
-Today: the big picture. At the end of the file: **self-study** - more depth, at your own pace.
-
-| | part | min |
-| --- | --- | --- |
-| 0 | Raise your hand | 2 |
-| 1 | The real job | 5 |
-| 2 | DevOps - and the base under it | 6 |
-| 3 | Architecture | 3 |
-| 4 | Containers and Kubernetes | 3 |
-| 5 | Live demo: every DevOps idea | 12 |
-| 6 | Know what is in the code | 3 |
-| 7 | Build with AI | 2 |
-| 8 | Wrap-up | 2 |
-| | **Talk** | **38** |
-| | Self-study: Kafka, six traps, AI and infrastructure, more Kubernetes | at home |
-
-<!-- notes:
-The talk goes from the problem (why running software is hard), through how real systems are built, to a live demo of Kubernetes, and ends with what all this means for you in a world where AI writes code.
-
-The talk itself covers the big picture. After the last slide comes a **self-study** part with more depth: how services talk to each other with Kafka, six traps hidden in code that "works", more about containers and Kubernetes, AI and infrastructure as code, and how to run the demo at home.
--->
-
----
-
-## Part 1 · The real job
+## Part 1 · You wrote code. Now what?
 
 #### So... are we done?
 
-- many of you just told me: you built something with AI
+- you already know how to write code - and many of you build with AI
 - AI can write a working app in 30 seconds
-- so is software engineering done?
+- it runs on your laptop. Is it done?
 
 <!-- notes:
-If AI writes the code, what is left for people to do? The next three slides answer it: writing the code is the easy part. Running it in the real world - for millions of people, without breaking - is the hard part.
+Start from what you already know: you can write code, and many of you have built something with AI - a game, a website, a bot. Today an AI can write a working app in 30 seconds.
 
-Today an AI can write a working app in 30 seconds - a game, a website, a bot. So is software engineering finished? Is there still a reason to learn it?
+So it runs on your laptop. Is it done? Is software engineering finished?
 
-The answer is no - because writing the code was never the whole job. The next slide shows why.
+The answer is no - because writing the code was never the whole job. Running it in the real world - for millions of people, without breaking - is the hard part. The next two slides show why, and the rest of the talk builds the road from your laptop to those millions, one step at a time.
 -->
 
 ---
@@ -136,121 +107,97 @@ Each company name on the slide is a link to the full story. Amazon and Meta publ
 
 ---
 
-## Part 2 · DevOps
+## Part 2 · From laptop to millions
 
 #### So what is DevOps?
 
-**Dev** (writing software) + **Ops** (running it): DevOps builds the tools that let developers ship safely.
+**Dev** (writing the code) + **Ops** (running it for users).
 
-- **Automation** - a machine does it the same way every time
-- **CI/CD** - every change is tested and shipped by a pipeline
-- **Infrastructure as Code** - servers and networks described in files
-- **Observability** - see what the system is doing right now
-- **High availability** - keep working when parts fail
+DevOps builds the road your code travels to users - and keeps it safe.
+
+your code → **pack it** → **many copies** → **a machine manages them** → **change it safely** → millions of users
 
 <!-- notes:
-Now the name of the field: **DevOps** - the people and practices that make sure code keeps running for real users.
+Your code runs on your laptop. The rest of the talk takes it, one step at a time, to millions of users. Each step solves one problem - and each solution is a piece of **DevOps**.
 
-DevOps = **Dev** (developing software) + **Ops** (operating it).
+DevOps = **Dev** (developing software) + **Ops** (operating it - running it for real users).
 
 In the old days, developers wrote code and threw it "over the wall" to an operations team, who had to install it and keep it alive by hand - and each side blamed the other when things broke.
 
-DevOps changed how the two work together. In most companies today there are still developers and a **DevOps team** (sometimes called a platform team), but the job of the DevOps team is different: it builds the **tools, pipelines and infrastructure** that let developers ship their own code - quickly, safely, and without waiting for anyone. Developers press a button (or just merge their code), and the pipeline tests it, builds it, and deploys it. The DevOps team doesn't write the product, but it has to understand enough of the code to run it well: how it's built, what it needs, how it fails.
+DevOps changed how the two work together. In most companies today there are still developers and a **DevOps team** (sometimes called a platform team), but its job is different: it builds the **tools, pipelines and infrastructure** that let developers ship their own code - quickly, safely, and without waiting for anyone. Developers press a button (or just merge their code), and the pipeline tests it, builds it, and deploys it. The DevOps team doesn't write the product, but it has to understand enough of the code to run it well: how it's built, what it needs, how it fails.
 
 So DevOps is two things at once: a **job** (the people who build that "paved road" to production) and a **way of working** - everyone shares the goal of software that works **for users**, not just on a laptop.
 
-The core ideas:
-- **Automation:** a machine does each task the same way every time, without the mistakes of a tired human at 3 AM. If everything is automated, you can even delete it all and rebuild it from scratch.
-- **CI/CD** (Continuous Integration / Continuous Delivery): every change goes through an automatic pipeline - test → build → deploy to a test environment → approve → deploy to production. A failure stops the pipeline before it reaches users.
-- **Infrastructure as Code:** servers, networks and databases are described in files, so they can be reviewed, versioned and rebuilt like any other code.
-- **Observability:** metrics (numbers over time), logs (what happened) and traces (the path of one request) show what the system is doing right now, so you notice a problem before users do.
-- **High availability:** the system keeps working even when some of its parts fail.
-
-More in the self-study part: the DevOps loop (slide 30). And every one of these ideas is practiced live in the demo (slides 13-20).
+The road on the slide is the plan for the talk: pack the code (step 1), run many copies (step 2), let a machine manage them (step 3), and then a live demo of running and changing it safely - where every scene adds one more DevOps idea. The ideas get their names after you've seen them, and the recap (slide 18) puts them all together.
 -->
 
 ---
 
-## The guardrails are DevOps
+## Step 1 · Pack it: containers
 
-- **review** - a human reads the plan before `apply`
-- **least privilege** - nobody, human or AI, holds keys it does not need
-- **staging** - try it on a copy of the world first
-- **backups + restore drills** - assume something will be deleted
-- **monitoring + rollback** - notice in seconds, undo in one command
+"It works on my machine" - so ship the machine.
+
+- a **container** packs the app with everything it needs
+- like a shipping container: the crane does not care what is inside
+- the same container runs on your laptop, a server, or the cloud
+
+```dockerfile
+FROM python:3.12-slim
+COPY . /app
+RUN pip install -r /app/requirements.txt
+CMD ["python", "/app/main.py"]
+```
 
 <!-- notes:
-DevOps is also about **guardrails**: safety measures that stop one mistake - by a human or by an AI - from becoming a disaster like the outages on slide 6. Three of them appear in the demo (a plan, automatic rollback, monitoring), and the recap after the demo (slide 20) comes back to this slide.
-- **Review:** a human reads the plan - a preview of exactly what a change will do - before anyone applies it. (You'll see a plan in Demo 1.)
-- **Least privilege:** nobody - human or AI - holds keys it doesn't need. An agent that writes code doesn't need permission to delete the database.
-- **Staging:** try every change on a copy of the real system first, never straight on production.
-- **Backups and restore drills:** assume something will be deleted someday - and practice restoring. "A backup you've never restored is only a hope."
-- **Monitoring and rollback:** notice a problem in seconds, and undo it - in Demo 5 the pipeline rolls back by itself.
+The first step from your laptop to the world: getting your code to run on someone else's computer - a server.
+
+"It works on my machine" is the oldest problem in software. Your code works on your laptop, and breaks on the server - a different Python version, a missing library, a different setting. The solution: ship the machine too.
+
+A **container** packs the app together with everything it needs: the language, the libraries, the settings. It's like a shipping container: the crane doesn't care if it holds bananas or cars - it moves every container the same way. The same container runs identically on your laptop, a server, or the cloud. **Docker** is the most common tool for building and running containers.
+
+The recipe for a container is a **Dockerfile**. You already know code - read it line by line:
+- `FROM python:3.12-slim` - start from a ready-made image that already has Python 3.12.
+- `COPY . /app` - copy our code into it.
+- `RUN pip install ...` - install the libraries the code needs.
+- `CMD [...]` - the command to run when the container starts.
+
+Notice: it's a file, so a machine can build it the same way every time. That's already a DevOps idea - you'll see its name in the demo.
+
+To go deeper: the [Docker page on blearning](https://barakkol33.github.io/blearning/tech/software-development/devops/containers/docker/).
 -->
 
 ---
 
-## The base of everything
-
-Tools change every few years. These three don't.
-
-![Three foundation blocks - the product, your technology, learning - under a dashed layer of today's tools: Kubernetes, Docker, Kafka, Terraform, CI/CD, AI tools](img/base.svg)
-
-<!-- notes:
-What to take away from all this, and what to do next.
-
-**The most important slide of the talk.**
-
-The DevOps ideas on the last two slides - and the tools in the rest of this talk: Kubernetes, Docker, Kafka, Terraform, even today's AI tools - are **today's best practice**. Ten years ago half of it didn't exist; in ten years much of it will be replaced. It's the top layer in the diagram, and it changes.
-
-Underneath is the base, and it doesn't change:
-1. **Know what the product should do.** Who uses it, what problem it solves, what "working" means for them. AI can write code, but it can't decide what's worth building, or notice that it built the wrong thing.
-2. **Know what your technology does.** Not just that the code runs - what it does to real machines: the algorithm, the I/O, the memory, the access. You'll see this as the iceberg in part 6.
-3. **Be able to learn new technologies and tools - all the time.** The tools on top will keep changing. The people who stay relevant are the ones who pick up the next one quickly - and AI is the best tool for learning there has ever been.
-
-**And one thing that's always true: learn English well.** Every new tool, its documentation, the forums where people solve your exact problem, the talks and courses - all of it comes out in English first, and often only in English. Even working with AI goes better when you can read and write English precisely. It's the tool that unlocks every other tool.
-
-AI is a great co-pilot. You are still the pilot - and the pilot needs to know where the plane is going (the product), how it works (the technology), and how to fly next year's plane (learning).
--->
-
----
-
-## Part 3 · Architecture
+## Step 2 · Many users: many copies
 
 #### What happens when you tap "send"
 
 ![Your phone, a load balancer, 100 app servers, then a database, a cache and a queue with workers](img/architecture.svg)
 
 <!-- notes:
-**Architecture** means how a system is built from parts, and how the parts talk to each other. Here is what's behind an app you use every day.
+Now your app runs in a container on a server. What if 10,000 people open it at once? One copy isn't enough - and if that one copy crashes, everyone is down. So real apps run in **many copies**, with other parts around them. How a system is built from parts, and how the parts talk to each other, is called **architecture**.
 
-What happens when you tap "send" in a messaging app? Follow the diagram from left to right:
+Here is what's behind a messaging app you use every day. What happens when you tap "send"? Follow the diagram from left to right:
 - **Load balancer:** the entrance. Every request arrives here, and it sends each one to one of many servers - whichever is free.
-- **App servers:** the code itself - maybe written by AI - running in many identical copies, so if one dies the others continue.
+- **App servers:** your code - maybe written by AI - running in many identical containers, so if one dies the others continue.
 - **Database:** where the data lives permanently, like PostgreSQL or MongoDB.
 - **Cache:** fast memory for data that's read often, like Redis, so the database isn't asked the same thing a million times.
 - **Queue and workers:** jobs that don't have to happen *right now* - sending a notification, processing a video - wait in a queue and are handled in the background by workers. Kafka is a popular queue; it has its own section in the self-study part.
 
-Your message goes through all of these in a fraction of a second. And every box runs in many copies: with 100 servers, at any moment one of them is broken - so all of it has to be managed automatically. That's where Kubernetes comes in.
+Your message goes through all of these in a fraction of a second. And every box runs in many copies: with 100 servers, at any moment one of them is broken. Nobody can manage that by hand - that's the next step.
 -->
 
 ---
 
-## Part 4 · Containers and Kubernetes
+## Step 3 · Let a machine manage the copies
 
 #### Kubernetes: you say *what*, it figures out *how*
 
 You don't say "start a server". You say "**I want 3 copies running**" - forever.
 
-- a **container** = the app, packed with everything it needs
-
 ![A loop of watch, compare and fix: the wish is 3 copies, one crashed, Kubernetes starts a new one](img/k8s-loop.svg)
 
 <!-- notes:
-Two words that come up everywhere in modern software: **containers** and **Kubernetes**. The live demo after this part shows them in action.
-
-First, a **container**. "It works on my machine" is the oldest problem in software: your code works on your laptop and breaks on the server, because of a different version or a missing library. A container packs the app with everything it needs - the language, the libraries, the settings - so it runs the same everywhere. Like a shipping container: the crane doesn't care what's inside. (More on containers in the self-study part, slide 39.)
-
 Containers solve "how do I run one copy". But who runs 300 copies over 50 machines? Who restarts a copy that crashed at 3 AM? Who moves copies when a machine dies? That's **Kubernetes** - K8s for short (K, then 8 letters, then s).
 
 Kubernetes is **declarative**: you don't tell it the steps ("start a server"), you describe the result you want - "I want 3 copies running" - and it makes sure that stays true, forever.
@@ -258,11 +205,13 @@ Kubernetes is **declarative**: you don't tell it the steps ("start a server"), y
 It works like a thermostat. You set 22°, and it keeps measuring the room and fixing it: too cold, it heats; too hot, it cools. Kubernetes runs the same loop: it **watches** what's running, **compares** it to what you asked for, and **fixes** the gap.
 
 **In the diagram:** the wish is `replicas: 3` (three copies). One copy crashed, so only 2 are running. The loop compares, sees the gap, and starts a new copy - nobody pressed anything.
+
+Now all three steps are in place: the code is packed, it runs in copies, and Kubernetes manages them. The live demo builds the rest of DevOps on top - one scene at a time.
 -->
 
 ---
 
-## Part 5 · Live demo
+## Part 3 · Live demo
 
 #### The setup
 
@@ -274,7 +223,7 @@ It works like a thermostat. You set 22°, and it keeps measuring the room and fi
 ```
 
 <!-- notes:
-In the talk, the demo ran live on a real Kubernetes cluster on a laptop - one scene for each DevOps idea (the next slide lists them). The slides after it explain what each scene shows - and you can run all of them yourself at home (see "Try it at home", slide 51).
+In the talk, the demo ran live on a real Kubernetes cluster on a laptop - a story in six scenes, each adding one DevOps idea (the next slide tells the story). The slides after it explain what each scene shows - and you can run all of them yourself at home (see "Try it at home", slide 49).
 
 How a whole Kubernetes cluster fits on one laptop - follow the diagram from the outside in:
 - **WSL** (Windows Subsystem for Linux): Linux running inside Windows.
@@ -283,35 +232,37 @@ How a whole Kubernetes cluster fits on one laptop - follow the diagram from the 
 
 The cluster has 3 machines - a **control plane** (the brain, which decides what runs where) and 2 **workers** (which actually run things). On the workers run 3 copies (**pods**) of a small web page. Each copy shows its own name and the machine it runs on, so you can see which copy answered you.
 
-Everything is described in three files: the machines (`kind-cluster.yaml`), the app (`app.yaml`), and the commands (`demo.sh`). That's Infrastructure as Code in miniature: `./demo.sh up` builds the whole cluster from these files in about a minute, and it can be deleted and rebuilt any time.
+Everything is described in three files: the machines (`kind-cluster.yaml`), the app (`app.yaml`), and the commands (`demo.sh`). `./demo.sh up` builds the whole cluster from these files in about a minute, and it can be deleted and rebuilt any time - this idea gets its name in the first scene.
 
 `./demo.sh watch` sends a request every third of a second and prints one colored line per answer: the version, which copy answered, and on which machine. The browser at `http://localhost:8080` shows the same page, refreshing every second.
 -->
 
 ---
 
-## Five DevOps ideas, live
+## The story: results day
 
-Every idea from slide 7, practiced on this cluster:
+This cluster runs the Bagrut results site. Tomorrow at 9:00 the results come out.
 
-| DevOps idea | in the demo | command |
+| | what happens | command |
 | --- | --- | --- |
-| **Infrastructure as Code** | change a file: 3 copies → 6 | `./demo.sh iac 6` |
-| **Automation** | kill copies - they come back | `./demo.sh kill`, `chaos` |
-| **High availability** | unplug a whole machine | `./demo.sh node-down` |
-| **CI/CD** | ship v2 through a pipeline | `./demo.sh update` |
-| **CI/CD** | ship a broken v3 - the pipeline rolls back | `./demo.sh break` |
-| **Observability** | find out what happened | `./demo.sh logs`, `events` |
+| 1 | 100,000 students are coming - we need more copies | `./demo.sh iac 6` |
+| 2 | 3 AM: copies crash | `./demo.sh kill`, `chaos` |
+| 3 | a whole machine dies | `./demo.sh node-down` |
+| 4 | a fix has to ship - while everyone is checking | `./demo.sh update` |
+| 5 | the next fix has a typo | `./demo.sh break` |
+| 6 | the morning after: what happened? | `./demo.sh events`, `logs` |
 
 <!-- notes:
-The five DevOps ideas from slide 7 can sound abstract. This demo makes each one concrete, on a real Kubernetes cluster: one scene per idea, in this order. Each command prints which idea it shows, in a blue banner.
+The demo tells one story. The cluster runs the Bagrut results site, and tomorrow at 9:00 the results come out. Each row is a problem that really happens to sites like this one - and each scene solves it with one DevOps idea. The idea's name comes **after** you see it work, in the last line of each scene's slide and in a blue banner the command prints.
 
 The `watch` (one colored line per request) runs the whole time. It's the simplest kind of monitoring: if the site ever stops answering, you see red `DOWN` lines.
+
+After the six scenes, slide 18 puts all the names together.
 -->
 
 ---
 
-## Demo 1 · Infrastructure as Code
+## Demo 1 · 100,000 students are coming
 
 ```bash
 ./demo.sh iac 6    # in app.yaml: replicas 3 -> 6, then plan and apply
@@ -325,25 +276,27 @@ The `watch` (one colored line per request) runs the whole time. It's the simples
 deployment.apps/hello configured
 ```
 
-- the cluster is described in files - the files are the truth
-- change the file, see the **plan**, **apply** it
-- scaling = changing one number in a file
+- the cluster is described in files: change the file, see the **plan**, **apply** it
+- 3 copies → 6 = changing one number in a file
+- this is called **Infrastructure as Code**
 
 <!-- notes:
+Results day is coming, and 3 copies won't survive 100,000 students. We need 6. How do you add copies? Not by clicking - by changing a file.
+
 **Infrastructure as Code (IaC)** means the infrastructure is described in files, not set up by hand. This whole cluster - the machines (`kind-cluster.yaml`) and the app (`app.yaml`) - is three files. `./demo.sh up` built everything from them in about a minute; delete it all, run it again, and you get exactly the same cluster. That's also **automation**: one command instead of an afternoon of clicking.
 
 To change the infrastructure, you change the file - here, `replicas: 3` becomes `replicas: 6` (six copies instead of three). Then two steps:
 - **Plan** (`kubectl diff`): show exactly what would change, before anything happens. Here: one line, 3 → 6.
 - **Apply** (`kubectl apply`): make it real. Kubernetes starts three more copies.
 
-Why bother, instead of just typing a command? Because the file can be reviewed by another person before it's applied, saved in Git with its whole history, and used to rebuild everything from scratch. The plan step is one of the guardrails from slide 8: look before you change.
+Why bother, instead of just typing a command? Because the file can be reviewed by another person before it's applied, saved in Git with its whole history, and used to rebuild everything from scratch. The plan step is a **guardrail** - a safety measure against mistakes: look before you change. (All the guardrails: slide 28.)
 
-For cloud infrastructure (servers, databases, storage), the same idea is done with tools like **Terraform** - same plan and apply. More in the self-study part (slide 47).
+For cloud infrastructure (servers, databases, storage), the same idea is done with tools like **Terraform** - same plan and apply. More in the self-study part (slide 45).
 -->
 
 ---
 
-## Demo 2 · Automation: kill it
+## Demo 2 · 3 AM: copies crash
 
 ```bash
 ./demo.sh kill     # delete a random copy
@@ -352,10 +305,12 @@ For cloud infrastructure (servers, databases, storage), the same idea is done wi
 
 - nobody restarted anything - Kubernetes saw too few copies, and fixed it
 - the page kept answering the whole time
-- **self-healing**: the wish is written down, so it can be restored
+- this is **automation** - here, **self-healing**
 
 <!-- notes:
-`./demo.sh kill` deletes a random copy of the app. A moment later the count is back to normal. Who restarted it? Nobody. Kubernetes saw fewer copies than the file asks for, and started a new one - the watch, compare, fix loop from slide 11.
+It's 3 AM, everyone is asleep, and copies of the app crash. In the demo we crash them on purpose.
+
+`./demo.sh kill` deletes a random copy of the app. A moment later the count is back to normal. Who restarted it? Nobody. Kubernetes saw fewer copies than the file asks for, and started a new one - the watch, compare, fix loop from slide 9.
 
 `./demo.sh chaos` deletes **all** the copies at once. Within seconds new ones are up - and the `watch` shows that the page kept answering the whole time.
 
@@ -364,7 +319,7 @@ That's **automation**, and specifically **self-healing**: because the wish ("thi
 
 ---
 
-## Demo 3 · High availability: unplug a machine
+## Demo 3 · A whole machine dies
 
 ```bash
 ./demo.sh node-down   # stop a worker, as if its power cable was pulled
@@ -373,9 +328,11 @@ That's **automation**, and specifically **self-healing**: because the wish ("thi
 
 - the copies are spread over both machines - never all eggs in one basket
 - a few seconds of errors until Kubernetes notices, then the copies move
-- automation is fast, not instant - that's why we also monitor
+- this is **high availability** - fast, not instant, so we also watch
 
 <!-- notes:
+Worse than a crashed copy: a whole machine dies - a disk, a power supply, a network cable.
+
 **High availability (HA)** means the system keeps working when parts of it fail - not just one copy, but a whole machine.
 
 `./demo.sh node-down` stops one of the two worker machines, as if someone pulled out its power cable. Because `app.yaml` tells Kubernetes to spread the copies over both machines, the other machine is still serving.
@@ -389,7 +346,7 @@ The lesson: automation is fast, but not instant. Real systems spread copies over
 
 ---
 
-## Demo 4 · CI/CD: ship a new version
+## Demo 4 · Ship a fix - while everyone is checking
 
 ```bash
 ./demo.sh update   # ship v2 (green) through the pipeline
@@ -399,8 +356,11 @@ The lesson: automation is fast, but not instant. Real systems spread copies over
 
 - the pipeline does it - every change, every time
 - **rolling update**: new copy first, then an old one stops
+- this is **CI/CD**
 
 <!-- notes:
+It's 9:00, everyone is checking results, and a fix has to ship now. You can't take the site down to update it.
+
 **CI/CD** (Continuous Integration / Continuous Delivery) means every change goes through the same automatic **pipeline** on its way to users. `./demo.sh update` releases version v2 (green) through a small pipeline, with each stage printed on the screen - follow the diagram:
 1. **TEST:** is the change valid? (Here: Kubernetes checks the new configuration without applying it. Real pipelines also run the code's tests.)
 2. **DEPLOY:** a **rolling update** - a new copy starts and waits until it's ready; only then does an old copy stop; repeat until every copy is new.
@@ -412,7 +372,7 @@ In the `watch`, blue and green lines mix until everything is green - without a s
 
 ---
 
-## Demo 5 · CI/CD catches a mistake
+## Demo 5 · The next fix has a typo
 
 ```bash
 ./demo.sh break    # ship v3 with a one-letter typo: nginx:1.27-alpinee
@@ -427,9 +387,11 @@ In the `watch`, blue and green lines mix until everything is green - without a s
 
 - the new copy can't start - the old ones keep serving, users see nothing
 - the pipeline notices and rolls back by itself - no human needed
-- one typo - the kind an AI or a human makes
+- **CI/CD** + automatic **rollback** - a *guardrail*
 
 <!-- notes:
+The next fix is shipped in a hurry - and it has a typo.
+
 `./demo.sh break` ships version v3 (red) with a one-letter typo in the name of the container image: `alpinee` instead of `alpine`. Exactly the kind of mistake a human or an AI makes.
 
 Follow the pipeline's output:
@@ -438,12 +400,12 @@ Follow the pipeline's output:
 - **VERIFY fails** - the new copies didn't start within 40 seconds.
 - **ROLLBACK** - the pipeline undoes the change by itself, back to the last version that worked.
 
-The key idea: the bug was in the code - but whether users got hurt was decided by **how we deploy**. Automatic rollback is one of the guardrails from slide 8.
+The key idea: the bug was in the code - but whether users got hurt was decided by **how we deploy**. Automatic rollback is a **guardrail** - a safety measure that stops one mistake from becoming a disaster. (All the guardrails: slide 28.)
 -->
 
 ---
 
-## Demo 6 · Observability: what happened?
+## Demo 6 · The morning after: what happened?
 
 ```bash
 ./demo.sh logs     # what the copies are doing
@@ -458,9 +420,11 @@ Normal   ScalingReplicaSet  Deployment/hello      Scaled down replica set hello-
 
 - the `watch` is a tiny live dashboard: is it up? which version?
 - **logs**: what each copy did. **Events**: what Kubernetes did, and why
-- you can't fix what you can't see
+- this is **observability** - you can't fix what you can't see
 
 <!-- notes:
+The morning after: the boss asks what happened last night. Copies crashed, a machine died, a broken version almost shipped. How do you know?
+
 **Observability** means being able to see what the system is doing - and what it did - from the outside.
 
 Three kinds appeared in this demo:
@@ -473,32 +437,34 @@ The point: when something breaks at 3 AM, you can't fix what you can't see.
 
 ---
 
-## What you just saw
+## What you just saw: DevOps
 
-| DevOps idea | what happened |
-| --- | --- |
-| **Infrastructure as Code** | 6 copies, by changing one number in a file |
-| **Automation** | killed copies came back by themselves |
-| **High availability** | a machine died - the site stayed up |
-| **CI/CD** | v2 shipped, a broken v3 rolled back - by the pipeline |
-| **Observability** | logs and events told us what happened |
+| | DevOps idea | what it means |
+| --- | --- | --- |
+| 1 | **Infrastructure as Code** | servers and apps described in files - plan, then apply |
+| 2 | **Automation** | a machine does it the same way every time - even at 3 AM |
+| 3 | **High availability** | keep working when parts fail |
+| 4-5 | **CI/CD** | every change is tested and shipped by a pipeline - and rolled back if it fails |
+| 6 | **Observability** | see what the system is doing, and what it did |
 
-Guardrails from slide 8, in action: **a plan** before apply, **automatic rollback**, **monitoring**.
+**Guardrails** you saw: a plan before apply, automatic rollback, monitoring.
 
 <!-- notes:
-All five DevOps ideas from slide 7, each one practiced on a real cluster:
-- **Infrastructure as Code:** the cluster is files; scaling was a one-line change, with a plan before applying it.
-- **Automation:** nobody restarted the killed copies - Kubernetes did.
-- **High availability:** a whole machine died, and after a few seconds the site was fully up again.
-- **CI/CD:** every release went through the same pipeline - test, deploy, verify - and the broken one was rolled back automatically.
-- **Observability:** the `watch`, the logs and the events showed what was happening and what had happened.
+Now the names, all together. Each one is a scene you just watched - the first column is the scene number:
+- **Infrastructure as Code** (scene 1): servers, networks, databases and apps are described in files, so they can be reviewed, versioned and rebuilt like any other code. Scaling to 6 copies was a one-line change, with a plan before applying it.
+- **Automation** (scene 2): a machine does each task the same way every time, without the mistakes of a tired human at 3 AM. Nobody restarted the killed copies - Kubernetes did. If everything is automated, you can even delete it all and rebuild it from scratch.
+- **High availability** (scene 3): the system keeps working even when some of its parts fail. A whole machine died, and after a few seconds the site was fully up again.
+- **CI/CD** (Continuous Integration / Continuous Delivery, scenes 4 and 5): every change goes through an automatic pipeline - test, build, deploy, verify. Real pipelines also deploy to a test environment first. A failure stops the pipeline - or rolls it back - before it reaches users.
+- **Observability** (scene 6): metrics (numbers over time), logs (what happened) and traces (the path of one request) show what the system is doing right now, so you notice a problem before users do.
 
-And three of the guardrails from slide 8 appeared too: a plan (review) before applying a change, automatic rollback, and monitoring. These are the same guardrails that protect a company when a human - or an AI - makes a mistake.
+And three **guardrails** appeared too - safety measures that stop one mistake, by a human or by an AI, from becoming a disaster like the outages on slide 5: a plan (review) before applying a change, automatic rollback, and monitoring. The full list is in the self-study part (slide 28); the DevOps loop that ties all of it together is on slide 27.
+
+Look back at the road on slide 6: the code is packed (containers), it runs in copies (architecture), a machine manages them (Kubernetes), and every change reaches users safely (everything on this slide). That road is DevOps.
 -->
 
 ---
 
-## Part 6 · Know what is in the code
+## Part 4 · Know what is in the code
 
 > AI can write the code. **You** have to know what is in it.
 
@@ -507,24 +473,9 @@ And three of the guardrails from slide 8 appeared too: a plan (review) before ap
 <!-- notes:
 This is the central message of the talk.
 
+DevOps keeps the road safe - but what travels on it is the code, and that's yours too. AI is very good at producing code that **looks** right and works when you try it once. But it has never seen your traffic, your data, or your cloud bill. Every line becomes work that a real machine does - millions of times a day. And when it breaks at 3 AM, the AI is not in the room. You are. If you can't explain what the code does, you can't fix it.
+
 **The iceberg:** the code is the small tip above the water - what AI writes in 30 seconds. Under the water is the big part: what that code does to real machines - the algorithm, I/O, caching, memory, guardrails and access. That part is yours to know, even when AI writes the code. The next slides go through it.
--->
-
----
-
-## AI writes it. You own it.
-
-- AI writes code that **looks** right and passes the demo
-- it does not know your users, your data, or your bill
-- every line becomes work a real machine does - millions of times a day
-- if you can't explain it, you can't fix it at 3 AM
-
-<!-- notes:
-AI is very good at producing code that **looks** right and works when you try it once. But it has never seen your traffic, your data, or your cloud bill. It doesn't know that your app will get a million users on the day the Bagrut results come out.
-
-Every line of code becomes work that a real machine does - and in a real system, millions of times a day. A line that wastes one millisecond, times a million, is a real cost.
-
-And when it breaks at 3 AM, the AI is not in the room. You are. If you can't explain what the code does, you can't fix it.
 -->
 
 ---
@@ -543,32 +494,14 @@ And when it breaks at 3 AM, the AI is not in the room. You are. If you can't exp
 <!-- notes:
 Six questions to ask about any code - whoever or whatever wrote it. The last column connects them to the next slide: every unanswered question ends in bugs, lag or cost.
 
-- **Correctness:** does it actually do the right thing - including with empty, huge or strange input? Is there a test that proves it? AI is very good at the "happy path" (when everything is normal) and often forgets the edge cases. (Example on slide 41.)
-- **Algorithm:** how much work does the code do for each user? Some code is fast with 100 users and completely frozen with a million. (Example on slide 42.)
-- **I/O & caching** (I/O = input/output): how often does it go to the disk, the network or the database - and what does it keep close, so it doesn't have to go again? Each trip is slow; a thousand of them per click is a disaster. (Examples on slides 43 and 45.)
-- **Memory:** does the code hold on to things it never lets go of? Then memory slowly fills up and the server crashes every few days. (Slide 45.)
-- **Failure:** what happens when something it depends on is slow, down, or sends garbage? Timeouts, retries, limits and checking input are the answers. Without them, one slow service brings down everything. (Slide 46.)
-- **Security & access:** what is the code - or the AI agent - allowed to touch? Where are the passwords and keys? Who can see the data? Two examples in the self-study part: photos made public by mistake (slide 48), and an AI agent that deleted a production database (slide 49).
+- **Correctness:** does it actually do the right thing - including with empty, huge or strange input? Is there a test that proves it? AI is very good at the "happy path" (when everything is normal) and often forgets the edge cases. (Example on slide 39.)
+- **Algorithm:** how much work does the code do for each user? Some code is fast with 100 users and completely frozen with a million. (Example on slide 40.)
+- **I/O & caching** (I/O = input/output): how often does it go to the disk, the network or the database - and what does it keep close, so it doesn't have to go again? Each trip is slow; a thousand of them per click is a disaster. (Examples on slides 41 and 42.)
+- **Memory:** does the code hold on to things it never lets go of? Then memory slowly fills up and the server crashes every few days. (Slide 43.)
+- **Failure:** what happens when something it depends on is slow, down, or sends garbage? Timeouts, retries, limits and checking input are the answers. Without them, one slow service brings down everything. (Slide 44.)
+- **Security & access:** what is the code - or the AI agent - allowed to touch? Where are the passwords and keys? Who can see the data? Two examples in the self-study part: photos made public by mistake (slide 46), and an AI agent that deleted a production database (slide 47).
 
-One more question worth asking, which the demo showed: **can you see what it's doing?** If the code writes no logs and nobody watches it, you find out about problems from angry users (Demo 6, slide 19).
--->
-
----
-
-## It always ends in the same three places
-
-![Three cards: bugs, lag and cost](img/bugs-lag-cost.svg)
-
-- none of these show up in "it works on my machine"
-- they show up with real users, real data, at real scale
-
-<!-- notes:
-When nobody asks those six questions, it always ends in one of three places:
-- **Bugs:** wrong results, leaked private data, crashes.
-- **Lag:** slow pages, queues that fall behind, and users who give up and leave.
-- **Cost:** servers you didn't need, and cloud bills nobody expected.
-
-None of them show up in "it works on my machine". They show up only with real users, real data, at real scale - which is exactly when it's most expensive to find out.
+One more question worth asking, which the demo showed: **can you see what it's doing?** If the code writes no logs and nobody watches it, you find out about problems from angry users (Demo 6, slide 17).
 -->
 
 ---
@@ -584,19 +517,19 @@ None of them show up in "it works on my machine". They show up only with real us
 The practical takeaway. You don't have to stop using AI - use it better:
 - Ask it directly: "what happens with 10 million users?" It will often find its own trap.
 - Ask it to explain every line you don't understand. AI is a great teacher, not only a code writer.
-- Test with real-size data, not 5 rows - traps like these hide at small scale (see the six traps in the self-study part, slides 41-46).
+- Test with real-size data, not 5 rows - traps like these hide at small scale (see the six traps in the self-study part, slides 39-44).
 - Measure: how long the code takes, how much memory it uses, how many database queries it makes.
 -->
 
 ---
 
-## Part 7 · Build with AI
+## Part 5 · Build with AI
 
 #### Go build something - with AI
 
 > My opinion: if you don't use AI, you will become **irrelevant**.
 
-I'm guessing most of you already build things with AI. If you don't - start. Today.
+Many of you already build with AI. If you don't - start. Today.
 
 - build **anything** - a game, a bot, a site for your class
 - the first project breaks the fear barrier
@@ -635,9 +568,34 @@ A site like this started as one small project - and grew one piece at a time.
 
 ---
 
-## Part 8 · Wrap-up
+## Part 6 · Wrap-up
 
-#### The important ideas
+#### The base of everything
+
+Tools change every few years. These three don't.
+
+![Three foundation blocks - the product, your technology, learning - under a dashed layer of today's tools: Kubernetes, Docker, Kafka, Terraform, CI/CD, AI tools](img/base.svg)
+
+<!-- notes:
+What to take away from all this, and what to do next.
+
+**The most important slide of the talk.**
+
+The DevOps ideas from the demo - and the tools in the rest of this talk: Kubernetes, Docker, Kafka, Terraform, even today's AI tools - are **today's best practice**. Ten years ago half of it didn't exist; in ten years much of it will be replaced. It's the top layer in the diagram, and it changes.
+
+Underneath is the base, and it doesn't change:
+1. **Know what the product should do.** Who uses it, what problem it solves, what "working" means for them. AI can write code, but it can't decide what's worth building, or notice that it built the wrong thing.
+2. **Know what your technology does.** Not just that the code runs - what it does to real machines: the algorithm, the I/O, the memory, the access. That's the iceberg from part 4.
+3. **Be able to learn new technologies and tools - all the time.** The tools on top will keep changing. The people who stay relevant are the ones who pick up the next one quickly - and AI is the best tool for learning there has ever been.
+
+**And one thing that's always true: learn English well.** Every new tool, its documentation, the forums where people solve your exact problem, the talks and courses - all of it comes out in English first, and often only in English. Even working with AI goes better when you can read and write English precisely. It's the tool that unlocks every other tool.
+
+AI is a great co-pilot. You are still the pilot - and the pilot needs to know where the plane is going (the product), how it works (the technology), and how to fly next year's plane (learning).
+-->
+
+---
+
+## The important ideas
 
 1. writing code is the easy part - running it for millions of people is the job
 2. **DevOps**: automation, IaC, CI/CD, observability, high availability - and guardrails
@@ -647,10 +605,10 @@ A site like this started as one small project - and grew one piece at a time.
 
 <!-- notes:
 The whole talk in five ideas:
-1. **Writing code is the easy part.** AI can write an app in 30 seconds. Running it for millions of people - without breaking, at 3 AM, while changing it all the time - is the real job (part 1, and the outages on slide 6).
-2. **DevOps** is how that's done: automation, Infrastructure as Code, CI/CD, observability, high availability - and guardrails that stop one mistake from becoming a disaster. You saw every one of them practiced on a real cluster in the demo (slides 13-20).
-3. **AI writes the code - you have to know what is in it.** The code is the tip of the iceberg; what it does to real machines is underneath. If nobody asks, it ends in bugs, lag or cost (part 6).
-4. **The base doesn't change:** know what the product should do, know what your technology does, keep learning new tools - and learn English well (slide 9).
+1. **Writing code is the easy part.** AI can write an app in 30 seconds. Running it for millions of people - without breaking, at 3 AM, while changing it all the time - is the real job (part 1, and the outages on slide 5) - and the road on slide 6 takes it there.
+2. **DevOps** is how that's done: automation, Infrastructure as Code, CI/CD, observability, high availability - and guardrails that stop one mistake from becoming a disaster. You saw every one of them practiced on a real cluster in the demo (slides 11-18).
+3. **AI writes the code - you have to know what is in it.** The code is the tip of the iceberg; what it does to real machines is underneath. If nobody asks, it ends in bugs, lag or cost (part 4).
+4. **The base doesn't change:** know what the product should do, know what your technology does, keep learning new tools - and learn English well (slide 24).
 5. **Use AI.** In my opinion, if you don't, you will become irrelevant. AI makes you fast; knowing what is in the code makes you good. You need both.
 
 Anyone can write code now. Knowing what is in it - and running it for millions of people, safely - that's engineering.
@@ -664,10 +622,10 @@ That's the end of the talk. Next in the file: the self-study part, with more dep
 
 Everything below is for going over at home. Press **?** on any slide for the full explanation.
 
-1. how DevOps works day to day, and why everything runs in copies
+1. the DevOps loop, guardrails, and why everything runs in copies
 2. Kafka - how services talk without waiting for each other
-3. containers and the Kubernetes words
-4. six traps in code that "works"
+3. the Kubernetes words
+4. bugs, lag, cost - and six traps in code that "works"
 5. AI and infrastructure - Terraform, spot the bug, a real story
 6. run the demo at home - and where to learn more
 
@@ -690,7 +648,26 @@ The DevOps loop never stops. Follow the numbers around the infinity sign: plan, 
 
 Big companies go around this loop many times a day, with small changes. Why small? Because many small changes are safer than one big one: when something breaks, you know exactly which change caused it. One huge release once a month is a huge haystack to search for the needle.
 
-And every step is automated and checked - which is how you avoid becoming the next story on the outages slide (slide 6).
+And every step is automated and checked - which is how you avoid becoming the next story on the outages slide (slide 5).
+-->
+
+---
+
+## The guardrails are DevOps
+
+- **review** - a human reads the plan before `apply`
+- **least privilege** - nobody, human or AI, holds keys it does not need
+- **staging** - try it on a copy of the world first
+- **backups + restore drills** - assume something will be deleted
+- **monitoring + rollback** - notice in seconds, undo in one command
+
+<!-- notes:
+DevOps is also about **guardrails**: safety measures that stop one mistake - by a human or by an AI - from becoming a disaster like the outages on slide 5. Three of them appear in the demo (a plan, automatic rollback, monitoring), and the recap after the demo (slide 18) comes back to this slide.
+- **Review:** a human reads the plan - a preview of exactly what a change will do - before anyone applies it. (You'll see a plan in Demo 1.)
+- **Least privilege:** nobody - human or AI - holds keys it doesn't need. An agent that writes code doesn't need permission to delete the database.
+- **Staging:** try every change on a copy of the real system first, never straight on production.
+- **Backups and restore drills:** assume something will be deleted someday - and practice restoring. "A backup you've never restored is only a hope."
+- **Monitoring and rollback:** notice a problem in seconds, and undo it - in Demo 5 the pipeline rolls back by itself.
 -->
 
 ---
@@ -727,7 +704,7 @@ The conveyor belt between services:
 4. lag - how far behind the consumers are, and how to fix it
 
 <!-- notes:
-**Kafka** is the "queue" box from the architecture diagram (slide 10). It's one of the most common building blocks in large systems. This section explains it with one analogy - a restaurant, with waiters, an order rail and cooks.
+**Kafka** is the "queue" box from the architecture diagram (slide 8). It's one of the most common building blocks in large systems. This section explains it with one analogy - a restaurant, with waiters, an order rail and cooks.
 -->
 
 ---
@@ -809,7 +786,7 @@ Producer and consumer are the two to remember.
 <!-- notes:
 Why almost every big system has something like Kafka:
 - **Decoupling:** checkout doesn't know or care who reads its events. You can add a new service without touching checkout at all.
-- **Buffering:** a spike of orders waits in Kafka instead of crashing the services behind it. They work through it at their own pace. (Buffering is trap 4, slide 44.)
+- **Buffering:** a spike of orders waits in Kafka instead of crashing the services behind it. They work through it at their own pace. (Buffering is trap 4, slide 42.)
 - **Surviving failure:** if the email service is down for an hour, the events just wait. When it comes back, it continues from its bookmark and catches up. Nothing is lost.
 - **Replay:** a new service - say fraud detection - can read all of history, from the very first order.
 - **Scale:** more partitions and more consumers means more events handled per second.
@@ -831,7 +808,7 @@ Lag is the single most important number for a Kafka system:
 - **small and steady:** healthy - the consumers keep up.
 - **growing:** the consumers are too slow. Confirmation emails arrive an hour late, stock numbers are out of date.
 
-The **trend** matters more than the number itself. And notice: users don't see an error message - they see things happening late. That's why lag is the number every Kafka dashboard shows and alerts on. It's the "lag" from "bugs, lag, cost" (slide 24).
+The **trend** matters more than the number itself. And notice: users don't see an error message - they see things happening late. That's why lag is the number every Kafka dashboard shows and alerts on. It's the "lag" from "bugs, lag, cost" (slide 38).
 -->
 
 ---
@@ -856,37 +833,6 @@ To go deeper: the [Kafka page on blearning](https://barakkol33.github.io/blearni
 
 ---
 
-## Containers: pack it once, run it anywhere
-
-"It works on my machine" - so ship the machine.
-
-- a **container** packs the app with everything it needs
-- like a shipping container: the crane does not care what is inside
-- the same container runs on your laptop, a server, or the cloud
-
-```dockerfile
-FROM python:3.12-slim
-COPY . /app
-RUN pip install -r /app/requirements.txt
-CMD ["python", "/app/main.py"]
-```
-
-<!-- notes:
-"It works on my machine" is the oldest problem in software. Your code works on your laptop, and breaks on the server - a different Python version, a missing library, a different setting. The solution: ship the machine too.
-
-A **container** packs the app together with everything it needs: the language, the libraries, the settings. It's like a shipping container: the crane doesn't care if it holds bananas or cars - it moves every container the same way. The same container runs identically on your laptop, a server, or the cloud.
-
-The recipe for a container is a **Dockerfile**. Read it line by line:
-- `FROM python:3.12-slim` - start from a ready-made image that already has Python 3.12.
-- `COPY . /app` - copy our code into it.
-- `RUN pip install ...` - install the libraries the code needs.
-- `CMD [...]` - the command to run when the container starts.
-
-To go deeper: the [Docker page on blearning](https://barakkol33.github.io/blearning/tech/software-development/devops/containers/docker/).
--->
-
----
-
 ## The Kubernetes vocabulary
 
 | word | what it is | supermarket version |
@@ -898,7 +844,7 @@ To go deeper: the [Docker page on blearning](https://barakkol33.github.io/blearn
 | **Control plane** | the brain that makes decisions | head office |
 
 <!-- notes:
-The basic Kubernetes words, with the supermarket from slide 31:
+The basic Kubernetes words, with the supermarket from slide 29:
 - **Node:** a machine in the cluster. A branch of the chain.
 - **Pod:** one running copy of the app. One cashier.
 - **Deployment:** the rule "always keep N copies running". The shift manager, who makes sure there are always enough cashiers.
@@ -908,6 +854,24 @@ The basic Kubernetes words, with the supermarket from slide 31:
 In the demo: the cluster had 3 nodes (1 control plane, 2 workers), a Deployment asking for 3 pods, and a Service in front of them at port 8080.
 
 To go deeper: the [Kubernetes guide on blearning](https://barakkol33.github.io/blearning/tech/software-development/devops/containers/kubernetes/) builds a cluster on your laptop step by step.
+-->
+
+---
+
+## It always ends in the same three places
+
+![Three cards: bugs, lag and cost](img/bugs-lag-cost.svg)
+
+- none of these show up in "it works on my machine"
+- they show up with real users, real data, at real scale
+
+<!-- notes:
+When nobody asks those six questions, it always ends in one of three places:
+- **Bugs:** wrong results, leaked private data, crashes.
+- **Lag:** slow pages, queues that fall behind, and users who give up and leave.
+- **Cost:** servers you didn't need, and cloud bills nobody expected.
+
+None of them show up in "it works on my machine". They show up only with real users, real data, at real scale - which is exactly when it's most expensive to find out.
 -->
 
 ---
@@ -1113,7 +1077,7 @@ With **Terraform** - the most common IaC tool - you describe real cloud infrastr
 
 `terraform plan` shows what will change. `terraform apply` makes it real - it creates actual servers in the cloud that cost actual money, every hour.
 
-And that's the catch: a mistake in app code usually gives you an error message. A mistake in infrastructure code can be a deleted database, a data leak, or a huge bill - often with no error at all. The next slide shows an example. (Why infrastructure code is harder, row by row: slide 50.) This is the same idea as Demo 1 in the talk (slide 14) - change a file, plan, apply - but for real cloud machines.
+And that's the catch: a mistake in app code usually gives you an error message. A mistake in infrastructure code can be a deleted database, a data leak, or a huge bill - often with no error at all. The next slide shows an example. (Why infrastructure code is harder, row by row: slide 48.) This is the same idea as Demo 1 in the talk (slide 12) - change a file, plan, apply - but for real cloud machines.
 -->
 
 ---
@@ -1166,7 +1130,7 @@ The right way: keep the bucket private, and serve the photos through the website
 <!-- notes:
 This isn't hypothetical. In July 2025, an AI coding agent that had been told not to change anything during a "code freeze" deleted a company's production database - the real, live data.
 
-The code it wrote wasn't the problem. The **access** was: the AI agent had the keys to production. "What is it allowed to touch?" is one of the six questions to ask about any code (slide 23). An AI agent that can run commands on real systems is a new kind of risk.
+The code it wrote wasn't the problem. The **access** was: the AI agent had the keys to production. "What is it allowed to touch?" is one of the six questions to ask about any code (slide 20). An AI agent that can run commands on real systems is a new kind of risk.
 
 The answer is not "don't use AI". It's guardrails - next slide.
 
@@ -1193,7 +1157,7 @@ Row by row:
 - **Who is hit:** an app bug breaks one feature. An infrastructure bug hits everyone, at once.
 - **State:** app code is all in the files. Infrastructure has state that lives in the cloud - and other people (and other scripts) change it too, so the files may not match reality.
 
-That's why the guardrails on slide 8 matter so much here.
+That's why the guardrails on slide 28 matter so much here.
 -->
 
 ---

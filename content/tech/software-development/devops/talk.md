@@ -19,18 +19,16 @@ A talk for high school students: DevOps, Kubernetes and architecture - in a worl
 
 ## What's inside
 
-**The talk** (slides 1-28, about 40 minutes):
+**The talk** (slides 1-25, about 33 minutes, then questions). It starts from code you already know how to write, and builds DevOps one step at a time:
 
-1. **The real job** - AI writes code in seconds; running it for millions of people is the hard part.
-2. **DevOps** - automation, CI/CD, infrastructure as code, observability, high availability; guardrails; and the base that doesn't change.
-3. **Architecture** - what's behind an app you use every day.
-4. **Containers and Kubernetes** - you say *what*, it figures out *how*.
-5. **Live demo** - every DevOps idea, practiced on a real cluster.
-6. **Know what is in the code** - six questions to ask about any code, whoever wrote it.
-7. **Build with AI** - go build something.
-8. **Wrap-up** - the important ideas.
+1. **You wrote code. Now what?** - AI writes code in seconds; running it for millions of people is the hard part.
+2. **From laptop to millions** - what DevOps is, then three steps: pack it (containers), run many copies (architecture), let a machine manage them (Kubernetes).
+3. **Live demo: results day** - one story, six scenes, one DevOps idea per scene - each one named after you see it - and a recap of all of them.
+4. **Know what is in the code** - six questions to ask about any code, whoever wrote it.
+5. **Build with AI** - go build something.
+6. **Wrap-up** - the base that doesn't change, and the important ideas.
 
-**Self-study** (slides 29-52): the DevOps loop, Kafka, containers and the Kubernetes words, six traps hidden in code that "works", AI and infrastructure as code, and how to run the demo at home.
+**Self-study** (slides 26-50): the DevOps loop, guardrails, Kafka, the Kubernetes words, six traps hidden in code that "works", AI and infrastructure as code, and how to run the demo at home.
 
 ## The live demo
 
