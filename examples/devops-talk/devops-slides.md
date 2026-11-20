@@ -137,15 +137,21 @@ The road on the slide is the plan for the talk: pack the code (step 1), run many
 
 "It works on my machine" - so ship the machine.
 
-- a **container** packs the app with everything it needs
-- like a shipping container: the crane does not care what is inside
+- "lightweight VM": has OS, programs and app ready to run
+- very easy to create and send using `docker` commands 
+- under the hood: contain only added files, share host VM 
 - the same container runs on your laptop, a server, or the cloud
 
 ```dockerfile
+# Dockerfile
 FROM python:3.12-slim
 COPY . /app
 RUN pip install -r /app/requirements.txt
 CMD ["python", "/app/main.py"]
+```
+```bash
+docker build .
+docker push
 ```
 
 <!-- notes:
@@ -219,7 +225,7 @@ Now all three steps are in place: the code is packed, it runs in copies, and Kub
 
 ```bash
 ./demo.sh up       # build the whole cluster from files, ~1 minute
-./demo.sh watch    # one colored line per request
+./demo.sh watch    # live dashboard: the site, the copies, the machines
 ```
 
 <!-- notes:
@@ -234,30 +240,7 @@ The cluster has 3 machines - a **control plane** (the brain, which decides what 
 
 Everything is described in three files: the machines (`kind-cluster.yaml`), the app (`app.yaml`), and the commands (`demo.sh`). `./demo.sh up` builds the whole cluster from these files in about a minute, and it can be deleted and rebuilt any time - this idea gets its name in the first scene.
 
-`./demo.sh watch` sends a request every third of a second and prints one colored line per answer: the version, which copy answered, and on which machine. The browser at `http://localhost:8080` shows the same page, refreshing every second.
--->
-
----
-
-## The story: results day
-
-This cluster runs the Bagrut results site. Tomorrow at 9:00 the results come out.
-
-| | what happens | command |
-| --- | --- | --- |
-| 1 | 100,000 students are coming - we need more copies | `./demo.sh iac 6` |
-| 2 | 3 AM: copies crash | `./demo.sh kill`, `chaos` |
-| 3 | a whole machine dies | `./demo.sh node-down` |
-| 4 | a fix has to ship - while everyone is checking | `./demo.sh update` |
-| 5 | the next fix has a typo | `./demo.sh break` |
-| 6 | the morning after: what happened? | `./demo.sh events`, `logs` |
-
-<!-- notes:
-The demo tells one story. The cluster runs the Bagrut results site, and tomorrow at 9:00 the results come out. Each row is a problem that really happens to sites like this one - and each scene solves it with one DevOps idea. The idea's name comes **after** you see it work, in the last line of each scene's slide and in a blue banner the command prints.
-
-The `watch` (one colored line per request) runs the whole time. It's the simplest kind of monitoring: if the site ever stops answering, you see red `DOWN` lines.
-
-After the six scenes, slide 18 puts all the names together.
+`./demo.sh watch` is a live dashboard, redrawn every second. At the top is **the site** as a user sees it: up or down, which version answered, and a traffic strip with one colored block per request (a red X when a request failed). Below are **the copies**: how many are wanted and how many are ready, and every copy on its machine - with its version and its state (starting, ready, stopping). The browser at `http://localhost:8080` shows the same page, refreshing every second.
 -->
 
 ---
@@ -305,6 +288,7 @@ For cloud infrastructure (servers, databases, storage), the same idea is done wi
 
 - nobody restarted anything - Kubernetes saw too few copies, and fixed it
 - the page kept answering the whole time
+- this is **high availability** - fast, not instant, so we also watch
 - this is **automation** - here, **self-healing**
 
 <!-- notes:
@@ -312,7 +296,7 @@ It's 3 AM, everyone is asleep, and copies of the app crash. In the demo we crash
 
 `./demo.sh kill` deletes a random copy of the app. A moment later the count is back to normal. Who restarted it? Nobody. Kubernetes saw fewer copies than the file asks for, and started a new one - the watch, compare, fix loop from slide 9.
 
-`./demo.sh chaos` deletes **all** the copies at once. Within seconds new ones are up - and the `watch` shows that the page kept answering the whole time.
+`./demo.sh chaos` deletes **all** the copies at once. Within seconds new ones are up - the dashboard shows the old copies stopping and new ones starting, and its traffic strip shows that the page kept answering the whole time.
 
 That's **automation**, and specifically **self-healing**: because the wish ("this many copies") is written down, the system can always return to it, without a person doing anything - even at 3 AM.
 -->
@@ -328,7 +312,6 @@ That's **automation**, and specifically **self-healing**: because the wish ("thi
 
 - the copies are spread over both machines - never all eggs in one basket
 - a few seconds of errors until Kubernetes notices, then the copies move
-- this is **high availability** - fast, not instant, so we also watch
 
 <!-- notes:
 Worse than a crashed copy: a whole machine dies - a disk, a power supply, a network cable.
@@ -337,7 +320,7 @@ Worse than a crashed copy: a whole machine dies - a disk, a power supply, a netw
 
 `./demo.sh node-down` stops one of the two worker machines, as if someone pulled out its power cable. Because `app.yaml` tells Kubernetes to spread the copies over both machines, the other machine is still serving.
 
-**What you'll see:** for a few seconds (about 7 when this demo was tested), some requests fail - red `DOWN` lines in the `watch` - because Kubernetes doesn't know yet that the machine is gone, and still sends it traffic. Then the machine is marked `NotReady`, its copies start on the other worker, and everything is green again.
+**What you'll see:** for a few seconds (about 10 when this demo was tested), some requests fail - red X marks in the dashboard's traffic strip, while the machine shows **machine down** - because Kubernetes doesn't know yet that the machine is gone, and still sends it traffic. Then the machine is marked `NotReady`, its copies start on the other worker, and everything is green again.
 
 The lesson: automation is fast, but not instant. Real systems spread copies over separate buildings and cities, and use monitoring and alerts, so one failure is noticed fast and never takes everything down. (This cluster was tuned to notice in ~10 seconds; the default is closer to a minute.)
 
@@ -354,7 +337,6 @@ The lesson: automation is fast, but not instant. Real systems spread copies over
 
 ![A pipeline: a change goes through test, deploy one copy at a time, verify, and is released; if verify fails it rolls back](img/pipeline.svg)
 
-- the pipeline does it - every change, every time
 - **rolling update**: new copy first, then an old one stops
 - this is **CI/CD**
 
@@ -367,7 +349,7 @@ It's 9:00, everyone is checking results, and a fix has to ship now. You can't ta
 3. **VERIFY:** did every new copy start, and does the site really answer with v2?
 4. If everything passed: **released**. If not: **ROLLBACK** - the next demo shows that.
 
-In the `watch`, blue and green lines mix until everything is green - without a single failed request. That's **zero downtime**, and it's how the apps on your phone update while you're using them. (When this demo was tested: 0 failed requests out of 223, across all the scenes except unplugging a machine.)
+On the dashboard, green copies appear one at a time while blue ones stop, and the traffic strip turns from blue to green - without a single failed request. That's **zero downtime**, and it's how the apps on your phone update while you're using them. (When this demo was tested: 0 failed requests out of 223, across all the scenes except unplugging a machine.)
 -->
 
 ---
@@ -418,7 +400,7 @@ Warning  Failed      Pod/hello-8754f858d-dwf89    Failed to pull image "nginx:1.
 Normal   ScalingReplicaSet  Deployment/hello      Scaled down replica set hello-8754f858d to 0
 ```
 
-- the `watch` is a tiny live dashboard: is it up? which version?
+- the dashboard: is it up? which version? how many copies, where?
 - **logs**: what each copy did. **Events**: what Kubernetes did, and why
 - this is **observability** - you can't fix what you can't see
 
@@ -428,7 +410,7 @@ The morning after: the boss asks what happened last night. Copies crashed, a mac
 **Observability** means being able to see what the system is doing - and what it did - from the outside.
 
 Three kinds appeared in this demo:
-- **The `watch`** - a tiny live dashboard: every request, which version answered, and red `DOWN` lines when something fails. Real systems have dashboards (for example Grafana) with graphs of requests, errors and response times, and **alerts** that wake someone up when a line crosses a limit.
+- **The dashboard** (`./demo.sh watch`) - is the site up, which version answered each request, how many copies are ready and on which machine, and red marks when something fails. Real systems have dashboards (for example Grafana) with graphs of requests, errors and response times, and **alerts** that wake someone up when a line crosses a limit.
 - **Logs** (`./demo.sh logs`): each copy writes a line for every request it serves - time, address, answer. When something breaks, logs tell you what the program was doing.
 - **Events** (`./demo.sh events`): Kubernetes' own diary. The output on the slide is from the earlier scenes: a copy being killed (Demo 2), the image that doesn't exist (Demo 5), and the broken version being scaled down to 0 (the rollback).
 
@@ -601,7 +583,6 @@ AI is a great co-pilot. You are still the pilot - and the pilot needs to know wh
 2. **DevOps**: automation, IaC, CI/CD, observability, high availability - and guardrails
 3. **AI writes the code - you have to know what is in it** - otherwise: bugs, lag, cost
 4. **the base**: the product, your technology, always learning - and English
-5. **use AI**
 
 <!-- notes:
 The whole talk in five ideas:
@@ -609,7 +590,6 @@ The whole talk in five ideas:
 2. **DevOps** is how that's done: automation, Infrastructure as Code, CI/CD, observability, high availability - and guardrails that stop one mistake from becoming a disaster. You saw every one of them practiced on a real cluster in the demo (slides 11-18).
 3. **AI writes the code - you have to know what is in it.** The code is the tip of the iceberg; what it does to real machines is underneath. If nobody asks, it ends in bugs, lag or cost (part 4).
 4. **The base doesn't change:** know what the product should do, know what your technology does, keep learning new tools - and learn English well (slide 24).
-5. **Use AI.** In my opinion, if you don't, you will become irrelevant. AI makes you fast; knowing what is in the code makes you good. You need both.
 
 Anyone can write code now. Knowing what is in it - and running it for millions of people, safely - that's engineering.
 

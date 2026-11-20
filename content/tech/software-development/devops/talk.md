@@ -2,7 +2,7 @@
 title: From Code to the Real World - a talk
 order: 0
 lang: en
-attachments: [_files/devops-talk.html, _files/devops-talk-demo/kind-cluster.yaml, _files/devops-talk-demo/app.yaml, _files/devops-talk-demo/demo.sh]
+attachments: [_files/devops-talk.html, _files/devops-talk-demo/kind-cluster.yaml, _files/devops-talk-demo/app.yaml, _files/devops-talk-demo/demo.sh, _files/devops-talk-demo/rehearse.sh]
 ---
 
 # From Code to the Real World - a talk
@@ -32,19 +32,20 @@ A talk for high school students: DevOps, Kubernetes and architecture - in a worl
 
 ## The live demo
 
-The demo is a real Kubernetes cluster that runs on one laptop, with [kind](https://kind.sigs.k8s.io/) (Kubernetes in Docker). Three files:
+The demo is a real Kubernetes cluster that runs on one laptop, with [kind](https://kind.sigs.k8s.io/) (Kubernetes in Docker). Three files, and a fourth that checks them:
 
 | file | what it is |
 | --- | --- |
 | [kind-cluster.yaml](_files/devops-talk-demo/kind-cluster.yaml) | the cluster: one control plane and two workers |
 | [app.yaml](_files/devops-talk-demo/app.yaml) | the app: three copies of a small web page, spread over both workers |
 | [demo.sh](_files/devops-talk-demo/demo.sh) | one command per scene - each one prints which DevOps idea it shows |
+| [rehearse.sh](_files/devops-talk-demo/rehearse.sh) | runs every scene start to end and checks each one - PASS or FAIL |
 
 **To run it:**
 
 1. Install WSL (on Windows), Docker, `kind` and `kubectl` - see [Prerequisites](prerequisites.md).
 2. Put the three files in one folder, and in a Linux shell (WSL) run `chmod +x demo.sh` and `./demo.sh up`. It builds the whole cluster in a minute or two.
-3. In a second terminal, run `./demo.sh watch`, and open `http://localhost:8080` in a browser.
+3. In a second terminal, run `./demo.sh watch` (a live dashboard: is the site up, which version, how many copies on which machine), and open `http://localhost:8080` in a browser.
 4. Run the scenes, in this order:
 
 | DevOps idea | command |

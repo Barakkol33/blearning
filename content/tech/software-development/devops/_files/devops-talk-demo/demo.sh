@@ -2,7 +2,8 @@
 # A live Kubernetes demo on one laptop (WSL / Linux / macOS) - every DevOps idea, practiced.
 #
 #   ./demo.sh up            AUTOMATION + IaC   build the whole cluster from files (~1-2 minutes)
-#   ./demo.sh watch         OBSERVABILITY      one colored line per request - leave it running
+#   ./demo.sh watch         OBSERVABILITY      live dashboard: site up?, version, copies per machine
+#   ./demo.sh requests      OBSERVABILITY      the simple watch: one colored line per request
 #   ./demo.sh pods                             which copies run, and on which machine
 #
 #   ./demo.sh iac N         IaC                change the file to N copies: plan (diff), then apply
@@ -26,8 +27,27 @@ HERE="$(cd "$(dirname "$0")" && pwd)"
 IMAGE=nginx:1.27-alpine
 URL=http://localhost:8080
 
-say() { printf '\n\033[1;36m$ %s\033[0m\n' "$*"; "$@"; }
-banner() { printf '\n\033[1;97;44m %s \033[0m\n' "$*"; }        # which DevOps idea this scene shows
+# always talk to the demo cluster, whatever kubectl's current context is (another kind cluster, say)
+kubectl() { command kubectl --context "kind-$CLUSTER" "$@"; }
+
+# Presenting: in a terminal, every command is typed out and waits for Enter, and multi-step
+# scenes wait for Enter between steps - time to explain. DEMO_PAUSE=0 runs straight through.
+pausing() { [[ "${DEMO_PAUSE:-1}" == 1 && -t 0 && -t 1 ]]; }
+pause() { pausing || return 0; printf '\033[2m   [Enter]\033[0m'; read -rs; printf '\r\033[K'; }
+say() {
+  printf '\n\033[1;36m$ '
+  if pausing; then
+    local s="$*" i
+    for ((i = 0; i < ${#s}; i++)); do printf '%s' "${s:i:1}"; sleep 0.02; done
+    read -rs
+  else
+    printf '%s' "$*"
+  fi
+  printf '\033[0m\n'
+  "$@"
+}
+# which DevOps idea this scene shows (present.sh hides it, and names the idea after the scene)
+banner() { [[ "${DEMO_BANNERS:-1}" == 0 ]] && return 0; printf '\n\033[1;97;44m %s \033[0m\n' "$*"; }
 stage() { printf '\n\033[1;34m== %s\033[0m\n' "$*"; }
 ok() { printf '\033[1;32m   ok: %s\033[0m\n' "$*"; }
 bad() { printf '\033[1;31m   FAILED: %s\033[0m\n' "$*"; }
@@ -49,8 +69,105 @@ cmd_up() {
   printf '\nOpen %s in a browser, and run "./demo.sh watch" in a second terminal.\n' "$URL"
 }
 
+# --- the live dashboard (left terminal): is the site up, which version, how many copies, where ---
+color_of() {   # the page's color -> terminal color number
+  case "$1" in
+    "#1f6feb") echo 34 ;;   # blue
+    "#1a7f37") echo 32 ;;   # green
+    "#cf222e") echo 31 ;;   # red
+    *)         echo 35 ;;
+  esac
+}
+
+watch_frame() {
+  local reqlog="$1" E=$'\033' K=$'\033[K' out="" line
+  local total failed last v c p n
+  total=$(wc -l <"$reqlog"); failed=$(grep -c '^DOWN' "$reqlog" || true)
+  last=$(tail -n1 "$reqlog")
+
+  # the site, from the outside: what a user gets
+  if [[ -z "$last" ]]; then
+    line="${E}[1;97;100m  waiting  ${E}[0m"
+  elif [[ "$last" == DOWN ]]; then
+    line="${E}[1;97;41m  DOWN - no answer  ${E}[0m"
+  else
+    read -r v c p n <<<"$last"
+    line="${E}[1;97;$(( $(color_of "$c") + 10 ))m  UP - $v  ${E}[0m  last answer: $p on $n"
+  fi
+  out+=$'\n'"  ${E}[1mTHE SITE${E}[0m    $line$K"
+  if (( failed > 0 )); then
+    out+=$'\n'"  requests    $total sent, ${E}[1;31m$failed failed${E}[0m$K"
+  else
+    out+=$'\n'"  requests    $total sent, 0 failed$K"
+  fi
+  local strip="" r
+  while read -r r; do
+    if [[ "$r" == DOWN ]]; then strip+="${E}[1;31mX${E}[0m"
+    else read -r v c _ <<<"$r"; strip+="${E}[$(color_of "$c")m█${E}[0m"; fi
+  done < <(tail -n 60 "$reqlog")
+  out+=$'\n'"  traffic     $strip  ${E}[2m(newest on the right)${E}[0m$K"
+
+  # the cluster, from the inside: what Kubernetes is doing
+  local want ready wantv
+  want=$(kubectl --request-timeout=2s get deployment/hello -o jsonpath='{.spec.replicas}' 2>/dev/null || true)
+  ready=$(kubectl --request-timeout=2s get deployment/hello -o jsonpath='{.status.readyReplicas}' 2>/dev/null || true)
+  wantv=$(kubectl --request-timeout=2s get deployment/hello \
+    -o jsonpath='{.spec.template.spec.containers[0].env[?(@.name=="VERSION")].value}' 2>/dev/null || true)
+  local rc=32; [[ "${ready:-0}" != "${want:-?}" ]] && rc=33
+  out+=$'\n'$'\n'"  ${E}[1mCOPIES${E}[0m      wanted ${E}[1m${want:-?}${E}[0m  ·  ready ${E}[1;${rc}m${ready:-0}${E}[0m  ·  version ${wantv:-?}$K"
+
+  local pods nodes node ready_state
+  # "|"-separated, not tabs: read would merge empty tab-separated fields and shift the columns
+  pods=$(kubectl --request-timeout=2s get pods -l app=hello -o jsonpath='{range .items[*]}{.metadata.name}{"|"}{.spec.nodeName}{"|"}{.metadata.deletionTimestamp}{"|"}{.status.containerStatuses[0].ready}{"|"}{.status.containerStatuses[0].state.waiting.reason}{"|"}{.spec.containers[0].env[?(@.name=="VERSION")].value}{"|"}{.spec.containers[0].env[?(@.name=="COLOR")].value}{"\n"}{end}' 2>/dev/null | sort || true)
+  nodes=$(kubectl --request-timeout=2s get nodes -o jsonpath='{range .items[*]}{.metadata.name}{"\t"}{.status.conditions[?(@.type=="Ready")].status}{"\n"}{end}' 2>/dev/null | grep -v control-plane || true)
+  while IFS=$'\t' read -r node ready_state; do
+    [[ -z "$node" ]] && continue
+    if [[ "$ready_state" == True ]]; then
+      out+=$'\n'$'\n'"  ${E}[1m$node${E}[0m   ${E}[32mmachine up${E}[0m$K"
+    else
+      out+=$'\n'$'\n'"  ${E}[1m$node${E}[0m   ${E}[1;97;41m machine down ${E}[0m$K"
+    fi
+    out+=$(pod_rows "$pods" "$node")
+  done <<<"$nodes"
+  local waiting; waiting=$(pod_rows "$pods" "")
+  [[ -n "$waiting" ]] && out+=$'\n'$'\n'"  ${E}[1mno machine yet${E}[0m$K$waiting"
+  out+=$'\n'$'\n'"  ${E}[2m$(date +%T)  ·  Ctrl+C to stop${E}[0m$K"
+  printf '%s' "$out"
+}
+
+pod_rows() {   # the copies on one machine ("" = not placed yet), one row each
+  local E=$'\033' K=$'\033[K' name node del rdy why v c state sc
+  while IFS="|" read -r name node del rdy why v c; do
+    [[ -z "$name" || "$node" != "$2" ]] && continue
+    if [[ -n "$del" ]]; then state="stopping"; sc=2
+    elif [[ -n "$why" ]]; then state="$why"; sc=33
+      [[ "$why" == *Err* || "$why" == *BackOff* ]] && sc=31
+    elif [[ "$rdy" == true ]]; then state="ready"; sc=32
+    else state="starting"; sc=33; fi
+    printf '\n    %s█%s %-3s  %-26s %s%s%s%s' "${E}[$(color_of "$c")m" "${E}[0m" "$v" "$name" "${E}[${sc}m" "$state" "${E}[0m" "$K"
+  done <<<"$1"
+}
+
 cmd_watch() {
-  # one line per request; the color of the block is the color the page is serving
+  # the dashboard, redrawn every second; requests go out ~3 times a second in the background
+  local reqlog; reqlog=$(mktemp)
+  ( while true; do
+      line=$(curl -s --max-time 1 "$URL/plain" || true)
+      echo "${line:-DOWN}"
+      sleep 0.3
+    done ) >>"$reqlog" &
+  local loop=$!
+  trap 'kill $loop 2>/dev/null; rm -f "$reqlog"; tput cnorm 2>/dev/null; echo; exit 0' INT TERM
+  tput civis 2>/dev/null || true
+  clear
+  while true; do
+    printf '\033[H%s\033[J' "$(watch_frame "$reqlog")"
+    sleep 1
+  done
+}
+
+cmd_requests() {
+  # the simple watch: one line per request; the color of the block is the color the page is serving
   while true; do
     line=$(curl -s --max-time 1 "$URL/plain" || true)
     t=$(date +%T)
@@ -81,8 +198,10 @@ cmd_iac() {
   stage "1. the change: replicas -> $n in app.yaml"
   grep -nE '^ *replicas:' "$HERE/app.yaml" | sed "s/^/   now:  /"
   printf '%s\n' "$desired" | grep -nE '^ *replicas:' | sed "s/^/   new:  /"
+  pause
   stage "2. PLAN - what would change? (kubectl diff)"
   printf '%s\n' "$desired" | kubectl diff -f - 2>/dev/null | grep -E '^[-+] ' | grep -v generation || true
+  pause
   stage "3. APPLY - make it real (kubectl apply)"
   printf '%s\n' "$desired" | kubectl apply -f -
   wait_rollout
@@ -133,16 +252,20 @@ cmd_ship() {
   patch=$(printf '{"spec":{"template":{"spec":{"containers":[{"name":"web","image":"%s","env":[{"name":"VERSION","value":"%s"},{"name":"COLOR","value":"%s"}]}]}}}}' \
     "$image" "$version" "$color")
   banner "CI/CD PIPELINE - release $version"
+  [[ "${DEMO_BANNERS:-1}" == 0 ]] && printf '\n\033[1;97;100m PIPELINE - release %s \033[0m\n' "$version"
 
   stage "1. TEST - is the change valid?"
   if ! kubectl patch deployment/hello --dry-run=server -p "$patch" >/dev/null; then
     bad "the change is invalid - nothing was deployed"; return 1
   fi
   ok "the manifest is valid"
+  pause
 
   stage "2. DEPLOY - rolling update, one copy at a time"
   kubectl patch deployment/hello -p "$patch"
+  pause
 
+  # from here on, no pauses: verify and rollback are automatic
   stage "3. VERIFY - did every new copy start, and does the site answer with $version?"
   if kubectl rollout status deployment/hello --timeout=40s; then
     for _ in $(seq 1 20); do
@@ -209,6 +332,7 @@ cmd_down() { say kind delete cluster --name "$CLUSTER"; }
 case "${1:-help}" in
   up) cmd_up ;;
   watch) cmd_watch ;;
+  requests) cmd_requests ;;
   pods) cmd_pods ;;
   iac) cmd_iac "${2:-6}" ;;
   kill) cmd_kill ;;
