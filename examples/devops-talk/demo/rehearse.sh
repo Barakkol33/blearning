@@ -31,13 +31,15 @@ scene() { printf '\n########## ./demo.sh %s\n' "$*" >>"$LOG"; ./demo.sh "$@" 2>&
 # the log since line $1 (to check what the last scene printed)
 log_since() { tail -n +"$(( $1 + 1 ))" "$LOG"; }
 
-ready() { k get deployment/hello -o jsonpath='{.status.readyReplicas}' 2>/dev/null; }
+ready() { k get deployment/game -o jsonpath='{.status.readyReplicas}' 2>/dev/null; }
 version() { curl -s --max-time 1 "$URL/plain" | awk '{print $1}'; }
+# wait until the game answers with version $1 (old copies finish their requests for a few seconds)
+is_version() { for _ in $(seq 1 20); do [[ "$(version)" == "$1" ]] && return 0; sleep 0.5; done; return 1; }
 # wait until N copies are ready (and no extra ones are terminating), up to $2 seconds
 wait_ready() {
   local n="$1" secs="${2:-60}"
   for _ in $(seq 1 "$secs"); do
-    [[ "$(ready)" == "$n" ]] && [[ "$(k get pods -l app=hello --no-headers 2>/dev/null | wc -l)" == "$n" ]] && return 0
+    [[ "$(ready)" == "$n" ]] && [[ "$(k get pods -l app=game --no-headers 2>/dev/null | wc -l)" == "$n" ]] && return 0
     sleep 1
   done
   return 1
@@ -81,7 +83,7 @@ fi
 # ---------------------------------------------------------------- start clean
 step "START - ./demo.sh reset (v1, 3 copies)"
 scene reset >/dev/null
-if wait_ready 3 60 && [[ "$(version)" == v1 ]]; then pass "reset: v1, 3 copies"; else fail "reset"; fi
+if wait_ready 3 60 && is_version v1; then pass "reset: v1, 3 copies"; else fail "reset"; fi
 
 : > "$WATCHLOG"
 ( while true; do
@@ -93,35 +95,63 @@ WATCH=$!
 trap 'kill $WATCH 2>/dev/null' EXIT
 sleep 3
 
-# ---------------------------------------------------------------- the scenes
-step "Demo 1 - IaC: ./demo.sh iac 6"
-m=$(mark); scene iac 6
-if wait_ready 6 60; then pass "iac 6: 6 copies, $(downs_since "$m") failed requests"; else fail "iac 6: not 6 ready copies"; fi
+# ---------------------------------------------------------------- the talk's scenes
+step "1 - Git: ./demo.sh git"
+l=$(wc -l < "$LOG"); scene git
+if [[ "$(git -C /tmp/game-site rev-list --count HEAD 2>/dev/null)" == 2 ]] && log_since "$l" | grep -q "v2: a new, faster level"; then
+  pass "git: 2 commits, the new level saved"; else fail "git: no v2 commit"; fi
 
-step "Demo 2 - automation: ./demo.sh kill"
+step "2 - Docker: ./demo.sh docker"
+l=$(wc -l < "$LOG"); scene docker
+if log_since "$l" | grep -q "^v2 #1a7f37 my-laptop" && [[ -z "$(docker ps -q --filter name=game-local)" ]]; then
+  pass "docker: game-site:v2 answered on port 8081, container stopped"; else fail "docker: the container did not answer, or is still running"; fi
+
+step "3 - Kubernetes: ./demo.sh pods, kill"
+scene pods >/dev/null
 m=$(mark); scene kill
 sleep 2
-if wait_ready 6 60; then pass "kill: back to 6, $(downs_since "$m") failed requests"; else fail "kill: did not come back to 6"; fi
+if wait_ready 3 60; then pass "kill: back to 3, $(downs_since "$m") failed requests"; else fail "kill: did not come back to 3"; fi
 
-step "Demo 2 - automation: ./demo.sh chaos"
+step "4 - CI/CD: ./demo.sh update"
+m=$(mark)
+if scene update && is_version v2; then pass "update: v2 live, $(downs_since "$m") failed requests"; else fail "update: pipeline did not release v2"; fi
+
+step "5 - CI/CD catches a mistake: ./demo.sh break"
+m=$(mark); l=$(wc -l < "$LOG"); scene break
+if log_since "$l" | grep -q "all tests passed" && log_since "$l" | grep -q "PIPELINE FAILED" && is_version v2; then
+  pass "break: tests passed, VERIFY failed, rolled back to v2, $(downs_since "$m") failed requests"
+else fail "break: no automatic rollback to v2"; fi
+
+# ---------------------------------------------------------------- the extras
+step "extra - observability: ./demo.sh events, logs (right after the break)"
+l=$(wc -l < "$LOG"); scene events
+if log_since "$l" | grep -q "Readiness probe failed"; then pass "events: show the failed readiness check"; else fail "events: no failed readiness check"; fi
+l=$(wc -l < "$LOG"); scene logs
+if log_since "$l" | grep -q "GET /plain"; then pass "logs: show requests"; else fail "logs: no requests"; fi
+
+step "extra - IaC: ./demo.sh iac 6"
+m=$(mark); scene iac 6
+if wait_ready 6 90; then pass "iac 6: 6 copies, $(downs_since "$m") failed requests"; else fail "iac 6: not 6 ready copies"; fi
+
+step "extra - self-healing: ./demo.sh chaos"
 m=$(mark); scene chaos
 sleep 2
 if wait_ready 6 90; then pass "chaos: back to 6, $(downs_since "$m") failed requests"; else fail "chaos: did not come back to 6"; fi
 
-step "Demo 3 - high availability: ./demo.sh node-down (then node-up)"
-node=$(k get pods -l app=hello -o jsonpath='{.items[0].spec.nodeName}')
+step "extra - high availability: ./demo.sh node-down (then node-up)"
+node=$(k get pods -l app=game -o jsonpath='{.items[0].spec.nodeName}')
 m=$(mark); start=$(date +%s)
 scene node-down &
 DOWNPID=$!
 moved=0
 for _ in $(seq 1 120); do
   sleep 1
-  left=$(k get pods -l app=hello -o custom-columns=NODE:.spec.nodeName,DEL:.metadata.deletionTimestamp --no-headers 2>/dev/null \
+  left=$(k get pods -l app=game -o custom-columns=NODE:.spec.nodeName,DEL:.metadata.deletionTimestamp --no-headers 2>/dev/null \
     | awk -v n="$node" '$1==n && $2=="<none>"' | wc -l)
   if [[ "$left" == 0 && "$(ready)" == 6 ]]; then moved=1; break; fi
 done
 secs=$(( $(date +%s) - start ))
-pkill -f "get pods -l app=hello -o wide -w" 2>/dev/null   # the Ctrl+C
+pkill -f "get pods -l app=game -o wide -w" 2>/dev/null   # the Ctrl+C
 wait "$DOWNPID" 2>/dev/null
 d=$(downs_since "$m")
 if (( moved )); then pass "node-down: copies left $node in ${secs}s, $d failed requests (a few are expected)"
@@ -129,33 +159,17 @@ else fail "node-down: copies did not move off $node in 120s"; fi
 scene node-up
 if wait_ready 6 60 && k wait --for=condition=Ready node --all --timeout=60s >/dev/null; then pass "node-up: all machines Ready"; else fail "node-up"; fi
 
-step "Demo 4 - CI/CD: ./demo.sh update"
-m=$(mark)
-if scene update && [[ "$(version)" == v2 ]]; then pass "update: v2 live, $(downs_since "$m") failed requests"; else fail "update: pipeline did not release v2"; fi
-
-step "Demo 5 - CI/CD catches a mistake: ./demo.sh break"
-m=$(mark); l=$(wc -l < "$LOG"); scene break
-if log_since "$l" | grep -q "PIPELINE FAILED" && [[ "$(version)" == v2 ]]; then
-  pass "break: rolled back, still v2, $(downs_since "$m") failed requests"
-else fail "break: no automatic rollback to v2"; fi
-
-step "Demo 6 - observability: ./demo.sh events, logs"
-l=$(wc -l < "$LOG"); scene events
-if log_since "$l" | grep -q "alpinee"; then pass "events: show the failed image pull"; else fail "events: no failed image pull"; fi
-l=$(wc -l < "$LOG"); scene logs
-if log_since "$l" | grep -q "GET /plain"; then pass "logs: show requests"; else fail "logs: no requests"; fi
-
 kill $WATCH 2>/dev/null
 
 # ---------------------------------------------------------------- back to the start
 step "END - ./demo.sh reset"
 scene reset >/dev/null
-if wait_ready 3 60 && [[ "$(version)" == v1 ]]; then pass "reset: v1, 3 copies - ready for the talk"; else fail "reset"; fi
+if wait_ready 3 60 && is_version v1; then pass "reset: v1, 3 copies - ready for the talk"; else fail "reset"; fi
 
 step "SUMMARY"
 printf '  %s\n' "${results[@]}"
 total=$(wc -l < "$WATCHLOG"); downs=$(grep -c DOWN "$WATCHLOG")
-echo "  watch: $total requests, $downs failed (all should be in node-down)"
+echo "  watch: $total requests, $downs failed (all should be in node-down, an extra)"
 echo "  full output: $LOG"
 if (( failed )); then red "SOMETHING FAILED - see above"; exit 1; fi
 green "ALL PASSED - the demo is ready"

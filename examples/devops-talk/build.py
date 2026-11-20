@@ -28,12 +28,13 @@ def main() -> int:
     if subprocess.run(cli + ["render", str(DECK)]).returncode:
         return 1
 
-    DEMO_OUT.mkdir(parents=True, exist_ok=True)
-    for f in (HERE / "demo").iterdir():
+    demo = HERE / "demo"
+    for f in demo.rglob("*"):   # the scripts, the cluster files, and the game/ folder
         if f.is_file():
-            # demo.sh must keep Unix line endings to run in WSL / Linux / macOS
-            data = f.read_bytes().replace(b"\r\n", b"\n")
-            (DEMO_OUT / f.name).write_bytes(data)
+            out = DEMO_OUT / f.relative_to(demo)
+            out.parent.mkdir(parents=True, exist_ok=True)
+            # the scripts must keep Unix line endings to run in WSL / Linux / macOS
+            out.write_bytes(f.read_bytes().replace(b"\r\n", b"\n"))
     print(f"demo files -> {DEMO_OUT.relative_to(HERE.parents[1])}")
     return 0
 

@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 400" width="1200" height="400" font-family="Segoe UI, Calibri, Carlito, sans-serif">
+  <defs>
+    <marker id="a" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M0 0 L10 5 L0 10 z" fill="#0f6cbd"/>
+    </marker>
+  </defs>
+  <rect width="1200" height="400" fill="#ffffff"/>
+
+  <!-- players -->
+  <circle cx="80" cy="130" r="22" fill="#7a7a7a"/>
+  <circle cx="80" cy="200" r="22" fill="#7a7a7a"/>
+  <circle cx="80" cy="270" r="22" fill="#7a7a7a"/>
+  <text x="80" y="335" text-anchor="middle" font-size="22" font-weight="700" fill="#242424">players</text>
+  <path d="M110 130 L300 185" stroke="#0f6cbd" stroke-width="4" marker-end="url(#a)"/>
+  <path d="M110 200 L300 200" stroke="#0f6cbd" stroke-width="4" marker-end="url(#a)"/>
+  <path d="M110 270 L300 215" stroke="#0f6cbd" stroke-width="4" marker-end="url(#a)"/>
+
+  <!-- the load balancer -->
+  <rect x="310" y="130" width="250" height="140" rx="14" fill="#0f6cbd"/>
+  <text x="435" y="190" text-anchor="middle" font-size="28" font-weight="700" fill="#ffffff">load balancer</text>
+  <text x="435" y="226" text-anchor="middle" font-size="20" fill="#ffffff">one address</text>
+  <text x="435" y="305" text-anchor="middle" font-size="19" fill="#7a7a7a">each player goes to a copy</text>
+
+  <!-- three copies -->
+  <path d="M565 175 L800 85" stroke="#0f6cbd" stroke-width="4" marker-end="url(#a)"/>
+  <path d="M565 200 L800 200" stroke="#0f6cbd" stroke-width="4" marker-end="url(#a)"/>
+  <path d="M565 225 L800 315" stroke="#0f6cbd" stroke-width="4" marker-end="url(#a)"/>
+
+  <rect x="810" y="45" width="230" height="80" rx="10" fill="#1f6feb"/>
+  <text x="925" y="95" text-anchor="middle" font-size="24" font-weight="700" fill="#ffffff">copy 1 · the game</text>
+  <rect x="810" y="160" width="230" height="80" rx="10" fill="#1f6feb"/>
+  <text x="925" y="210" text-anchor="middle" font-size="24" font-weight="700" fill="#ffffff">copy 2 · the game</text>
+  <rect x="810" y="275" width="230" height="80" rx="10" fill="#1f6feb"/>
+  <text x="925" y="325" text-anchor="middle" font-size="24" font-weight="700" fill="#ffffff">copy 3 · the game</text>
+
+  <text x="1070" y="185" font-size="20" fill="#7a7a7a">the same</text>
+  <text x="1070" y="211" font-size="20" fill="#7a7a7a">image,</text>
+  <text x="1070" y="237" font-size="20" fill="#7a7a7a">3 times</text>
+</svg>

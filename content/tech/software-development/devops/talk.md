@@ -2,12 +2,12 @@
 title: From Code to the Real World - a talk
 order: 0
 lang: en
-attachments: [_files/devops-talk.html, _files/devops-talk-demo/kind-cluster.yaml, _files/devops-talk-demo/app.yaml, _files/devops-talk-demo/demo.sh, _files/devops-talk-demo/rehearse.sh]
+attachments: [_files/devops-talk.html, _files/devops-talk-demo/kind-cluster.yaml, _files/devops-talk-demo/app.yaml, _files/devops-talk-demo/demo.sh, _files/devops-talk-demo/present.sh, _files/devops-talk-demo/rehearse.sh, _files/devops-talk-demo/game/index.html, _files/devops-talk-demo/game/default.conf.template, _files/devops-talk-demo/game/Dockerfile, _files/devops-talk-demo/game/test.sh, _files/devops-talk-demo/game/VERSION]
 ---
 
 # From Code to the Real World - a talk
 
-A talk for high school students: DevOps, Kubernetes and architecture - in a world where AI writes the code. It shows why running software for millions of people is the real job, practices every DevOps idea live on a Kubernetes cluster, and ends with what to know and do when AI writes the code.
+A talk for high school students: Git, Docker, CI/CD and Kubernetes - in a world where AI writes the code. It follows one small game, built with AI, from a laptop to 100,000 players, one step at a time - with real commands on one laptop, and the real output of every step on the slides.
 
 <div style="position:relative; width:100%; aspect-ratio:16/9; margin:1rem 0; border:1px solid var(--sl-color-gray-5); border-radius:6px; overflow:hidden">
 <iframe src="/blearning/tech/software-development/devops/_files/devops-talk.html" title="From Code to the Real World - slides" loading="lazy" allowfullscreen style="position:absolute; inset:0; width:100%; height:100%; border:0"></iframe>
@@ -19,51 +19,58 @@ A talk for high school students: DevOps, Kubernetes and architecture - in a worl
 
 ## What's inside
 
-**The talk** (slides 1-25, about 33 minutes, then questions). It starts from code you already know how to write, and builds DevOps one step at a time:
+**The talk** (slides 1-15, about 30 minutes):
 
-1. **You wrote code. Now what?** - AI writes code in seconds; running it for millions of people is the hard part.
-2. **From laptop to millions** - what DevOps is, then three steps: pack it (containers), run many copies (architecture), let a machine manage them (Kubernetes).
-3. **Live demo: results day** - one story, six scenes, one DevOps idea per scene - each one named after you see it - and a recap of all of them.
-4. **Know what is in the code** - six questions to ask about any code, whoever wrote it.
-5. **Build with AI** - go build something.
-6. **Wrap-up** - the base that doesn't change, and the important ideas.
+1. **You built a game** - Space Dodge, built with AI in an evening; tonight, 100,000 players.
+2. **Save it: Git** - commits, history, a way back.
+3. **Package it: Docker** - one image that runs the same anywhere.
+4. **Check it, ship it: CI/CD** - build, test, deploy, verify, roll back - by itself.
+5. **Many copies: Kubernetes** - a load balancer and three copies; infrastructure as code, high availability, and a copy that heals itself.
+6. **Build with AI** - go build something, but know what it does.
+7. **Wrap-up** - the base that doesn't change, and the important ideas.
 
-**Self-study** (slides 26-50): the DevOps loop, guardrails, Kafka, the Kubernetes words, six traps hidden in code that "works", AI and infrastructure as code, and how to run the demo at home.
+**After the talk** (slide 16 is the map; slides 17-53), by subject: the pipeline for real (a new level, and a bug that passes every test and is rolled back), outages, the DevOps loop and guardrails; more Kubernetes (scale with a file, kill every copy, unplug a machine, observability, architecture); Kafka; infrastructure as code; knowing what the code does (six questions, six traps); and how to run the demo at home.
 
 ## The live demo
 
-The demo is a real Kubernetes cluster that runs on one laptop, with [kind](https://kind.sigs.k8s.io/) (Kubernetes in Docker). Three files, and a fourth that checks them:
+Everything runs on one laptop: a local Git repo, Docker, and a real Kubernetes cluster with [kind](https://kind.sigs.k8s.io/) (Kubernetes in Docker). No cloud, and no internet after the first setup.
 
 | file | what it is |
 | --- | --- |
+| [game/](_files/devops-talk-demo/game/index.html) | the game: [index.html](_files/devops-talk-demo/game/index.html), the web server's [settings](_files/devops-talk-demo/game/default.conf.template), the [Dockerfile](_files/devops-talk-demo/game/Dockerfile), its [tests](_files/devops-talk-demo/game/test.sh), and its [VERSION](_files/devops-talk-demo/game/VERSION) |
 | [kind-cluster.yaml](_files/devops-talk-demo/kind-cluster.yaml) | the cluster: one control plane and two workers |
-| [app.yaml](_files/devops-talk-demo/app.yaml) | the app: three copies of a small web page, spread over both workers |
-| [demo.sh](_files/devops-talk-demo/demo.sh) | one command per scene - each one prints which DevOps idea it shows |
+| [app.yaml](_files/devops-talk-demo/app.yaml) | the game in the cluster: three copies, spread over both workers, behind one address |
+| [demo.sh](_files/devops-talk-demo/demo.sh) | one command per scene |
+| [present.sh](_files/devops-talk-demo/present.sh) | the show: each scene's headline, every command typed out, Enter to go on |
 | [rehearse.sh](_files/devops-talk-demo/rehearse.sh) | runs every scene start to end and checks each one - PASS or FAIL |
 
 **To run it:**
 
 1. Install WSL (on Windows), Docker, `kind` and `kubectl` - see [Prerequisites](prerequisites.md).
-2. Put the three files in one folder, and in a Linux shell (WSL) run `chmod +x demo.sh` and `./demo.sh up`. It builds the whole cluster in a minute or two.
-3. In a second terminal, run `./demo.sh watch` (a live dashboard: is the site up, which version, how many copies on which machine), and open `http://localhost:8080` in a browser.
-4. Run the scenes, in this order:
+2. Put the files in one folder (the game's five files in a `game/` folder inside it), and in a Linux shell (WSL) run `chmod +x *.sh game/test.sh` and `./demo.sh up`. It builds the cluster and the game's first image in a minute or two.
+3. In a second terminal, run `./demo.sh watch` (a live dashboard: is the game up, which version, how many copies on which machine), and open `http://localhost:8080` in a browser - the game.
+4. Run the scenes, in this order - or `./present.sh`, which runs them for you:
 
-| DevOps idea | command |
+| step | command |
 | --- | --- |
-| Infrastructure as Code | `./demo.sh iac 6` |
-| Automation (self-healing) | `./demo.sh kill`, then `./demo.sh chaos` |
-| High availability | `./demo.sh node-down`, then `./demo.sh node-up` |
-| CI/CD | `./demo.sh update` |
-| CI/CD catches a mistake | `./demo.sh break` |
-| Observability | `./demo.sh events`, then `./demo.sh logs` |
+| Git: save the new level | `./demo.sh git` |
+| Docker: build it, run it | `./demo.sh docker` - the game at `http://localhost:8081` |
+| Kubernetes: a copy dies | `./demo.sh pods`, then `./demo.sh kill` |
+| CI/CD: ship the new level | `./demo.sh update` |
+| CI/CD: a bug, rolled back | `./demo.sh break` |
+| more: scale, kill all, unplug a machine, observability | `./demo.sh iac 6`, `chaos`, `node-down` / `node-up`, `events`, `logs` |
 
 `./demo.sh` with no arguments lists every command; `./demo.sh reset` goes back to the start; `./demo.sh down` deletes the cluster.
+
+**The same game, for real:** [github.com/Barakkol33/devops-example](https://github.com/Barakkol33/devops-example) - the game with the same pipeline running in GitHub Actions on every push and pull request, in a real Kubernetes cluster that GitHub starts for each run.
 
 ## Next steps
 
 The talk is the big picture. This guide goes deeper, step by step:
 
 - [What is DevOps](01-get-started/intro.md) - the core ideas
+- [Git](06-delivery/git.md) - commits, branches, pull requests
+- [Docker](02-containers/docker.md) - images and containers
 - [Kubernetes](02-containers/kubernetes.md) - build a cluster on your laptop and learn every object
 - [Kafka](08-services/kafka.md) - producers, consumers, lag
 - [The final exercise](12-exercise/instructions.md) - deploy a real app to Kubernetes

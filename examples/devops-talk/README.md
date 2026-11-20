@@ -1,11 +1,11 @@
 ---
 title: From Code to the Real World - presenter guide
-tags: [devops, kubernetes, architecture, talk]
+tags: [devops, git, docker, ci-cd, kubernetes, talk]
 ---
 
 # From Code to the Real World - presenter guide
 
-A talk for high school students: DevOps, Kubernetes and architecture, in a world where AI writes the code. Based on the blearning [DevOps guide](https://barakkol33.github.io/blearning/tech/software-development/devops/).
+A talk for high school students: Git, Docker, CI/CD and Kubernetes - in a world where AI writes the code. Based on the blearning [DevOps guide](https://barakkol33.github.io/blearning/tech/software-development/devops/).
 
 - **The deck:** [devops-slides.md](devops-slides.md). On the site it's the page [From Code to the Real World](https://barakkol33.github.io/blearning/tech/software-development/devops/talk/) (source: `content/tech/software-development/devops/talk.md`), which shows the rendered deck and links the demo files.
 - **The notes are for students:** every slide has a full explanation for a student going through the deck alone (press `?` in the deck). They double as your script for what each slide means. The presenter cues - timing, what to ask, what to run - are in this guide, under "Presenting, slide by slide".
@@ -13,25 +13,36 @@ A talk for high school students: DevOps, Kubernetes and architecture, in a world
 
 ## The map
 
-The talk (slides 1-25) is the intro level. It starts where the students are - they can write code, and some build with AI - and builds DevOps one step at a time: pack the code (containers), run many copies (architecture), let a machine manage them (Kubernetes), then a live demo told as one story, where every scene adds one DevOps idea. Each idea is named **after** the students see it work; the recap (slide 18) puts the definitions together. It's about 33 minutes, leaving ~10 for questions plus a small buffer in a 45-minute slot. Slides 26-50 are a **self-study** appendix at basic level, for students to go over at home. Every slide has full notes, so the HTML file works as a handout.
+The talk (slides 1-15, ~30 minutes) follows one small game, **Space Dodge** (the game from the Claude guide), built with AI, from a laptop to 100,000 players: save it (Git), pack it (Docker), check and ship it (CI/CD), run many copies (Kubernetes). Then: build with AI - but know what it does. Everything runs locally, and the commands are the visuals: every live moment has a slide with the command and its **real output**, so the talk works with no demo at all. Each idea is named **after** the students see it work.
 
-| | part | min | slides |
-| --- | --- | --- | --- |
-| 0 | Raise your hand: who knows / who has done | 2 | 2 |
-| 1 | You wrote code. Now what? | 4 | 3-5 |
-| 2 | From laptop to millions: what DevOps is, then step 1 containers, step 2 many copies, step 3 Kubernetes | 6 | 6-9 |
-| 3 | Live demo - results day: IaC, automation, HA, CI/CD (x2), observability, then the recap with the names | 13 | 10-18 |
-| 4 | Know what is in the code | 3 | 19-21 |
-| 5 | Build with AI: go build something, the blearning example | 2 | 22-23 |
-| 6 | Wrap-up: the base, the important ideas | 3 | 24-25 |
-| | **Talk** | **33** | |
-| | Self-study: the DevOps loop, guardrails, copies, Kafka, Kubernetes words, bugs/lag/cost, six traps, AI and infrastructure (Terraform, spot the bug, the July 2025 story, why it's harder), try at home, blearning links | at home | 26-50 |
+| | part | min | slides | live (right terminal: `./present.sh`) |
+| --- | --- | --- | --- | --- |
+| 0 | Raise your hand | 2 | 2 | |
+| 1 | You built a game | 2 | 3 | |
+| 2 | Save it: **Git** | 4 | 4-5 | scene 1: `./demo.sh git` |
+| 3 | Package it: **Docker** | 4 | 6-7 | scene 2: `./demo.sh docker` |
+| 4 | Check it, ship it: **CI/CD** (the pipeline's five steps) | 2 | 8 | |
+| 5 | Many copies: **Kubernetes** (load balancer, IaC, HA, self-healing) | 5 | 9-10 | scene 3: `./demo.sh pods`, `kill` |
+| | The road you just saw | 1 | 11 | |
+| 6 | Build with AI - but know what it does (the iceberg) | 4 | 12-13 | |
+| 7 | Wrap-up: the base of everything, the important ideas | 3 | 14-15 | |
+| | More interesting topics - the map of what comes after the talk | | 16 | |
+| | **Talk** | **~28** | | |
 
-The first slide of each part has "Part N · name" as its header, with its own title as the subheader. The three steps of part 2 have "Step N · ..." headers, and the demo scenes are titled by the problem ("3 AM: copies crash"), not by the idea - the idea's name is the last bullet.
+After the wrap-up, slide 16 maps the rest of the deck, which goes on **by subject**, in the road's order - for time left over, questions, or students at home:
 
-- The opening questions tell you what the room knows; "Presenting, slide by slide" below says how to adapt.
-- **Running late:** part 4 (slides 19-21) can be a single sentence - "AI writes the code; you have to know what is in it" - with the iceberg on screen, then skip to slide 22. The rest stays for students to read. Part 4 is the place to cut; keep the demo whole.
-- **Running early:** open the guardrails (slide 28) or Kafka (slide 29) after questions.
+| subject | slides | live (`./present.sh extras`) |
+| --- | --- | --- |
+| CI/CD: ship the new level, the bug + automatic rollback, when a change goes wrong (outages), the DevOps loop, guardrails | 17-21 | `update`, `break` |
+| Kubernetes: the demo cluster, scale with a file (IaC), all the copies at once, a machine dies (HA), observability, the loop, the words, why so many copies, architecture | 22-30 | `iac 6`, `chaos`, `node-down`/`up`, `events`, `logs` |
+| Kafka | 31-37 | |
+| Infrastructure as code: Terraform, spot the bug, the July 2025 story, why it's harder | 38-41 | |
+| Know what the code does: your laptop vs the real world, six questions, bugs/lag/cost, six traps | 42-51 | |
+| Try it at home, learn more | 52-53 | |
+
+- **No demo** (no laptop, no WSL, a broken cluster): just present the slides. Slides 5, 7 and 10 show the real output, and their notes explain it line by line.
+- **Running late:** skip the live scenes - the output slides tell the same story. Then slide 13 (the iceberg) can be one sentence.
+- **Running early, or a question about it:** the pipeline for real - slides 17-18 with `./present.sh extras` (the new level, then the bug that passes every test and is rolled back).
 
 ## Keys
 
@@ -48,31 +59,22 @@ What each slide *means* is in its notes. This is what to *do*.
 
 | slide | cue |
 | --- | --- |
-| 1 | Before: `./demo.sh pods` (wakes WSL; or `./demo.sh up` if the cluster is gone), browser on `http://localhost:8080`, two terminals in `demo/`, `F` for full screen. Introduce yourself in one line. |
-| 2 | ~2 min. Row by row, two questions each: "who knows what it is, even roughly?" then "who has done it?". Count roughly: none / a few / half / most. "No hands is a perfectly good answer." Remember who built something with AI. |
-| 2 → adapt | **Most built with AI:** lean into part 4, refer back on slide 22. **Many know Docker/K8s:** move fast through steps 1 and 3. **Someone put something online:** use their project on slide 8 ("what if 10,000 people open it?"). |
-| 3 | Ask one or two who built something with AI: "what did you build? did it work the first time?" Leave "is it done?" hanging. |
-| 4 | Pick one row and make it vivid: "3 AM, the app is down, millions can't pay - who wakes up?" |
-| 5 | Tell one or two stories, not all four. End with: "the code was fine - the *change* went wrong." |
-| 6 | Short - one minute. Dev + Ops in one sentence, then walk the road: "we'll take your code down this road, one step at a time. I won't define the words - you'll see them first." |
-| 7 | "Your code works on your laptop - how do you get it to run on a server?" The Dockerfile is code they can read: one line each. |
-| 8 | "Now 10,000 people open it." Walk the diagram left to right; end on "100 copies - who manages them?" |
-| 9 | Keep it to one slide - the demo shows it better. |
-| 10 | Switch to the terminals: left `./demo.sh watch`, right the commands, browser visible. Anything strange: `./demo.sh reset`. |
-| 11 | Tell the story: "this cluster is the Bagrut results site; results come out tomorrow at 9:00." Read the problems, not the commands. |
-| 12 | "100,000 students are coming - we need 6 copies." Run `iac 6`. Point at the PLAN (3 → 6) before the apply. Name it at the end: "that's called Infrastructure as Code." |
-| 13 | "3 AM." Run `kill`, ask "who restarted it?" - nobody. Then `chaos`; point at the dashboard: copies stopping and starting, and no red in the traffic strip. "That's automation." |
-| 14 | Run `node-down`; point at **machine down** and the few red X marks in the traffic strip; then the copies appear on the other machine. Ctrl+C, then `node-up`. "That's high availability." |
-| 15 | "9:00, everyone is checking, a fix must ship." Run `update`. Point at the stage banners and at green copies replacing blue ones on the dashboard. "That's CI/CD." |
-| 16 | Run `break`. Point at the typo, the failed VERIFY, the automatic ROLLBACK - and the traffic strip that never went red, while the broken copy is stuck in `ErrImagePull`. "Rollback is a guardrail." |
-| 17 | "The morning after - what happened?" Run `events` (the kill, the image that doesn't exist, the scale-down), then `logs`. "That's observability." |
-| 18 | Now the definitions - one breath per row, pointing at the scene number. Then the guardrails line. "Look back at the road on slide 6: that road is DevOps." |
-| 19 | Say the quote slowly. Running late: this one sentence is the whole part - skip to slide 22. |
-| 20 | One sentence per row; the last column is where it ends: bugs, lag or cost. |
-| 22 | Say the quote plainly, as your own opinion. Refer back to who raised their hands on slide 2. |
-| 23 | If time: open blearning live - a physics animation, then a dad joke. |
-| 24 | Slow down - the most important idea. |
-| 25 | The five ideas - one breath each. End with "Anyone can write code now - knowing what is in it, and running it safely for millions, is engineering." Then questions (~10 min). "Everything we skipped is at the end of the file - press ? on any slide." If time is left: guardrails (slide 28) or Kafka (slide 29). After: `./demo.sh down`, or leave the cluster for next time. |
+| 1 | Before: see "On the day" below - `./demo.sh reset`, the dashboard, the browser on `http://localhost:8080`. Introduce yourself in one line. |
+| 2 | ~2 min. Row by row, two questions each: "who knows what it is, even roughly?" then "who has done it?". "No hands is a perfectly good answer." Remember who built something with AI. |
+| 3 | "You built a game with AI in an evening." Show it: the browser at `http://localhost:8080` - dodge a few asteroids. "Tonight a streamer shares it: 100,000 players. Now what?" |
+| 4 | Commit, history, together - one sentence each. |
+| 5 | Right terminal: `./present.sh` (scene 1). Point at the red and green lines in `git diff`, then the two commits. No demo: walk the slide top to bottom. |
+| 6 | The Dockerfile is code they can read: one line each. |
+| 7 | Scene 2: the build, the images, then open `http://localhost:8081` - the game in a container on this laptop. |
+| 8 | Read the five steps. "It needs somewhere to ship to - that's the next step." |
+| 9 | Walk the diagram left to right. Then the two names: the wish is a file - Infrastructure as Code; two machines - high availability. |
+| 10 | Scene 3: `pods`, then `kill`. Point at the dashboard (left): the copy disappears and a new one is ready in seconds, no red. Ask "who restarted it?" - nobody. |
+| 11 | Tick the four rows. "That road is DevOps." |
+| 12 | Say the quote plainly, as your own opinion. Refer back to who raised their hands on slide 2. The blearning bullet: if time, open it live. Leave "is it done?" hanging. |
+| 13 | The central message - slow down. Running late: this one sentence is the whole slide. |
+| 14 | Slow down - the tools change, these three don't. And English. |
+| 15 | The five ideas - one breath each. End with "Anyone can write code now - knowing what it does, and running it safely for many people, is engineering." Then questions. "Everything we skipped is in the slides after this one - press ? on any slide." If time is left: slides 17-18 with `./present.sh extras`. After: `./demo.sh reset`. |
+| 16 | Leave it on screen during questions - it's the map of everything you skipped. |
 
 ## The live demo
 
@@ -80,12 +82,16 @@ What each slide *means* is in its notes. This is what to *do*.
 
 | file | what it is |
 | --- | --- |
-| [demo/kind-cluster.yaml](demo/kind-cluster.yaml) | the cluster: 1 control plane + 2 workers; laptop port 8080 → the app; tuned to notice a dead machine in ~10s |
-| [demo/app.yaml](demo/app.yaml) | the app: a ConfigMap (the page), a Deployment (3 copies of nginx, spread over both workers), a Service |
-| [demo/demo.sh](demo/demo.sh) | one command per scene; each prints which DevOps idea it shows. Always uses the `kind-devops-demo` cluster, whatever kubectl's current context is |
+| [demo/game/](demo/game/) | the game - Space Dodge, from the Claude guide: `index.html`, the web server's settings, the `Dockerfile`, `test.sh`, and `VERSION` (v1 blue) |
+| [demo/kind-cluster.yaml](demo/kind-cluster.yaml) | the cluster: 1 control plane + 2 workers; laptop port 8080 → the game; tuned to notice a dead machine in ~10s |
+| [demo/app.yaml](demo/app.yaml) | the game in the cluster: a Deployment (3 copies of `game-site:v1`, spread over both workers) and a Service (the load balancer) |
+| [demo/demo.sh](demo/demo.sh) | one command per scene. Always uses the `kind-devops-demo` cluster, whatever kubectl's current context is |
+| [demo/present.sh](demo/present.sh) | the show, for the right terminal: a headline per scene, every command typed out, Enter to go on |
 | [demo/rehearse.sh](demo/rehearse.sh) | runs every scene start to end, checks each one, prints PASS/FAIL, and ends with `reset` |
 
-The app needs no image build: it's the standard `nginx:1.27-alpine` image, with a page that nginx fills in from environment variables (version, color, pod name, machine name). Changing those variables is a new version.
+Everything is local. `./demo.sh git` makes a fresh Git repo at `/tmp/game-site` from `game/` and commits the new level (v2, green) there - the blearning repo is never touched. `./demo.sh docker` builds that commit into the image `game-site:v2` and runs it on port 8081. `./demo.sh update` is a real pipeline from that repo: build → test (`test.sh`) → upload the image to the cluster (`kind load`) → rolling update → verify → rollback. `./demo.sh break` commits v3 - an AI "tidy-up" that renames `/healthz` to `/health`: every test passes, but the copies never become ready, so VERIFY fails and it rolls back. No registry and no internet: the base image (`nginx:1.27-alpine`) is downloaded once, by `./demo.sh up`.
+
+A real version of the same game, with the same pipeline running in GitHub Actions, is at [github.com/Barakkol33/devops-example](https://github.com/Barakkol33/devops-example).
 
 ### Once: set up WSL
 
@@ -108,7 +114,7 @@ cd /mnt/c/<path to blearning>/examples/devops-talk/demo
 ./rehearse.sh
 ```
 
-`rehearse.sh` takes ~5 minutes. It checks the tools and the limit above, builds the cluster if it doesn't exist (`./demo.sh up`, which copies the nginx image into the cluster, so the talk doesn't depend on the room's wifi), runs every scene in the talk's order with a watch in the background, checks each one, and ends with `./demo.sh reset`. It must end with **ALL PASSED**. The full output is in `/tmp/devops-demo-rehearse.log`.
+`rehearse.sh` takes ~5 minutes. It checks the tools and the limit above, builds the cluster if it doesn't exist (`./demo.sh up`, which builds the game's first image and copies it into the cluster, so the talk doesn't depend on the room's wifi), runs the talk's scenes, then the extras, with a watch in the background, checks each one, and ends with `./demo.sh reset`. It must end with **ALL PASSED**. The full output is in `/tmp/devops-demo-rehearse.log`.
 
 If `kind-cluster.yaml` changed since the cluster was created, recreate it first: `./demo.sh down && ./demo.sh up`.
 
@@ -117,36 +123,41 @@ If `kind-cluster.yaml` changed since the cluster was created, recreate it first:
 1. Open **two** terminals (Windows Terminal: split with `Alt+Shift+D`). In each one: `wsl`, then `cd` to the demo folder.
 2. Right terminal: `export PS1="$ "; ./demo.sh reset`. **Yes, always reset first** - it puts the cluster back to v1 with 3 copies, spread over both workers. WSL shuts down when idle and the cluster sleeps with it; `reset` wakes it too. If a machine is missing, run `./demo.sh node-up` first.
 3. Left terminal: `./demo.sh watch` - leave it running. The dashboard should say **UP - v1**, with 3 ready copies over both machines.
-4. Browser: `http://localhost:8080` - the blue v1 page.
-5. Slides: `F` for full screen.
+4. Browser: `http://localhost:8080` - the game, blue (v1).
+5. Right terminal: `./present.sh` when you reach slide 5. It stops at every step; Enter goes on.
+6. Slides: `F` for full screen.
 
 ### During the talk
 
-Two terminals side by side, plus a browser at `http://localhost:8080`. Left: `./demo.sh watch` - the live dashboard (the site, the copies, the machines), running the whole time. `./demo.sh requests` is the old one-line-per-request view. Right, in order:
+Two terminals side by side, plus a browser. Left: `./demo.sh watch` - the live dashboard (the game, the copies, the machines), running the whole time. Right: `./present.sh` - it clears the screen per scene, shows the headline, types each command and waits for Enter. `./present.sh 3` starts at scene 3. Or run the commands by hand:
 
-| scene | DevOps idea | command |
+| scene | slide | command |
 | --- | --- | --- |
-| Demo 1 | Infrastructure as Code | `./demo.sh iac 6` |
-| Demo 2 | Automation (self-healing) | `./demo.sh kill`, then `./demo.sh chaos` |
-| Demo 3 | High availability | `./demo.sh node-down` (Ctrl+C once the copies moved), then `./demo.sh node-up` |
-| Demo 4 | CI/CD | `./demo.sh update` |
-| Demo 5 | CI/CD catches a mistake | `./demo.sh break` |
-| Demo 6 | Observability | `./demo.sh events`, then `./demo.sh logs` |
-| after | | `./demo.sh reset`: back to v1 with 3 copies - also after any scene that went wrong |
+| 1 · Save it | 5 | `./demo.sh git` |
+| 2 · It works on my machine | 7 | `./demo.sh docker`, then `http://localhost:8081` |
+| 3 · Many copies | 10 | `./demo.sh pods`, `./demo.sh kill` |
+| extra · Ship the new level | 17 | `./demo.sh update` |
+| extra · The next commit has a bug | 18 | `./demo.sh break` |
+| extra · Scale with a file | 23 | `./demo.sh iac 6` |
+| extra · All the copies at once | 24 | `./demo.sh chaos` |
+| extra · A whole machine dies | 25 | `./demo.sh node-down` (Ctrl+C once the copies moved), then `./demo.sh node-up` |
+| extra · Observability | 26 | `./demo.sh events`, then `./demo.sh logs` |
+| after | | `./demo.sh reset`: back to v1, 3 copies, a fresh repo - also after any scene that went wrong |
 
-Run `iac` before `update`: applying `app.yaml` resets the version to the file's v1, so doing it after `update` would undo v2. `./demo.sh` with no arguments prints every command. `./demo.sh ship v4 '#8250df'` ships any version and color through the same pipeline.
+`./present.sh extras` runs all the extras in this order. `./demo.sh` with no arguments prints every command.
 
 ### What was tested
 
-On WSL 2 (Ubuntu), Docker 27, kind 0.26 (Kubernetes 1.32), with requests going out ~3 times a second, by `rehearse.sh` (November 2026, with a second kind cluster running):
+On WSL 2 (Ubuntu), Docker 27, kind 0.26 (Kubernetes 1.32), with requests going out ~3 times a second, by `rehearse.sh` (November 2026, with a second kind cluster running) - all 13 checks passed:
 
-- `iac 6`, `kill`, `chaos`, `update` and `break`: **0 failed requests**. `break` failed VERIFY after 40s and rolled back by itself, without users noticing.
-- `node-down`: **9 failed requests over ~12 seconds** (other runs: 6-11), and the copies had left the dead worker after ~30s. Say "a few seconds of errors", not a number.
-- `events` showed the kill, the failed image pull and the scale-down of the broken version; `logs` showed the requests.
+- `git`, `docker`, `kill`, `update`, `break`, `iac 6` and `chaos`: **0 failed requests**. `break` passed all three tests, failed VERIFY after 30s, and rolled back to v2 by itself, without players noticing.
+- `node-down`: **10 failed requests**, and the copies had left the dead worker after ~27s (other runs: 6-11 failed, 23-30s). Say "a few seconds of errors", not a number.
+- `events` showed the failed readiness check (`/healthz` → 404) and the rollback; `logs` showed the requests.
 
 ### Troubleshooting
 
-- `$'\r': command not found`: Windows changed the script's line endings. Run `sed -i 's/\r$//' demo.sh`.
+- `$'\r': command not found`: Windows changed the scripts' line endings. Run `sed -i 's/\r$//' *.sh game/*`.
+- `docker: ... port is already allocated` on 8081: an old game container is still running - `docker rm -f game-local`.
 - Something is in a strange state: `./demo.sh reset`. Still broken: `./demo.sh down && ./demo.sh up`.
 - A machine stays `NotReady` after `node-up`, and `docker exec devops-demo-worker journalctl -u kubelet` says "too many open files": the file-watch limit (see "Once: set up WSL"). Raise it, then `docker restart devops-demo-worker devops-demo-worker2`.
 - The commands seem to change a different cluster: they can't any more - `demo.sh` always uses `kind-devops-demo`. If you run `kubectl` by hand, add `--context kind-devops-demo`.
@@ -159,7 +170,7 @@ pip install pypresent
 python build.py
 ```
 
-`build.py` checks the deck (too many bullets, too-long lines), renders it into one HTML file at `content/tech/software-development/devops/_files/devops-talk.html`, and copies the three demo files next to it (`_files/devops-talk-demo/`, with Unix line endings) so the talk page can link to them. Commit the generated files together with the source - the site serves them as they are.
+`build.py` checks the deck (too many bullets, too-long lines), renders it into one HTML file at `content/tech/software-development/devops/_files/devops-talk.html`, and copies the demo files and the `game/` folder next to it (`_files/devops-talk-demo/`, with Unix line endings) so the talk page can link to them. Commit the generated files together with the source - the site serves them as they are.
 
 For a quick local look, `pypresent render devops-slides.md` writes the same HTML file, and `cd site && npm run dev` shows the page at `/blearning/tech/software-development/devops/talk/`.
 
