@@ -44,7 +44,7 @@ It's completely fine to answer "no" to all of them - every word on this slide is
 
 #### From your laptop to 100,000 players
 
-![Your laptop with the game, git push to a GitHub repository, a CI/CD pipeline that builds a Docker image, tests it and deploys it, and production: Kubernetes running copies of the game for the players](img/road.svg)
+![Your laptop with the game, git push to a GitHub repository, a CI/CD pipeline that builds a Docker image, tests it and deploys it, and production: Kubernetes running the game for the players](img/road.svg)
 
 <!-- notes:
 This is the whole talk in one picture - each part of the talk is one piece of it, from left to right:
