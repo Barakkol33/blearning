@@ -18,9 +18,9 @@ The talk (slides 1-18, ~30 minutes) follows one small project - **2048 in Python
 | | part | min | slides | live (right terminal: `./present.sh`) |
 | --- | --- | --- | --- | --- |
 | 0 | Raise your hand | 2 | 2 | |
-| | The road - the whole talk in one picture | 1 | 3 | |
-| 1 | You built a game | 2 | 4 | |
-| | What is DevOps? - the tools to ship and manage applications | 1 | 5 | |
+| 1 | You built a game | 2 | 3 | |
+| | What is DevOps? - the tools to ship and manage applications | 1 | 4 | |
+| | The road - the whole talk in one picture | 1 | 5 | |
 | 2 | Save it: **Git** | 4 | 6-7 | scene 1: `./demo.sh git` |
 | 3 | Package it: **Docker** | 4 | 8-9 | scene 2: `./demo.sh docker` |
 | 4 | Check it, ship it: **CI/CD** (does it work? then ship it - a pipeline does both) | 2 | 10 | |
@@ -63,9 +63,9 @@ What each slide *means* is in its notes. This is what to *do*.
 | --- | --- |
 | 1 | Before: see "On the day" below - `./demo.sh reset`, the dashboard, the browser on `http://localhost:8080`. Introduce yourself in one line. |
 | 2 | ~2 min. Row by row, two questions each: "who knows what it is, even roughly?" then "who has done it?". "No hands is a perfectly good answer." Remember who built something with AI. |
-| 3 | The whole talk in one picture: walk it left to right, one sentence per box - laptop, `git push`, the pipeline (with the Docker image), production. "Every part of the talk zooms in on one box." |
-| 4 | "You built a game with AI in an evening." Show it: the browser at `http://localhost:8080` - play a few moves. "Tonight you share the link: 100,000 players. Now what?" |
-| 5 | Brief - one minute. "Writing the code is half the job." Dev = writing it; Ops = shipping it and keeping it running. DevOps = the tools for the second half. "The rest of the talk is those tools, one at a time." |
+| 3 | "You built a game with AI in an evening." Show it: the browser at `http://localhost:8080` - play a few moves. "Tonight you share the link: 100,000 players. Now what?" |
+| 4 | Brief - one minute. "Writing the code is half the job." Dev = writing it; Ops = shipping it and keeping it running. DevOps = the tools for the second half. "The rest of the talk is those tools, one at a time." |
+| 5 | The whole talk in one picture: walk it left to right, one sentence per box - laptop, `git push`, the pipeline (with the Docker image), production. "Every part of the talk zooms in on one box." |
 | 6 | Commit, history, together - one sentence each. |
 | 7 | Right terminal: `./present.sh` (scene 1). Point at the red and green lines in `git diff`, then the commit, then `git push`. No demo: walk the slide top to bottom. |
 | 8 | The Dockerfile is code they can read: one line each. |

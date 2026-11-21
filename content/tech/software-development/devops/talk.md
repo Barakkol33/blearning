@@ -21,8 +21,7 @@ A talk for high school students: Git, Docker, CI/CD and Kubernetes - in a world 
 
 **The talk** (slides 1-18, about 30 minutes):
 
-- **The road** - the whole talk in one picture: laptop → Git → a CI/CD pipeline (with Docker) → Kubernetes.
-1. **You built a game** - 2048 in Python, built with AI; tonight, 100,000 players. Writing the code is half the job: **DevOps** is the tools to ship and manage applications.
+1. **You built a game** - 2048 in Python, built with AI; tonight, 100,000 players. Writing the code is half the job: **DevOps** is the tools to ship and manage applications. Then the whole road in one picture: laptop → Git → a CI/CD pipeline (with Docker) → Kubernetes.
 2. **Save it: Git** - commits, history, a way back.
 3. **Package it: Docker** - one image that runs the same anywhere.
 4. **Check it, ship it: CI/CD** - build, test, deploy, verify, roll back - by itself.

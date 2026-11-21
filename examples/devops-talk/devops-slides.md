@@ -35,26 +35,7 @@ It's completely fine to answer "no" to all of them - every word on this slide is
 - **Docker** - step 2, packing the game so it runs anywhere (slide 8).
 - **CI/CD** - step 3, checking and shipping every change by itself (slide 10).
 - **Kubernetes** - step 4, running many copies (slide 11).
-- **DevOps** - the name for the whole road (slide 5).
--->
-
----
-
-## The road
-
-#### From your laptop to 100,000 players
-
-![Your laptop with the game, git push to a GitHub repository, a CI/CD pipeline that builds a Docker image, tests it and deploys it, and production: Kubernetes running the game for the players](img/road.svg)
-
-<!-- notes:
-This is the whole talk in one picture - each part of the talk is one piece of it, from left to right:
-
-1. **Your laptop** - you wrote a game, with AI. It works - on your laptop (Part 1).
-2. **`git push` → a repository on GitHub** - every change is saved with its story, and shared with the team (Part 2: Git).
-3. **The pipeline** - every push starts it by itself. It asks two questions about the change: *does it work?* (it builds the code into a **Docker image** - Part 3 - and tests it), and if it does, *how does it reach the players?* (it deploys it and checks it). That's Part 4: CI/CD.
-4. **Production** - Kubernetes runs many copies of the same image, so 100,000 players can play, and a copy that dies is replaced by itself (Part 5).
-
-Keep this picture in mind - every part of the talk zooms in on one box. The road as a whole has a name: **DevOps**.
+- **DevOps** - the name for the whole road (slide 4).
 -->
 
 ---
@@ -111,7 +92,26 @@ But 100,000 players can't play on your laptop. Someone has to **ship** it - put 
 
 **DevOps** is the tools and the practices for that second half: shipping and managing applications, quickly and safely - most of it done by machines, not by hand. It started as the end of an old wall: developers wrote the code and "threw it over the wall" to an operations team that ran it by hand, and each side blamed the other when things broke. Today the same teams own both, and the road between them is automated.
 
-The rest of the talk builds that road one tool at a time - each one answers a problem you'll have with your game: Git, Docker, CI/CD and Kubernetes (the picture on slide 3).
+The rest of the talk builds that road one tool at a time - each one answers a problem you'll have with your game: Git, Docker, CI/CD and Kubernetes - the next slide shows the whole road in one picture.
+-->
+
+---
+
+## The road
+
+#### From your laptop to 100,000 players
+
+![Your laptop with the game, git push to a GitHub repository, a CI/CD pipeline that builds a Docker image, tests it and deploys it, and production: Kubernetes running the game for the players](img/road.svg)
+
+<!-- notes:
+This is the whole talk in one picture - each part of the talk is one piece of it, from left to right:
+
+1. **Your laptop** - you wrote a game, with AI. It works - on your laptop (Part 1).
+2. **`git push` → a repository on GitHub** - every change is saved with its story, and shared with the team (Part 2: Git).
+3. **The pipeline** - every push starts it by itself. It asks two questions about the change: *does it work?* (it builds the code into a **Docker image** - Part 3 - and tests it), and if it does, *how does it reach the players?* (it deploys it and checks it). That's Part 4: CI/CD.
+4. **Production** - Kubernetes runs many copies of the same image, so 100,000 players can play, and a copy that dies is replaced by itself (Part 5).
+
+Keep this picture in mind - every part of the talk zooms in on one box. The whole road is what the previous slide called **DevOps**: the tools to ship and manage the game.
 -->
 
 ---

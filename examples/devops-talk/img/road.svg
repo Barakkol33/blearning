@@ -36,7 +36,6 @@
 
   <!-- arrow: every push starts the pipeline -->
   <path d="M570 180 L632 180" stroke="#0f6cbd" stroke-width="5" marker-end="url(#a)"/>
-  <text x="601" y="158" text-anchor="middle" font-size="15" fill="#7a7a7a">by itself</text>
 
   <!-- 3+4. the pipeline: build (a Docker image), test, deploy, verify -->
   <rect x="642" y="90" width="400" height="180" rx="14" fill="#f3f6fb" stroke="#0f6cbd" stroke-width="2"/>
