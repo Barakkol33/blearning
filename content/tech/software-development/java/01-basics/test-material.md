@@ -10,6 +10,8 @@ updated: 2026-11-21
 
 כל החומר למבחן בסיסי ב-Java בעמוד אחד: מושגי יסוד, מבנה תוכנית, הדפסות, משתנים וטיפוסים, פעולות חשבון, המרות, קלט, תנאים, תווים ומחרוזות, Math ומספרים אקראיים. בסוף העמוד יש רשימת מלכודות נפוצות ודף עזר מקוצר.
 
+> **שימו לב:** הדוגמאות בעמוד נבדקו בהרצה, אבל ייתכנו טעויות. אם משהו לא ברור או סותר את מה שלמדתם, בדקו מול חומר הלימוד או המורה, ואל תסתמכו רק על העמוד הזה. מצאתם טעות? כתבו ל-blearning033@gmail.com.
+
 **לתרגול:** [Java בסיסי ב-quizplay](https://barakkol33.github.io/quizplay/#/p/java-basics): שאלות "מה יודפס?", שאלות טווחים, השלמת קוד, וכתיבת קוד והרצה אמיתית בדפדפן.
 
 ---
@@ -198,14 +200,12 @@ MAX_SCORE = 90;             // שגיאת קומפילציה
 System.out.println(7 / 2);    // 3
 System.out.println(7 / 2.0);  // 3.5  (אחד מהם double, אז התוצאה double)
 System.out.println(1 / 3);    // 0
-System.out.println(-7 / 2);   // -3   (חותכים לכיוון 0)
 ```
 
 ### שארית
 
 ```java
 System.out.println(17 % 5);   // 2
-System.out.println(-7 % 3);   // -1  (הסימן כמו של המספר השמאלי)
 System.out.println(4 % 7);    // 4   (קטן מהמחלק: השארית הוא המספר עצמו)
 ```
 
@@ -250,12 +250,10 @@ int b = a++;   // b = 5, ואז a = 6  (קודם משתמשים, אחר כך מ�
 int c = ++a;   // a = 7, ואז c = 7  (קודם מגדילים)
 ```
 
-### גלישה וחילוק באפס
+### חילוק באפס
 
 ```java
-System.out.println(Integer.MAX_VALUE + 1);  // -2147483648  (גלישה, בלי שגיאה)
-System.out.println(10.0 / 0);               // Infinity
-System.out.println(10 / 0);                 // שגיאת זמן ריצה: ArithmeticException
+System.out.println(10 / 0);   // שגיאת זמן ריצה: ArithmeticException
 ```
 
 ---
@@ -278,7 +276,6 @@ long l = 100;      // תקין
 ```java
 int x = 3.99;          // שגיאת קומפילציה
 int x = (int) 3.99;    // x = 3  (חותך, לא מעגל)
-int y = (int) -3.99;   // y = -3
 ```
 
 ### המלכודת הגדולה: מתי ההמרה קורית
@@ -495,7 +492,6 @@ System.out.println(a == b);       // false: משווה אם זה אותו אוב
 | `Math.PI` | π | | `3.141592653589793` |
 
 - ‏`sqrt`, `pow`, `floor` ו-`ceil` מחזירים **double** תמיד: `Math.sqrt(16)` הוא `4.0` ולא `4`.
-- ‏`Math.floor(-2.5)` הוא `-3.0` (למטה, לא לכיוון 0).
 - עיגול לשתי ספרות אחרי הנקודה: `Math.round(x * 100) / 100.0`.
 - הגדול מבין שלושה: `Math.max(a, Math.max(b, c))`.
 
@@ -513,7 +509,6 @@ int a = rnd.nextInt(10);           // 0 עד 9
 int dice = rnd.nextInt(6) + 1;     // 1 עד 6
 double d = rnd.nextDouble();       // 0.0 עד 1.0, לא כולל 1.0
 boolean coin = rnd.nextBoolean();  // true או false
-int any = rnd.nextInt();           // כל int אפשרי, גם שלילי
 ```
 
 ‏**`rnd.nextInt(n)` נותן 0 עד n-1**: n ערכים, ו-n עצמו **לא** יוצא.
@@ -538,14 +533,6 @@ int x = rnd.nextInt(max - min + 1) + min;
 | זוגי בין 0 ל-10 | `rnd.nextInt(6) * 2` |
 
 לאחור: `rnd.nextInt(11) + 5` נותן 0 עד 10, ועוד 5: **5 עד 15**.
-
-### ‏seed
-
-```java
-Random r1 = new Random(42);
-Random r2 = new Random(42);
-// r1 ו-r2 נותנים בדיוק אותה סדרת מספרים, בכל הרצה
-```
 
 ### דרך נוספת: Math.random()
 
@@ -634,8 +621,7 @@ if (guess == dice) {
 11. בלי `break` ב-switch, ממשיכים ל-case הבא.
 12. ‏`printf` לא יורד שורה בלי `%n`.
 13. ‏`Math.sqrt` ו-`Math.pow` מחזירים double: `4.0`, לא `4`.
-14. ‏`-7 % 3` הוא `-1`.
-15. שכחתם `import java.util.Scanner;` או `import java.util.Random;`? שגיאת קומפילציה. ל-Math לא צריך import.
+14. שכחתם `import java.util.Scanner;` או `import java.util.Random;`? שגיאת קומפילציה. ל-Math לא צריך import.
 
 ## דף עזר מקוצר
 
