@@ -203,7 +203,7 @@ In the demo, the scenes commit on a branch called `talk`; the project on GitHub 
 
 ```text
 $ git log --oneline
-d2e2f19 4096 v1: the tests, a Dockerfile, Kubernetes files and the pipeline
+010b6b6 4096 v1: the tests, a Dockerfile, Kubernetes files and the pipeline
 7a46254 4096 in Python: the code
 
 $ git diff
@@ -218,16 +218,16 @@ $ git commit -am "v2: a bigger board"
 [talk 8b97521] v2: a bigger board
 
 $ git push
-   d2e2f19..8b97521  talk -> talk
+   010b6b6..8b97521  talk -> talk
 ```
 
 <!-- notes:
 The real output from the demo (`./demo.sh git`), trimmed a little. Read it from the top:
 
-1. `git log --oneline` - the history so far, newest on top (trimmed): the code (the game - the three files from Part 1), then v1 - everything around it: the tests, a Dockerfile, the Kubernetes files and the pipeline. The code in front (`d2e2f19`) is the commit's name - a unique ID.
+1. `git log --oneline` - the history so far, newest on top (trimmed): the code (the game - the three files from Part 1), then v1 - everything around it: the tests, a Dockerfile, the Kubernetes files and the pipeline. The code in front (`010b6b6`) is the commit's name - a unique ID.
 2. Then we change the game: a bigger board. `git diff` shows exactly what changed - a line starting with `-` was removed, a line starting with `+` was added. Two changes: the board gets bigger (`SIZE` goes from 4 to 5, in the rules file `board.py`), and the version goes from v1 (blue) to v2 (green) - the file `VERSION` holds the version and its color, so you can always see which version is running. The `+++` lines say which file each change is in.
 3. `git commit -am "v2: a bigger board"` - save it. Git answers with the new commit's ID: `8b97521` (on the branch `talk`). If v2 turns out to be a bad idea, v1 is one command away.
-4. `git push` - upload it: the copy on the server moved from `d2e2f19` to `8b97521`. On a real project that's GitHub; in the demo a folder on the laptop plays GitHub, so nothing leaves the laptop.
+4. `git push` - upload it: the copy on the server moved from `010b6b6` to `8b97521`. On a real project that's GitHub; in the demo a folder on the laptop plays GitHub, so nothing leaves the laptop.
 
 That's **version control**. Notice: the new level is saved and uploaded, but no player has seen it yet. Getting it to them is the next steps.
 -->
@@ -595,9 +595,9 @@ AI is a great co-pilot. You are still the pilot - and the pilot needs to know wh
 
 1. the app is the start - 100,000 players is the job
 2. **the road**: Git → Docker → CI/CD → Kubernetes - that's **DevOps**
+5. **use AI** - go build something
 3. **AI writes the code - you have to know what it does**
 4. **the base**: the product, your tech, learning - and English
-5. **use AI** - go build something
 
 <!-- notes:
 The whole talk in five ideas:
