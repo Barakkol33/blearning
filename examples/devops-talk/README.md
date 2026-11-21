@@ -33,6 +33,10 @@ The talk (slides 1-24, ~30 minutes) follows one small project - **4096 in Python
 |     | **Talk**                                                                                            | **~38** |        |                                       |
 
 ```
+before:
+open file explorer to see files and cmd to run app
+open "about myself"
+
 1 - about myself
 - i prepared a lot of material but if you have questions for me that is more important
 5 - opening

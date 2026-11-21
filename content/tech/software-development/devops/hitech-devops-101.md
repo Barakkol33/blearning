@@ -7,7 +7,7 @@ attachments: [_files/hitech-devops-101.html]
 
 # Hi-tech & DevOps 101
 
-A slide deck for HR, recruiting and people teams in Israeli hi-tech. It explains the words, the people and the process behind every app, without a single line of code, and then turns to the people side: roles, seniority, CVs, the hiring process and what is special about Israeli tech. Nothing in it is about one company.
+A slide deck for HR, recruiting and people teams in Israeli hi-tech. It explains the words, the people and the process behind every app, without a single line of code, and the roles you meet and recruit for. Nothing in it is about one company.
 
 <p><a href="/blearning/tech/software-development/devops/_files/hitech-devops-101.html" style="display:block; text-align:center; padding:0.8rem 1rem; border-radius:999px; background:#4f6bed; color:#fff; font-weight:700; text-decoration:none">Open the slides (best on a phone)</a></p>
 
@@ -24,7 +24,7 @@ A slide deck for HR, recruiting and people teams in Israeli hi-tech. It explains
 1. **Hi-tech vocabulary** - where software lives (frontend, backend, cloud), how a tech team works (sprints, backlog, QA), programming words, the technology names on Israeli CVs (Python, Java, Go, React, AWS, Kubernetes, Terraform), AI words (LLM, GenAI, agents, and data scientist vs. ML engineer vs. AI engineer), and the business side (funding rounds, exits, R&D centers, options under section 102).
 2. **What is DevOps?** - the road from idea to customer, the old wall between Dev and Ops, the DevOps loop, and keeping software running (monitoring, incidents, on-call).
 3. **Code & packages** - source code and Git, open-source packages, CI/CD, containers and Kubernetes.
-4. **People & hiring** - the roles you recruit for, seniority and the two career tracks, reading a job description and a CV (including the army tech units), the hiring process for developers, working in an Israeli tech team (reserve duty, on-call, hybrid, global teams), and a ten-word cheat sheet.
+4. **People** - the roles you recruit for, and a ten-word cheat sheet.
 
 ## Next steps
 
