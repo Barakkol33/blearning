@@ -1,7 +1,7 @@
 ---
 title: From Code to the Real World
 date: Git · Docker · CI/CD · Kubernetes
-theme: office
+theme: theme.toml
 output: ../../content/tech/software-development/devops/_files/devops-talk.html
 ---
 # From Code to the Real World

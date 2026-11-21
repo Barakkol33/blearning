@@ -1,0 +1,8 @@
+# The talk's theme: PowerPoint-like office, plus one rule
+base = "office"
+
+# the two pictures of the game (slide "The game") fill most of the slide -
+# matched by the start of img/game.svg (its viewBox), since the deck drops alt text
+css = """
+figure.image img[src^="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMzQwIDY2MCIgd2lk"] { max-height: 66cqh }
+"""

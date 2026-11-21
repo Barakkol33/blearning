@@ -15,22 +15,22 @@ A talk for high school students: Git, Docker, CI/CD and Kubernetes - in a world 
 
 The talk (slides 1-24, ~30 minutes) follows one small project - **4096 in Python** ([github.com/Barakkol33/devops-example](https://github.com/Barakkol33/devops-example)), built with AI - from a laptop to 100,000 players: save it (Git), pack it (Docker), check and ship it (CI/CD), run many copies (Kubernetes). Then: build with AI - but know what it does. Everything runs locally, and the commands are the visuals: every live moment has a slide with the command and its **real output**, so the talk works with no demo at all. Each idea is named **after** the students see it work.
 
-| | part | min | slides | live (right terminal: `./present.sh`) |
-| --- | --- | --- | --- | --- |
-| 0 | Raise your hand | 2 | 2 | |
-| | Why? A team project - working together, sending it to the teacher, knowing it works | 2 | 3 | |
-| 1 | You built a game (and two pictures of it) | 3 | 4-5 | |
-| | What is DevOps? - the tools to ship and manage applications | 1 | 6 | |
-| | The road - the whole talk in one picture | 1 | 7 | |
-| 2 | Save it: **Git** (commits, branches, push) | 5 | 8-10 | scene 1: `./demo.sh git` |
-| 3 | Package it: **Docker** | 4 | 11-12 | scene 2: `./demo.sh docker` |
-| 4 | Check it, ship it: **CI/CD** (does it work? then ship it - a pipeline does both; the pipeline file) | 3 | 13-14 | |
-| 5 | Many copies: **Kubernetes** (load balancer, the Deployment file, IaC, HA, self-healing) | 6 | 15-17 | scene 3: `./demo.sh pods`, `kill` |
-| | The road you just saw | 1 | 18 | |
-| 6 | Build with AI: go build, learn with AI, blearning, and know what it does (the iceberg) | 6 | 19-22 | |
-| 7 | Wrap-up: the base of everything, the important ideas | 3 | 23-24 | |
-| | More interesting topics - the map of what comes after the talk | | 25 | |
-| | **Talk** | **~38** | | |
+|     | part                                                                                                | min     | slides | live (right terminal: `./present.sh`) |
+| --- | --------------------------------------------------------------------------------------------------- | ------- | ------ | ------------------------------------- |
+| 0   | Raise your hand                                                                                     | 2       | 2      |                                       |
+|     | Why? A team project - working together, sending it to the teacher, knowing it works                 | 2       | 3      |                                       |
+| 1   | You built a game (and two pictures of it)                                                           | 3       | 4-5    |                                       |
+|     | What is DevOps? - the tools to ship and manage applications                                         | 1       | 6      |                                       |
+|     | The road - the whole talk in one picture                                                            | 1       | 7      |                                       |
+| 2   | Save it: **Git** (commits, branches, push)                                                          | 5       | 8-10   | scene 1: `./demo.sh git`              |
+| 3   | Package it: **Docker**                                                                              | 4       | 11-12  | scene 2: `./demo.sh docker`           |
+| 4   | Check it, ship it: **CI/CD** (does it work? then ship it - a pipeline does both; the pipeline file) | 3       | 13-14  |                                       |
+| 5   | Many copies: **Kubernetes** (load balancer, the Deployment file, IaC, HA, self-healing)             | 6       | 15-17  | scene 3: `./demo.sh pods`, `kill`     |
+|     | The road you just saw                                                                               | 1       | 18     |                                       |
+| 6   | Build with AI: go build, learn with AI, blearning, and know what it does (the iceberg)              | 6       | 19-22  |                                       |
+| 7   | Wrap-up: the base of everything, the important ideas                                                | 3       | 23-24  |                                       |
+|     | More interesting topics - the map of what comes after the talk                                      |         | 25     |                                       |
+|     | **Talk**                                                                                            | **~38** |        |                                       |
 
 ```
 1 - about myself
@@ -46,15 +46,15 @@ The talk (slides 1-24, ~30 minutes) follows one small project - **4096 in Python
 
 After the wrap-up, slide 25 maps the rest of the deck, which goes on **by subject**, in the road's order - for time left over, questions, or students at home:
 
-| subject | slides | live (`./present.sh extras`) |
-| --- | --- | --- |
-| Docker: go deeper - the Docker guide on blearning | 26 | |
-| CI/CD: ship the new level, the bug + automatic rollback, when a change goes wrong (outages), the DevOps loop, guardrails | 27-31 | `update`, `break` |
-| Kubernetes: the demo cluster, scale with a file (IaC), all the copies at once, a machine dies (HA), observability, the loop, the words, why so many copies, architecture, the Kubernetes guides on blearning | 32-41 | `iac 6`, `chaos`, `node-down`/`up`, `events`, `logs` |
-| Kafka | 42-48 | |
-| Infrastructure as code: Terraform, spot the bug, the July 2025 story, why it's harder | 49-52 | |
-| Know what the code does: your laptop vs the real world, six questions, bugs/lag/cost, six traps | 53-62 | |
-| Try it at home, learn more | 63-64 | |
+| subject                                                                                                                                                                                                      | slides | live (`./present.sh extras`)                         |
+| ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------ | ---------------------------------------------------- |
+| Docker: go deeper - the Docker guide on blearning                                                                                                                                                            | 26     |                                                      |
+| CI/CD: ship the new level, the bug + automatic rollback, when a change goes wrong (outages), the DevOps loop, guardrails                                                                                     | 27-31  | `update`, `break`                                    |
+| Kubernetes: the demo cluster, scale with a file (IaC), all the copies at once, a machine dies (HA), observability, the loop, the words, why so many copies, architecture, the Kubernetes guides on blearning | 32-41  | `iac 6`, `chaos`, `node-down`/`up`, `events`, `logs` |
+| Kafka                                                                                                                                                                                                        | 42-48  |                                                      |
+| Infrastructure as code: Terraform, spot the bug, the July 2025 story, why it's harder                                                                                                                        | 49-52  |                                                      |
+| Know what the code does: your laptop vs the real world, six questions, bugs/lag/cost, six traps                                                                                                              | 53-62  |                                                      |
+| Try it at home, learn more                                                                                                                                                                                   | 63-64  |                                                      |
 
 - **No demo** (no laptop, no WSL, a broken cluster): just present the slides. Slides 10, 12 and 17 show the real output, and their notes explain it line by line.
 - **Running late:** skip the live scenes - the output slides tell the same story. Then slide 22 (the iceberg) can be one sentence.
@@ -62,55 +62,55 @@ After the wrap-up, slide 25 maps the rest of the deck, which goes on **by subjec
 
 ## Keys
 
-| key | |
-| --- | --- |
-| `→` `Space` / `←` | next / previous slide |
-| `?` | notes on/off (`Esc` closes) |
-| `F` | full screen |
-| dots, bottom right | jump to any slide |
+| key                |                             |
+| ------------------ | --------------------------- |
+| `→` `Space` / `←`  | next / previous slide       |
+| `?`                | notes on/off (`Esc` closes) |
+| `F`                | full screen                 |
+| dots, bottom right | jump to any slide           |
 
 ## Presenting, slide by slide
 
-What each slide *means* is in its notes. This is what to *do*.
+What each slide _means_ is in its notes. This is what to _do_.
 
-| slide | cue |
-| --- | --- |
-| 1 | Before: see "On the day" below - `./demo.sh reset`, the dashboard, the browser on `http://localhost:8080`. Introduce yourself in one line. |
-| 2 | ~2 min. Row by row, two questions each: "who knows what it is, even roughly?" then "who has done it?". "No hands is a perfectly good answer." Remember who built something with AI. |
-| 3 | Ask, don't tell: "who did a team project? who had someone break it the night before?" One problem per bullet, then name the tool. End: "same problems - a company and 100,000 players instead of four friends and a teacher." |
-| 4 | "You built a game with AI in an evening." Show it: the browser at `http://localhost:8080` - play a few moves. "Tonight you share the link: 100,000 players. Now what?" |
-| 5 | The game, for real: left v1 (4x4), right v2 (the bigger board - the change we save next). Point at the bar at the bottom: version and which copy answered. |
-| 6 | Brief - one minute. "Writing the code is half the job." Dev = writing it; Ops = shipping it and keeping it running. DevOps = the tools for the second half. "The rest of the talk is those tools, one at a time." |
-| 7 | The whole talk in one picture: walk it left to right, one sentence per box - laptop, `git push`, the pipeline (with the Docker image), production. "Every part of the talk zooms in on one box." |
-| 8 | Commit, history, together - one sentence each. |
-| 9 | Branches: walk left to right. main = what the players get; each feature on its own branch, merged when ready; the orange one isn't in main yet. One sentence on pull requests. |
-| 10 | Right terminal: `./present.sh` (scene 1). Point at the red and green lines in `git diff`, then the commit, then `git push`. No demo: walk the slide top to bottom. |
-| 11 | The Dockerfile is code they can read: one line each. |
-| 12 | Scene 2: the build, the images, then open `http://localhost:8081` - the game in a container on this laptop. |
-| 13 | The motivation first: every change raises two questions - "does it work?" and "it works - how does it reach the players?". By hand it's slow and people forget steps; a pipeline answers both, on every push. Then the three steps, and which question each answers. "It needs somewhere to ship to - that's the next step." |
-| 14 | The pipeline as a file - read it top to bottom: when (every push), where (a fresh computer), then the steps. "The same commands you'd type, run by a machine every time." Naive on purpose. |
-| 15 | Walk the diagram left to right. Then the two names: the wish is a file - Infrastructure as Code; multiple copies - high availability. |
-| 16 | The wish, as a file. Point at three lines: `replicas: 3`, `image:`, and the readiness check on `/healthz` - "remember this one". |
-| 17 | Scene 3: `pods`, then `kill`. Point at the dashboard (left): the copy disappears and a new one is ready in seconds, no red. Ask "who restarted it?" - nobody. |
-| 18 | Tick the four rows. "That road is DevOps." Point at the link: all of it is a real project on GitHub. |
-| 19 | Say the quote plainly, as your own opinion. Refer back to who raised their hands on slide 2. "Go build." |
-| 20 | Learning with AI: one example per bullet, from their world (a test, a homework error). Close with "it can be confidently wrong - check what matters." |
-| 21 | Open the site if there's time (the high-school page). "Built with AI, one piece at a time - free, use it." |
-| 22 | The central message - slow down. Running late: this one sentence is the whole slide. |
-| 23 | Slow down - the tools change, these three don't. And English. |
-| 24 | The five ideas - one breath each. End with "Anyone can write code now - knowing what it does, and running it safely for many people, is engineering." Then questions. "Everything we skipped is in the slides after this one - press ? on any slide." If time is left: slides 26-27 with `./present.sh extras`. After: `./demo.sh reset`. |
-| 25 | Leave it on screen during questions - it's the map of everything you skipped. |
+| slide | cue                                                                                                                                                                                                                                                                                                                                       |
+| ----- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 1     | Before: see "On the day" below - `./demo.sh reset`, the dashboard, the browser on `http://localhost:8080`. Introduce yourself in one line.                                                                                                                                                                                                |
+| 2     | ~2 min. Row by row, two questions each: "who knows what it is, even roughly?" then "who has done it?". "No hands is a perfectly good answer." Remember who built something with AI.                                                                                                                                                       |
+| 3     | Ask, don't tell: "who did a team project? who had someone break it the night before?" One problem per bullet, then name the tool. End: "same problems - a company and 100,000 players instead of four friends and a teacher."                                                                                                             |
+| 4     | "You built a game with AI in an evening." Show it: the browser at `http://localhost:8080` - play a few moves. "Tonight you share the link: 100,000 players. Now what?"                                                                                                                                                                    |
+| 5     | The game, for real: left v1 (4x4), right v2 (the bigger board - the change we save next). Point at the bar at the bottom: version and which copy answered.                                                                                                                                                                                |
+| 6     | Brief - one minute. "Writing the code is half the job." Dev = writing it; Ops = shipping it and keeping it running. DevOps = the tools for the second half. "The rest of the talk is those tools, one at a time."                                                                                                                         |
+| 7     | The whole talk in one picture: walk it left to right, one sentence per box - laptop, `git push`, the pipeline (with the Docker image), production. "Every part of the talk zooms in on one box."                                                                                                                                          |
+| 8     | Commit, history, together - one sentence each.                                                                                                                                                                                                                                                                                            |
+| 9     | Branches: walk left to right. main = what the players get; each feature on its own branch, merged when ready; the orange one isn't in main yet. One sentence on pull requests.                                                                                                                                                            |
+| 10    | Right terminal: `./present.sh` (scene 1). Point at the red and green lines in `git diff`, then the commit, then `git push`. No demo: walk the slide top to bottom.                                                                                                                                                                        |
+| 11    | The Dockerfile is code they can read: one line each.                                                                                                                                                                                                                                                                                      |
+| 12    | Scene 2: the build, the images, then open `http://localhost:8081` - the game in a container on this laptop.                                                                                                                                                                                                                               |
+| 13    | The motivation first: every change raises two questions - "does it work?" and "it works - how does it reach the players?". By hand it's slow and people forget steps; a pipeline answers both, on every push. Then the three steps, and which question each answers. "It needs somewhere to ship to - that's the next step."              |
+| 14    | The pipeline as a file - read it top to bottom: when (every push), where (a fresh computer), then the steps. "The same commands you'd type, run by a machine every time." Naive on purpose.                                                                                                                                               |
+| 15    | Walk the diagram left to right. Then the two names: the wish is a file - Infrastructure as Code; multiple copies - high availability.                                                                                                                                                                                                     |
+| 16    | The wish, as a file. Point at three lines: `replicas: 3`, `image:`, and the readiness check on `/healthz` - "remember this one".                                                                                                                                                                                                          |
+| 17    | Scene 3: `pods`, then `kill`. Point at the dashboard (left): the copy disappears and a new one is ready in seconds, no red. Ask "who restarted it?" - nobody.                                                                                                                                                                             |
+| 18    | Tick the four rows. "That road is DevOps." Point at the link: all of it is a real project on GitHub.                                                                                                                                                                                                                                      |
+| 19    | Say the quote plainly, as your own opinion. Refer back to who raised their hands on slide 2. "Go build."                                                                                                                                                                                                                                  |
+| 20    | Learning with AI: one example per bullet, from their world (a test, a homework error). Close with "it can be confidently wrong - check what matters."                                                                                                                                                                                     |
+| 21    | Open the site if there's time (the high-school page). "Built with AI, one piece at a time - free, use it."                                                                                                                                                                                                                                |
+| 22    | The central message - slow down. Running late: this one sentence is the whole slide.                                                                                                                                                                                                                                                      |
+| 23    | Slow down - the tools change, these three don't. And English.                                                                                                                                                                                                                                                                             |
+| 24    | The five ideas - one breath each. End with "Anyone can write code now - knowing what it does, and running it safely for many people, is engineering." Then questions. "Everything we skipped is in the slides after this one - press ? on any slide." If time is left: slides 26-27 with `./present.sh extras`. After: `./demo.sh reset`. |
+| 25    | Leave it on screen during questions - it's the map of everything you skipped.                                                                                                                                                                                                                                                             |
 
 ## The live demo
 
 ### Files
 
-| file | what it is |
-| --- | --- |
+| file                                             | what it is                                                                                                    |
+| ------------------------------------------------ | ------------------------------------------------------------------------------------------------------------- |
 | [demo/kind-cluster.yaml](demo/kind-cluster.yaml) | the cluster: 1 control plane + 2 workers; laptop port 8080 → the game; tuned to notice a dead machine in ~10s |
-| [demo/demo.sh](demo/demo.sh) | one command per scene. Always uses the `kind-devops-demo` cluster, whatever kubectl's current context is |
-| [demo/present.sh](demo/present.sh) | the show, for the right terminal: a headline per scene, every command typed out, Enter to go on |
-| [demo/rehearse.sh](demo/rehearse.sh) | runs every scene start to end, checks each one, prints PASS/FAIL, and ends with `reset` |
+| [demo/demo.sh](demo/demo.sh)                     | one command per scene. Always uses the `kind-devops-demo` cluster, whatever kubectl's current context is      |
+| [demo/present.sh](demo/present.sh)               | the show, for the right terminal: a headline per scene, every command typed out, Enter to go on               |
+| [demo/rehearse.sh](demo/rehearse.sh)             | runs every scene start to end, checks each one, prints PASS/FAIL, and ends with `reset`                       |
 
 **The game is a real project:** [github.com/Barakkol33/devops-example](https://github.com/Barakkol33/devops-example) - 4096 in Python (FastAPI), with its tests, a Dockerfile, its Kubernetes files and a pipeline. `./demo.sh up` clones it once into `~/.devops-talk/devops-example` (the only step that needs internet - with the Python base image and the libraries), builds its first image and deploys its own `k8s/` files. Every scene works on a fresh local clone at `/tmp/game-site`, on a branch `talk` that starts at the project's tag `v1` - the GitHub repo and the blearning repo are never touched.
 
@@ -156,18 +156,18 @@ If `kind-cluster.yaml` changed since the cluster was created, recreate it first:
 
 Two terminals side by side, plus a browser. Left: `./demo.sh watch` - the live dashboard (the game, the copies, the machines), running the whole time. Right: `./present.sh` - it clears the screen per scene, shows the headline, types each command and waits for Enter. `./present.sh 3` starts at scene 3. Or run the commands by hand:
 
-| scene | slide | command |
-| --- | --- | --- |
-| 1 · Save it | 10 | `./demo.sh git` |
-| 2 · It works on my machine | 12 | `./demo.sh docker`, then `http://localhost:8081` |
-| 3 · Many copies | 17 | `./demo.sh pods`, `./demo.sh kill` |
-| extra · Ship the new level | 26 | `./demo.sh update` |
-| extra · The next commit has a bug | 27 | `./demo.sh break` |
-| extra · Scale with a file | 32 | `./demo.sh iac 6` |
-| extra · All the copies at once | 33 | `./demo.sh chaos` |
-| extra · A whole machine dies | 34 | `./demo.sh node-down` (Ctrl+C once the copies moved), then `./demo.sh node-up` |
-| extra · Observability | 35 | `./demo.sh events`, then `./demo.sh logs` |
-| after | | `./demo.sh reset`: back to v1, 3 copies, a fresh repo - also after any scene that went wrong |
+| scene                             | slide | command                                                                                      |
+| --------------------------------- | ----- | -------------------------------------------------------------------------------------------- |
+| 1 · Save it                       | 10    | `./demo.sh git`                                                                              |
+| 2 · It works on my machine        | 12    | `./demo.sh docker`, then `http://localhost:8081`                                             |
+| 3 · Many copies                   | 17    | `./demo.sh pods`, `./demo.sh kill`                                                           |
+| extra · Ship the new level        | 26    | `./demo.sh update`                                                                           |
+| extra · The next commit has a bug | 27    | `./demo.sh break`                                                                            |
+| extra · Scale with a file         | 32    | `./demo.sh iac 6`                                                                            |
+| extra · All the copies at once    | 33    | `./demo.sh chaos`                                                                            |
+| extra · A whole machine dies      | 34    | `./demo.sh node-down` (Ctrl+C once the copies moved), then `./demo.sh node-up`               |
+| extra · Observability             | 35    | `./demo.sh events`, then `./demo.sh logs`                                                    |
+| after                             |       | `./demo.sh reset`: back to v1, 3 copies, a fresh repo - also after any scene that went wrong |
 
 `./present.sh extras` runs all the extras in this order. `./demo.sh` with no arguments prints every command.
 
