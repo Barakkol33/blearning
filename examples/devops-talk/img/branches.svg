@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1300 430" width="1300" height="430" font-family="Segoe UI, Calibri, Carlito, sans-serif">
+  <rect width="1300" height="430" fill="#ffffff"/>
+
+  <!-- branch 1: a head start - branched, two commits, merged -->
+  <path d="M260 215 C 300 215, 300 95, 345 95 L 470 95 C 515 95, 515 215, 560 215" fill="none" stroke="#1a7f37" stroke-width="6"/>
+  <circle cx="365" cy="95" r="13" fill="#1a7f37"/>
+  <circle cx="450" cy="95" r="13" fill="#1a7f37"/>
+  <text x="407" y="60" text-anchor="middle" font-size="22" font-weight="700" fill="#1a7f37">a head start</text>
+
+  <!-- branch 2: high scores - three commits, merged later -->
+  <path d="M410 215 C 450 215, 450 340, 495 340 L 770 340 C 815 340, 815 215, 860 215" fill="none" stroke="#8250df" stroke-width="6"/>
+  <circle cx="530" cy="340" r="13" fill="#8250df"/>
+  <circle cx="630" cy="340" r="13" fill="#8250df"/>
+  <circle cx="730" cy="340" r="13" fill="#8250df"/>
+  <text x="630" y="392" text-anchor="middle" font-size="22" font-weight="700" fill="#8250df">high scores</text>
+
+  <!-- branch 3: undo a move - still being worked on, not merged -->
+  <path d="M710 215 C 750 215, 750 95, 795 95 L 960 95" fill="none" stroke="#bc4c00" stroke-width="6"/>
+  <path d="M960 95 L 1040 95" fill="none" stroke="#bc4c00" stroke-width="6" stroke-dasharray="10 9"/>
+  <circle cx="830" cy="95" r="13" fill="#bc4c00"/>
+  <circle cx="930" cy="95" r="13" fill="#bc4c00"/>
+  <text x="880" y="60" text-anchor="middle" font-size="22" font-weight="700" fill="#bc4c00">undo a move</text>
+  <text x="1056" y="102" font-size="19" fill="#7a7a7a">still in progress</text>
+
+  <!-- main -->
+  <path d="M110 215 L 1120 215" stroke="#1f6feb" stroke-width="8"/>
+  <circle cx="130" cy="215" r="15" fill="#1f6feb"/>
+  <circle cx="260" cy="215" r="15" fill="#1f6feb"/>
+  <circle cx="410" cy="215" r="15" fill="#1f6feb"/>
+  <circle cx="560" cy="215" r="17" fill="#ffffff" stroke="#1f6feb" stroke-width="7"/>
+  <circle cx="710" cy="215" r="15" fill="#1f6feb"/>
+  <circle cx="860" cy="215" r="17" fill="#ffffff" stroke="#1f6feb" stroke-width="7"/>
+  <circle cx="1010" cy="215" r="15" fill="#1f6feb"/>
+  <path d="M1120 215 L 1150 215" stroke="#1f6feb" stroke-width="8" stroke-dasharray="8 7"/>
+  <text x="40" y="224" font-size="26" font-weight="700" fill="#1f6feb">main</text>
+  <text x="1168" y="208" font-size="17" fill="#7a7a7a">what the</text>
+  <text x="1168" y="230" font-size="17" fill="#7a7a7a">players get</text>
+
+  <!-- what happens where -->
+  <text x="262" y="150" font-size="18" fill="#7a7a7a" text-anchor="end">branch</text>
+  <text x="560" y="262" font-size="18" fill="#7a7a7a" text-anchor="middle">merge</text>
+  <text x="860" y="185" font-size="18" fill="#7a7a7a" text-anchor="middle">merge</text>
+</svg>
