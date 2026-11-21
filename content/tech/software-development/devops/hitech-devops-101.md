@@ -27,7 +27,7 @@ A slide deck for everyone in Israeli hi-tech who is not a developer - HR and rec
 4. **Cloud & AI** - what is inside AWS, Azure and Google Cloud and how companies use them (pay as you go, regions, multi-cloud, shared responsibility), and the AI words (LLM, GenAI, agents, and data scientist vs. ML engineer vs. AI engineer).
 
    Read more: [Claude guide (in Hebrew)](../../../claude-guide/_index.md) - a practical guide to using an AI assistant, no coding needed
-5. **Cyber** - the basic words and the security roles, how companies actually get attacked (phishing, stolen passwords, CEO fraud and deepfakes, ransomware, cloud misconfiguration, leaked secrets, poisoned packages, DDoS), and six habits that stop most attacks.
+5. **Cyber** - the basic words and the security roles, how companies actually get attacked (phishing, stolen passwords, CEO fraud and deepfakes, ransomware, cloud misconfiguration, leaked secrets, poisoned packages, DDoS), how attackers break into a cloud by chaining small weaknesses, how companies defend it (posture and vulnerabilities, data and AI, runtime), and six habits that stop most attacks.
 
 The deck ends with a ten-word cheat sheet.
 
