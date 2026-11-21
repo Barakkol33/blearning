@@ -122,6 +122,7 @@ The rest of the talk builds that road one tool at a time - each one answers a pr
 
 - a **commit** = a saved snapshot of all the files, with a message
 - **history** - see every change, and go back to any version
+- a **branch** = a version - work on it without touching the others
 - **together** - many people (and AIs) change the same code safely
 - **GitHub** - the same history, online (`git push`)
 
@@ -136,6 +137,8 @@ git push                                  # upload it - to GitHub
 The first thing you want for your game: never lose a working version.
 
 **Git** is a tool that saves the history of a folder. Every time you **commit**, it saves a snapshot of all the files, with a message that says what changed and why - and who changed it, and when. You can always see the whole history, compare any two versions, and go back to any of them.
+
+A **branch** is a separate line of commits - a version of the code. You can work on a new feature on its own branch while `main` (the version the players get) stays untouched, and merge it in only when it's ready. In the demo, the scenes commit on a branch called `talk`; in the project on GitHub, the branch `app-only` is just the code, and the bug lives on its own branch until someone merges it.
 
 It's also how people work together: many people - and today, AI agents - change the same code at the same time, and Git puts the changes together without anyone overwriting anyone else. **GitHub** is a website that keeps the same Git history online, so a whole team (or the whole world) can share it.
 
