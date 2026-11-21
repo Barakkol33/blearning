@@ -1,8 +1,9 @@
 #!/usr/bin/env bash
-# A live demo on one laptop (WSL / Linux / macOS): a small game (Space Dodge), from code to many copies.
-# Everything is local: a Git repo in /tmp/game-site, Docker, and a Kubernetes cluster (kind).
+# A live demo on one laptop (WSL / Linux / macOS): a real project - 2048 in Python
+# (github.com/Barakkol33/devops-example) - from code to many copies.
+# Everything is local: a Git clone in /tmp/game-site, Docker, and a Kubernetes cluster (kind).
 #
-#   ./demo.sh up            build the cluster and the game's first image (~1-2 minutes)
+#   ./demo.sh up            clone the project, build the cluster and the game's first image (~2-3 minutes)
 #   ./demo.sh watch         live dashboard: is the game up, which version, copies per machine
 #
 # The talk, in order:
@@ -29,9 +30,10 @@ set -euo pipefail
 
 CLUSTER=devops-demo
 HERE="$(cd "$(dirname "$0")" && pwd)"
-BASE=nginx:1.27-alpine
 URL=http://localhost:8080
-REPO="${DEMO_REPO:-/tmp/game-site}"
+PROJECT=https://github.com/Barakkol33/devops-example.git
+CACHE="${DEMO_CACHE:-$HOME/.devops-talk/devops-example}"   # cloned once (needs internet), then used offline
+REPO="${DEMO_REPO:-/tmp/game-site}"                        # the clone the scenes change
 
 # always talk to the demo cluster, whatever kubectl's current context is (another kind cluster, say)
 kubectl() { command kubectl --context "kind-$CLUSTER" "$@"; }
@@ -66,48 +68,54 @@ bad() { printf '\033[1;31m   FAILED: %s\033[0m\n' "$*"; }
 
 wait_rollout() { kubectl rollout status deployment/game --timeout="${1:-120s}"; }
 
-# --- the game's repo and images ---
+# --- the project: a clone of devops-example, starting at its first version (the tag v1) ---
 repo_version() { awk '{print $1}' "$REPO/VERSION"; }
 
-new_repo() {   # a fresh repo with the first version of the game, committed
-  rm -rf "$REPO"; mkdir -p "$REPO"
-  cp "$HERE"/game/* "$REPO"/
-  chmod +x "$REPO/test.sh"
-  git -C "$REPO" init -q -b main
-  git -C "$REPO" add .
-  git -C "$REPO" commit -q -m "v1: the first version of the game"
+ensure_cache() {   # the project, cloned once from GitHub - after that, everything works offline
+  if [[ ! -d "$CACHE/.git" ]]; then
+    mkdir -p "$(dirname "$CACHE")"
+    git clone -q "$PROJECT" "$CACHE"
+  else
+    git -C "$CACHE" fetch -q --tags origin 2>/dev/null || true   # newer version, if there's internet
+  fi
+}
+new_repo() {   # a fresh clone at v1, on a branch "talk" - the scenes commit there
+  [[ -d "$CACHE/.git" ]] || ensure_cache
+  rm -rf "$REPO"
+  git clone -q "$CACHE" "$REPO"
+  git -C "$REPO" switch -q -c talk v1
 }
 ensure_repo() { [[ -d "$REPO/.git" ]] || new_repo; }
 
-change_to_v2() {   # the change from the Git scene: a faster level
-  sed -i 's/const SPEED = 1.0; /const SPEED = 1.5; /' "$REPO/index.html"
-  sed -i 's|<h1>Space Dodge</h1>|<h1>Space Dodge - level 2: faster!</h1>|' "$REPO/index.html"
+change_to_v2() {   # the change from the Git scene: a bigger board
+  sed -i 's/^SIZE = 4 /SIZE = 5 /' "$REPO/src/game2048/board.py"
   echo 'v2 #1a7f37' >"$REPO/VERSION"
 }
-change_to_v3() {   # a "tidy-up" that renames the health check page - every test still passes
-  sed -i 's|location = /healthz {|location = /health {|' "$REPO/default.conf.template"
+change_to_v3() {   # an AI "tidy-up": rename /healthz to /health - and the test with it, so every test passes
+  sed -i 's|@app.get("/healthz"|@app.get("/health"|; s|^def healthz|def health|' "$REPO/src/game2048/app.py"
+  sed -i 's|^def test_healthz|def test_health|; s|client.get("/healthz")|client.get("/health")|' "$REPO/tests/test_app.py"
   echo 'v3 #cf222e' >"$REPO/VERSION"
 }
 # make sure the repo's last commit is v2 - whatever scenes were skipped or run before
 ensure_v2_commit() {
   ensure_repo
   case "$(repo_version)" in
-    v1) change_to_v2; git -C "$REPO" commit -q -am "v2: a new, faster level" ;;
+    v1) change_to_v2; git -C "$REPO" commit -q -am "v2: a bigger board" ;;
     v3) git -C "$REPO" revert -q --no-edit HEAD ;;
   esac
 }
 
-build_image() {   # build_image <dir>: the image game-site:<version> from that folder's files
+build_image() {   # build_image <dir>: the image game-site:<version> - and its test stage, to cache the test tools
   local dir="$1" v c
   read -r v c <"$dir/VERSION"
-  docker image inspect "$BASE" >/dev/null 2>&1 || docker pull -q "$BASE" >/dev/null
   docker build -q -t "game-site:$v" --build-arg VERSION="$v" --build-arg COLOR="$c" "$dir" >/dev/null
+  docker build -q -t "game-site-test:$v" --target test "$dir" >/dev/null
 }
-v1_into_cluster() {   # the first version, built from game/ and copied onto the cluster's machines
-  build_image "$HERE/game"
+v1_into_cluster() {   # the first version, built from the clone and copied onto the cluster's machines
+  build_image "$REPO"
   kind load docker-image game-site:v1 --name "$CLUSTER" >/dev/null 2>&1
 }
-remove_old_demo() {   # the previous version of this demo (nginx "hello") holds the same port
+remove_old_demo() {   # earlier versions of this demo (nginx "hello") hold the same port
   kubectl delete deployment/hello service/hello configmap/hello-page --ignore-not-found >/dev/null 2>&1 || true
 }
 
@@ -116,10 +124,13 @@ cmd_up() {
   if ! kind get clusters 2>/dev/null | grep -qx "$CLUSTER"; then
     say kind create cluster --config "$HERE/kind-cluster.yaml"
   fi
-  printf '\nBuilding the game (game-site:v1) and copying it onto the cluster ...\n'
+  printf '\nGetting the project (%s) ...\n' "$PROJECT"
+  ensure_cache
+  new_repo
+  printf 'Building the game (game-site:v1) and copying it onto the cluster ...\n'
   v1_into_cluster
   remove_old_demo
-  say kubectl apply -f "$HERE/app.yaml"
+  say kubectl apply -f "$REPO/k8s/deployment.yaml" -f "$REPO/k8s/service.yaml"
   wait_rollout 180s
   cmd_pods
   printf '\nOpen %s in a browser, and run "./demo.sh watch" in a second terminal.\n' "$URL"
@@ -254,13 +265,13 @@ cmd_git() {
   banner "VERSION CONTROL - save every change, with its story"
   new_repo
   cd "$REPO"
-  note "The game's folder is a Git repository. Its history so far:"
+  note "The game's folder is a Git repository - the real project. Its history so far:"
   say git log --oneline
-  note "Now change the game: a faster level (index.html), and a new version number (VERSION)."
+  note "Now change the game: a bigger board (src/game2048/board.py), and a new version number (VERSION)."
   change_to_v2
   say git diff
   pause
-  say git commit -am "v2: a new, faster level"
+  say git commit -am "v2: a bigger board"
   say git log --oneline
 }
 
@@ -272,13 +283,12 @@ cmd_docker() {
   local v c
   read -r v c <VERSION
   docker rm -f game-local >/dev/null 2>&1 || true
-  docker image inspect "$BASE" >/dev/null 2>&1 || docker pull -q "$BASE" >/dev/null
   note "The recipe for the container:"
   say cat Dockerfile
   pause
   say docker build -t "game-site:$v" --build-arg VERSION="$v" --build-arg COLOR="$c" .
   say docker images game-site
-  say docker run -d --rm --name game-local -p 8081:80 "game-site:$v"
+  say docker run -d --rm --name game-local -p 8081:8000 "game-site:$v"
   for _ in $(seq 1 20); do curl -s --max-time 1 localhost:8081/plain >/dev/null && break; sleep 0.3; done
   note "The game now runs in a container on this laptop: http://localhost:8081"
   pause
@@ -294,9 +304,10 @@ cmd_iac() {
   # the file with the new number of copies - and with the image that's running now, so only the copies change
   local current
   current=$(kubectl get deployment/game -o jsonpath='{.spec.template.spec.containers[0].image}' 2>/dev/null || echo game-site:v1)
-  desired=$(sed -E "s/^( *replicas:) [0-9]+/\1 $n/; s|^( *image:) game-site:v1|\1 $current|" "$HERE/app.yaml")
-  stage "1. the change: replicas -> $n in app.yaml"
-  grep -nE '^ *replicas:' "$HERE/app.yaml" | sed "s/^/   now:  /"
+  ensure_repo
+  desired=$(sed -E "s/^( *replicas:) [0-9]+/\1 $n/; s|^( *image:) game-site:v1|\1 $current|" "$REPO/k8s/deployment.yaml")
+  stage "1. the change: replicas -> $n in k8s/deployment.yaml"
+  grep -nE '^ *replicas:' "$REPO/k8s/deployment.yaml" | sed "s/^/   now:  /"
   printf '%s\n' "$desired" | grep -nE '^ *replicas:' | sed "s/^/   new:  /"
   pause
   stage "2. PLAN - what would change? (kubectl diff)"
@@ -361,8 +372,9 @@ cmd_ship() {   # ship the repo's last commit: build -> test -> deploy -> verify 
   ok "built $img"
   pause
 
-  stage "2. TEST - run the tests on the new image"
-  if ! ./test.sh "$img"; then
+  stage "2. TEST - the unit tests (pytest), then a smoke test of the new image"
+  docker build -q -t "game-site-test:$v" --target test . >/dev/null
+  if ! docker run --rm "game-site-test:$v" || ! { echo "   smoke test: the image starts and serves the game"; tests/smoke.sh "$img"; }; then
     bad "a test failed - nothing was deployed"
     printf '\n\033[1;97;41m PIPELINE STOPPED - players never saw it \033[0m\n'
     return 1
@@ -401,14 +413,14 @@ cmd_ship() {   # ship the repo's last commit: build -> test -> deploy -> verify 
 
 cmd_update() {
   ensure_v2_commit
-  printf 'Shipping the new, faster level - the commit from the Git scene.\n'
+  printf 'Shipping the bigger board - the commit from the Git scene.\n'
   cmd_ship
 }
 
 cmd_break() {
   ensure_v2_commit
   cd "$REPO"
-  note "An AI \"tidied up\" the web server config. The change:"
+  note "An AI \"tidied up\" the web server - and its test. The change:"
   change_to_v3
   say git diff
   git commit -q -am "v3: tidy up - rename /healthz to /health"
@@ -440,9 +452,9 @@ cmd_undo() {
 cmd_reset() {
   remove_old_demo
   docker rm -f game-local >/dev/null 2>&1 || true
-  rm -rf "$REPO"
+  new_repo
   v1_into_cluster
-  kubectl apply -f "$HERE/app.yaml" >/dev/null
+  kubectl apply -f "$REPO/k8s/deployment.yaml" -f "$REPO/k8s/service.yaml" >/dev/null
   kubectl rollout restart deployment/game >/dev/null   # spread the copies over both workers again
   wait_rollout
   cmd_pods

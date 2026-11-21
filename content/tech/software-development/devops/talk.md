@@ -2,12 +2,12 @@
 title: From Code to the Real World - a talk
 order: 0
 lang: en
-attachments: [_files/devops-talk.html, _files/devops-talk-demo/kind-cluster.yaml, _files/devops-talk-demo/app.yaml, _files/devops-talk-demo/demo.sh, _files/devops-talk-demo/present.sh, _files/devops-talk-demo/rehearse.sh, _files/devops-talk-demo/game/index.html, _files/devops-talk-demo/game/default.conf.template, _files/devops-talk-demo/game/Dockerfile, _files/devops-talk-demo/game/test.sh, _files/devops-talk-demo/game/VERSION]
+attachments: [_files/devops-talk.html, _files/devops-talk-demo/kind-cluster.yaml, _files/devops-talk-demo/demo.sh, _files/devops-talk-demo/present.sh, _files/devops-talk-demo/rehearse.sh]
 ---
 
 # From Code to the Real World - a talk
 
-A talk for high school students: Git, Docker, CI/CD and Kubernetes - in a world where AI writes the code. It follows one small game, built with AI, from a laptop to 100,000 players, one step at a time - with real commands on one laptop, and the real output of every step on the slides.
+A talk for high school students: Git, Docker, CI/CD and Kubernetes - in a world where AI writes the code. It follows one small project - 2048 in Python, built with AI - from a laptop to 100,000 players, one step at a time - with real commands on one laptop, and the real output of every step on the slides.
 
 <div style="position:relative; width:100%; aspect-ratio:16/9; margin:1rem 0; border:1px solid var(--sl-color-gray-5); border-radius:6px; overflow:hidden">
 <iframe src="/blearning/tech/software-development/devops/_files/devops-talk.html" title="From Code to the Real World - slides" loading="lazy" allowfullscreen style="position:absolute; inset:0; width:100%; height:100%; border:0"></iframe>
@@ -19,27 +19,27 @@ A talk for high school students: Git, Docker, CI/CD and Kubernetes - in a world 
 
 ## What's inside
 
-**The talk** (slides 1-15, about 30 minutes):
+**The talk** (slides 1-16, about 30 minutes):
 
-1. **You built a game** - Space Dodge, built with AI in an evening; tonight, 100,000 players.
+1. **You built a game** - 2048 in Python, built with AI; tonight, 100,000 players.
 2. **Save it: Git** - commits, history, a way back.
 3. **Package it: Docker** - one image that runs the same anywhere.
 4. **Check it, ship it: CI/CD** - build, test, deploy, verify, roll back - by itself.
-5. **Many copies: Kubernetes** - a load balancer and three copies; infrastructure as code, high availability, and a copy that heals itself.
+5. **Many copies: Kubernetes** - a load balancer and three copies, the Deployment file; infrastructure as code, high availability, and a copy that heals itself.
 6. **Build with AI** - go build something, but know what it does.
 7. **Wrap-up** - the base that doesn't change, and the important ideas.
 
-**After the talk** (slide 16 is the map; slides 17-53), by subject: the pipeline for real (a new level, and a bug that passes every test and is rolled back), outages, the DevOps loop and guardrails; more Kubernetes (scale with a file, kill every copy, unplug a machine, observability, architecture); Kafka; infrastructure as code; knowing what the code does (six questions, six traps); and how to run the demo at home.
+**After the talk** (slide 17 is the map; slides 18-54), by subject: the pipeline for real (a new level, and a bug that passes every test and is rolled back), outages, the DevOps loop and guardrails; more Kubernetes (scale with a file, kill every copy, unplug a machine, observability, architecture); Kafka; infrastructure as code; knowing what the code does (six questions, six traps); and how to run the demo at home.
 
 ## The live demo
 
-Everything runs on one laptop: a local Git repo, Docker, and a real Kubernetes cluster with [kind](https://kind.sigs.k8s.io/) (Kubernetes in Docker). No cloud, and no internet after the first setup.
+Everything runs on one laptop: a local clone of the game's repository, Docker, and a real Kubernetes cluster with [kind](https://kind.sigs.k8s.io/) (Kubernetes in Docker). No cloud, and no internet after the first setup.
+
+The game is a real project: **[github.com/Barakkol33/devops-example](https://github.com/Barakkol33/devops-example)** - 2048 in Python (FastAPI), with its tests, a Dockerfile, its Kubernetes files and a CI/CD pipeline. The demo clones it by itself; you can also run it on its own (`pip install`, `pytest`, `uvicorn` - see its README).
 
 | file | what it is |
 | --- | --- |
-| [game/](_files/devops-talk-demo/game/index.html) | the game: [index.html](_files/devops-talk-demo/game/index.html), the web server's [settings](_files/devops-talk-demo/game/default.conf.template), the [Dockerfile](_files/devops-talk-demo/game/Dockerfile), its [tests](_files/devops-talk-demo/game/test.sh), and its [VERSION](_files/devops-talk-demo/game/VERSION) |
 | [kind-cluster.yaml](_files/devops-talk-demo/kind-cluster.yaml) | the cluster: one control plane and two workers |
-| [app.yaml](_files/devops-talk-demo/app.yaml) | the game in the cluster: three copies, spread over both workers, behind one address |
 | [demo.sh](_files/devops-talk-demo/demo.sh) | one command per scene |
 | [present.sh](_files/devops-talk-demo/present.sh) | the show: each scene's headline, every command typed out, Enter to go on |
 | [rehearse.sh](_files/devops-talk-demo/rehearse.sh) | runs every scene start to end and checks each one - PASS or FAIL |
@@ -47,7 +47,7 @@ Everything runs on one laptop: a local Git repo, Docker, and a real Kubernetes c
 **To run it:**
 
 1. Install WSL (on Windows), Docker, `kind` and `kubectl` - see [Prerequisites](prerequisites.md).
-2. Put the files in one folder (the game's five files in a `game/` folder inside it), and in a Linux shell (WSL) run `chmod +x *.sh game/test.sh` and `./demo.sh up`. It builds the cluster and the game's first image in a minute or two.
+2. Put the files in one folder, and in a Linux shell (WSL) run `chmod +x *.sh` and `./demo.sh up`. It downloads the game, builds the cluster and the game's first image, in a few minutes.
 3. In a second terminal, run `./demo.sh watch` (a live dashboard: is the game up, which version, how many copies on which machine), and open `http://localhost:8080` in a browser - the game.
 4. Run the scenes, in this order - or `./present.sh`, which runs them for you:
 
@@ -62,7 +62,7 @@ Everything runs on one laptop: a local Git repo, Docker, and a real Kubernetes c
 
 `./demo.sh` with no arguments lists every command; `./demo.sh reset` goes back to the start; `./demo.sh down` deletes the cluster.
 
-**The same game, for real:** [github.com/Barakkol33/devops-example](https://github.com/Barakkol33/devops-example) - the game with the same pipeline running in GitHub Actions on every push and pull request, in a real Kubernetes cluster that GitHub starts for each run.
+**On GitHub:** the same pipeline runs in GitHub Actions on every push and pull request of [devops-example](https://github.com/Barakkol33/devops-example), in a real Kubernetes cluster that GitHub starts for each run - and the bug is a pull request with a red X ([PR #1](https://github.com/Barakkol33/devops-example/pull/1)).
 
 ## Next steps
 

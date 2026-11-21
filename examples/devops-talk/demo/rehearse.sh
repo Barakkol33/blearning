@@ -98,8 +98,8 @@ sleep 3
 # ---------------------------------------------------------------- the talk's scenes
 step "1 - Git: ./demo.sh git"
 l=$(wc -l < "$LOG"); scene git
-if [[ "$(git -C /tmp/game-site rev-list --count HEAD 2>/dev/null)" == 2 ]] && log_since "$l" | grep -q "v2: a new, faster level"; then
-  pass "git: 2 commits, the new level saved"; else fail "git: no v2 commit"; fi
+if [[ "$(git -C /tmp/game-site log -1 --format=%s 2>/dev/null)" == "v2: a bigger board" ]] && log_since "$l" | grep -q "v2: a bigger board"; then
+  pass "git: the bigger board saved as a commit"; else fail "git: no v2 commit"; fi
 
 step "2 - Docker: ./demo.sh docker"
 l=$(wc -l < "$LOG"); scene docker

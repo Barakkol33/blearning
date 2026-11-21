@@ -46,14 +46,14 @@ talk() {
 
   if scene 1; then
     headline "1 · Save it" \
-      "You made the game faster. Before anything else: save the change - with a message."
+      "You made the board bigger (5x5). Before anything else: save the change - with a message."
     run ./demo.sh git
     named "Version control - Git"
   fi
 
   if scene 2; then
     headline "2 · \"It works on my machine\"" \
-      "Pack the game with its web server into one image - and run it on this laptop."
+      "Pack the game with Python and its libraries into one image - and run it on this laptop."
     run ./demo.sh docker
     named "A container - Docker"
   fi
@@ -81,7 +81,7 @@ extras() {
   named "CI/CD"
 
   headline "Extra · The next commit has a bug" \
-    "An AI \"tidied up\" the web server's settings. Every test will pass."
+    "An AI \"tidied up\" the server - and updated the test. Every test will pass."
   run ./demo.sh break
   named "CI/CD + automatic rollback - a guardrail"
 
