@@ -103,14 +103,14 @@ The rest of the talk takes this exact project - real files, in a real repository
 
 ## The game
 
-![Two screenshots of the game in the browser: on the left v1, a 4x4 board in the middle of a game, with a blue bar at the bottom; on the right v2, the bigger 5x5 board, with a green bar](img/game.svg)
+![Two screenshots of the game in the browser, a 4x4 board: on the left early in a game (score 36), on the right later on (score 1240, with a 128 tile); a blue bar at the bottom says v1, copy my-laptop, machine my-laptop](img/game.svg)
 
 <!-- notes:
-This is the game - real screenshots of it running on a laptop with `python main.py`, in the middle of a game.
+This is the game - real screenshots of it running on a laptop with `python main.py`: on the left early in a game, on the right a few minutes later.
 
-**Left: v1** - the first version, a 4x4 board. **Right: v2** - the same game with a bigger board, 5x5: that's the change we'll save with Git in a minute, and ship through the pipeline later. The bar at the bottom shows the version, in its color (v1 blue, v2 green), and which copy and machine answered - here just `my-laptop`. Later, in Kubernetes, that line shows a different copy every time.
+Use the arrow keys (or swipe) to slide the tiles; two equal tiles that touch merge into one. Every move goes to the server, which applies the rules in Python and sends back the new board - the page only draws it.
 
-Use the arrow keys (or swipe) to move the tiles; every move goes to the server, which applies the rules in Python and sends back the new board.
+The bar at the bottom shows the version, in its color (v1 is blue), and which copy and which machine answered - here just `my-laptop`. Later, in Kubernetes, that line shows a different copy every time.
 -->
 
 ---
