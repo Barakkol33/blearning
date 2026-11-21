@@ -12,7 +12,7 @@ What a good DevOps engineer needs to know today, from the first Linux command to
 
 **New here? Start with the talk:** [From Code to the Real World](talk.md) - the big picture in 40 minutes of slides, with a live Kubernetes demo you can run yourself.
 
-**Not technical?** [Hi-tech, DevOps & JFrog 101](devops-101.md) - slides that explain the words, the people and the process without any code.
+**Not technical?** [Hi-tech & DevOps 101](hitech-devops-101.md) - slides for HR and other non-technical people that explain the words, the people and the process without any code. There is also a version that adds one company's products: [Hi-tech, DevOps & JFrog 101](devops-101.md).
 
 ## How to use this guide
 
