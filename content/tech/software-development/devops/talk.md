@@ -30,7 +30,7 @@ A talk for high school students: Git, Docker, CI/CD and Kubernetes - in a world 
 7. **Build with AI** - go build something, but know what it does.
 8. **Wrap-up** - the base that doesn't change, and the important ideas.
 
-**After the talk** (slide 22 is the map; slides 23-59), by subject: the pipeline for real (a new level, and a bug that passes every test and is rolled back), outages, the DevOps loop and guardrails; more Kubernetes (scale with a file, kill every copy, unplug a machine, observability, architecture); Kafka; infrastructure as code; knowing what the code does (six questions, six traps); and how to run the demo at home.
+**After the talk** (slide 22 is the map; slides 24-61), by subject: the pipeline for real (a new level, and a bug that passes every test and is rolled back), outages, the DevOps loop and guardrails; more Kubernetes (scale with a file, kill every copy, unplug a machine, observability, architecture); Kafka; infrastructure as code; knowing what the code does (six questions, six traps); and how to run the demo at home.
 
 ## The live demo
 

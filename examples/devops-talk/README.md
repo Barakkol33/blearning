@@ -36,16 +36,17 @@ After the wrap-up, slide 22 maps the rest of the deck, which goes on **by subjec
 
 | subject | slides | live (`./present.sh extras`) |
 | --- | --- | --- |
-| CI/CD: ship the new level, the bug + automatic rollback, when a change goes wrong (outages), the DevOps loop, guardrails | 23-27 | `update`, `break` |
-| Kubernetes: the demo cluster, scale with a file (IaC), all the copies at once, a machine dies (HA), observability, the loop, the words, why so many copies, architecture | 28-36 | `iac 6`, `chaos`, `node-down`/`up`, `events`, `logs` |
-| Kafka | 37-43 | |
-| Infrastructure as code: Terraform, spot the bug, the July 2025 story, why it's harder | 44-47 | |
-| Know what the code does: your laptop vs the real world, six questions, bugs/lag/cost, six traps | 48-57 | |
-| Try it at home, learn more | 58-59 | |
+| Docker: go deeper - the Docker guide on blearning | 23 | |
+| CI/CD: ship the new level, the bug + automatic rollback, when a change goes wrong (outages), the DevOps loop, guardrails | 24-28 | `update`, `break` |
+| Kubernetes: the demo cluster, scale with a file (IaC), all the copies at once, a machine dies (HA), observability, the loop, the words, why so many copies, architecture, the Kubernetes guides on blearning | 29-38 | `iac 6`, `chaos`, `node-down`/`up`, `events`, `logs` |
+| Kafka | 39-45 | |
+| Infrastructure as code: Terraform, spot the bug, the July 2025 story, why it's harder | 46-49 | |
+| Know what the code does: your laptop vs the real world, six questions, bugs/lag/cost, six traps | 50-59 | |
+| Try it at home, learn more | 60-61 | |
 
 - **No demo** (no laptop, no WSL, a broken cluster): just present the slides. Slides 9, 11 and 16 show the real output, and their notes explain it line by line.
 - **Running late:** skip the live scenes - the output slides tell the same story. Then slide 19 (the iceberg) can be one sentence.
-- **Running early, or a question about it:** the pipeline for real - slides 23-24 with `./present.sh extras` (the new level, then the bug that passes every test and is rolled back).
+- **Running early, or a question about it:** the pipeline for real - slides 24-25 with `./present.sh extras` (the new level, then the bug that passes every test and is rolled back).
 
 ## Keys
 
