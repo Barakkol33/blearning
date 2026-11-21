@@ -21,10 +21,11 @@ A slide deck for everyone in Israeli hi-tech who is not a developer - HR and rec
 
 ## What's inside
 
-1. **Hi-tech vocabulary** - where software lives (frontend, backend, cloud), how a tech team works (sprints, backlog, QA), who's who (the roles you meet), programming words, the technology names on Israeli CVs (Python, Java, Go, React, AWS, Kubernetes, Terraform), AI words (LLM, GenAI, agents, and data scientist vs. ML engineer vs. AI engineer), and the business side (funding rounds, exits, R&D centers, options under section 102).
-2. **What is DevOps?** - the road from idea to customer, the old wall between Dev and Ops, the DevOps loop, and keeping software running (monitoring, incidents, on-call).
-3. **Code & cloud** - source code and Git, open-source packages, CI/CD, containers and Kubernetes, and what is inside AWS, Azure and Google Cloud and how companies use them (pay as you go, regions, multi-cloud, shared responsibility).
-4. **Cyber** - the basic words and the security roles, how companies actually get attacked (phishing, stolen passwords, CEO fraud and deepfakes, ransomware, cloud misconfiguration, leaked secrets, poisoned packages, DDoS), and six habits that stop most attacks.
+1. **The company** - the business side (funding rounds, exits, R&D centers, options under section 102), how a tech team works (sprints, backlog, QA), and who's who: the roles you meet.
+2. **The software** - where software lives (frontend, backend, API, database), programming words, the technology names you'll see (Python, Java, Go, React, AWS, Kubernetes, Terraform), source code and Git, and open-source packages.
+3. **DevOps** - the road from idea to customer, the old wall between Dev and Ops, the DevOps loop, CI/CD, containers and Kubernetes, and keeping software running (monitoring, incidents, on-call).
+4. **Cloud & AI** - what is inside AWS, Azure and Google Cloud and how companies use them (pay as you go, regions, multi-cloud, shared responsibility), and the AI words (LLM, GenAI, agents, and data scientist vs. ML engineer vs. AI engineer).
+5. **Cyber** - the basic words and the security roles, how companies actually get attacked (phishing, stolen passwords, CEO fraud and deepfakes, ransomware, cloud misconfiguration, leaked secrets, poisoned packages, DDoS), and six habits that stop most attacks.
 
 The deck ends with a ten-word cheat sheet.
 

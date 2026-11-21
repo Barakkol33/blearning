@@ -251,34 +251,151 @@
 <p>Each slide gives you the headline and a picture. This side panel gives you the fuller story in plain language, so you can read the deck on your own, at your own pace.</p>
 <ul><li><b>Arrow keys</b> or a click move between slides.</li><li><b>?</b> opens and closes this panel. It stays open as you move.</li><li><b>F</b> goes fullscreen.</li></ul>
 <h4>What to expect</h4>
-<p>This deck is written for everyone in an Israeli tech company who is not a developer: HR and recruiting, sales and marketing, finance, operations, legal, customer success and management. The chapters explain the technology and the people who build it, the cloud it runs on, and the cyber threats around it.</p>
+<p>This deck is written for everyone in an Israeli tech company who is not a developer: HR and recruiting, sales and marketing, finance, operations, legal, customer success and management. The chapters go from the company and its people, to the software and how it is built and shipped, the cloud and AI it runs on, and the cyber threats around it.</p>
 <p>No technical background is needed. We use one running comparison — a <b>restaurant</b> — because building software and running a kitchen have a lot in common: recipes, ingredients, suppliers, quality checks and delivery.</p>
     </aside>
   </section>
 
   <section class="slide">
     <div class="kicker">Where we're going</div>
-    <h2>Four short chapters</h2>
+    <h2>Five short chapters</h2>
     <div class="body">
-      <div class="grid c4">
-        <div class="card top"><div class="big" style="font-size:56px">1</div><h3 style="margin-top:14px">Hi-tech vocabulary</h3><p>The everyday words, and the roles you'll meet: backend, sprint, AI, funding round.</p></div>
-        <div class="card top"><div class="big" style="font-size:56px">2</div><h3 style="margin-top:14px">What is DevOps?</h3><p>How modern companies build, deliver and run software.</p></div>
-        <div class="card top"><div class="big" style="font-size:56px">3</div><h3 style="margin-top:14px">Code &amp; cloud</h3><p>What developers produce, how it ships, and the clouds it runs on.</p></div>
-        <div class="card top"><div class="big" style="font-size:56px">4</div><h3 style="margin-top:14px">Cyber</h3><p>How companies get attacked, and your part in stopping it.</p></div>
+      <div class="grid" style="grid-template-columns:repeat(5,1fr);gap:14px">
+        <div class="card top"><div class="big" style="font-size:56px">1</div><h3 style="margin-top:14px">The company</h3><p>Startups and funding, how a tech team works, and who's who.</p></div>
+        <div class="card top"><div class="big" style="font-size:56px">2</div><h3 style="margin-top:14px">The software</h3><p>Frontend and backend, the everyday words, languages, code and packages.</p></div>
+        <div class="card top"><div class="big" style="font-size:56px">3</div><h3 style="margin-top:14px">DevOps</h3><p>How software is built, shipped and kept running.</p></div>
+        <div class="card top"><div class="big" style="font-size:56px">4</div><h3 style="margin-top:14px">Cloud &amp; AI</h3><p>What's inside AWS, Azure and Google, and the AI words.</p></div>
+        <div class="card top"><div class="big" style="font-size:56px">5</div><h3 style="margin-top:14px">Cyber</h3><p>How companies get attacked, and your part in stopping it.</p></div>
       </div>
       <div class="analogy" style="font-size:19px"><b>Tip:</b> press <b>?</b> on any slide (on a phone, tap <b>Explain this slide</b>) for a fuller, readable explanation.</div>
     </div>
     <aside class="notes">
 <h4>The idea</h4>
-<p>The chapters build on each other, like steps on a ladder.</p>
-<ul><li><b>Vocabulary</b> — the words you hear in the corridor, and who's who in a tech company.</li><li><b>DevOps</b> — the way of working that almost every software company now follows.</li><li><b>Code and cloud</b> — what software is made of, how it travels to the customer, and the clouds (AWS, Azure, Google) it runs on.</li><li><b>Cyber</b> — the threats every company faces, and why most attacks start with a non-developer.</li></ul>
+<p>The chapters follow one story, from the company you work in to the software it sells:</p>
+<ul><li><b>The company</b> — how a tech company is funded and organised, how its teams work, and the roles you'll meet.</li><li><b>The software</b> — what the product is made of: frontend and backend, the everyday words, the languages, code and the packages it borrows.</li><li><b>DevOps</b> — how that software gets built, shipped to customers and kept running, day and night.</li><li><b>Cloud and AI</b> — where it runs (AWS, Azure, Google), and the AI words that are now in every product and job description.</li><li><b>Cyber</b> — the threats every company faces, and why most attacks start with a person rather than with code.</li></ul>
 <h4>Why it matters to you</h4>
 <p>You don't need to do any of this yourself. The goal is to recognise the words, understand roughly what a development team does all day, follow a technical conversation with confidence — and know your own part in keeping the company safe.</p>
     </aside>
   </section>
 
   <section class="slide">
-    <div class="kicker">Chapter 1 · Hi-tech vocabulary</div>
+    <div class="kicker">Chapter 1 · The company</div>
+    <h2>The business side of hi-tech</h2>
+    <div class="body" style="gap:18px">
+      <svg viewBox="0 0 1120 205" width="1120" height="205" font-family="Segoe UI, Arial, sans-serif" aria-label="A startup grows through funding rounds to an IPO or exit">
+        <g fill="#e3e7ea"><rect x="40" y="130" width="180" height="40" rx="8"/><rect x="255" y="105" width="180" height="65" rx="8"/></g>
+        <g fill="#c8d1fa"><rect x="470" y="80" width="180" height="90" rx="8"/><rect x="685" y="52" width="180" height="118" rx="8"/></g>
+        <rect x="900" y="22" width="180" height="148" rx="8" fill="#4f6bed"/>
+        <g font-size="17" font-weight="800" text-anchor="middle" fill="#17191c"><text x="130" y="156">Pre-seed</text><text x="345" y="144">Seed</text><text x="560" y="131">Round A</text><text x="775" y="117">Rounds B, C…</text></g>
+        <text x="990" y="102" text-anchor="middle" font-size="18" font-weight="800" fill="#fff">IPO or Exit</text>
+        <path d="M30 174H1096" stroke="#17191c" stroke-width="3" marker-end="url(#ah)"/>
+        <g font-size="13" fill="#6a727d" text-anchor="middle"><text x="130" y="194">an idea and a few founders</text><text x="345" y="194">first product, first customers</text><text x="560" y="194">it works — now grow</text><text x="775" y="194">scale: hundreds of people</text><text x="990" y="194">goes public, or is acquired</text></g>
+      </svg>
+      <div class="grid c4 tight" style="gap:12px">
+        <div class="card"><h3>Startup</h3><p>A young company searching for a product that can grow fast.</p></div>
+        <div class="card"><h3>Funding round</h3><p>Investors (VCs) put in money in return for shares: Seed, A, B, C…</p></div>
+        <div class="card"><h3>Unicorn</h3><p>A private startup valued at more than one billion dollars.</p></div>
+        <div class="card"><h3>IPO / Exit</h3><p>Going public on the stock market, or being bought by another company.</p></div>
+        <div class="card"><h3>R&amp;D center</h3><p>The Israeli site of a global company: Intel, Google, Nvidia.</p></div>
+        <div class="card"><h3>ARR</h3><p>Annual Recurring Revenue: yearly subscription income.</p></div>
+        <div class="card"><h3>Options · RSUs</h3><p>A share in the company, vested over ~4 years. In Israel: section 102.</p></div>
+        <div class="card"><h3>Headcount</h3><p>The number of approved positions a team is allowed to fill.</p></div>
+      </div>
+    </div>
+    <aside class="notes">
+<h4>The idea</h4>
+<p>A <b>startup</b> is not just a small company — it is a company built to grow quickly, usually on investors' money rather than profits.</p>
+<p>The drawing shows the usual path. Each step up is a <b>funding round</b>: venture capital funds (<b>VCs</b>) invest, and in return get a share of the company. The rounds have names — Seed, A, B, C — and each one is larger. The path ends in an <b>IPO</b> (shares sold on the stock market) or an <b>exit</b> by acquisition.</p>
+<h4>How the company earns</h4>
+<p><b>B2B</b> companies sell to other businesses; <b>B2C</b> sell to the public. Most B2B software is sold by subscription, so the number everyone watches is <b>ARR</b> — the subscription income for a year. <b>Churn</b> is the share of customers who leave.</p>
+<h4>Why it matters to you</h4>
+<p>Compensation in hi-tech usually includes <b>equity</b>: options (common in startups) or shares called RSUs (common in public companies) that <b>vest</b> over about four years, often with a one-year "cliff" before anything vests.</p>
+<p>In Israel, employee equity is usually granted under <b>section 102</b> of the tax ordinance, on the trustee "capital gains" track: if the shares stay with a trustee for at least two years from the grant, the gain is taxed at the capital-gains rate instead of as salary. Candidates often ask about it.</p>
+<h4>The Israeli map</h4>
+<ul><li><b>Startup</b> — small, fast, more risk, more equity.</li><li><b>Scale-up / unicorn</b> — hundreds of people, processes forming, still growing fast.</li><li><b>R&amp;D center of a global company</b> — the Israeli engineering site of Intel, Microsoft, Google, Nvidia, Apple and others. Often the result of an <b>exit</b>: Mellanox became part of Nvidia, Mobileye of Intel.</li><li><b>Public Israeli company</b> — Check Point, CyberArk, Monday.com, Wix, Nice and others.</li></ul>
+<p>Hiring follows the funding cycle — a new round usually opens new <b>headcount</b>; a tight market freezes it. <b>B2B</b> companies sell to businesses and <b>B2C</b> to consumers; most Israeli startups are B2B.</p>
+    </aside>
+  </section>
+
+  <section class="slide">
+    <div class="kicker">Chapter 1 · The company</div>
+    <h2>How a tech team works</h2>
+    <div class="body" style="gap:18px">
+      <svg viewBox="0 0 1120 200" width="1120" height="200" font-family="Segoe UI, Arial, sans-serif" aria-label="Backlog feeding two-week sprints, each ending in a release">
+        <g fill="#f5f7f6" stroke="#c9d1d6" stroke-width="2"><rect x="20" y="30" width="150" height="26" rx="6"/><rect x="20" y="62" width="150" height="26" rx="6"/><rect x="20" y="94" width="150" height="26" rx="6"/></g>
+        <g fill="none" stroke="#4f6bed" stroke-width="2.5"><rect x="30" y="37" width="12" height="12" rx="3"/><rect x="30" y="69" width="12" height="12" rx="3"/><rect x="30" y="101" width="12" height="12" rx="3"/></g>
+        <g fill="#c9d1d6"><rect x="52" y="39" width="100" height="8" rx="3"/><rect x="52" y="71" width="80" height="8" rx="3"/><rect x="52" y="103" width="92" height="8" rx="3"/></g>
+        <text x="95" y="144" text-anchor="middle" font-size="18" font-weight="800" fill="#17191c">Backlog</text>
+        <text x="95" y="164" text-anchor="middle" font-size="14" fill="#6a727d">the to-do list</text>
+        <path d="M182 75H236" stroke="#17191c" stroke-width="3" marker-end="url(#ah)"/>
+        <g fill="#eef1fd" stroke="#4f6bed" stroke-width="2.5"><rect x="245" y="40" width="200" height="70" rx="10"/><rect x="535" y="40" width="200" height="70" rx="10"/><rect x="825" y="40" width="200" height="70" rx="10"/></g>
+        <g font-size="19" font-weight="800" fill="#17191c" text-anchor="middle"><text x="345" y="72">Sprint 1</text><text x="635" y="72">Sprint 2</text><text x="925" y="72">Sprint 3</text></g>
+        <g font-size="14" fill="#6a727d" text-anchor="middle"><text x="345" y="94">2 weeks of work</text><text x="635" y="94">2 weeks of work</text><text x="925" y="94">2 weeks of work</text></g>
+        <g fill="#17191c">
+          <circle cx="255" cy="126" r="4"/><circle cx="275" cy="126" r="4"/><circle cx="295" cy="126" r="4"/><circle cx="315" cy="126" r="4"/><circle cx="335" cy="126" r="4"/><circle cx="355" cy="126" r="4"/><circle cx="375" cy="126" r="4"/><circle cx="395" cy="126" r="4"/><circle cx="415" cy="126" r="4"/><circle cx="435" cy="126" r="4"/>
+        </g>
+        <text x="345" y="150" text-anchor="middle" font-size="14" fill="#6a727d">each dot = a daily stand-up</text>
+        <g stroke="#17191c" stroke-width="3"><path d="M445 75H462"/><path d="M518 75H529" marker-end="url(#ah)"/><path d="M735 75H752"/><path d="M808 75H819" marker-end="url(#ah)"/><path d="M1025 75H1042"/></g>
+        <g fill="#17191c"><circle cx="490" cy="75" r="27"/><circle cx="780" cy="75" r="27"/><circle cx="1070" cy="75" r="27"/></g>
+        <g font-size="15" font-weight="800" fill="#fff" text-anchor="middle"><text x="490" y="80">v1.0</text><text x="780" y="80">v1.1</text><text x="1070" y="80">v1.2</text></g>
+        <g font-size="14" fill="#6a727d" text-anchor="middle"><text x="490" y="124">release</text><text x="780" y="124">release</text><text x="1070" y="124">release</text></g>
+        <path d="M245 188H1096" stroke="#4f6bed" stroke-width="3" marker-end="url(#ag)"/>
+        <text x="670" y="179" text-anchor="middle" font-size="14" font-weight="700" fill="#3949c9" letter-spacing="1">ROADMAP — WHERE THE PRODUCT IS HEADING OVER THE COMING MONTHS</text>
+      </svg>
+      <div class="grid c4 tight" style="gap:12px">
+        <div class="card"><h3>R&amp;D</h3><p>Research &amp; Development: the engineering organisation that builds the product.</p></div>
+        <div class="card"><h3>Product Manager</h3><p>Decides what to build and why. The voice of the customer.</p></div>
+        <div class="card"><h3>Agile</h3><p>Working in small steps and adjusting often, not one big plan.</p></div>
+        <div class="card"><h3>Sprint</h3><p>A short, fixed work cycle (often two weeks) with a clear goal.</p></div>
+        <div class="card"><h3>Backlog</h3><p>The prioritised list of everything waiting to be built.</p></div>
+        <div class="card"><h3>Stand-up (daily)</h3><p>A 15-minute sync: what I did, what's next, what's blocking me.</p></div>
+        <div class="card"><h3>QA</h3><p>Quality Assurance: testing before customers see it.</p></div>
+        <div class="card"><h3>Roadmap</h3><p>The high-level plan for the coming quarters.</p></div>
+      </div>
+    </div>
+  <aside class="notes">
+<h4>The idea</h4>
+<p>Software teams don't plan a year ahead in detail. They work <b>Agile</b>: build a little, show it, learn, adjust.</p>
+<p>The work waits in a prioritised list called the <b>backlog</b>. Every couple of weeks the team pulls the top items into a <b>sprint</b> and commits to finishing them. Each morning there is a short <b>stand-up</b> meeting to stay in sync. At the end, something working is <b>released</b>.</p>
+<h4>Who is involved</h4>
+<ul><li><b>R&amp;D</b> — the engineers who build the product.</li><li><b>Product Manager (PM)</b> — decides what should be built and in what order.</li><li><b>QA</b> — tests that it really works.</li><li><b>Team Lead / Engineering Manager</b> — manages the engineers.</li></ul>
+<h4>Why it matters to you</h4>
+<p>When a team lead says "it won't make this sprint", this is what they mean: the next two weeks are already planned. A request for a new feature usually goes into the backlog and waits for a future sprint.</p>
+    </aside>
+  </section>
+
+  <section class="slide">
+    <div class="kicker">Chapter 1 · The company</div>
+    <h2>Who's who: roles you'll meet</h2>
+    <div class="body" style="gap:14px">
+      <div class="grid c4 tight sm" style="gap:10px">
+        <div class="card"><h3>Backend developer</h3><p>The server side: logic, data, APIs. Python, Java, Go, Node.js.</p></div>
+        <div class="card"><h3>Frontend developer</h3><p>The screens users see. React, TypeScript.</p></div>
+        <div class="card"><h3>Full-stack developer</h3><p>Both sides. Very common in Israeli startups.</p></div>
+        <div class="card"><h3>Mobile developer</h3><p>iPhone (Swift) and Android (Kotlin) apps.</p></div>
+        <div class="card"><h3>QA · Automation</h3><p>Manual QA tests by hand; automation engineers write code that tests.</p></div>
+        <div class="card"><h3>DevOps · Platform</h3><p>Builds the pipelines and cloud the developers rely on.</p></div>
+        <div class="card"><h3>SRE</h3><p>Keeps production fast and available; leads incidents.</p></div>
+        <div class="card"><h3>Data engineer</h3><p>Builds the pipelines that collect and prepare data.</p></div>
+        <div class="card"><h3>Data scientist · ML / AI</h3><p>Models and AI features (more on the AI slide).</p></div>
+        <div class="card"><h3>Security · cyber</h3><p>Researchers, AppSec, SOC analysts. A huge field in Israel.</p></div>
+        <div class="card"><h3>Product manager</h3><p>Decides what to build and why. Not a developer.</p></div>
+        <div class="card"><h3>Product designer</h3><p>UX (how it works) and UI (how it looks).</p></div>
+      </div>
+      <div class="analogy" style="font-size:18px"><b>In the restaurant:</b> developers are the cooks, DevOps designs the kitchen line, SRE is the floor manager on a busy night, security is the food-safety inspector, and the product manager writes the menu.</div>
+    </div>
+    <aside class="notes">
+<h4>The idea</h4>
+<p>These are the roles you will meet most often. The titles differ between companies, so when in doubt, ask what the person actually does all day.</p>
+<h4>Common mix-ups</h4>
+<ul><li><b>Full-stack</b> in a startup often means "mostly backend, can do some frontend". Ask which side is the main one.</li><li><b>QA vs. automation</b> — a manual QA tester and an automation engineer are different markets with different salaries. Many manual testers are moving to automation.</li><li><b>DevOps, Platform, SRE</b> — overlapping titles. DevOps and Platform build the road; SRE keeps traffic moving on it. Related titles: Infrastructure Engineer, Build / Release Engineer.</li><li><b>Data engineer vs. data scientist</b> — the engineer builds the pipes, the scientist analyses what flows through them.</li><li><b>Product manager</b> is not a project manager: the PM decides <i>what</i> to build; a project manager tracks <i>when</i> it will be done.</li></ul>
+<h4>Israel</h4>
+<p>Cyber security is one of Israel's biggest hi-tech fields, so security roles (security researcher, AppSec engineer, SOC analyst, penetration tester) are common even in companies whose product is not security.</p>
+    </aside>
+  </section>
+
+  <section class="slide">
+    <div class="kicker">Chapter 2 · The software</div>
     <h2>Where software lives</h2>
     <div class="body" style="gap:20px">
       <svg viewBox="0 0 1120 220" width="1120" height="220" font-family="Segoe UI, Arial, sans-serif" aria-label="A client talks to a server and database in the cloud through an API">
@@ -331,84 +448,7 @@
   </section>
 
   <section class="slide">
-    <div class="kicker">Chapter 1 · Hi-tech vocabulary</div>
-    <h2>How a tech team works</h2>
-    <div class="body" style="gap:18px">
-      <svg viewBox="0 0 1120 200" width="1120" height="200" font-family="Segoe UI, Arial, sans-serif" aria-label="Backlog feeding two-week sprints, each ending in a release">
-        <g fill="#f5f7f6" stroke="#c9d1d6" stroke-width="2"><rect x="20" y="30" width="150" height="26" rx="6"/><rect x="20" y="62" width="150" height="26" rx="6"/><rect x="20" y="94" width="150" height="26" rx="6"/></g>
-        <g fill="none" stroke="#4f6bed" stroke-width="2.5"><rect x="30" y="37" width="12" height="12" rx="3"/><rect x="30" y="69" width="12" height="12" rx="3"/><rect x="30" y="101" width="12" height="12" rx="3"/></g>
-        <g fill="#c9d1d6"><rect x="52" y="39" width="100" height="8" rx="3"/><rect x="52" y="71" width="80" height="8" rx="3"/><rect x="52" y="103" width="92" height="8" rx="3"/></g>
-        <text x="95" y="144" text-anchor="middle" font-size="18" font-weight="800" fill="#17191c">Backlog</text>
-        <text x="95" y="164" text-anchor="middle" font-size="14" fill="#6a727d">the to-do list</text>
-        <path d="M182 75H236" stroke="#17191c" stroke-width="3" marker-end="url(#ah)"/>
-        <g fill="#eef1fd" stroke="#4f6bed" stroke-width="2.5"><rect x="245" y="40" width="200" height="70" rx="10"/><rect x="535" y="40" width="200" height="70" rx="10"/><rect x="825" y="40" width="200" height="70" rx="10"/></g>
-        <g font-size="19" font-weight="800" fill="#17191c" text-anchor="middle"><text x="345" y="72">Sprint 1</text><text x="635" y="72">Sprint 2</text><text x="925" y="72">Sprint 3</text></g>
-        <g font-size="14" fill="#6a727d" text-anchor="middle"><text x="345" y="94">2 weeks of work</text><text x="635" y="94">2 weeks of work</text><text x="925" y="94">2 weeks of work</text></g>
-        <g fill="#17191c">
-          <circle cx="255" cy="126" r="4"/><circle cx="275" cy="126" r="4"/><circle cx="295" cy="126" r="4"/><circle cx="315" cy="126" r="4"/><circle cx="335" cy="126" r="4"/><circle cx="355" cy="126" r="4"/><circle cx="375" cy="126" r="4"/><circle cx="395" cy="126" r="4"/><circle cx="415" cy="126" r="4"/><circle cx="435" cy="126" r="4"/>
-        </g>
-        <text x="345" y="150" text-anchor="middle" font-size="14" fill="#6a727d">each dot = a daily stand-up</text>
-        <g stroke="#17191c" stroke-width="3"><path d="M445 75H462"/><path d="M518 75H529" marker-end="url(#ah)"/><path d="M735 75H752"/><path d="M808 75H819" marker-end="url(#ah)"/><path d="M1025 75H1042"/></g>
-        <g fill="#17191c"><circle cx="490" cy="75" r="27"/><circle cx="780" cy="75" r="27"/><circle cx="1070" cy="75" r="27"/></g>
-        <g font-size="15" font-weight="800" fill="#fff" text-anchor="middle"><text x="490" y="80">v1.0</text><text x="780" y="80">v1.1</text><text x="1070" y="80">v1.2</text></g>
-        <g font-size="14" fill="#6a727d" text-anchor="middle"><text x="490" y="124">release</text><text x="780" y="124">release</text><text x="1070" y="124">release</text></g>
-        <path d="M245 188H1096" stroke="#4f6bed" stroke-width="3" marker-end="url(#ag)"/>
-        <text x="670" y="179" text-anchor="middle" font-size="14" font-weight="700" fill="#3949c9" letter-spacing="1">ROADMAP — WHERE THE PRODUCT IS HEADING OVER THE COMING MONTHS</text>
-      </svg>
-      <div class="grid c4 tight" style="gap:12px">
-        <div class="card"><h3>R&amp;D</h3><p>Research &amp; Development: the engineering organisation that builds the product.</p></div>
-        <div class="card"><h3>Product Manager</h3><p>Decides what to build and why. The voice of the customer.</p></div>
-        <div class="card"><h3>Agile</h3><p>Working in small steps and adjusting often, not one big plan.</p></div>
-        <div class="card"><h3>Sprint</h3><p>A short, fixed work cycle (often two weeks) with a clear goal.</p></div>
-        <div class="card"><h3>Backlog</h3><p>The prioritised list of everything waiting to be built.</p></div>
-        <div class="card"><h3>Stand-up (daily)</h3><p>A 15-minute sync: what I did, what's next, what's blocking me.</p></div>
-        <div class="card"><h3>QA</h3><p>Quality Assurance: testing before customers see it.</p></div>
-        <div class="card"><h3>Roadmap</h3><p>The high-level plan for the coming quarters.</p></div>
-      </div>
-    </div>
-  <aside class="notes">
-<h4>The idea</h4>
-<p>Software teams don't plan a year ahead in detail. They work <b>Agile</b>: build a little, show it, learn, adjust.</p>
-<p>The work waits in a prioritised list called the <b>backlog</b>. Every couple of weeks the team pulls the top items into a <b>sprint</b> and commits to finishing them. Each morning there is a short <b>stand-up</b> meeting to stay in sync. At the end, something working is <b>released</b>.</p>
-<h4>Who is involved</h4>
-<ul><li><b>R&amp;D</b> — the engineers who build the product.</li><li><b>Product Manager (PM)</b> — decides what should be built and in what order.</li><li><b>QA</b> — tests that it really works.</li><li><b>Team Lead / Engineering Manager</b> — manages the engineers.</li></ul>
-<h4>Why it matters to you</h4>
-<p>When a team lead says "it won't make this sprint", this is what they mean: the next two weeks are already planned. A request for a new feature usually goes into the backlog and waits for a future sprint.</p>
-    </aside>
-  </section>
-
-  <section class="slide">
-    <div class="kicker">Chapter 1 · Hi-tech vocabulary</div>
-    <h2>Who's who: roles you'll meet</h2>
-    <div class="body" style="gap:14px">
-      <div class="grid c4 tight sm" style="gap:10px">
-        <div class="card"><h3>Backend developer</h3><p>The server side: logic, data, APIs. Python, Java, Go, Node.js.</p></div>
-        <div class="card"><h3>Frontend developer</h3><p>The screens users see. React, TypeScript.</p></div>
-        <div class="card"><h3>Full-stack developer</h3><p>Both sides. Very common in Israeli startups.</p></div>
-        <div class="card"><h3>Mobile developer</h3><p>iPhone (Swift) and Android (Kotlin) apps.</p></div>
-        <div class="card"><h3>QA · Automation</h3><p>Manual QA tests by hand; automation engineers write code that tests.</p></div>
-        <div class="card"><h3>DevOps · Platform</h3><p>Builds the pipelines and cloud the developers rely on.</p></div>
-        <div class="card"><h3>SRE</h3><p>Keeps production fast and available; leads incidents.</p></div>
-        <div class="card"><h3>Data engineer</h3><p>Builds the pipelines that collect and prepare data.</p></div>
-        <div class="card"><h3>Data scientist · ML / AI</h3><p>Models and AI features (more on the AI slide).</p></div>
-        <div class="card"><h3>Security · cyber</h3><p>Researchers, AppSec, SOC analysts. A huge field in Israel.</p></div>
-        <div class="card"><h3>Product manager</h3><p>Decides what to build and why. Not a developer.</p></div>
-        <div class="card"><h3>Product designer</h3><p>UX (how it works) and UI (how it looks).</p></div>
-      </div>
-      <div class="analogy" style="font-size:18px"><b>In the restaurant:</b> developers are the cooks, DevOps designs the kitchen line, SRE is the floor manager on a busy night, security is the food-safety inspector, and the product manager writes the menu.</div>
-    </div>
-    <aside class="notes">
-<h4>The idea</h4>
-<p>These are the roles you will meet most often. The titles differ between companies, so when in doubt, ask what the person actually does all day.</p>
-<h4>Common mix-ups</h4>
-<ul><li><b>Full-stack</b> in a startup often means "mostly backend, can do some frontend". Ask which side is the main one.</li><li><b>QA vs. automation</b> — a manual QA tester and an automation engineer are different markets with different salaries. Many manual testers are moving to automation.</li><li><b>DevOps, Platform, SRE</b> — overlapping titles. DevOps and Platform build the road; SRE keeps traffic moving on it. Related titles: Infrastructure Engineer, Build / Release Engineer.</li><li><b>Data engineer vs. data scientist</b> — the engineer builds the pipes, the scientist analyses what flows through them.</li><li><b>Product manager</b> is not a project manager: the PM decides <i>what</i> to build; a project manager tracks <i>when</i> it will be done.</li></ul>
-<h4>Israel</h4>
-<p>Cyber security is one of Israel's biggest hi-tech fields, so security roles (security researcher, AppSec engineer, SOC analyst, penetration tester) are common even in companies whose product is not security.</p>
-    </aside>
-  </section>
-
-  <section class="slide">
-    <div class="kicker">Chapter 1 · Hi-tech vocabulary</div>
+    <div class="kicker">Chapter 2 · The software</div>
     <h2>Programming words you'll hear daily</h2>
     <div class="body" style="gap:20px">
       <svg viewBox="0 0 1120 185" width="1120" height="185" font-family="Segoe UI, Arial, sans-serif" aria-label="Three environments and the parts of a version number">
@@ -449,7 +489,7 @@
   </section>
 
   <section class="slide">
-    <div class="kicker">Chapter 1 · Hi-tech vocabulary</div>
+    <div class="kicker">Chapter 2 · The software</div>
     <h2>Technology names, and what they're for</h2>
     <div class="body" style="gap:16px">
       <svg viewBox="0 0 1120 116" width="1120" height="116" font-family="Segoe UI, Arial, sans-serif" aria-label="Which technologies are used where">
@@ -507,214 +547,7 @@
   </section>
 
   <section class="slide">
-    <div class="kicker">Chapter 1 · Hi-tech vocabulary</div>
-    <h2>AI words, now in every job description</h2>
-    <div class="body" style="gap:16px">
-      <div class="grid c4 tight" style="gap:12px">
-        <div class="card green"><h3>AI / ML</h3><p>Software that learns patterns from data instead of following hand-written rules. ML = machine learning.</p></div>
-        <div class="card green"><h3>Model</h3><p>The result of that learning: a file that takes an input and gives an answer.</p></div>
-        <div class="card green"><h3>LLM</h3><p>Large Language Model: a model trained on huge amounts of text. ChatGPT, Claude and Gemini are built on LLMs.</p></div>
-        <div class="card green"><h3>GenAI</h3><p>Generative AI: AI that creates text, images, code or sound.</p></div>
-        <div class="card"><h3>Prompt</h3><p>The instruction you give an AI model, in plain words.</p></div>
-        <div class="card"><h3>AI agent</h3><p>An AI that does tasks in steps on its own: searches, writes code, uses tools.</p></div>
-        <div class="card"><h3>GPU</h3><p>The chip AI runs on. Scarce and expensive; Nvidia is the best-known maker.</p></div>
-        <div class="card"><h3>AI coding assistant</h3><p>A tool that writes and reviews code with the developer. Most teams now use one.</p></div>
-      </div>
-      <table class="compact">
-        <tr><th>Role</th><th>What they actually do</th></tr>
-        <tr><td>Data Scientist</td><td>Analyses data and builds models to answer business questions. Strong in statistics and Python.</td></tr>
-        <tr><td>ML Engineer</td><td>Trains models and runs them reliably in production. A developer who specialised in ML.</td></tr>
-        <tr><td>AI Engineer</td><td>Builds product features on top of existing models (LLMs): prompts, agents, data. A newer title, close to a backend developer.</td></tr>
-      </table>
-    </div>
-    <aside class="notes">
-<h4>The idea</h4>
-<p>Since 2023 AI has moved from a research topic to a feature of almost every product, and the words now appear in most job descriptions — even for roles that are not "AI roles".</p>
-<h4>The words</h4>
-<ul><li><b>Machine learning</b> — instead of writing rules ("if the email contains X, it is spam"), you show the computer many examples and it learns the pattern. The thing it learns is a <b>model</b>.</li><li><b>LLM</b> — a very large model trained on text. It is the engine behind chat assistants.</li><li><b>GenAI</b> — any AI that produces new content.</li><li><b>Agent</b> — an AI that works through a task in steps and uses tools, not just answers one question.</li><li><b>GPU</b> — the chip that trains and runs models. GPU cost is a real line in many companies' budgets.</li></ul>
-<h4>When you meet these words</h4>
-<ul><li>The three titles in the table are often mixed up. The question that separates them: does the person <b>analyse</b> data, <b>train and run</b> models, or <b>build features</b> on top of an existing model?</li><li>"AI-first" in a job description usually means the team expects people to work with AI coding assistants every day.</li><li>A short "AI experience" line on a CV can mean anything from using ChatGPT to training models. Ask what they built.</li></ul>
-    </aside>
-  </section>
-
-  <section class="slide">
-    <div class="kicker">Chapter 1 · Hi-tech vocabulary</div>
-    <h2>The business side of hi-tech</h2>
-    <div class="body" style="gap:18px">
-      <svg viewBox="0 0 1120 205" width="1120" height="205" font-family="Segoe UI, Arial, sans-serif" aria-label="A startup grows through funding rounds to an IPO or exit">
-        <g fill="#e3e7ea"><rect x="40" y="130" width="180" height="40" rx="8"/><rect x="255" y="105" width="180" height="65" rx="8"/></g>
-        <g fill="#c8d1fa"><rect x="470" y="80" width="180" height="90" rx="8"/><rect x="685" y="52" width="180" height="118" rx="8"/></g>
-        <rect x="900" y="22" width="180" height="148" rx="8" fill="#4f6bed"/>
-        <g font-size="17" font-weight="800" text-anchor="middle" fill="#17191c"><text x="130" y="156">Pre-seed</text><text x="345" y="144">Seed</text><text x="560" y="131">Round A</text><text x="775" y="117">Rounds B, C…</text></g>
-        <text x="990" y="102" text-anchor="middle" font-size="18" font-weight="800" fill="#fff">IPO or Exit</text>
-        <path d="M30 174H1096" stroke="#17191c" stroke-width="3" marker-end="url(#ah)"/>
-        <g font-size="13" fill="#6a727d" text-anchor="middle"><text x="130" y="194">an idea and a few founders</text><text x="345" y="194">first product, first customers</text><text x="560" y="194">it works — now grow</text><text x="775" y="194">scale: hundreds of people</text><text x="990" y="194">goes public, or is acquired</text></g>
-      </svg>
-      <div class="grid c4 tight" style="gap:12px">
-        <div class="card"><h3>Startup</h3><p>A young company searching for a product that can grow fast.</p></div>
-        <div class="card"><h3>Funding round</h3><p>Investors (VCs) put in money in return for shares: Seed, A, B, C…</p></div>
-        <div class="card"><h3>Unicorn</h3><p>A private startup valued at more than one billion dollars.</p></div>
-        <div class="card"><h3>IPO / Exit</h3><p>Going public on the stock market, or being bought by another company.</p></div>
-        <div class="card"><h3>R&amp;D center</h3><p>The Israeli site of a global company: Intel, Google, Nvidia.</p></div>
-        <div class="card"><h3>ARR</h3><p>Annual Recurring Revenue: yearly subscription income.</p></div>
-        <div class="card"><h3>Options · RSUs</h3><p>A share in the company, vested over ~4 years. In Israel: section 102.</p></div>
-        <div class="card"><h3>Headcount</h3><p>The number of approved positions a team is allowed to fill.</p></div>
-      </div>
-    </div>
-    <aside class="notes">
-<h4>The idea</h4>
-<p>A <b>startup</b> is not just a small company — it is a company built to grow quickly, usually on investors' money rather than profits.</p>
-<p>The drawing shows the usual path. Each step up is a <b>funding round</b>: venture capital funds (<b>VCs</b>) invest, and in return get a share of the company. The rounds have names — Seed, A, B, C — and each one is larger. The path ends in an <b>IPO</b> (shares sold on the stock market) or an <b>exit</b> by acquisition.</p>
-<h4>How the company earns</h4>
-<p><b>B2B</b> companies sell to other businesses; <b>B2C</b> sell to the public. Most B2B software is sold by subscription, so the number everyone watches is <b>ARR</b> — the subscription income for a year. <b>Churn</b> is the share of customers who leave.</p>
-<h4>Why it matters to you</h4>
-<p>Compensation in hi-tech usually includes <b>equity</b>: options (common in startups) or shares called RSUs (common in public companies) that <b>vest</b> over about four years, often with a one-year "cliff" before anything vests.</p>
-<p>In Israel, employee equity is usually granted under <b>section 102</b> of the tax ordinance, on the trustee "capital gains" track: if the shares stay with a trustee for at least two years from the grant, the gain is taxed at the capital-gains rate instead of as salary. Candidates often ask about it.</p>
-<h4>The Israeli map</h4>
-<ul><li><b>Startup</b> — small, fast, more risk, more equity.</li><li><b>Scale-up / unicorn</b> — hundreds of people, processes forming, still growing fast.</li><li><b>R&amp;D center of a global company</b> — the Israeli engineering site of Intel, Microsoft, Google, Nvidia, Apple and others. Often the result of an <b>exit</b>: Mellanox became part of Nvidia, Mobileye of Intel.</li><li><b>Public Israeli company</b> — Check Point, CyberArk, Monday.com, Wix, Nice and others.</li></ul>
-<p>Hiring follows the funding cycle — a new round usually opens new <b>headcount</b>; a tight market freezes it. <b>B2B</b> companies sell to businesses and <b>B2C</b> to consumers; most Israeli startups are B2B.</p>
-    </aside>
-  </section>
-
-  <section class="slide">
-    <div class="kicker">Chapter 2 · What is DevOps?</div>
-    <h2>Every app you use travels this road</h2>
-    <p class="lead">From an idea in someone's head to the app on your phone.</p>
-    <div class="body">
-      <div class="flow">
-        <div class="step"><span class="ico">💡</span><b>Plan</b><span class="s">decide what to make</span></div><div class="arrow">›</div>
-        <div class="step"><span class="ico">⌨️</span><b>Code</b><span class="s">developers write it</span></div><div class="arrow">›</div>
-        <div class="step"><span class="ico">🏗️</span><b>Build</b><span class="s">turn text into a working program</span></div><div class="arrow">›</div>
-        <div class="step"><span class="ico">🧪</span><b>Test</b><span class="s">check it works and is safe</span></div><div class="arrow">›</div>
-        <div class="step"><span class="ico">🚀</span><b>Release</b><span class="s">deliver it to users</span></div><div class="arrow">›</div>
-        <div class="step"><span class="ico">📈</span><b>Run</b><span class="s">keep it alive, watch, improve</span></div>
-      </div>
-      <div class="analogy"><b>Think of a restaurant.</b> Someone designs the menu, cooks prepare the dish, it gets tasted, a waiter brings it to the table, and the manager watches whether guests are happy. Software works the same way — thousands of times a day.</div>
-    </div>
-  <aside class="notes">
-<h4>The idea</h4>
-<p>Whatever the product — a banking app, a game, the software in a car — it travels the same six steps: someone <b>plans</b> it, developers <b>code</b> it, the code is <b>built</b> into something that can run, it is <b>tested</b>, <b>released</b> to users, and then <b>run</b> and watched.</p>
-<p>Then the loop starts again, because users always want something new and something is always broken.</p>
-<h4>The restaurant</h4>
-<p>Menu design, cooking, tasting, serving, and watching the dining room. A good restaurant does this smoothly hundreds of times a night. A good software company does it thousands of times a day.</p>
-<h4>Why it matters</h4>
-<p>Everything else in this deck — DevOps, packages, containers — is about making this road faster and safer.</p>
-    </aside>
-  </section>
-
-  <section class="slide">
-    <div class="kicker">Chapter 2 · What is DevOps?</div>
-    <h2>The old way: two teams and a wall</h2>
-    <div class="body">
-      <div class="wall">
-        <div class="card" style="border-radius:14px 0 0 14px">
-          <span class="tag out">Dev · Developers</span>
-          <h3>"Ship new features, fast."</h3>
-          <p>Wrote the code, then handed it over and moved on to the next thing.</p>
-        </div>
-        <div class="brick"><span>THE WALL</span></div>
-        <div class="card" style="border-radius:0 14px 14px 0">
-          <span class="tag out">Ops · Operations</span>
-          <h3>"Keep everything stable."</h3>
-          <p>Ran the software for customers. Every change was a risk to avoid.</p>
-        </div>
-      </div>
-      <div class="grid c3">
-        <div class="card"><h3>🐢 Slow</h3><p>A new version once or twice a year.</p></div>
-        <div class="card"><h3>💥 Risky</h3><p>Huge releases — when they broke, they broke big.</p></div>
-        <div class="card"><h3>👉 Blame</h3><p>"It worked on my machine" vs. "your code broke production."</p></div>
-      </div>
-    </div>
-  <aside class="notes">
-<h4>The idea</h4>
-<p>Until roughly 15 years ago, most companies had two separate groups with opposite goals.</p>
-<p><b>Developers</b> were rewarded for delivering new things. <b>Operations</b> were rewarded for keeping systems stable — and every new thing is a threat to stability. Developers finished their code and "threw it over the wall".</p>
-<h4>What went wrong</h4>
-<ul><li>Releases were rare and huge, so each one was frightening.</li><li>When something failed, each side blamed the other.</li><li>Customers waited months for small improvements.</li></ul>
-<p>"It works on my machine" became the industry's running joke: the code ran on the developer's laptop but not in production.</p>
-    </aside>
-  </section>
-
-  <section class="slide">
-    <div class="kicker">Chapter 2 · What is DevOps?</div>
-    <h2><span class="g">Dev</span>elopment + <span class="g">Op</span>eration<span class="g">s</span>, working as one</h2>
-    <div class="body" style="gap:20px">
-      <div style="display:grid;grid-template-columns:470px 1fr;gap:36px;align-items:center">
-        <svg viewBox="-50 0 740 330" width="470" aria-label="The DevOps loop">
-          <path d="M320 165 C230 40 60 50 60 165 C60 280 230 290 320 165 C410 40 580 50 580 165 C580 280 410 290 320 165 Z" fill="none" stroke="#4f6bed" stroke-width="30" stroke-linejoin="round"/>
-          <g font-family="Segoe UI, Arial, sans-serif" font-weight="700" font-size="19" fill="#17191c" text-anchor="middle">
-            <text x="190" y="38">Code</text><text x="-8" y="171">Plan</text>
-            <text x="190" y="312">Build</text><text x="268" y="172" font-size="17">Test</text>
-            <text x="450" y="38">Release</text><text x="372" y="172" font-size="17" dx="8">Deploy</text>
-            <text x="450" y="312">Operate</text><text x="648" y="171">Monitor</text>
-          </g>
-          <g font-family="Segoe UI, Arial, sans-serif" font-weight="800" font-size="30" text-anchor="middle" fill="#3949c9">
-            <text x="165" y="176">DEV</text><text x="478" y="176">OPS</text>
-          </g>
-        </svg>
-        <div>
-          <p class="lead" style="font-size:23px">Not a tool and not really a job title — it's a <b>way of working</b>: one team owns the software from idea to customer, in a loop that never stops.</p>
-        </div>
-      </div>
-      <div class="grid c3">
-        <div class="card green"><h3>🤝 Culture</h3><p>Shared responsibility: "you build it, you run it."</p></div>
-        <div class="card green"><h3>🤖 Automation</h3><p>Machines do the repetitive building, testing and shipping.</p></div>
-        <div class="card green"><h3>⚡ Small &amp; often</h3><p>Many tiny updates a day instead of one giant yearly release.</p></div>
-      </div>
-    </div>
-  <aside class="notes">
-<h4>The idea</h4>
-<p><b>DevOps</b> removes the wall. One team is responsible for the software all the way from idea to customer — "you build it, you run it". The drawing is the famous infinity loop: the work never ends, it circles.</p>
-<h4>Three ingredients</h4>
-<ul><li><b>Culture</b> — shared goals and shared responsibility.</li><li><b>Automation</b> — the boring, error-prone steps (building, testing, shipping) are done by machines, the same way every time.</li><li><b>Small and often</b> — tiny changes many times a day. A small change is easy to check and easy to undo.</li></ul>
-<h4>Common confusion</h4>
-<p>DevOps is a way of working, but you will also see "DevOps Engineer" as a job title. That person builds and maintains the automation the rest of the team relies on.</p>
-    </aside>
-  </section>
-
-  <section class="slide">
-    <div class="kicker">Chapter 2 · What is DevOps?</div>
-    <h2>Keeping it running</h2>
-    <div class="body" style="gap:18px">
-      <svg viewBox="0 0 1120 210" width="1120" height="210" font-family="Segoe UI, Arial, sans-serif" aria-label="A monitoring graph with an incident, an alert and a recovery">
-        <rect x="470" y="20" width="170" height="160" fill="#fdecea"/>
-        <path d="M40 20V180H1090" fill="none" stroke="#17191c" stroke-width="3"/>
-        <path d="M40 100H1090" stroke="#e5533d" stroke-width="2" stroke-dasharray="8 6"/>
-        <text x="1088" y="92" text-anchor="end" font-size="13" font-weight="700" fill="#e5533d">alert threshold</text>
-        <path d="M40 150L110 144L180 151L250 142L320 149L390 143L460 146L500 70L545 38L590 56L640 138L710 148L780 143L850 150L920 144L990 149L1080 145" fill="none" stroke="#4f6bed" stroke-width="5" stroke-linejoin="round" stroke-linecap="round"/>
-        <path d="M500 70L545 38L590 56L640 138" fill="none" stroke="#e5533d" stroke-width="5" stroke-linejoin="round" stroke-linecap="round"/>
-        <circle cx="492" cy="86" r="7" fill="#e5533d"/>
-        <text x="20" y="104" font-size="13" fill="#6a727d" transform="rotate(-90 20 104)" text-anchor="middle">errors</text>
-        <text x="250" y="126" text-anchor="middle" font-size="14" fill="#6a727d">monitoring: the numbers are watched all the time</text>
-        <text x="460" y="42" text-anchor="end" font-size="14" font-weight="700" fill="#17191c">🔔 alert — the on-call engineer is paged</text>
-        <text x="555" y="198" text-anchor="middle" font-size="14" font-weight="800" fill="#e5533d">INCIDENT</text>
-        <text x="660" y="100" font-size="14" font-weight="700" fill="#17191c" dy="-14">fix or rollback</text>
-        <text x="860" y="126" text-anchor="middle" font-size="14" fill="#6a727d">back to normal — then a post-mortem</text>
-      </svg>
-      <div class="grid c3 tight" style="gap:12px">
-        <div class="card"><h3>Monitoring</h3><p>Dashboards and logs that show how the system is behaving right now.</p></div>
-        <div class="card"><h3>Alert</h3><p>An automatic alarm when a number crosses a limit.</p></div>
-        <div class="card"><h3>On-call</h3><p>The engineer whose turn it is to respond — day or night.</p></div>
-        <div class="card"><h3>Incident</h3><p>Something is broken for customers. Top priority until it is fixed.</p></div>
-        <div class="card"><h3>Rollback</h3><p>Going back to the previous version that worked.</p></div>
-        <div class="card"><h3>SLA / uptime</h3><p>The promised availability, for example "99.9% of the time".</p></div>
-      </div>
-    </div>
-    <aside class="notes">
-<h4>The idea</h4>
-<p>Shipping software is only half of DevOps. The "Ops" half is keeping it healthy while real customers use it, around the clock.</p>
-<h4>Reading the drawing</h4>
-<p>The green line is a measurement — here, the number of errors. <b>Monitoring</b> tools draw lines like this for thousands of measurements. When one crosses a threshold, an <b>alert</b> fires and the <b>on-call</b> engineer's phone rings.</p>
-<p>That starts an <b>incident</b>. The team either fixes the problem or does a <b>rollback</b> to the last good version — which is quick, because releases are small. Afterwards they write a <b>post-mortem</b>: what happened and how to prevent it, without blaming a person.</p>
-<h4>Promises to customers</h4>
-<p>An <b>SLA</b> (Service Level Agreement) is the availability the company commits to. "Three nines" — 99.9% — allows less than nine hours of downtime in a whole year.</p>
-<h4>Why it matters to you</h4>
-<p>On-call duty (<b>konenut</b>) affects people's lives: nights, weekends, Shabbat and holidays. In Israel it is usually paid as an addition per shift or per month, and the terms differ a lot between companies. If you work with DevOps, SRE or backend people, remember that the person who looks tired on Sunday morning may have been woken up three times that night.</p>
-    </aside>
-  </section>
-
-  <section class="slide">
-    <div class="kicker">Chapter 3 · Code &amp; cloud</div>
+    <div class="kicker">Chapter 2 · The software</div>
     <h2>What is "code", really?</h2>
     <div class="body" style="gap:16px">
       <div class="grid c2 tight">
@@ -755,7 +588,7 @@
   </section>
 
   <section class="slide">
-    <div class="kicker">Chapter 3 · Code &amp; cloud</div>
+    <div class="kicker">Chapter 2 · The software</div>
     <h2>Nobody writes everything from scratch</h2>
     <div class="body" style="gap:16px">
       <div style="display:grid;grid-template-columns:300px 1fr;gap:40px;align-items:center">
@@ -796,7 +629,103 @@
   </section>
 
   <section class="slide">
-    <div class="kicker">Chapter 3 · Code &amp; cloud</div>
+    <div class="kicker">Chapter 3 · DevOps</div>
+    <h2>Every app you use travels this road</h2>
+    <p class="lead">From an idea in someone's head to the app on your phone.</p>
+    <div class="body">
+      <div class="flow">
+        <div class="step"><span class="ico">💡</span><b>Plan</b><span class="s">decide what to make</span></div><div class="arrow">›</div>
+        <div class="step"><span class="ico">⌨️</span><b>Code</b><span class="s">developers write it</span></div><div class="arrow">›</div>
+        <div class="step"><span class="ico">🏗️</span><b>Build</b><span class="s">turn text into a working program</span></div><div class="arrow">›</div>
+        <div class="step"><span class="ico">🧪</span><b>Test</b><span class="s">check it works and is safe</span></div><div class="arrow">›</div>
+        <div class="step"><span class="ico">🚀</span><b>Release</b><span class="s">deliver it to users</span></div><div class="arrow">›</div>
+        <div class="step"><span class="ico">📈</span><b>Run</b><span class="s">keep it alive, watch, improve</span></div>
+      </div>
+      <div class="analogy"><b>Think of a restaurant.</b> Someone designs the menu, cooks prepare the dish, it gets tasted, a waiter brings it to the table, and the manager watches whether guests are happy. Software works the same way — thousands of times a day.</div>
+    </div>
+  <aside class="notes">
+<h4>The idea</h4>
+<p>Whatever the product — a banking app, a game, the software in a car — it travels the same six steps: someone <b>plans</b> it, developers <b>code</b> it, the code is <b>built</b> into something that can run, it is <b>tested</b>, <b>released</b> to users, and then <b>run</b> and watched.</p>
+<p>Then the loop starts again, because users always want something new and something is always broken.</p>
+<h4>The restaurant</h4>
+<p>Menu design, cooking, tasting, serving, and watching the dining room. A good restaurant does this smoothly hundreds of times a night. A good software company does it thousands of times a day.</p>
+<h4>Why it matters</h4>
+<p>The rest of this chapter — DevOps, CI/CD, containers, monitoring — is about making this road faster and safer.</p>
+    </aside>
+  </section>
+
+  <section class="slide">
+    <div class="kicker">Chapter 3 · DevOps</div>
+    <h2>The old way: two teams and a wall</h2>
+    <div class="body">
+      <div class="wall">
+        <div class="card" style="border-radius:14px 0 0 14px">
+          <span class="tag out">Dev · Developers</span>
+          <h3>"Ship new features, fast."</h3>
+          <p>Wrote the code, then handed it over and moved on to the next thing.</p>
+        </div>
+        <div class="brick"><span>THE WALL</span></div>
+        <div class="card" style="border-radius:0 14px 14px 0">
+          <span class="tag out">Ops · Operations</span>
+          <h3>"Keep everything stable."</h3>
+          <p>Ran the software for customers. Every change was a risk to avoid.</p>
+        </div>
+      </div>
+      <div class="grid c3">
+        <div class="card"><h3>🐢 Slow</h3><p>A new version once or twice a year.</p></div>
+        <div class="card"><h3>💥 Risky</h3><p>Huge releases — when they broke, they broke big.</p></div>
+        <div class="card"><h3>👉 Blame</h3><p>"It worked on my machine" vs. "your code broke production."</p></div>
+      </div>
+    </div>
+  <aside class="notes">
+<h4>The idea</h4>
+<p>Until roughly 15 years ago, most companies had two separate groups with opposite goals.</p>
+<p><b>Developers</b> were rewarded for delivering new things. <b>Operations</b> were rewarded for keeping systems stable — and every new thing is a threat to stability. Developers finished their code and "threw it over the wall".</p>
+<h4>What went wrong</h4>
+<ul><li>Releases were rare and huge, so each one was frightening.</li><li>When something failed, each side blamed the other.</li><li>Customers waited months for small improvements.</li></ul>
+<p>"It works on my machine" became the industry's running joke: the code ran on the developer's laptop but not in production.</p>
+    </aside>
+  </section>
+
+  <section class="slide">
+    <div class="kicker">Chapter 3 · DevOps</div>
+    <h2><span class="g">Dev</span>elopment + <span class="g">Op</span>eration<span class="g">s</span>, working as one</h2>
+    <div class="body" style="gap:20px">
+      <div style="display:grid;grid-template-columns:470px 1fr;gap:36px;align-items:center">
+        <svg viewBox="-50 0 740 330" width="470" aria-label="The DevOps loop">
+          <path d="M320 165 C230 40 60 50 60 165 C60 280 230 290 320 165 C410 40 580 50 580 165 C580 280 410 290 320 165 Z" fill="none" stroke="#4f6bed" stroke-width="30" stroke-linejoin="round"/>
+          <g font-family="Segoe UI, Arial, sans-serif" font-weight="700" font-size="19" fill="#17191c" text-anchor="middle">
+            <text x="190" y="38">Code</text><text x="-8" y="171">Plan</text>
+            <text x="190" y="312">Build</text><text x="268" y="172" font-size="17">Test</text>
+            <text x="450" y="38">Release</text><text x="372" y="172" font-size="17" dx="8">Deploy</text>
+            <text x="450" y="312">Operate</text><text x="648" y="171">Monitor</text>
+          </g>
+          <g font-family="Segoe UI, Arial, sans-serif" font-weight="800" font-size="30" text-anchor="middle" fill="#3949c9">
+            <text x="165" y="176">DEV</text><text x="478" y="176">OPS</text>
+          </g>
+        </svg>
+        <div>
+          <p class="lead" style="font-size:23px">Not a tool and not really a job title — it's a <b>way of working</b>: one team owns the software from idea to customer, in a loop that never stops.</p>
+        </div>
+      </div>
+      <div class="grid c3">
+        <div class="card green"><h3>🤝 Culture</h3><p>Shared responsibility: "you build it, you run it."</p></div>
+        <div class="card green"><h3>🤖 Automation</h3><p>Machines do the repetitive building, testing and shipping.</p></div>
+        <div class="card green"><h3>⚡ Small &amp; often</h3><p>Many tiny updates a day instead of one giant yearly release.</p></div>
+      </div>
+    </div>
+  <aside class="notes">
+<h4>The idea</h4>
+<p><b>DevOps</b> removes the wall. One team is responsible for the software all the way from idea to customer — "you build it, you run it". The drawing is the famous infinity loop: the work never ends, it circles.</p>
+<h4>Three ingredients</h4>
+<ul><li><b>Culture</b> — shared goals and shared responsibility.</li><li><b>Automation</b> — the boring, error-prone steps (building, testing, shipping) are done by machines, the same way every time.</li><li><b>Small and often</b> — tiny changes many times a day. A small change is easy to check and easy to undo.</li></ul>
+<h4>Common confusion</h4>
+<p>DevOps is a way of working, but you will also see "DevOps Engineer" as a job title. That person builds and maintains the automation the rest of the team relies on.</p>
+    </aside>
+  </section>
+
+  <section class="slide">
+    <div class="kicker">Chapter 3 · DevOps</div>
     <h2>From code to customers: CI/CD</h2>
     <p class="lead">An automatic assembly line — the <b>CI/CD pipeline</b> — runs every time a developer saves a change.</p>
     <div class="body">
@@ -828,7 +757,7 @@
   </section>
 
   <section class="slide">
-    <div class="kicker">Chapter 3 · Code &amp; cloud</div>
+    <div class="kicker">Chapter 3 · DevOps</div>
     <h2>Containers &amp; Kubernetes</h2>
     <div class="body" style="gap:18px">
       <svg viewBox="0 0 1120 200" width="1120" height="200" font-family="Segoe UI, Arial, sans-serif" aria-label="A container holds an app and runs the same everywhere; Kubernetes runs many of them">
@@ -874,7 +803,48 @@
   </section>
 
   <section class="slide">
-    <div class="kicker">Chapter 3 · Code &amp; cloud</div>
+    <div class="kicker">Chapter 3 · DevOps</div>
+    <h2>Keeping it running</h2>
+    <div class="body" style="gap:18px">
+      <svg viewBox="0 0 1120 210" width="1120" height="210" font-family="Segoe UI, Arial, sans-serif" aria-label="A monitoring graph with an incident, an alert and a recovery">
+        <rect x="470" y="20" width="170" height="160" fill="#fdecea"/>
+        <path d="M40 20V180H1090" fill="none" stroke="#17191c" stroke-width="3"/>
+        <path d="M40 100H1090" stroke="#e5533d" stroke-width="2" stroke-dasharray="8 6"/>
+        <text x="1088" y="92" text-anchor="end" font-size="13" font-weight="700" fill="#e5533d">alert threshold</text>
+        <path d="M40 150L110 144L180 151L250 142L320 149L390 143L460 146L500 70L545 38L590 56L640 138L710 148L780 143L850 150L920 144L990 149L1080 145" fill="none" stroke="#4f6bed" stroke-width="5" stroke-linejoin="round" stroke-linecap="round"/>
+        <path d="M500 70L545 38L590 56L640 138" fill="none" stroke="#e5533d" stroke-width="5" stroke-linejoin="round" stroke-linecap="round"/>
+        <circle cx="492" cy="86" r="7" fill="#e5533d"/>
+        <text x="20" y="104" font-size="13" fill="#6a727d" transform="rotate(-90 20 104)" text-anchor="middle">errors</text>
+        <text x="250" y="126" text-anchor="middle" font-size="14" fill="#6a727d">monitoring: the numbers are watched all the time</text>
+        <text x="460" y="42" text-anchor="end" font-size="14" font-weight="700" fill="#17191c">🔔 alert — the on-call engineer is paged</text>
+        <text x="555" y="198" text-anchor="middle" font-size="14" font-weight="800" fill="#e5533d">INCIDENT</text>
+        <text x="660" y="100" font-size="14" font-weight="700" fill="#17191c" dy="-14">fix or rollback</text>
+        <text x="860" y="126" text-anchor="middle" font-size="14" fill="#6a727d">back to normal — then a post-mortem</text>
+      </svg>
+      <div class="grid c3 tight" style="gap:12px">
+        <div class="card"><h3>Monitoring</h3><p>Dashboards and logs that show how the system is behaving right now.</p></div>
+        <div class="card"><h3>Alert</h3><p>An automatic alarm when a number crosses a limit.</p></div>
+        <div class="card"><h3>On-call</h3><p>The engineer whose turn it is to respond — day or night.</p></div>
+        <div class="card"><h3>Incident</h3><p>Something is broken for customers. Top priority until it is fixed.</p></div>
+        <div class="card"><h3>Rollback</h3><p>Going back to the previous version that worked.</p></div>
+        <div class="card"><h3>SLA / uptime</h3><p>The promised availability, for example "99.9% of the time".</p></div>
+      </div>
+    </div>
+    <aside class="notes">
+<h4>The idea</h4>
+<p>Shipping software is only half of DevOps. The "Ops" half is keeping it healthy while real customers use it, around the clock.</p>
+<h4>Reading the drawing</h4>
+<p>The green line is a measurement — here, the number of errors. <b>Monitoring</b> tools draw lines like this for thousands of measurements. When one crosses a threshold, an <b>alert</b> fires and the <b>on-call</b> engineer's phone rings.</p>
+<p>That starts an <b>incident</b>. The team either fixes the problem or does a <b>rollback</b> to the last good version — which is quick, because releases are small. Afterwards they write a <b>post-mortem</b>: what happened and how to prevent it, without blaming a person.</p>
+<h4>Promises to customers</h4>
+<p>An <b>SLA</b> (Service Level Agreement) is the availability the company commits to. "Three nines" — 99.9% — allows less than nine hours of downtime in a whole year.</p>
+<h4>Why it matters to you</h4>
+<p>On-call duty (<b>konenut</b>) affects people's lives: nights, weekends, Shabbat and holidays. In Israel it is usually paid as an addition per shift or per month, and the terms differ a lot between companies. If you work with DevOps, SRE or backend people, remember that the person who looks tired on Sunday morning may have been woken up three times that night.</p>
+    </aside>
+  </section>
+
+  <section class="slide">
+    <div class="kicker">Chapter 4 · Cloud &amp; AI</div>
     <h2>What's inside a cloud</h2>
     <p class="lead" style="font-size:22px">A cloud is a huge shop of computing services, rented by the minute. The three big ones sell the same kinds of things under different names.</p>
     <div class="body" style="gap:12px">
@@ -903,7 +873,7 @@
   </section>
 
   <section class="slide">
-    <div class="kicker">Chapter 3 · Code &amp; cloud</div>
+    <div class="kicker">Chapter 4 · Cloud &amp; AI</div>
     <h2>AWS, Azure, Google: who uses what, and how</h2>
     <div class="body" style="gap:16px">
       <div class="grid c3" style="gap:16px">
@@ -928,8 +898,39 @@
     </aside>
   </section>
 
+  <section class="slide">
+    <div class="kicker">Chapter 4 · Cloud &amp; AI</div>
+    <h2>AI words, now in every job description</h2>
+    <div class="body" style="gap:16px">
+      <div class="grid c4 tight" style="gap:12px">
+        <div class="card green"><h3>AI / ML</h3><p>Software that learns patterns from data instead of following hand-written rules. ML = machine learning.</p></div>
+        <div class="card green"><h3>Model</h3><p>The result of that learning: a file that takes an input and gives an answer.</p></div>
+        <div class="card green"><h3>LLM</h3><p>Large Language Model: a model trained on huge amounts of text. ChatGPT, Claude and Gemini are built on LLMs.</p></div>
+        <div class="card green"><h3>GenAI</h3><p>Generative AI: AI that creates text, images, code or sound.</p></div>
+        <div class="card"><h3>Prompt</h3><p>The instruction you give an AI model, in plain words.</p></div>
+        <div class="card"><h3>AI agent</h3><p>An AI that does tasks in steps on its own: searches, writes code, uses tools.</p></div>
+        <div class="card"><h3>GPU</h3><p>The chip AI runs on. Scarce and expensive; Nvidia is the best-known maker.</p></div>
+        <div class="card"><h3>AI coding assistant</h3><p>A tool that writes and reviews code with the developer. Most teams now use one.</p></div>
+      </div>
+      <table class="compact">
+        <tr><th>Role</th><th>What they actually do</th></tr>
+        <tr><td>Data Scientist</td><td>Analyses data and builds models to answer business questions. Strong in statistics and Python.</td></tr>
+        <tr><td>ML Engineer</td><td>Trains models and runs them reliably in production. A developer who specialised in ML.</td></tr>
+        <tr><td>AI Engineer</td><td>Builds product features on top of existing models (LLMs): prompts, agents, data. A newer title, close to a backend developer.</td></tr>
+      </table>
+    </div>
+    <aside class="notes">
+<h4>The idea</h4>
+<p>Since 2023 AI has moved from a research topic to a feature of almost every product, and the words now appear in most job descriptions — even for roles that are not "AI roles".</p>
+<h4>The words</h4>
+<ul><li><b>Machine learning</b> — instead of writing rules ("if the email contains X, it is spam"), you show the computer many examples and it learns the pattern. The thing it learns is a <b>model</b>.</li><li><b>LLM</b> — a very large model trained on text. It is the engine behind chat assistants.</li><li><b>GenAI</b> — any AI that produces new content.</li><li><b>Agent</b> — an AI that works through a task in steps and uses tools, not just answers one question.</li><li><b>GPU</b> — the chip that trains and runs models. GPU cost is a real line in many companies' budgets.</li></ul>
+<h4>When you meet these words</h4>
+<ul><li>The three titles in the table are often mixed up. The question that separates them: does the person <b>analyse</b> data, <b>train and run</b> models, or <b>build features</b> on top of an existing model?</li><li>"AI-first" in a job description usually means the team expects people to work with AI coding assistants every day.</li><li>A short "AI experience" line on a CV can mean anything from using ChatGPT to training models. Ask what they built.</li></ul>
+    </aside>
+  </section>
+
   <section class="slide dark">
-    <div class="kicker">Chapter 4 · Cyber</div>
+    <div class="kicker">Chapter 5 · Cyber</div>
     <h2>Cyber security in one slide</h2>
     <div class="body" style="gap:18px">
       <p class="lead" style="font-size:23px;max-width:none">Cyber security protects a company's <b class="g">data</b>, <b class="g">systems</b> and <b class="g">money</b> from people who want to steal, block or damage them.</p>
@@ -958,7 +959,7 @@
   </section>
 
   <section class="slide">
-    <div class="kicker">Chapter 4 · Cyber</div>
+    <div class="kicker">Chapter 5 · Cyber</div>
     <h2>How companies actually get attacked</h2>
     <div class="body" style="gap:14px">
       <div class="grid c4 tight sm" style="gap:10px">
@@ -984,7 +985,7 @@
   </section>
 
   <section class="slide">
-    <div class="kicker">Chapter 4 · Cyber</div>
+    <div class="kicker">Chapter 5 · Cyber</div>
     <h2>Your part: six habits that stop most attacks</h2>
     <div class="body" style="gap:16px">
       <div class="grid c3" style="gap:16px">
