@@ -6,9 +6,9 @@
 <title>Hi-tech &amp; DevOps 101</title>
 <style>
   :root {
-    --green: #40be46;
-    --green-dark: #2a9a31;
-    --green-soft: #e8f8e9;
+    --accent: #4f6bed;
+    --accent-dark: #3949c9;
+    --accent-soft: #eef1fd;
     --ink: #17191c;
     --ink-2: #2b2f35;
     --muted: #6a727d;
@@ -39,23 +39,23 @@
     font-size: 22px; line-height: 1.45;
   }
   .slide.active { opacity: 1; visibility: visible; transform: none; transition: opacity .35s ease, transform .35s ease; }
-  .slide::before { content: ""; position: absolute; left: 0; top: 0; bottom: 0; width: 10px; background: var(--green); }
+  .slide::before { content: ""; position: absolute; left: 0; top: 0; bottom: 0; width: 10px; background: var(--accent); }
 
-  .kicker { font-size: 15px; font-weight: 700; letter-spacing: .16em; text-transform: uppercase; color: var(--green-dark); margin-bottom: 10px; }
+  .kicker { font-size: 15px; font-weight: 700; letter-spacing: .16em; text-transform: uppercase; color: var(--accent-dark); margin-bottom: 10px; }
   h1 { font-size: 92px; line-height: 1; font-weight: 800; letter-spacing: -.03em; }
   h2 { font-size: 44px; line-height: 1.12; font-weight: 800; letter-spacing: -.02em; margin-bottom: 14px; }
   h3 { font-size: 23px; font-weight: 700; margin-bottom: 6px; }
   .lead { font-size: 25px; color: var(--ink-2); max-width: 980px; }
   .muted { color: var(--muted); }
   b, strong { font-weight: 700; }
-  .g { color: var(--green-dark); }
+  .g { color: var(--accent-dark); }
   .body { flex: 1; display: flex; flex-direction: column; justify-content: center; gap: 26px; }
 
   /* dark slides */
-  .dark { background: var(--ink); color: #fff; }
-  .dark .kicker { color: var(--green); }
+  .dark { background: #141a33; color: #fff; }
+  .dark .kicker { color: #9cadff; }
   .dark .lead { color: #cfd5da; }
-  .dark .g { color: var(--green); }
+  .dark .g { color: #9cadff; }
   .dark .muted { color: #98a1ab; }
 
   .grid { display: grid; gap: 20px; }
@@ -69,30 +69,30 @@
   .tight .card h3 { font-size: 21px; margin-bottom: 2px; }
   .tight.sm .card { padding: 11px 16px; font-size: 16px; }
   .tight.sm .card h3 { font-size: 19px; }
-  .card.green { background: var(--green-soft); border-color: #bfe8c2; }
-  .card.top { border-top: 5px solid var(--green); }
-  .dark .card { background: #23272c; border-color: #343a41; }
+  .card.green { background: var(--accent-soft); border-color: #c8d1fa; }
+  .card.top { border-top: 5px solid var(--accent); }
+  .dark .card { background: #1f2647; border-color: #313a66; }
   .dark .card p { color: #c6ccd2; }
 
-  .analogy { border-left: 5px solid var(--green); background: var(--green-soft); padding: 16px 22px; border-radius: 0 12px 12px 0; font-size: 20px; }
-  .analogy b { color: var(--green-dark); }
-  .dark .analogy { background: #1f2b21; }
-  .dark .analogy b { color: var(--green); }
+  .analogy { border-left: 5px solid var(--accent); background: var(--accent-soft); padding: 16px 22px; border-radius: 0 12px 12px 0; font-size: 20px; }
+  .analogy b { color: var(--accent-dark); }
+  .dark .analogy { background: #232a52; }
+  .dark .analogy b { color: #9cadff; }
 
   .flow { display: flex; align-items: stretch; gap: 0; }
   .step { flex: 1; background: var(--tint); border: 1px solid var(--line); border-radius: 12px; padding: 16px 14px; text-align: center; font-size: 17px; }
   .step .ico { font-size: 30px; display: block; margin-bottom: 6px; }
   .step b { display: block; font-size: 19px; }
   .step span.s { color: var(--muted); font-size: 15px; }
-  .arrow { flex: 0 0 34px; display: flex; align-items: center; justify-content: center; color: var(--green); font-size: 26px; font-weight: 800; }
-  .step.hl { background: var(--green); border-color: var(--green); color: #fff; }
-  .step.hl span.s { color: #eafbeb; }
+  .arrow { flex: 0 0 34px; display: flex; align-items: center; justify-content: center; color: var(--accent); font-size: 26px; font-weight: 800; }
+  .step.hl { background: var(--accent); border-color: var(--accent); color: #fff; }
+  .step.hl span.s { color: #f0f3fe; }
 
-  .tag { display: inline-block; background: var(--green); color: #fff; font-size: 13px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; padding: 4px 10px; border-radius: 999px; margin-bottom: 10px; }
-  .tag.out { background: transparent; color: var(--green-dark); border: 1.5px solid var(--green); }
-  .btn { display: inline-block; background: var(--green); color: #fff; font-weight: 700; text-decoration: none; padding: 12px 24px; border-radius: 999px; font-size: 20px; }
-  .btn:hover { background: var(--green-dark); }
-  .btn.ghost { background: transparent; border: 2px solid var(--green); color: var(--green); }
+  .tag { display: inline-block; background: var(--accent); color: #fff; font-size: 13px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; padding: 4px 10px; border-radius: 999px; margin-bottom: 10px; }
+  .tag.out { background: transparent; color: var(--accent-dark); border: 1.5px solid var(--accent); }
+  .btn { display: inline-block; background: var(--accent); color: #fff; font-weight: 700; text-decoration: none; padding: 12px 24px; border-radius: 999px; font-size: 20px; }
+  .btn:hover { background: var(--accent-dark); }
+  .btn.ghost { background: transparent; border: 2px solid var(--accent); color: var(--accent); }
   .chips { display: flex; flex-wrap: wrap; gap: 8px; }
   .chip { background: #fff; border: 1px solid var(--line); border-radius: 999px; padding: 5px 14px; font-size: 16px; font-weight: 600; }
 
@@ -107,10 +107,10 @@
 
   .footer { position: absolute; left: 80px; right: 80px; bottom: 24px; display: flex; justify-content: space-between; font-size: 13px; color: var(--muted); letter-spacing: .06em; }
   .dark .footer { color: #7d8690; }
-  #bar { position: absolute; left: 0; bottom: 0; height: 5px; background: var(--green); transition: width .3s ease; z-index: 5; }
+  #bar { position: absolute; left: 0; bottom: 0; height: 5px; background: var(--accent); transition: width .3s ease; z-index: 5; }
 
-  .big { font-size: 76px; font-weight: 800; color: var(--green-dark); line-height: 1; letter-spacing: -.03em; }
-  .dark .big { color: var(--green); }
+  .big { font-size: 76px; font-weight: 800; color: var(--accent-dark); line-height: 1; letter-spacing: -.03em; }
+  .dark .big { color: var(--accent); }
   @keyframes hintout { to { opacity: 0; } }
   .hint { animation: hintout .6s ease 4s forwards; position: fixed; bottom: 10px; left: 0; right: 0; text-align: center; color: #5c636b; font-size: 12px; letter-spacing: .05em; }
 
@@ -121,42 +121,42 @@
   /* explanation drawer */
   :root { --dw: 420px; }
   body.ready #stage { transition: left .3s ease, transform .3s ease; }
-  #help { position: fixed; top: 16px; right: 16px; z-index: 30; width: 48px; height: 48px; border-radius: 50%; border: 0; background: var(--green); color: #fff; font-family: inherit; font-size: 26px; font-weight: 800; line-height: 1; cursor: pointer; box-shadow: 0 4px 18px rgba(0,0,0,.45); transition: right .3s ease, background .2s ease; }
-  #help:hover { background: var(--green-dark); }
+  #help { position: fixed; top: 16px; right: 16px; z-index: 30; width: 48px; height: 48px; border-radius: 50%; border: 0; background: var(--accent); color: #fff; font-family: inherit; font-size: 26px; font-weight: 800; line-height: 1; cursor: pointer; box-shadow: 0 4px 18px rgba(0,0,0,.45); transition: right .3s ease, background .2s ease; }
+  #help:hover { background: var(--accent-dark); }
   body.open #help { right: calc(var(--dw) + 16px); background: var(--ink-2); }
-  #drawer { position: fixed; top: 0; right: 0; bottom: 0; width: var(--dw); max-width: 100vw; background: #fff; border-left: 6px solid var(--green); transform: translateX(105%); transition: transform .3s ease; z-index: 20; display: flex; flex-direction: column; }
+  #drawer { position: fixed; top: 0; right: 0; bottom: 0; width: var(--dw); max-width: 100vw; background: #fff; border-left: 6px solid var(--accent); transform: translateX(105%); transition: transform .3s ease; z-index: 20; display: flex; flex-direction: column; }
   body.open #drawer { transform: none; box-shadow: -10px 0 40px rgba(0,0,0,.35); }
   #drawer header { padding: 22px 26px 4px; display: flex; justify-content: space-between; align-items: center; }
   #drawer header .kicker { margin: 0; font-size: 13px; }
   #d-close { border: 0; background: none; font-size: 28px; line-height: 1; color: var(--muted); cursor: pointer; padding: 0 4px; }
   #d-title { padding: 4px 26px 16px; font-size: 26px; line-height: 1.2; font-weight: 800; letter-spacing: -.01em; border-bottom: 1px solid var(--line); }
   #d-body { padding: 18px 26px 26px; overflow-y: auto; flex: 1; font-size: 16.5px; line-height: 1.6; color: var(--ink-2); }
-  #d-body h4 { font-size: 13px; letter-spacing: .14em; text-transform: uppercase; color: var(--green-dark); margin: 20px 0 6px; }
+  #d-body h4 { font-size: 13px; letter-spacing: .14em; text-transform: uppercase; color: var(--accent-dark); margin: 20px 0 6px; }
   #d-body h4:first-child { margin-top: 0; }
   #d-body p { margin-bottom: 10px; }
   #d-body ul { padding-left: 20px; margin-bottom: 10px; }
   #d-body li { margin-bottom: 5px; }
   #drawer footer { padding: 12px 26px; border-top: 1px solid var(--line); display: flex; align-items: center; justify-content: space-between; font-size: 13px; color: var(--muted); }
   #drawer footer button { border: 1px solid var(--line); background: var(--tint); border-radius: 8px; padding: 8px 14px; font-family: inherit; font-size: 14px; font-weight: 600; color: var(--ink); cursor: pointer; }
-  #drawer footer button:hover { border-color: var(--green); }
+  #drawer footer button:hover { border-color: var(--accent); }
   @media (max-width: 900px) { body.open #help, body.open #dl { display: none; } }
   #dl { position: fixed; top: 76px; right: 16px; z-index: 30; width: 48px; height: 48px; border-radius: 50%; background: var(--ink-2); border: 2px solid #4a525b; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 18px rgba(0,0,0,.45); transition: right .3s ease, background .2s ease; }
-  #dl:hover { background: var(--green-dark); border-color: var(--green-dark); }
+  #dl:hover { background: var(--accent-dark); border-color: var(--accent-dark); }
   body.open #dl { right: calc(var(--dw) + 16px); }
   .explain, .inline-notes, .swipehint, #mbar, #toc { display: none; }
   #mbar { position: fixed; top: 0; left: 0; right: 0; z-index: 25; height: 52px; padding: 0 8px; align-items: center; gap: 6px; background: rgba(12,13,15,.96); color: #fff; }
   #mbar button, #mbar a { height: 38px; padding: 0 12px; border-radius: 999px; border: 1px solid #3a4047; background: #1d2126; color: #fff; font-family: inherit; font-size: 14px; font-weight: 700; display: inline-flex; align-items: center; gap: 6px; text-decoration: none; cursor: pointer; white-space: nowrap; }
-  #mbar #m-all.on { background: var(--green); border-color: var(--green); }
+  #mbar #m-all.on { background: var(--accent); border-color: var(--accent); }
   #m-pos { flex: 1; text-align: center; font-size: 13px; color: #98a1ab; font-weight: 600; }
-  #m-prog { position: absolute; left: 0; bottom: 0; height: 3px; width: 0; background: var(--green); }
+  #m-prog { position: absolute; left: 0; bottom: 0; height: 3px; width: 0; background: var(--accent); }
   #toc { position: fixed; inset: 0; z-index: 40; background: #fff; flex-direction: column; }
   #toc header { display: flex; align-items: center; justify-content: space-between; padding: 14px 18px; border-bottom: 1px solid var(--line); font-size: 20px; font-weight: 800; }
   #toc-close { border: 0; background: none; font-size: 30px; line-height: 1; color: var(--muted); padding: 0 6px; cursor: pointer; }
   #toc-list { flex: 1; overflow-y: auto; padding: 6px 0 30px; -webkit-overflow-scrolling: touch; }
-  #toc-list .part { padding: 16px 18px 6px; font-size: 12px; font-weight: 800; letter-spacing: .14em; text-transform: uppercase; color: var(--green-dark); }
+  #toc-list .part { padding: 16px 18px 6px; font-size: 12px; font-weight: 800; letter-spacing: .14em; text-transform: uppercase; color: var(--accent-dark); }
   #toc-list button { display: flex; gap: 12px; width: 100%; text-align: left; border: 0; background: none; padding: 11px 18px; font-family: inherit; font-size: 16px; color: var(--ink); cursor: pointer; }
   #toc-list button span { flex: 0 0 24px; color: var(--muted); font-weight: 700; font-size: 14px; padding-top: 1px; }
-  #toc-list button.cur { background: var(--green-soft); font-weight: 700; }
+  #toc-list button.cur { background: var(--accent-soft); font-weight: 700; }
   .svgwrap { display: block; }
 
   /* phone layout: slides become a scrolling page */
@@ -192,16 +192,16 @@
   html.m .svgwrap svg { width: var(--mw); min-width: var(--mw); max-width: none; }
   html.m .footer { position: static; margin-top: 18px; font-size: 11px; }
   html.m #bar, html.m .hint { display: none; }
-  html.m .explain { display: inline-flex; align-items: center; gap: 8px; margin-top: 16px; border: 1.5px solid var(--green); background: transparent; color: var(--green-dark); border-radius: 999px; padding: 8px 16px; font-family: inherit; font-size: 15px; font-weight: 700; cursor: pointer; }
-  html.m .dark .explain { color: var(--green); }
+  html.m .explain { display: inline-flex; align-items: center; gap: 8px; margin-top: 16px; border: 1.5px solid var(--accent); background: transparent; color: var(--accent-dark); border-radius: 999px; padding: 8px 16px; font-family: inherit; font-size: 15px; font-weight: 700; cursor: pointer; }
+  html.m .dark .explain { color: var(--accent); }
   html.m { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
   html.m #help, html.m #dl, html.m #drawer { display: none; }
   html.m .slide.dark { padding-top: 34px; padding-bottom: 24px; }
   html.m .explain { width: 100%; justify-content: center; padding: 12px 16px; font-size: 16px; }
-  html.m .inline-notes.on { display: block; margin-top: 12px; padding: 16px 16px 8px; border-radius: 12px; background: var(--green-soft); font-size: 16px; line-height: 1.6; color: var(--ink-2); }
-  html.m .dark .inline-notes.on { background: #1f2b21; color: #d5dbe0; }
-  html.m .inline-notes h4 { font-size: 12px; letter-spacing: .14em; text-transform: uppercase; color: var(--green-dark); margin: 16px 0 6px; }
-  html.m .dark .inline-notes h4 { color: var(--green); }
+  html.m .inline-notes.on { display: block; margin-top: 12px; padding: 16px 16px 8px; border-radius: 12px; background: var(--accent-soft); font-size: 16px; line-height: 1.6; color: var(--ink-2); }
+  html.m .dark .inline-notes.on { background: #232a52; color: #d5dbe0; }
+  html.m .inline-notes h4 { font-size: 12px; letter-spacing: .14em; text-transform: uppercase; color: var(--accent-dark); margin: 16px 0 6px; }
+  html.m .dark .inline-notes h4 { color: var(--accent); }
   html.m .inline-notes h4:first-child { margin-top: 0; }
   html.m .inline-notes p { margin-bottom: 10px; }
   html.m .inline-notes ul { padding-left: 20px; margin-bottom: 10px; }
@@ -224,7 +224,7 @@
 <body>
 <svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
   <marker id="ah" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#17191c"/></marker>
-  <marker id="ag" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#40be46"/></marker>
+  <marker id="ag" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#4f6bed"/></marker>
   <marker id="ar" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#e5533d"/></marker>
 </defs></svg>
 <div id="mbar">
@@ -244,34 +244,36 @@
       <div class="kicker">A friendly, jargon-free introduction</div>
       <h1 style="font-size:80px">Hi-tech &amp; DevOps <span class="g">101</span></h1>
       <p class="lead" style="margin-top:14px">The words, the people and the process behind every app —<br>explained without a single line of code.</p>
-      <p class="muted" style="font-size:18px;margin-top:26px">For anyone who works with tech people · no technical background needed</p>
+      <p class="muted" style="font-size:18px;margin-top:26px">For HR, recruiting and people teams in Israeli hi-tech · no technical background needed</p>
     </div>
     <aside class="notes">
 <h4>How to use this deck</h4>
 <p>Each slide gives you the headline and a picture. This side panel gives you the fuller story in plain language, so you can read the deck on your own, at your own pace.</p>
 <ul><li><b>Arrow keys</b> or a click move between slides.</li><li><b>?</b> opens and closes this panel. It stays open as you move.</li><li><b>F</b> goes fullscreen.</li></ul>
 <h4>What to expect</h4>
+<p>This deck is written for HR, recruiting and people teams in Israeli hi-tech. The first chapters explain the technology; the last one is about the people: roles, seniority, CVs, the hiring process and the Israeli specifics.</p>
 <p>No technical background is needed. We use one running comparison — a <b>restaurant</b> — because building software and running a kitchen have a lot in common: recipes, ingredients, suppliers, quality checks and delivery.</p>
     </aside>
   </section>
 
   <section class="slide">
     <div class="kicker">Where we're going</div>
-    <h2>Three short chapters</h2>
+    <h2>Four short chapters</h2>
     <div class="body">
-      <div class="grid c3">
-        <div class="card top"><div class="big">1</div><h3 style="margin-top:14px">Hi-tech vocabulary</h3><p>The everyday words of a tech company: cloud, backend, sprint, bug, funding round.</p></div>
-        <div class="card top"><div class="big">2</div><h3 style="margin-top:14px">What is DevOps?</h3><p>How modern companies build, deliver and run software — and why.</p></div>
-        <div class="card top"><div class="big">3</div><h3 style="margin-top:14px">Code, packages &amp; containers</h3><p>What developers produce, the building blocks they borrow, and how it all gets shipped.</p></div>
+      <div class="grid c4">
+        <div class="card top"><div class="big">1</div><h3 style="margin-top:14px">Hi-tech vocabulary</h3><p>The everyday words: cloud, backend, sprint, AI, funding round, options.</p></div>
+        <div class="card top"><div class="big">2</div><h3 style="margin-top:14px">What is DevOps?</h3><p>How modern companies build, deliver and run software.</p></div>
+        <div class="card top"><div class="big">3</div><h3 style="margin-top:14px">Code &amp; packages</h3><p>What developers produce, what they borrow, and how it ships.</p></div>
+        <div class="card top"><div class="big">4</div><h3 style="margin-top:14px">People &amp; hiring</h3><p>Roles, seniority, reading a CV, the hiring process, and life in an Israeli tech team.</p></div>
       </div>
       <div class="analogy" style="font-size:19px"><b>Tip:</b> press <b>?</b> on any slide (on a phone, tap <b>Explain this slide</b>) for a fuller, readable explanation.</div>
     </div>
     <aside class="notes">
 <h4>The idea</h4>
-<p>The three chapters build on each other, like steps on a ladder.</p>
-<ul><li><b>Vocabulary</b> — the everyday words you hear in the corridor and read in job descriptions.</li><li><b>DevOps</b> — the way of working that almost every software company now follows.</li><li><b>Code, packages and containers</b> — what software is actually made of, and how it travels to the customer.</li></ul>
+<p>The chapters build on each other, like steps on a ladder.</p>
+<ul><li><b>Vocabulary</b> — the words you hear in the corridor and read in job descriptions.</li><li><b>DevOps</b> — the way of working that almost every software company now follows.</li><li><b>Code and packages</b> — what software is made of, and how it travels to the customer.</li><li><b>People and hiring</b> — the part closest to your daily work: who does what, how to read a CV, and how hiring works in Israeli tech.</li></ul>
 <h4>Why it matters to you</h4>
-<p>You don't need to do any of this yourself. The goal is to recognise the words, understand roughly what a development team does all day, and follow a technical conversation without getting lost.</p>
+<p>You don't need to do any of this yourself. The goal is to recognise the words, understand roughly what a development team does all day, and hold a confident conversation with a hiring manager or a candidate.</p>
     </aside>
   </section>
 
@@ -281,23 +283,23 @@
     <div class="body" style="gap:20px">
       <svg viewBox="0 0 1120 220" width="1120" height="220" font-family="Segoe UI, Arial, sans-serif" aria-label="A client talks to a server and database in the cloud through an API">
         <rect x="40" y="40" width="150" height="96" rx="8" fill="#fff" stroke="#17191c" stroke-width="4"/>
-        <rect x="56" y="56" width="118" height="12" rx="3" fill="#40be46"/>
+        <rect x="56" y="56" width="118" height="12" rx="3" fill="#4f6bed"/>
         <g fill="#c9d1d6"><rect x="56" y="78" width="70" height="8" rx="3"/><rect x="56" y="94" width="96" height="8" rx="3"/><rect x="56" y="110" width="50" height="8" rx="3"/></g>
         <path d="M20 146H210" stroke="#17191c" stroke-width="6" stroke-linecap="round"/>
         <rect x="228" y="60" width="52" height="92" rx="9" fill="#fff" stroke="#17191c" stroke-width="4"/>
-        <rect x="238" y="74" width="32" height="10" rx="3" fill="#40be46"/><rect x="238" y="92" width="32" height="6" rx="3" fill="#c9d1d6"/><rect x="238" y="104" width="20" height="6" rx="3" fill="#c9d1d6"/><circle cx="254" cy="139" r="4" fill="#17191c"/>
+        <rect x="238" y="74" width="32" height="10" rx="3" fill="#4f6bed"/><rect x="238" y="92" width="32" height="6" rx="3" fill="#c9d1d6"/><rect x="238" y="104" width="20" height="6" rx="3" fill="#c9d1d6"/><circle cx="254" cy="139" r="4" fill="#17191c"/>
         <text x="150" y="182" text-anchor="middle" font-size="19" font-weight="800" fill="#17191c">Client</text>
         <text x="150" y="204" text-anchor="middle" font-size="15" fill="#6a727d">the FRONTEND — what users see</text>
         <path d="M310 84H500" stroke="#17191c" stroke-width="3" marker-end="url(#ah)"/>
         <path d="M500 124H310" stroke="#17191c" stroke-width="3" marker-end="url(#ah)"/>
         <text x="405" y="70" text-anchor="middle" font-size="15" fill="#6a727d">request: "show my orders"</text>
         <text x="405" y="150" text-anchor="middle" font-size="15" fill="#6a727d">response: the data</text>
-        <rect x="375" y="90" width="60" height="28" rx="14" fill="#40be46"/><text x="405" y="110" text-anchor="middle" font-size="15" font-weight="800" fill="#fff">API</text>
-        <rect x="520" y="10" width="590" height="204" rx="40" fill="#e8f8e9" stroke="#40be46" stroke-width="3" stroke-dasharray="10 8"/>
-        <text x="815" y="40" text-anchor="middle" font-size="15" font-weight="800" fill="#2a9a31" letter-spacing="1.5">☁ THE CLOUD — RENTED COMPUTERS (AWS · AZURE · GOOGLE)</text>
+        <rect x="375" y="90" width="60" height="28" rx="14" fill="#4f6bed"/><text x="405" y="110" text-anchor="middle" font-size="15" font-weight="800" fill="#fff">API</text>
+        <rect x="520" y="10" width="590" height="204" rx="40" fill="#eef1fd" stroke="#4f6bed" stroke-width="3" stroke-dasharray="10 8"/>
+        <text x="815" y="40" text-anchor="middle" font-size="15" font-weight="800" fill="#3949c9" letter-spacing="1.5">☁ THE CLOUD — RENTED COMPUTERS (AWS · AZURE · GOOGLE)</text>
         <rect x="590" y="58" width="150" height="100" rx="8" fill="#17191c"/>
         <g fill="#3a4047"><rect x="602" y="70" width="126" height="20" rx="4"/><rect x="602" y="98" width="126" height="20" rx="4"/><rect x="602" y="126" width="126" height="20" rx="4"/></g>
-        <g fill="#40be46"><circle cx="716" cy="80" r="4"/><circle cx="716" cy="108" r="4"/><circle cx="716" cy="136" r="4"/></g>
+        <g fill="#4f6bed"><circle cx="716" cy="80" r="4"/><circle cx="716" cy="108" r="4"/><circle cx="716" cy="136" r="4"/></g>
         <text x="665" y="181" text-anchor="middle" font-size="19" font-weight="800" fill="#17191c">Server</text>
         <text x="665" y="201" text-anchor="middle" font-size="14" fill="#6a727d">the BACKEND — the logic</text>
         <path d="M752 108H888" stroke="#17191c" stroke-width="3" marker-start="url(#ah)" marker-end="url(#ah)"/>
@@ -334,12 +336,12 @@
     <div class="body" style="gap:18px">
       <svg viewBox="0 0 1120 200" width="1120" height="200" font-family="Segoe UI, Arial, sans-serif" aria-label="Backlog feeding two-week sprints, each ending in a release">
         <g fill="#f5f7f6" stroke="#c9d1d6" stroke-width="2"><rect x="20" y="30" width="150" height="26" rx="6"/><rect x="20" y="62" width="150" height="26" rx="6"/><rect x="20" y="94" width="150" height="26" rx="6"/></g>
-        <g fill="none" stroke="#40be46" stroke-width="2.5"><rect x="30" y="37" width="12" height="12" rx="3"/><rect x="30" y="69" width="12" height="12" rx="3"/><rect x="30" y="101" width="12" height="12" rx="3"/></g>
+        <g fill="none" stroke="#4f6bed" stroke-width="2.5"><rect x="30" y="37" width="12" height="12" rx="3"/><rect x="30" y="69" width="12" height="12" rx="3"/><rect x="30" y="101" width="12" height="12" rx="3"/></g>
         <g fill="#c9d1d6"><rect x="52" y="39" width="100" height="8" rx="3"/><rect x="52" y="71" width="80" height="8" rx="3"/><rect x="52" y="103" width="92" height="8" rx="3"/></g>
         <text x="95" y="144" text-anchor="middle" font-size="18" font-weight="800" fill="#17191c">Backlog</text>
         <text x="95" y="164" text-anchor="middle" font-size="14" fill="#6a727d">the to-do list</text>
         <path d="M182 75H236" stroke="#17191c" stroke-width="3" marker-end="url(#ah)"/>
-        <g fill="#e8f8e9" stroke="#40be46" stroke-width="2.5"><rect x="245" y="40" width="200" height="70" rx="10"/><rect x="535" y="40" width="200" height="70" rx="10"/><rect x="825" y="40" width="200" height="70" rx="10"/></g>
+        <g fill="#eef1fd" stroke="#4f6bed" stroke-width="2.5"><rect x="245" y="40" width="200" height="70" rx="10"/><rect x="535" y="40" width="200" height="70" rx="10"/><rect x="825" y="40" width="200" height="70" rx="10"/></g>
         <g font-size="19" font-weight="800" fill="#17191c" text-anchor="middle"><text x="345" y="72">Sprint 1</text><text x="635" y="72">Sprint 2</text><text x="925" y="72">Sprint 3</text></g>
         <g font-size="14" fill="#6a727d" text-anchor="middle"><text x="345" y="94">2 weeks of work</text><text x="635" y="94">2 weeks of work</text><text x="925" y="94">2 weeks of work</text></g>
         <g fill="#17191c">
@@ -350,8 +352,8 @@
         <g fill="#17191c"><circle cx="490" cy="75" r="27"/><circle cx="780" cy="75" r="27"/><circle cx="1070" cy="75" r="27"/></g>
         <g font-size="15" font-weight="800" fill="#fff" text-anchor="middle"><text x="490" y="80">v1.0</text><text x="780" y="80">v1.1</text><text x="1070" y="80">v1.2</text></g>
         <g font-size="14" fill="#6a727d" text-anchor="middle"><text x="490" y="124">release</text><text x="780" y="124">release</text><text x="1070" y="124">release</text></g>
-        <path d="M245 188H1096" stroke="#40be46" stroke-width="3" marker-end="url(#ag)"/>
-        <text x="670" y="179" text-anchor="middle" font-size="14" font-weight="700" fill="#2a9a31" letter-spacing="1">ROADMAP — WHERE THE PRODUCT IS HEADING OVER THE COMING MONTHS</text>
+        <path d="M245 188H1096" stroke="#4f6bed" stroke-width="3" marker-end="url(#ag)"/>
+        <text x="670" y="179" text-anchor="middle" font-size="14" font-weight="700" fill="#3949c9" letter-spacing="1">ROADMAP — WHERE THE PRODUCT IS HEADING OVER THE COMING MONTHS</text>
       </svg>
       <div class="grid c4 tight" style="gap:12px">
         <div class="card"><h3>R&amp;D</h3><p>Research &amp; Development: the engineering organisation that builds the product.</p></div>
@@ -381,19 +383,19 @@
     <div class="body" style="gap:20px">
       <svg viewBox="0 0 1120 185" width="1120" height="185" font-family="Segoe UI, Arial, sans-serif" aria-label="Three environments and the parts of a version number">
         <g fill="#f5f7f6" stroke="#c9d1d6" stroke-width="2"><rect x="20" y="30" width="170" height="90" rx="12"/><rect x="250" y="30" width="170" height="90" rx="12"/></g>
-        <rect x="480" y="30" width="170" height="90" rx="12" fill="#40be46"/>
+        <rect x="480" y="30" width="170" height="90" rx="12" fill="#4f6bed"/>
         <g font-size="21" font-weight="800" text-anchor="middle"><text x="105" y="70" fill="#17191c">Dev</text><text x="335" y="70" fill="#17191c">Staging</text><text x="565" y="70" fill="#fff">Production</text></g>
         <g font-size="14" text-anchor="middle"><text x="105" y="96" fill="#6a727d">work in progress</text><text x="335" y="96" fill="#6a727d">dress rehearsal</text><text x="565" y="96" fill="#fff">live — real customers</text></g>
         <g stroke="#17191c" stroke-width="3"><path d="M194 75H242" marker-end="url(#ah)"/><path d="M424 75H472" marker-end="url(#ah)"/></g>
         <g font-size="13" fill="#6a727d" text-anchor="middle"><text x="218" y="64">deploy</text><text x="448" y="64">deploy</text></g>
-        <text x="335" y="158" text-anchor="middle" font-size="14" font-weight="700" fill="#2a9a31" letter-spacing="1">ENVIRONMENTS — THE SAME SOFTWARE, AT THREE LEVELS OF "REAL"</text>
+        <text x="335" y="158" text-anchor="middle" font-size="14" font-weight="700" fill="#3949c9" letter-spacing="1">ENVIRONMENTS — THE SAME SOFTWARE, AT THREE LEVELS OF "REAL"</text>
         <path d="M705 20V170" stroke="#e3e7ea" stroke-width="2"/>
         <g font-size="74" font-weight="800" fill="#17191c" text-anchor="middle"><text x="800" y="92">2</text><text x="850" y="92">.</text><text x="905" y="92">4</text><text x="955" y="92">.</text><text x="1010" y="92">1</text></g>
         <text x="745" y="92" text-anchor="middle" font-size="40" font-weight="800" fill="#9aa3ad">v</text>
-        <g stroke="#40be46" stroke-width="4" stroke-linecap="round"><path d="M775 104H825"/><path d="M880 104H930"/><path d="M985 104H1035"/></g>
+        <g stroke="#4f6bed" stroke-width="4" stroke-linecap="round"><path d="M775 104H825"/><path d="M880 104H930"/><path d="M985 104H1035"/></g>
         <g font-size="15" font-weight="800" fill="#17191c" text-anchor="middle"><text x="800" y="126">major</text><text x="905" y="126">minor</text><text x="1010" y="126">patch</text></g>
         <g font-size="13" fill="#6a727d" text-anchor="middle"><text x="800" y="144">big change</text><text x="905" y="144">new feature</text><text x="1010" y="144">bug fix</text></g>
-        <text x="905" y="174" text-anchor="middle" font-size="14" font-weight="700" fill="#2a9a31" letter-spacing="1">A VERSION — THE NAME OF ONE RELEASE</text>
+        <text x="905" y="174" text-anchor="middle" font-size="14" font-weight="700" fill="#3949c9" letter-spacing="1">A VERSION — THE NAME OF ONE RELEASE</text>
       </svg>
       <div class="grid c3 tight" style="gap:12px">
         <div class="card"><h3>Programming language</h3><p>How developers write instructions: Java, Python, JavaScript, Go, C++.</p></div>
@@ -442,7 +444,7 @@
         <text x="787" y="68" text-anchor="middle" font-size="16" font-weight="700" fill="#17191c">Python · SQL</text>
         <text x="787" y="94" text-anchor="middle" font-size="15" fill="#6a727d">analysis, models</text>
         <rect x="908" y="34" width="212" height="78" rx="10" fill="#f5f7f6" stroke="#c9d1d6" stroke-width="2"/>
-        <rect x="908" y="2" width="212" height="36" rx="10" fill="#40be46"/>
+        <rect x="908" y="2" width="212" height="36" rx="10" fill="#4f6bed"/>
         <text x="1014" y="26" text-anchor="middle" font-size="13" font-weight="800" fill="#fff" letter-spacing="1.5">CLOUD &amp; DEVOPS</text>
         <text x="1014" y="68" text-anchor="middle" font-size="16" font-weight="700" fill="#17191c">Go · Python · Bash</text>
         <text x="1014" y="94" text-anchor="middle" font-size="15" fill="#6a727d">Docker · Kubernetes</text>
@@ -456,8 +458,8 @@
         <div class="card"><h3>C / C++</h3><p>Close to the hardware: devices, games, engines.</p></div>
         <div class="card"><h3>C# · .NET</h3><p>Microsoft's platform for business software.</p></div>
         <div class="card"><h3>Rust</h3><p>A newer, safer alternative to C++.</p></div>
-        <div class="card"><h3>Maven · Gradle</h3><p>Build and package tools for Java.</p></div>
-        <div class="card"><h3>npm · pip</h3><p>Package managers for JavaScript and Python.</p></div>
+        <div class="card"><h3>AWS · Azure · GCP</h3><p>The three big clouds: rented servers and services.</p></div>
+        <div class="card"><h3>Terraform · Kafka</h3><p>Servers described in code · messages between services.</p></div>
         <div class="card"><h3>React · Angular</h3><p>Libraries for building web screens.</p></div>
         <div class="card"><h3>SQL</h3><p>The language for asking a database questions.</p></div>
       </div>
@@ -467,10 +469,41 @@
 <p>There are many programming languages for the same reason there are many tools in a toolbox: each is good at something. The drawing groups the common names by where they are used; the cards say what each one is mainly for.</p>
 <h4>The languages</h4>
 <ul><li><b>Python</b> — reads almost like English. The default for data analysis, AI and small automation scripts.</li><li><b>JavaScript</b> — the only language browsers run, so every website uses it. <b>TypeScript</b> is JavaScript with extra safety checks.</li><li><b>Node.js</b> — not a language: it lets JavaScript run on a server, so one team can write both frontend and backend in the same language.</li><li><b>Java</b> — the workhorse of banks, insurers and large enterprises. Systems written in it live for decades.</li><li><b>Go</b> — created at Google for cloud software. Docker and Kubernetes are written in it, so DevOps people love it.</li><li><b>C and C++</b> — old, fast and close to the machine. Used where speed or hardware matter: operating systems, cars, chips, game engines.</li></ul>
-<h4>Not languages: the tools around them</h4>
-<p>Every language has a <b>package manager</b> that downloads the outside code a project needs, and often a <b>build tool</b>. <b>Maven</b> does both for Java (Gradle is its rival). <b>npm</b> is the one for JavaScript, <b>pip</b> for Python. These names come back in the chapter on packages.</p>
+<h4>Not languages: names you'll see next to them</h4>
+<ul><li><b>AWS, Azure, GCP</b> — Amazon's, Microsoft's and Google's clouds. Most Israeli startups run on AWS. Experience with one cloud transfers well to another.</li><li><b>Terraform</b> — describes servers and networks in text files, so they can be built automatically. A core DevOps skill.</li><li><b>Kafka</b> — passes messages between parts of a large system. Common in backend and data roles.</li><li><b>React</b> — the most common way to build web screens. "React developer" usually means a frontend developer.</li></ul>
 <h4>Reading a CV</h4>
 <ul><li>A language is not a seniority level; "5 years of Java" says more than "Java".</li><li>A good developer learns a new language in weeks. Learning its whole world — frameworks, tools, habits — takes longer, which is why teams ask for specific experience.</li><li>Group what you see by the columns in the drawing: it tells you what kind of developer this is.</li></ul>
+    </aside>
+  </section>
+
+  <section class="slide">
+    <div class="kicker">Chapter 1 · Hi-tech vocabulary</div>
+    <h2>AI words, now in every job description</h2>
+    <div class="body" style="gap:16px">
+      <div class="grid c4 tight" style="gap:12px">
+        <div class="card green"><h3>AI / ML</h3><p>Software that learns patterns from data instead of following hand-written rules. ML = machine learning.</p></div>
+        <div class="card green"><h3>Model</h3><p>The result of that learning: a file that takes an input and gives an answer.</p></div>
+        <div class="card green"><h3>LLM</h3><p>Large Language Model: a model trained on huge amounts of text. ChatGPT, Claude and Gemini are built on LLMs.</p></div>
+        <div class="card green"><h3>GenAI</h3><p>Generative AI: AI that creates text, images, code or sound.</p></div>
+        <div class="card"><h3>Prompt</h3><p>The instruction you give an AI model, in plain words.</p></div>
+        <div class="card"><h3>AI agent</h3><p>An AI that does tasks in steps on its own: searches, writes code, uses tools.</p></div>
+        <div class="card"><h3>GPU</h3><p>The chip AI runs on. Scarce and expensive; Nvidia is the best-known maker.</p></div>
+        <div class="card"><h3>AI coding assistant</h3><p>A tool that writes and reviews code with the developer. Most teams now use one.</p></div>
+      </div>
+      <table class="compact">
+        <tr><th>Role</th><th>What they actually do</th></tr>
+        <tr><td>Data Scientist</td><td>Analyses data and builds models to answer business questions. Strong in statistics and Python.</td></tr>
+        <tr><td>ML Engineer</td><td>Trains models and runs them reliably in production. A developer who specialised in ML.</td></tr>
+        <tr><td>AI Engineer</td><td>Builds product features on top of existing models (LLMs): prompts, agents, data. A newer title, close to a backend developer.</td></tr>
+      </table>
+    </div>
+    <aside class="notes">
+<h4>The idea</h4>
+<p>Since 2023 AI has moved from a research topic to a feature of almost every product, and the words now appear in most job descriptions — even for roles that are not "AI roles".</p>
+<h4>The words</h4>
+<ul><li><b>Machine learning</b> — instead of writing rules ("if the email contains X, it is spam"), you show the computer many examples and it learns the pattern. The thing it learns is a <b>model</b>.</li><li><b>LLM</b> — a very large model trained on text. It is the engine behind chat assistants.</li><li><b>GenAI</b> — any AI that produces new content.</li><li><b>Agent</b> — an AI that works through a task in steps and uses tools, not just answers one question.</li><li><b>GPU</b> — the chip that trains and runs models. GPU cost is a real line in many companies' budgets.</li></ul>
+<h4>Reading a CV or a job description</h4>
+<ul><li>The three titles in the table are often mixed up. Ask the hiring manager: do we need someone to <b>analyse</b> data, to <b>train and run</b> models, or to <b>build features</b> on top of an existing model?</li><li>"AI-first" in a job description usually means the team expects people to work with AI coding assistants every day.</li><li>A short "AI experience" line on a CV can mean anything from using ChatGPT to training models. Ask what they built.</li></ul>
     </aside>
   </section>
 
@@ -480,8 +513,8 @@
     <div class="body" style="gap:18px">
       <svg viewBox="0 0 1120 205" width="1120" height="205" font-family="Segoe UI, Arial, sans-serif" aria-label="A startup grows through funding rounds to an IPO or exit">
         <g fill="#e3e7ea"><rect x="40" y="130" width="180" height="40" rx="8"/><rect x="255" y="105" width="180" height="65" rx="8"/></g>
-        <g fill="#bfe8c2"><rect x="470" y="80" width="180" height="90" rx="8"/><rect x="685" y="52" width="180" height="118" rx="8"/></g>
-        <rect x="900" y="22" width="180" height="148" rx="8" fill="#40be46"/>
+        <g fill="#c8d1fa"><rect x="470" y="80" width="180" height="90" rx="8"/><rect x="685" y="52" width="180" height="118" rx="8"/></g>
+        <rect x="900" y="22" width="180" height="148" rx="8" fill="#4f6bed"/>
         <g font-size="17" font-weight="800" text-anchor="middle" fill="#17191c"><text x="130" y="156">Pre-seed</text><text x="345" y="144">Seed</text><text x="560" y="131">Round A</text><text x="775" y="117">Rounds B, C…</text></g>
         <text x="990" y="102" text-anchor="middle" font-size="18" font-weight="800" fill="#fff">IPO or Exit</text>
         <path d="M30 174H1096" stroke="#17191c" stroke-width="3" marker-end="url(#ah)"/>
@@ -492,9 +525,9 @@
         <div class="card"><h3>Funding round</h3><p>Investors (VCs) put in money in return for shares: Seed, A, B, C…</p></div>
         <div class="card"><h3>Unicorn</h3><p>A private startup valued at more than one billion dollars.</p></div>
         <div class="card"><h3>IPO / Exit</h3><p>Going public on the stock market, or being bought by another company.</p></div>
-        <div class="card"><h3>B2B / B2C</h3><p>Selling to businesses, or selling directly to consumers.</p></div>
+        <div class="card"><h3>R&amp;D center</h3><p>The Israeli site of a global company: Intel, Google, Nvidia.</p></div>
         <div class="card"><h3>ARR</h3><p>Annual Recurring Revenue: yearly subscription income.</p></div>
-        <div class="card"><h3>Equity / options</h3><p>A share in the company given to employees, earned ("vested") over time.</p></div>
+        <div class="card"><h3>Options · RSUs</h3><p>A share in the company, vested over ~4 years. In Israel: section 102.</p></div>
         <div class="card"><h3>Headcount</h3><p>The number of approved positions a team is allowed to fill.</p></div>
       </div>
     </div>
@@ -505,7 +538,11 @@
 <h4>How the company earns</h4>
 <p><b>B2B</b> companies sell to other businesses; <b>B2C</b> sell to the public. Most B2B software is sold by subscription, so the number everyone watches is <b>ARR</b> — the subscription income for a year. <b>Churn</b> is the share of customers who leave.</p>
 <h4>Why it matters to you</h4>
-<p>Compensation in hi-tech usually includes <b>equity</b>: options or shares (RSUs) that <b>vest</b> over about four years. Hiring follows the funding cycle — a new round usually opens new <b>headcount</b>; a tight market freezes it.</p>
+<p>Compensation in hi-tech usually includes <b>equity</b>: options (common in startups) or shares called RSUs (common in public companies) that <b>vest</b> over about four years, often with a one-year "cliff" before anything vests.</p>
+<p>In Israel, employee equity is usually granted under <b>section 102</b> of the tax ordinance, on the trustee "capital gains" track: if the shares stay with a trustee for at least two years from the grant, the gain is taxed at the capital-gains rate instead of as salary. Candidates often ask about it.</p>
+<h4>The Israeli map</h4>
+<ul><li><b>Startup</b> — small, fast, more risk, more equity.</li><li><b>Scale-up / unicorn</b> — hundreds of people, processes forming, still growing fast.</li><li><b>R&amp;D center of a global company</b> — the Israeli engineering site of Intel, Microsoft, Google, Nvidia, Apple and others. Often the result of an <b>exit</b>: Mellanox became part of Nvidia, Mobileye of Intel.</li><li><b>Public Israeli company</b> — Check Point, CyberArk, Monday.com, Wix, Nice and others.</li></ul>
+<p>Hiring follows the funding cycle — a new round usually opens new <b>headcount</b>; a tight market freezes it. <b>B2B</b> companies sell to businesses and <b>B2C</b> to consumers; most Israeli startups are B2B.</p>
     </aside>
   </section>
 
@@ -574,14 +611,14 @@
     <div class="body" style="gap:20px">
       <div style="display:grid;grid-template-columns:470px 1fr;gap:36px;align-items:center">
         <svg viewBox="-50 0 740 330" width="470" aria-label="The DevOps loop">
-          <path d="M320 165 C230 40 60 50 60 165 C60 280 230 290 320 165 C410 40 580 50 580 165 C580 280 410 290 320 165 Z" fill="none" stroke="#40be46" stroke-width="30" stroke-linejoin="round"/>
+          <path d="M320 165 C230 40 60 50 60 165 C60 280 230 290 320 165 C410 40 580 50 580 165 C580 280 410 290 320 165 Z" fill="none" stroke="#4f6bed" stroke-width="30" stroke-linejoin="round"/>
           <g font-family="Segoe UI, Arial, sans-serif" font-weight="700" font-size="19" fill="#17191c" text-anchor="middle">
             <text x="190" y="38">Code</text><text x="-8" y="171">Plan</text>
             <text x="190" y="312">Build</text><text x="268" y="172" font-size="17">Test</text>
             <text x="450" y="38">Release</text><text x="372" y="172" font-size="17" dx="8">Deploy</text>
             <text x="450" y="312">Operate</text><text x="648" y="171">Monitor</text>
           </g>
-          <g font-family="Segoe UI, Arial, sans-serif" font-weight="800" font-size="30" text-anchor="middle" fill="#2a9a31">
+          <g font-family="Segoe UI, Arial, sans-serif" font-weight="800" font-size="30" text-anchor="middle" fill="#3949c9">
             <text x="165" y="176">DEV</text><text x="478" y="176">OPS</text>
           </g>
         </svg>
@@ -614,7 +651,7 @@
         <path d="M40 20V180H1090" fill="none" stroke="#17191c" stroke-width="3"/>
         <path d="M40 100H1090" stroke="#e5533d" stroke-width="2" stroke-dasharray="8 6"/>
         <text x="1088" y="92" text-anchor="end" font-size="13" font-weight="700" fill="#e5533d">alert threshold</text>
-        <path d="M40 150L110 144L180 151L250 142L320 149L390 143L460 146L500 70L545 38L590 56L640 138L710 148L780 143L850 150L920 144L990 149L1080 145" fill="none" stroke="#40be46" stroke-width="5" stroke-linejoin="round" stroke-linecap="round"/>
+        <path d="M40 150L110 144L180 151L250 142L320 149L390 143L460 146L500 70L545 38L590 56L640 138L710 148L780 143L850 150L920 144L990 149L1080 145" fill="none" stroke="#4f6bed" stroke-width="5" stroke-linejoin="round" stroke-linecap="round"/>
         <path d="M500 70L545 38L590 56L640 138" fill="none" stroke="#e5533d" stroke-width="5" stroke-linejoin="round" stroke-linecap="round"/>
         <circle cx="492" cy="86" r="7" fill="#e5533d"/>
         <text x="20" y="104" font-size="13" fill="#6a727d" transform="rotate(-90 20 104)" text-anchor="middle">errors</text>
@@ -642,7 +679,7 @@
 <h4>Promises to customers</h4>
 <p>An <b>SLA</b> (Service Level Agreement) is the availability the company commits to. "Three nines" — 99.9% — allows less than nine hours of downtime in a whole year.</p>
 <h4>Why it matters to you</h4>
-<p>On-call duty affects people's lives: nights, weekends, sometimes extra pay. It is a normal topic in interviews and in compensation discussions for DevOps and SRE roles.</p>
+<p>On-call duty (<b>konenut</b>) affects people's lives: nights, weekends, Shabbat and holidays. In Israel it is usually paid as an addition per shift or per month, and the terms differ a lot between companies. Candidates for DevOps, SRE and backend roles ask about it, so know your company's policy before the interview.</p>
     </aside>
   </section>
 
@@ -656,15 +693,15 @@
       </div>
       <svg viewBox="0 0 1120 140" width="1120" height="140" font-family="Segoe UI, Arial, sans-serif" aria-label="Git history with a branch and a merge">
         <path d="M40 95H1080" stroke="#17191c" stroke-width="5" stroke-linecap="round"/>
-        <path d="M480 95C530 95 530 40 580 40H760C810 40 810 95 860 95" fill="none" stroke="#40be46" stroke-width="5"/>
+        <path d="M480 95C530 95 530 40 580 40H760C810 40 810 95 860 95" fill="none" stroke="#4f6bed" stroke-width="5"/>
         <g fill="#fff" stroke="#17191c" stroke-width="4"><circle cx="120" cy="95" r="11"/><circle cx="300" cy="95" r="11"/><circle cx="480" cy="95" r="11"/><circle cx="1000" cy="95" r="11"/></g>
-        <g fill="#fff" stroke="#40be46" stroke-width="4"><circle cx="620" cy="40" r="11"/><circle cx="720" cy="40" r="11"/></g>
-        <circle cx="860" cy="95" r="13" fill="#40be46" stroke="#17191c" stroke-width="4"/>
+        <g fill="#fff" stroke="#4f6bed" stroke-width="4"><circle cx="620" cy="40" r="11"/><circle cx="720" cy="40" r="11"/></g>
+        <circle cx="860" cy="95" r="13" fill="#4f6bed" stroke="#17191c" stroke-width="4"/>
         <g font-size="14" fill="#6a727d" text-anchor="middle">
           <text x="120" y="72">"add login page"</text><text x="300" y="72">"fix typo"</text>
           <text x="210" y="128">each dot = a commit (one saved change)</text>
         </g>
-        <text x="670" y="18" text-anchor="middle" font-size="15" font-weight="700" fill="#2a9a31">a branch — a private copy to work on safely</text>
+        <text x="670" y="18" text-anchor="middle" font-size="15" font-weight="700" fill="#3949c9">a branch — a private copy to work on safely</text>
         <text x="860" y="128" text-anchor="middle" font-size="15" font-weight="700" fill="#17191c">pull request → review → merge</text>
         <text x="1080" y="72" text-anchor="end" font-size="14" fill="#6a727d">"main" — the official version</text>
       </svg>
@@ -700,7 +737,7 @@
               <path d="M150 38L48 68M150 38V68M150 38L252 68"/>
               <path d="M48 96L25 128M48 96L87 128M150 96V128M252 96L211 128M252 96L273 128"/>
             </g>
-            <rect x="95" y="4" width="110" height="34" rx="8" fill="#40be46"/>
+            <rect x="95" y="4" width="110" height="34" rx="8" fill="#4f6bed"/>
             <text x="150" y="27" text-anchor="middle" font-size="15" font-weight="800" fill="#fff">Your app</text>
             <g fill="#f5f7f6" stroke="#c9d1d6" stroke-width="2"><rect x="6" y="68" width="84" height="28" rx="6"/><rect x="108" y="68" width="84" height="28" rx="6"/><rect x="210" y="68" width="84" height="28" rx="6"/></g>
             <g font-size="13" font-weight="600" text-anchor="middle" fill="#17191c"><text x="48" y="87">payments</text><text x="150" y="87">charts</text><text x="252" y="87">login</text></g>
@@ -724,13 +761,13 @@
 <h4>Where they come from</h4>
 <p>Developers download packages from public <b>registries</b>. Each language has its own: npm for JavaScript, PyPI for Python, Maven Central for Java, Docker Hub for containers.</p>
 <h4>The restaurant</h4>
-<p>The chef buys flour instead of growing wheat. That is sensible — but it means the quality of the dish now depends on suppliers the chef has never met. Keep that thought; we come back to it at the end of this chapter.</p>
+<p>The chef buys flour instead of growing wheat. That is sensible — but it means the quality of the dish now depends on suppliers the chef has never met. That is why security teams scan packages for known flaws (<b>CVEs</b>) — a field called software supply-chain security, and a big hiring area for Israeli cyber companies.</p>
     </aside>
   </section>
 
   <section class="slide">
     <div class="kicker">Chapter 3 · Code &amp; packages</div>
-    <h2>From recipe to cake: the build</h2>
+    <h2>From code to customers: CI/CD</h2>
     <p class="lead">An automatic assembly line — the <b>CI/CD pipeline</b> — runs every time a developer saves a change.</p>
     <div class="body">
       <div class="flow">
@@ -740,12 +777,12 @@
         <div class="arrow">›</div>
         <div class="step"><span class="ico">🏗️</span><b>Build</b><span class="s">mix &amp; bake, automatically</span></div>
         <div class="arrow">›</div>
-        <div class="step hl"><span class="ico">🎂</span><b>Artifact</b><span class="s">the finished, runnable product</span></div>
+        <div class="step hl"><span class="ico">🎂</span><b>Ready version</b><span class="s">the finished, runnable product</span></div>
         <div class="arrow">›</div>
         <div class="step"><span class="ico">🚀</span><b>Deploy</b><span class="s">served to customers</span></div>
       </div>
       <div class="grid c2">
-        <div class="card green"><h3>Artifact (or "binary")</h3><p>The output of a build: the actual file that gets installed and run. Artifacts are kept in an <b>artifact repository</b>.</p></div>
+        <div class="card green"><h3>Build · test · deploy</h3><p>The three steps every change goes through. Tools: <b>Jenkins</b>, <b>GitHub Actions</b>, <b>GitLab CI</b>, <b>Argo CD</b>.</p></div>
         <div class="card"><h3>CI/CD</h3><p><b>C</b>ontinuous <b>I</b>ntegration / <b>C</b>ontinuous <b>D</b>elivery: build, test and ship automatically, many times a day, with no manual copying of files.</p></div>
       </div>
     </div>
@@ -755,8 +792,8 @@
 <p>Examples of artifacts: the app file you download to your phone, an installer, or a <b>container image</b> (a boxed-up program ready to run on a server — Docker is the best-known kind).</p>
 <h4>CI/CD</h4>
 <p>Nobody builds by hand. A <b>CI/CD pipeline</b> does it automatically whenever code changes: build, run tests, and if everything passes, deliver. Popular pipeline tools include Jenkins, GitHub Actions and GitLab CI.</p>
-<h4>Why it matters</h4>
-<p>Code lives in Git; the things built from code live in an <b>artifact repository</b>. Both have to be stored, versioned and protected.</p>
+<h4>Why it matters to you</h4>
+<p>"CI/CD" and the tool names above appear in almost every DevOps job description, and often in backend ones too. A DevOps engineer's day is largely building and fixing these pipelines.</p>
     </aside>
   </section>
 
@@ -766,27 +803,27 @@
     <div class="body" style="gap:18px">
       <svg viewBox="0 0 1120 200" width="1120" height="200" font-family="Segoe UI, Arial, sans-serif" aria-label="A container holds an app and runs the same everywhere; Kubernetes runs many of them">
         <rect x="20" y="24" width="230" height="132" rx="10" fill="#fff" stroke="#17191c" stroke-width="4"/>
-        <rect x="38" y="40" width="194" height="30" rx="6" fill="#40be46"/><rect x="38" y="76" width="194" height="30" rx="6" fill="#e8f8e9" stroke="#bfe8c2" stroke-width="2"/><rect x="38" y="112" width="194" height="30" rx="6" fill="#f5f7f6" stroke="#c9d1d6" stroke-width="2"/>
+        <rect x="38" y="40" width="194" height="30" rx="6" fill="#4f6bed"/><rect x="38" y="76" width="194" height="30" rx="6" fill="#eef1fd" stroke="#c8d1fa" stroke-width="2"/><rect x="38" y="112" width="194" height="30" rx="6" fill="#f5f7f6" stroke="#c9d1d6" stroke-width="2"/>
         <g font-size="14" font-weight="700" text-anchor="middle"><text x="135" y="60" fill="#fff">the app</text><text x="135" y="96" fill="#17191c">its packages</text><text x="135" y="132" fill="#17191c">its settings</text></g>
         <text x="135" y="180" text-anchor="middle" font-size="15" font-weight="800" fill="#17191c">A container: everything in one box</text>
         <path d="M262 90H318" stroke="#17191c" stroke-width="3" marker-end="url(#ah)"/>
         <g fill="#f5f7f6" stroke="#c9d1d6" stroke-width="2"><rect x="330" y="50" width="130" height="80" rx="10"/><rect x="480" y="50" width="130" height="80" rx="10"/><rect x="630" y="50" width="130" height="80" rx="10"/></g>
         <g fill="#fff" stroke="#17191c" stroke-width="3"><rect x="375" y="62" width="40" height="28" rx="4"/><rect x="525" y="62" width="40" height="28" rx="4"/><rect x="675" y="62" width="40" height="28" rx="4"/></g>
-        <g fill="#40be46"><rect x="381" y="68" width="28" height="7" rx="2"/><rect x="531" y="68" width="28" height="7" rx="2"/><rect x="681" y="68" width="28" height="7" rx="2"/></g>
+        <g fill="#4f6bed"><rect x="381" y="68" width="28" height="7" rx="2"/><rect x="531" y="68" width="28" height="7" rx="2"/><rect x="681" y="68" width="28" height="7" rx="2"/></g>
         <g font-size="15" font-weight="700" text-anchor="middle" fill="#17191c"><text x="395" y="116">Laptop</text><text x="545" y="116">Test server</text><text x="695" y="116">Cloud</text></g>
         <text x="545" y="180" text-anchor="middle" font-size="15" font-weight="800" fill="#17191c">…that runs the same everywhere</text>
         <path d="M795 20V186" stroke="#e3e7ea" stroke-width="2"/>
-        <rect x="830" y="24" width="270" height="132" rx="12" fill="#e8f8e9" stroke="#40be46" stroke-width="3" stroke-dasharray="10 8"/>
-        <text x="965" y="48" text-anchor="middle" font-size="14" font-weight="800" fill="#2a9a31" letter-spacing="2">KUBERNETES</text>
+        <rect x="830" y="24" width="270" height="132" rx="12" fill="#eef1fd" stroke="#4f6bed" stroke-width="3" stroke-dasharray="10 8"/>
+        <text x="965" y="48" text-anchor="middle" font-size="14" font-weight="800" fill="#3949c9" letter-spacing="2">KUBERNETES</text>
         <g fill="#17191c"><rect x="852" y="62" width="40" height="34" rx="5"/><rect x="902" y="62" width="40" height="34" rx="5"/><rect x="952" y="62" width="40" height="34" rx="5"/><rect x="1002" y="62" width="40" height="34" rx="5"/><rect x="852" y="106" width="40" height="34" rx="5"/><rect x="902" y="106" width="40" height="34" rx="5"/></g>
         <rect x="952" y="106" width="40" height="34" rx="5" fill="#fdecea" stroke="#e5533d" stroke-width="3"/><path d="M962 114L982 132M982 114L962 132" stroke="#e5533d" stroke-width="3" stroke-linecap="round"/>
-        <rect x="1002" y="106" width="40" height="34" rx="5" fill="#40be46"/><text x="1022" y="129" text-anchor="middle" font-size="16" font-weight="800" fill="#fff">+</text>
+        <rect x="1002" y="106" width="40" height="34" rx="5" fill="#4f6bed"/><text x="1022" y="129" text-anchor="middle" font-size="16" font-weight="800" fill="#fff">+</text>
         <path d="M996 123H999" stroke="#17191c" stroke-width="2"/>
         <text x="965" y="180" text-anchor="middle" font-size="15" font-weight="800" fill="#17191c">One fails → a new one starts</text>
       </svg>
       <div class="grid c3 tight" style="gap:12px">
         <div class="card"><h3>Container</h3><p>A sealed box holding an app together with everything it needs to run.</p></div>
-        <div class="card"><h3>Image</h3><p>The stored, ready-to-run template of a container. It is an artifact.</p></div>
+        <div class="card"><h3>Image</h3><p>The stored, ready-to-run template of a container, made by the CI/CD pipeline.</p></div>
         <div class="card"><h3>Docker</h3><p>The best-known tool for building and running containers.</p></div>
         <div class="card"><h3>Kubernetes (K8s)</h3><p>A system that runs many containers and restarts them when they fail.</p></div>
         <div class="card"><h3>Microservices</h3><p>One product built as many small programs, each in its own container.</p></div>
@@ -798,7 +835,7 @@
 <p>Remember "it works on my machine"? The cause is that the developer's laptop and the production server are set up differently. A <b>container</b> solves this by packing the app <i>together with</i> its packages and settings into one sealed box. The same box runs on a laptop, a test server and the cloud.</p>
 <p>The name comes from shipping containers: the crane doesn't care what is inside, because every box has the same shape.</p>
 <h4>Image and Docker</h4>
-<p>The stored template of a container is an <b>image</b> — a kind of artifact. <b>Docker</b> is the tool that made containers popular, and "a Docker image" is how most people say it.</p>
+<p>The stored template of a container is an <b>image</b>. <b>Docker</b> is the tool that made containers popular, and "a Docker image" is how most people say it.</p>
 <h4>Kubernetes</h4>
 <p>A large product may run thousands of containers. <b>Kubernetes</b> (written <b>K8s</b>) is the system that manages them: you say "keep six copies running" and it does, starting a replacement when one dies. That is the right-hand drawing.</p>
 <h4>Related words</h4>
@@ -807,57 +844,165 @@
   </section>
 
   <section class="slide dark">
-    <div class="kicker">Chapter 3 · Code &amp; packages</div>
-    <h2>So many pieces. Who's keeping track?</h2>
     <div class="body" style="gap:18px">
-      <p class="lead" style="font-size:22px;max-width:none">A large company builds thousands of artifacts a day out of countless outside packages. That chain of ingredients is the <b class="g">software supply chain</b>.</p>
-      <svg viewBox="0 0 1120 122" width="1120" height="122" font-family="Segoe UI, Arial, sans-serif" aria-label="The software supply chain">
-        <g fill="#23272c" stroke="#4a525b" stroke-width="2"><rect x="0" y="20" width="180" height="56" rx="10"/><rect x="470" y="20" width="180" height="56" rx="10"/><rect x="705" y="20" width="180" height="56" rx="10"/><rect x="940" y="20" width="180" height="56" rx="10"/></g>
-        <rect x="235" y="20" width="180" height="56" rx="10" fill="#3a2320" stroke="#e5533d" stroke-width="3"/>
-        <circle cx="415" cy="20" r="14" fill="#e5533d"/><text x="415" y="26" text-anchor="middle" font-size="18" font-weight="800" fill="#fff">!</text>
-        <g font-size="16" font-weight="700" fill="#fff" text-anchor="middle">
-          <text x="90" y="54">Open-source authors</text><text x="325" y="54">Public registries</text><text x="560" y="54">Our developers</text><text x="795" y="54">Our build</text><text x="1030" y="54">Our customers</text>
-        </g>
-        <g stroke="#40be46" stroke-width="3"><path d="M184 48H229" marker-end="url(#ag)"/><path d="M419 48H464" marker-end="url(#ag)"/><path d="M654 48H699" marker-end="url(#ag)"/><path d="M889 48H934" marker-end="url(#ag)"/></g>
-        <path d="M325 78V98H1030V82" fill="none" stroke="#e5533d" stroke-width="3" stroke-dasharray="8 6" marker-end="url(#ar)"/>
-        <text x="677" y="118" text-anchor="middle" font-size="14" font-weight="600" fill="#ff8f7d">one bad ingredient here travels all the way to the customer</text>
-      </svg>
-      <div class="grid c3 tight">
-        <div class="card"><h3>🗄️ Where is everything?</h3><p>Which exact version did we ship to which customer? Can we rebuild it next year?</p></div>
-        <div class="card"><h3>🕳️ Is it safe?</h3><p>One flawed ingredient hits everyone who used it — like 2021's "Log4Shell" bug in a tiny, hugely popular Java package.</p></div>
-        <div class="card"><h3>🎭 Is it genuine?</h3><p>Attackers publish fake or poisoned packages, hoping developers download them by mistake.</p></div>
-      </div>
+      <div class="kicker">Chapter 4</div>
+      <h1 style="font-size:76px">People &amp; <span class="g">hiring</span></h1>
+      <p class="lead" style="margin-top:12px">Who does what, how seniority works, how to read a CV,<br>and what is special about hiring in Israeli tech.</p>
     </div>
-  <aside class="notes">
+    <aside class="notes">
 <h4>The idea</h4>
-<p>Put the last slides together: thousands of builds a day, each made from hundreds of outside ingredients, written by strangers. This flow from the original authors to your customers is the <b>software supply chain</b>.</p>
-<h4>Three hard questions</h4>
-<ul><li><b>Where is everything?</b> If a customer reports a problem in a version from last year, can we find exactly that version and what went into it?</li><li><b>Is it safe?</b> In December 2021 a flaw called <b>Log4Shell</b> was found in a small, free Java package used almost everywhere. Companies spent weeks just working out whether they were using it.</li><li><b>Is it genuine?</b> Attackers upload packages with names that look like popular ones, hoping someone installs them by mistake.</li></ul>
-<h4>The answer</h4>
-<p>A whole category of products exists to solve this: artifact repositories and supply-chain security tools that store, check and track every ingredient.</p>
+<p>The first three chapters explained the technology. This one turns it into your daily work: the roles you recruit for, the career ladder, reading CVs and job descriptions, the hiring process, and the things that are special to Israel — the army tech units, reserve duty and on-call.</p>
     </aside>
   </section>
 
   <section class="slide">
-    <div class="kicker">For your day-to-day</div>
-    <h2>Who's who: roles you'll meet</h2>
-    <div class="body">
-      <table>
-        <tr><th>Role</th><th>What they do</th><th>In the restaurant</th></tr>
-        <tr><td>Software Developer / Engineer</td><td>Writes the code for the product.</td><td class="muted">The cook</td></tr>
-        <tr><td>DevOps Engineer</td><td>Builds and maintains the automated pipeline that builds, tests and ships code.</td><td class="muted">Designs the kitchen line</td></tr>
-        <tr><td>SRE <span class="muted" style="font-weight:400">(Site Reliability)</span></td><td>Keeps live systems fast and available; handles incidents.</td><td class="muted">Floor manager on a busy night</td></tr>
-        <tr><td>Security / DevSecOps</td><td>Makes sure what ships is safe; finds and fixes vulnerabilities.</td><td class="muted">Food-safety inspector</td></tr>
-        <tr><td>Solutions Engineer</td><td>The technical partner in sales — shows customers how the products fit their needs.</td><td class="muted">Sommelier</td></tr>
-        <tr><td>Developer Advocate</td><td>Teaches and listens to the developer community — talks, demos, content.</td><td class="muted">The chef on TV</td></tr>
-      </table>
+    <div class="kicker">Chapter 4 · People &amp; hiring</div>
+    <h2>Who's who: roles you'll recruit for</h2>
+    <div class="body" style="gap:14px">
+      <div class="grid c4 tight sm" style="gap:10px">
+        <div class="card"><h3>Backend developer</h3><p>The server side: logic, data, APIs. Python, Java, Go, Node.js.</p></div>
+        <div class="card"><h3>Frontend developer</h3><p>The screens users see. React, TypeScript.</p></div>
+        <div class="card"><h3>Full-stack developer</h3><p>Both sides. Very common in Israeli startups.</p></div>
+        <div class="card"><h3>Mobile developer</h3><p>iPhone (Swift) and Android (Kotlin) apps.</p></div>
+        <div class="card"><h3>QA · Automation</h3><p>Manual QA tests by hand; automation engineers write code that tests.</p></div>
+        <div class="card"><h3>DevOps · Platform</h3><p>Builds the pipelines and cloud the developers rely on.</p></div>
+        <div class="card"><h3>SRE</h3><p>Keeps production fast and available; leads incidents.</p></div>
+        <div class="card"><h3>Data engineer</h3><p>Builds the pipelines that collect and prepare data.</p></div>
+        <div class="card"><h3>Data scientist · ML / AI</h3><p>Models and AI features (see the AI slide).</p></div>
+        <div class="card"><h3>Security · cyber</h3><p>Researchers, AppSec, SOC analysts. A huge field in Israel.</p></div>
+        <div class="card"><h3>Product manager</h3><p>Decides what to build and why. Not a developer.</p></div>
+        <div class="card"><h3>Product designer</h3><p>UX (how it works) and UI (how it looks).</p></div>
+      </div>
+      <div class="analogy" style="font-size:18px"><b>In the restaurant:</b> developers are the cooks, DevOps designs the kitchen line, SRE is the floor manager on a busy night, security is the food-safety inspector, and the product manager writes the menu.</div>
     </div>
-  <aside class="notes">
+    <aside class="notes">
 <h4>The idea</h4>
-<p>These are the roles you will meet most often, in almost any software company.</p>
-<h4>Telling them apart</h4>
-<ul><li><b>Developers</b> create the product. Often split into frontend, backend and full-stack.</li><li><b>DevOps Engineers</b> build the automated road the code travels on. Related titles: Platform Engineer, Build / Release Engineer.</li><li><b>SREs</b> keep production healthy and are "on call" when it breaks.</li><li><b>Security</b> people (AppSec, DevSecOps, researchers) find and prevent vulnerabilities.</li><li><b>Solutions Engineers</b> and <b>Developer Advocates</b> are technical people who face customers and the community.</li></ul>
+<p>These are the roles you will recruit for most often. The titles differ between companies, so always ask the hiring manager what the person will actually do all day.</p>
+<h4>Common mix-ups</h4>
+<ul><li><b>Full-stack</b> in a startup often means "mostly backend, can do some frontend". Ask which side is the main one.</li><li><b>QA vs. automation</b> — a manual QA tester and an automation engineer are different markets with different salaries. Many manual testers are moving to automation.</li><li><b>DevOps, Platform, SRE</b> — overlapping titles. DevOps and Platform build the road; SRE keeps traffic moving on it. Related titles: Infrastructure Engineer, Build / Release Engineer.</li><li><b>Data engineer vs. data scientist</b> — the engineer builds the pipes, the scientist analyses what flows through them.</li><li><b>Product manager</b> is not a project manager: the PM decides <i>what</i> to build; a project manager tracks <i>when</i> it will be done.</li></ul>
+<h4>Israel</h4>
+<p>Cyber security is one of Israel's biggest hi-tech fields, so security roles (security researcher, AppSec engineer, SOC analyst, penetration tester) are common even in companies whose product is not security.</p>
+    </aside>
+  </section>
 
+  <section class="slide">
+    <div class="kicker">Chapter 4 · People &amp; hiring</div>
+    <h2>Seniority and the two career tracks</h2>
+    <div class="body" style="gap:18px">
+      <svg viewBox="0 0 1120 250" width="1120" height="250" font-family="Segoe UI, Arial, sans-serif" aria-label="A career ladder that splits into an individual contributor track and a management track">
+        <g fill="#f5f7f6" stroke="#c9d1d6" stroke-width="2"><rect x="20" y="170" width="170" height="60" rx="10"/><rect x="210" y="130" width="170" height="60" rx="10"/><rect x="400" y="90" width="170" height="60" rx="10"/></g>
+        <g font-size="19" font-weight="800" fill="#17191c" text-anchor="middle"><text x="105" y="198">Junior</text><text x="295" y="158">Mid-level</text><text x="485" y="118">Senior</text></g>
+        <g font-size="13" fill="#6a727d" text-anchor="middle"><text x="105" y="218">~0–2 years</text><text x="295" y="178">~2–5 years</text><text x="485" y="138">~5+ years</text></g>
+        <path d="M575 110C620 110 620 50 660 50" fill="none" stroke="#17191c" stroke-width="3" marker-end="url(#ah)"/>
+        <path d="M575 130C620 130 620 190 660 190" fill="none" stroke="#4f6bed" stroke-width="3" marker-end="url(#ag)"/>
+        <g fill="#fff" stroke="#17191c" stroke-width="2"><rect x="670" y="22" width="130" height="56" rx="10"/><rect x="820" y="22" width="130" height="56" rx="10"/><rect x="970" y="22" width="130" height="56" rx="10"/></g>
+        <g font-size="17" font-weight="800" fill="#17191c" text-anchor="middle"><text x="735" y="56">Staff</text><text x="885" y="56">Principal</text><text x="1035" y="56">Architect</text></g>
+        <g fill="#eef1fd" stroke="#4f6bed" stroke-width="2"><rect x="670" y="162" width="100" height="56" rx="10"/><rect x="780" y="162" width="100" height="56" rx="10"/><rect x="890" y="162" width="100" height="56" rx="10"/><rect x="1000" y="162" width="100" height="56" rx="10"/></g>
+        <g font-size="15" font-weight="800" fill="#17191c" text-anchor="middle"><text x="720" y="195">Team Lead</text><text x="830" y="195">Group Lead</text><text x="940" y="195">VP R&amp;D</text><text x="1050" y="195">CTO</text></g>
+        <text x="885" y="102" text-anchor="middle" font-size="14" font-weight="700" fill="#17191c" letter-spacing="1">TECHNICAL TRACK (IC) — GROWS BY IMPACT</text>
+        <text x="885" y="242" text-anchor="middle" font-size="14" font-weight="700" fill="#3949c9" letter-spacing="1">MANAGEMENT TRACK — GROWS BY PEOPLE</text>
+      </svg>
+      <div class="grid c3 tight" style="gap:12px">
+        <div class="card"><h3>IC</h3><p>Individual contributor: grows by solving bigger problems, not by managing.</p></div>
+        <div class="card"><h3>Team Lead</h3><p>Manages a team of about 4–8 developers and usually still codes.</p></div>
+        <div class="card"><h3>Group Lead · Director</h3><p>Manages team leads. VP R&amp;D runs all of engineering.</p></div>
+      </div>
+    </div>
+    <aside class="notes">
+<h4>The idea</h4>
+<p>Developers start as <b>junior</b>, become <b>mid-level</b>, then <b>senior</b>. After senior the road splits in two, and both are promotions.</p>
+<ul><li><b>Technical track</b> — Staff, Principal, Architect. These people lead through technical decisions across many teams, without managing anyone. Their pay can match or pass that of managers.</li><li><b>Management track</b> — Team Lead (about 4–8 people), Group Lead or Director (several teams), VP R&amp;D (all of engineering), CTO (technology strategy; in small startups often the technical co-founder).</li></ul>
+<h4>Years are only a hint</h4>
+<p>The years on the drawing are rough. Seniority is about what someone can do on their own: a junior needs guidance, a mid-level developer delivers features alone, a senior owns a whole area and guides others. "Senior" in a 10-person startup and in Google are not the same thing.</p>
+<h4>Good to know</h4>
+<ul><li>Not every great developer wants to manage. A strong senior who moves to Team Lead loses most of their coding time.</li><li>"Tech Lead" is often a senior who leads the technical work of a team without managing people — not the same as Team Lead.</li></ul>
+    </aside>
+  </section>
+
+  <section class="slide">
+    <div class="kicker">Chapter 4 · People &amp; hiring</div>
+    <h2>Reading a job description and a CV</h2>
+    <div class="body" style="gap:16px">
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:28px;align-items:start">
+        <div class="card" style="font-size:17px;line-height:1.55;background:#fff">
+          <span class="tag out">Senior Backend Engineer</span>
+          <p><b>Requirements:</b></p>
+          <p>• 5+ years of backend development</p>
+          <p>• Strong Python or Go</p>
+          <p>• Experience with AWS, Kubernetes, Terraform</p>
+          <p>• Production experience with Kafka / PostgreSQL</p>
+          <p>• B.Sc. in Computer Science or equivalent</p>
+          <p><b>Advantage:</b> GenAI / LLM experience</p>
+        </div>
+        <div class="grid tight" style="gap:10px">
+          <div class="card green"><h3>"5+ years backend"</h3><p>The real filter. Years in this kind of work, not in any job.</p></div>
+          <div class="card"><h3>"Python or Go"</h3><p>The language. A strong developer moves between them in weeks.</p></div>
+          <div class="card"><h3>"AWS, Kubernetes, Terraform"</h3><p>Cloud and DevOps skills a backend developer is expected to touch.</p></div>
+          <div class="card"><h3>"Advantage" · "or equivalent"</h3><p>Nice to have, not a must. A degree can be replaced by experience or an army tech unit.</p></div>
+        </div>
+      </div>
+      <div class="chips"><span class="chip">8200</span><span class="chip">Mamram</span><span class="chip">Talpiot</span><span class="chip">Ofek (Air Force)</span><span class="chip">other army tech units</span><span class="chip">bootcamps</span><span class="chip">open-source work</span></div>
+    </div>
+    <aside class="notes">
+<h4>Reading a job description</h4>
+<ul><li>Split the list into <b>must</b> and <b>nice to have</b>. In Israeli job posts, "<b>Advantage</b>" means nice to have.</li><li>The first line — years in a <i>kind</i> of work — is usually the real filter. Ask the hiring manager which two or three lines truly matter; job descriptions are often wish lists.</li><li>Group the technologies by the columns of the "Technology names" slide: language, cloud, data. That tells you what kind of developer this is.</li></ul>
+<h4>Reading a CV</h4>
+<ul><li><b>What they built, not what they used.</b> "Built the payments service that handles 1M requests a day" says more than a list of ten technologies.</li><li><b>Years per technology.</b> A long skills list with no context means little.</li><li><b>Company type.</b> Startup, scale-up or global R&amp;D center each build different habits (see the business slide).</li></ul>
+<h4>The army tech units</h4>
+<p>Many Israeli developers started in the IDF's technology units, such as <b>8200</b> (intelligence technology), <b>Mamram</b> (the IDF's central computing unit, with its own programming course), <b>Talpiot</b> (an elite science and technology program) and <b>Ofek</b> (Air Force software). Service there often counts as real professional experience. Still judge the person, not the unit: the role inside the unit matters more than its name, and great developers also come from academia, bootcamps, self-study and other paths.</p>
+    </aside>
+  </section>
+
+  <section class="slide">
+    <div class="kicker">Chapter 4 · People &amp; hiring</div>
+    <h2>The hiring process for developers</h2>
+    <div class="body" style="gap:20px">
+      <div class="flow">
+        <div class="step"><span class="ico">📞</span><b>HR screen</b><span class="s">motivation, salary, timing</span></div><div class="arrow">›</div>
+        <div class="step"><span class="ico">💻</span><b>Coding test</b><span class="s">online test or home assignment</span></div><div class="arrow">›</div>
+        <div class="step"><span class="ico">🧑‍💻</span><b>Technical</b><span class="s">1–2 interviews with developers</span></div><div class="arrow">›</div>
+        <div class="step"><span class="ico">🗺️</span><b>System design</b><span class="s">for seniors: design a system</span></div><div class="arrow">›</div>
+        <div class="step"><span class="ico">🤝</span><b>Manager &amp; HR</b><span class="s">fit, references</span></div><div class="arrow">›</div>
+        <div class="step hl"><span class="ico">✉️</span><b>Offer</b><span class="s">salary, options, start date</span></div>
+      </div>
+      <div class="grid c3 tight" style="gap:12px">
+        <div class="card"><h3>Home assignment</h3><p>A small task done at home in a few hours, then discussed in the next interview.</p></div>
+        <div class="card"><h3>System design</h3><p>"How would you build WhatsApp?" Tests how a senior thinks about large systems.</p></div>
+        <div class="card"><h3>What HR can screen</h3><p>Motivation, communication, salary range, notice period, and the candidate's own story of what they built.</p></div>
+      </div>
+    </div>
+    <aside class="notes">
+<h4>The idea</h4>
+<p>Most Israeli tech companies follow a similar path. The order changes, and small startups often merge steps, but the pieces are the same.</p>
+<h4>The steps</h4>
+<ul><li><b>HR screen</b> — a short call: why this role, salary expectations, notice period, timing.</li><li><b>Coding test</b> — an online test (HackerRank, Codility and similar) or a <b>home assignment</b>. Long home assignments make good candidates drop out; keep them to a few hours.</li><li><b>Technical interviews</b> — developers solve problems with the candidate and talk about past work.</li><li><b>System design</b> — for senior roles: design a large system on a whiteboard. There is no single right answer; it shows how they think and trade off.</li><li><b>Manager and HR</b> — team fit, values, references. Some companies also use an external assessment day (<i>mivdakim</i>), more often for juniors.</li></ul>
+<h4>What HR can do well</h4>
+<ul><li>Ask "tell me about something you built" and listen for <b>what they did themselves</b>, the scale, and the result.</li><li>Prepare candidates: tell them what each stage tests. Good candidates usually run several processes at once, so speed matters.</li><li>Leave the technical depth to the technical interviewers; your job is the person, the motivation and the fit.</li></ul>
+    </aside>
+  </section>
+
+  <section class="slide">
+    <div class="kicker">Chapter 4 · People &amp; hiring</div>
+    <h2>Working in an Israeli tech team</h2>
+    <div class="body" style="gap:16px">
+      <div class="grid c3" style="gap:16px">
+        <div class="card top"><h3>🪖 Reserve duty (miluim)</h3><p>Many engineers serve for weeks or months a year. Teams plan for long absences, and the law protects reservists' jobs.</p></div>
+        <div class="card top"><h3>📟 On-call (konenut)</h3><p>DevOps, SRE and backend people take turns answering alerts at night and on weekends — usually paid as an addition.</p></div>
+        <div class="card top"><h3>🏠 Hybrid work</h3><p>Two or three office days a week is common. Ask the team's real policy before you promise a candidate.</p></div>
+        <div class="card top"><h3>🌍 Global teams</h3><p>Many Israeli teams work with colleagues abroad: English every day, evening meetings with the US.</p></div>
+        <div class="card top"><h3>📅 Sunday–Thursday</h3><p>The Israeli week shares only Monday–Thursday with the US and Europe: Friday calls happen, and Sunday is quiet abroad.</p></div>
+        <div class="card top"><h3>💬 Direct culture</h3><p>Flat, informal and direct. Candidates expect quick answers and honest feedback.</p></div>
+      </div>
+    </div>
+    <aside class="notes">
+<h4>Reserve duty</h4>
+<p>Since October 2023 many engineers have served long reserve periods. Teams that handle this well plan knowledge sharing so no single person is a bottleneck, keep in touch with people while they serve, and plan their return. Israeli law protects reservists from being dismissed because of their service; HR should know the company's policy and the rules.</p>
+<h4>On-call</h4>
+<p>Being on call means answering alerts outside working hours, often a week at a time in rotation. Pay and rules differ between companies — a fixed monthly addition, a payment per shift, or extra pay for actual call-outs. It is a fair question from candidates, so have a clear answer.</p>
+<h4>Global and hybrid</h4>
+<ul><li>In R&amp;D centers and companies with US headquarters, evening calls are part of the job. Say so in the interview.</li><li>Hybrid policies are a common reason candidates accept or decline offers. Be precise.</li></ul>
+<h4>Culture</h4>
+<p>Israeli tech teams are known for being flat and direct: juniors argue with seniors, and decisions are made fast. Candidates from abroad may need this explained; Israeli candidates expect the same speed and honesty from the hiring process.</p>
     </aside>
   </section>
 
@@ -866,23 +1011,23 @@
     <h2>Ten words to keep in your pocket</h2>
     <div class="body">
       <div class="grid c2" style="gap:10px 28px;font-size:18px">
+        <div><b class="g">Backend · frontend · full-stack</b> — the server side, the screens, or both.</div>
+        <div><b class="g">Cloud (AWS · Azure · GCP)</b> — renting computers instead of owning them.</div>
         <div><b class="g">DevOps</b> — developers and operations working as one team, with heavy automation.</div>
-        <div><b class="g">Artifact / binary</b> — the finished, runnable output of a build.</div>
-        <div><b class="g">Source code</b> — the human-written instructions for a program.</div>
-        <div><b class="g">Repository</b> — an organised store: of code (Git) or of artifacts.</div>
-        <div><b class="g">Git</b> — version history for code.</div>
         <div><b class="g">CI/CD</b> — automatic build, test and delivery.</div>
-        <div><b class="g">Open source</b> — code published freely for anyone to use.</div>
-        <div><b class="g">Software supply chain</b> — everything that goes into your software, and how it got there.</div>
-        <div><b class="g">Package / dependency</b> — reusable code your software relies on.</div>
-        <div><b class="g">Vulnerability (CVE)</b> — a known, publicly listed security flaw.</div>
+        <div><b class="g">K8s · Docker</b> — running software in containers, at scale.</div>
+        <div><b class="g">Production</b> — the live system real customers use.</div>
+        <div><b class="g">On-call</b> — taking turns answering alerts, day or night.</div>
+        <div><b class="g">LLM · GenAI</b> — the AI behind chat assistants, and AI that creates content.</div>
+        <div><b class="g">IC · Team Lead</b> — the technical track, and the first management step.</div>
+        <div><b class="g">Options (102) · vesting</b> — a share in the company, earned over time.</div>
       </div>
     </div>
   <aside class="notes">
 <h4>How to use this slide</h4>
 <p>Keep it as a reference. If you remember only these ten words, you can follow most technical conversations.</p>
 <h4>A few more you may meet</h4>
-<ul><li><b>Container / Docker</b> — a boxed-up program with everything it needs to run anywhere.</li><li><b>Kubernetes (K8s)</b> — a system that runs and manages many containers.</li><li><b>Microservices</b> — building one product as many small, separate programs.</li><li><b>On-prem / self-hosted</b> — installed on the customer's own servers rather than in the cloud.</li><li><b>SBOM</b> — the ingredient list of a piece of software.</li><li><b>Tech stack</b> — the set of languages and tools a team uses.</li></ul>
+<ul><li><b>Tech stack</b> — the set of languages and tools a team uses.</li><li><b>Microservices</b> — building one product as many small, separate programs.</li><li><b>SaaS</b> — software sold as a subscription and used online.</li><li><b>Open source</b> — code published freely for anyone to use.</li><li><b>On-prem</b> — installed on the customer's own servers rather than in the cloud.</li><li><b>Advantage</b> — in an Israeli job post: nice to have, not required.</li></ul>
     </aside>
   </section>
 
@@ -890,13 +1035,13 @@
     <div class="body" style="gap:18px">
       <div class="kicker">That's it</div>
       <h1 style="font-size:72px">Now you speak <span class="g">hi-tech.</span></h1>
-      <p class="lead" style="margin-top:12px">Teams build software in small steps.<br><b class="g">DevOps</b> gets it to customers quickly and keeps it running.<br>It is made of code, borrowed <b class="g">packages</b> and built <b class="g">artifacts</b>.</p>
+      <p class="lead" style="margin-top:12px">Teams build software in small steps.<br><b class="g">DevOps</b> gets it to customers quickly and keeps it running.<br>Behind every step are <b class="g">people</b> — and now you can talk with them.</p>
     </div>
     <aside class="notes">
 <h4>The whole story in four lines</h4>
-<ul><li>Software lives in two halves — frontend and backend — usually in the cloud, and is built by teams working in short sprints.</li><li><b>DevOps</b> is the way of working that makes delivery fast and safe: shared ownership, automation, small frequent releases, and watching production.</li><li>Software is assembled from the team's own code plus many outside <b>packages</b>, built into <b>artifacts</b>, and often shipped in <b>containers</b>.</li><li>All those ingredients form a <b>software supply chain</b> that has to be tracked and protected.</li></ul>
+<ul><li>Software lives in two halves — frontend and backend — usually in the cloud, and is built by teams working in short sprints.</li><li><b>DevOps</b> is the way of working that makes delivery fast and safe: shared ownership, automation, small frequent releases, and watching production.</li><li>Software is assembled from the team's own code plus many outside <b>packages</b>, and shipped automatically through <b>CI/CD</b>, often in <b>containers</b>.</li><li>The people behind it have clear roles and two career tracks, and in Israel their work is shaped by army tech units, reserve duty, on-call and global teams.</li></ul>
 <h4>A good next step</h4>
-<p>Ask an engineer to show you their pipeline for five minutes: one change travelling from a commit to production. Seeing it once makes everything in this deck click.</p>
+<p>Ask an engineer to show you their pipeline for five minutes: one change travelling from a commit to production. Then ask a hiring manager to walk you through the last CV they loved, and why. Those two conversations make everything in this deck click.</p>
     </aside>
   </section>
   <!-- ==================== END OF PART 1 ==================== -->

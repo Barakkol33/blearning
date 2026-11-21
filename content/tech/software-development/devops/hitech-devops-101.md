@@ -7,9 +7,9 @@ attachments: [_files/hitech-devops-101.html]
 
 # Hi-tech & DevOps 101
 
-A slide deck for HR, recruiting and anyone else who works with engineers but is not an engineer. It explains the words, the people and the process behind every app, without a single line of code. Nothing in it is about one company, so it fits any software company.
+A slide deck for HR, recruiting and people teams in Israeli hi-tech. It explains the words, the people and the process behind every app, without a single line of code, and then turns to the people side: roles, seniority, CVs, the hiring process and what is special about Israeli tech. Nothing in it is about one company.
 
-<p><a href="/blearning/tech/software-development/devops/_files/hitech-devops-101.html" style="display:block; text-align:center; padding:0.8rem 1rem; border-radius:999px; background:#40be46; color:#fff; font-weight:700; text-decoration:none">Open the slides (best on a phone)</a></p>
+<p><a href="/blearning/tech/software-development/devops/_files/hitech-devops-101.html" style="display:block; text-align:center; padding:0.8rem 1rem; border-radius:999px; background:#4f6bed; color:#fff; font-weight:700; text-decoration:none">Open the slides (best on a phone)</a></p>
 
 <div style="position:relative; width:100%; aspect-ratio:16/9; margin:1rem 0; border:1px solid var(--sl-color-gray-5); border-radius:6px; overflow:hidden">
 <iframe src="/blearning/tech/software-development/devops/_files/hitech-devops-101.html" title="Hi-tech and DevOps 101 - slides" loading="lazy" allowfullscreen style="position:absolute; inset:0; width:100%; height:100%; border:0"></iframe>
@@ -21,10 +21,10 @@ A slide deck for HR, recruiting and anyone else who works with engineers but is 
 
 ## What's inside
 
-1. **Hi-tech vocabulary** - where software lives (frontend, backend, cloud), how a tech team works (sprints, backlog, QA), programming words, technology names and what they are for (Python, Node.js, Java, Go, C/C++, Maven), and the business side (funding rounds, ARR, equity).
-2. **What is DevOps?** - the road from idea to customer, the old wall between Dev and Ops, the DevOps loop, and keeping software running (monitoring, on-call, incidents).
-3. **Code, packages & containers** - source code and Git, open-source packages, the build and its artifacts, containers and Kubernetes, and the software supply chain.
-4. **Who's who** - the roles you meet and recruit for, and a ten-word cheat sheet.
+1. **Hi-tech vocabulary** - where software lives (frontend, backend, cloud), how a tech team works (sprints, backlog, QA), programming words, the technology names on Israeli CVs (Python, Java, Go, React, AWS, Kubernetes, Terraform), AI words (LLM, GenAI, agents, and data scientist vs. ML engineer vs. AI engineer), and the business side (funding rounds, exits, R&D centers, options under section 102).
+2. **What is DevOps?** - the road from idea to customer, the old wall between Dev and Ops, the DevOps loop, and keeping software running (monitoring, incidents, on-call).
+3. **Code & packages** - source code and Git, open-source packages, CI/CD, containers and Kubernetes.
+4. **People & hiring** - the roles you recruit for, seniority and the two career tracks, reading a job description and a CV (including the army tech units), the hiring process for developers, working in an Israeli tech team (reserve duty, on-call, hybrid, global teams), and a ten-word cheat sheet.
 
 ## Next steps
 
