@@ -613,8 +613,8 @@ AI is a great co-pilot. You are still the pilot - and the pilot needs to know wh
 3. **use AI** - go build something
 4. **AI writes the code - you have to know what it does**
 5. **the base**: the product, your tech, learning - and English
-6. **Contact me**: improve Bagrut or consult
-7. **Self study**: Go over the full slide with "?" 
+6. **contact me**: improve Bagrut or consult
+7. **self study**: Go over the full slide with "?" 
 
 <!-- notes:
 The whole talk in five ideas:
