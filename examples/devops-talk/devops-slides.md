@@ -329,9 +329,9 @@ So we let a machine answer both questions - the same way, on every push. That's 
 2. **TEST** - run the tests: the unit tests (pytest - the rules of the game and the web server), then a smoke test - does the new image really start and serve the game?
 3. **DEPLOY** - upload the image, and replace the running copies one at a time.
 
-**CI** (Continuous Integration) answers the first question: every change is built and tested, automatically. **CD** (Continuous Delivery) answers the second: what passed is shipped, automatically. If any step fails, the pipeline stops - before the change reaches players - and if it already started rolling out, it rolls back to the last version that worked, by itself (slide 25 shows it).
+**CI** (Continuous Integration) answers the first question: every change is built and tested, automatically. **CD** (Continuous Delivery) answers the second: what passed is shipped, automatically. If any step fails, the pipeline stops - before the change reaches players - and if it already started rolling out, it rolls back to the last version that worked, by itself (slide 27 shows it).
 
-In companies, a pipeline like this runs on every push to GitHub (with tools like GitHub Actions or GitLab CI). In the demo, `./demo.sh update` runs the same steps on the laptop. It needs somewhere to ship to - a Kubernetes cluster (step 4). The real run, a new level shipped and a bug caught and rolled back, is right after the wrap-up (slides 24-25).
+In companies, a pipeline like this runs on every push to GitHub (with tools like GitHub Actions or GitLab CI). In the demo, `./demo.sh update` runs the same steps on the laptop. It needs somewhere to ship to - a Kubernetes cluster (step 4). The real run, a new level shipped and a bug caught and rolled back, is right after the wrap-up (slides 26-27).
 -->
 
 ---
@@ -384,8 +384,8 @@ In the diagram: every player goes to one address - a **load balancer** - and it 
 But who starts the copies, spreads them over the machines, and replaces one that dies at 3 AM? **Kubernetes** (K8s for short: K, then 8 letters, then s). Kubernetes is **declarative**: you don't tell it the steps ("start a server"), you describe the result you want - "3 copies of `game-site:v2`, always" - and it keeps that true, forever. Like a thermostat: you set 22°, and it keeps measuring and fixing.
 
 Two ideas hide in this slide:
-- **Infrastructure as Code (IaC):** the wish isn't typed by hand into some screen - it's a file in the repository (`k8s/deployment.yaml`, with `replicas: 3` and the image - the next slide shows it). The file can be reviewed, saved in Git with its history, and used to rebuild everything from scratch. Change the number in the file, and Kubernetes changes the world to match (slide 30 does it live: 3 copies → 6).
-- **High availability (HA):** the system keeps working when parts of it fail. There are several copies, spread over the machines, so even if a copy - or a whole machine - dies, the others keep serving while Kubernetes replaces it (slide 32 unplugs a machine live). Real systems spread copies over separate buildings and cities.
+- **Infrastructure as Code (IaC):** the wish isn't typed by hand into some screen - it's a file in the repository (`k8s/deployment.yaml`, with `replicas: 3` and the image - the next slide shows it). The file can be reviewed, saved in Git with its history, and used to rebuild everything from scratch. Change the number in the file, and Kubernetes changes the world to match (slide 32 does it live: 3 copies → 6).
+- **High availability (HA):** the system keeps working when parts of it fail. There are several copies, spread over the machines, so even if a copy - or a whole machine - dies, the others keep serving while Kubernetes replaces it (slide 34 unplugs a machine live). Real systems spread copies over separate buildings and cities.
 
 A few words you'll see in the output:
 - **pod** - one running copy (a container, with a name like `game-5b9b8dff8c-hsm8l`).
@@ -420,11 +420,11 @@ This is the wish from the last slide, as a file - the heart of `k8s/deployment.y
 - `kind: Deployment` and `name: game` - what this file describes: a Deployment called "game".
 - `replicas: 3` - how many copies to keep running, always.
 - `image: game-site:v1` - which image each copy runs: the one Docker built in step 2. The pipeline changes this line to ship a new version.
-- `readinessProbe` - how Kubernetes knows a copy is ready for players: it asks the address `/healthz` on port 8000, every second. Only a copy that answers gets players. (Remember this line - it matters on slide 25.)
+- `readinessProbe` - how Kubernetes knows a copy is ready for players: it asks the address `/healthz` on port 8000, every second. Only a copy that answers gets players. (Remember this line - it matters on slide 27.)
 
 The real file adds labels (to connect the copies to the load balancer), the rolling-update settings, spreading the copies over the machines, and limits on memory.
 
-To change the world, you change the file and apply it: `kubectl apply -f k8s/deployment.yaml`. That's **Infrastructure as Code** - slide 30 does it live, 3 copies → 6.
+To change the world, you change the file and apply it: `kubectl apply -f k8s/deployment.yaml`. That's **Infrastructure as Code** - slide 32 does it live, 3 copies → 6.
 -->
 
 ---
@@ -459,7 +459,7 @@ The real output from the demo (`./demo.sh pods`, then `./demo.sh kill`), with a 
 
 Who started it? Nobody. Kubernetes keeps comparing what you asked for (3 copies) with what's running (2), and fixes the gap. That's **self-healing** - and it works the same at 3 AM, when everyone is asleep. Meanwhile the load balancer simply stopped sending players to the dead copy: the game never went down.
 
-More of the same, after the wrap-up: kill **all** the copies at once (slide 31), or unplug a whole machine (slide 32).
+More of the same, after the wrap-up: kill **all** the copies at once (slide 33), or unplug a whole machine (slide 34).
 -->
 
 ---
@@ -475,53 +475,92 @@ More of the same, after the wrap-up: kill **all** the copies at once (slide 31),
 
 That road is **DevOps**.
 
+The real project: [github.com/Barakkol33/devops-example](https://github.com/Barakkol33/devops-example)
+
 <!-- notes:
-The whole road, from your laptop to 100,000 players:
+The whole road, from your laptop to 100,000 players - and all of it is a real project on GitHub, [github.com/Barakkol33/devops-example](https://github.com/Barakkol33/devops-example): the game's code, its tests, the Dockerfile, the Kubernetes files and the pipeline, running on every push.
 - **Git** saved every change - with who, when and why - and kept every version one command away.
 - **Docker** packed the game with everything it needs into an image. The same image ran on the laptop and in the cluster.
-- **CI/CD** builds, tests and ships every commit by itself - and stops a bad one before players notice. (The real run, with a new level and a bug: slides 24-25.)
+- **CI/CD** builds, tests and ships every commit by itself - and stops a bad one before players notice. (The real run, with a new level and a bug: slides 26-27.)
 - **Kubernetes** ran three copies behind one address - described in a file (**Infrastructure as Code**), spread over two machines (**high availability**) - and replaced one that died, with nobody pressing anything.
 
-Together, that road is **DevOps** = **Dev** (developing software) + **Ops** (operating it - running it for real users). In the old days, developers wrote the code and threw it "over the wall" to an operations team, who installed it and kept it alive by hand - and each side blamed the other when things broke. Today, most companies have a **DevOps team** (sometimes called a platform team) that builds this road: the tools and pipelines that let developers ship their own code - quickly, safely, and without waiting for anyone. Every one of these tools is today's best practice - in ten years some will be replaced, but the problems they solve will still be there. More depth on everything here, and on things we skipped (observability, high availability, guardrails, architecture), comes after the wrap-up (slide 22 is the map).
+Together, that road is **DevOps** = **Dev** (developing software) + **Ops** (operating it - running it for real users). In the old days, developers wrote the code and threw it "over the wall" to an operations team, who installed it and kept it alive by hand - and each side blamed the other when things broke. Today, most companies have a **DevOps team** (sometimes called a platform team) that builds this road: the tools and pipelines that let developers ship their own code - quickly, safely, and without waiting for anyone. Every one of these tools is today's best practice - in ten years some will be replaced, but the problems they solve will still be there. More depth on everything here, and on things we skipped (observability, high availability, guardrails, architecture), comes after the wrap-up (slide 24 is the map).
 -->
 
 ---
 
 ## Part 6 · Build with AI
 
-#### Go build something - but know what it does
+#### Go build something
 
 > My opinion: if you don't use AI, you will become **irrelevant**.
 
 - build **anything** - a game, a bot, a site for your class
 - AI writes a working app in 30 seconds
-- it passes its tests. It runs. **Is it done?**
-- my example, built with AI: [Bagrut summaries](https://barakkol33.github.io/blearning/high-school/) - math, physics, computer science, history, Tanakh...
+- the first project breaks the fear - after that, the only limit is you
 
 <!-- notes:
-In my opinion, if you don't use AI, you will become irrelevant - not in ten years, now. The people who will build things are the people who use AI to build them. If you already build with AI - keep going. If you don't - start today. Build anything: a game, a bot, a site for your class. The first project breaks the fear barrier; after that, the only limit is your imagination.
+In my opinion, if you don't use AI, you will become irrelevant - not in ten years, now. The people who will build things are the people who use AI to build them. If you already build with AI - keep going. If you don't - start today. Build anything: a game, a bot, a site for your class, something that solves a problem you have. The first project breaks the fear barrier; after that, the only limit is your imagination.
+-->
 
-But AI writes a working app in 30 seconds - so is it done? Is there still a reason to learn how things work?
+---
 
-My own example: **blearning** ([barakkol33.github.io/blearning](https://barakkol33.github.io/blearning/)), a learning site built and grown with Claude Code - Bagrut summaries in math, physics, computer science, history, Tanakh and more, interactive physics animations, and this whole DevOps course. It started as one small project, and grew one piece at a time.
+## Don't know how? Ask the AI
 
-The next slide is the answer: **AI writes the code - you have to know what it does.** (A real example - an AI "tidy-up" that passed every test and still broke the game - is on slide 25.)
+#### The most patient teacher you'll ever have
+
+- "explain it like I'm 15" - any subject, any time
+- ask for an example - then ask **why**
+- ask it to quiz you, and to check your answers
+- an error you don't understand? paste it, and ask
+
+<!-- notes:
+You don't need to know how to do something before you start. AI is not only a code writer - it's a teacher that never gets tired of your questions:
+- **"Explain it like I'm 15"** - Git, recursion, the French revolution, an integral. Then "explain it again, differently" until it clicks.
+- **Ask for an example, then ask why.** The example shows *what*; the "why" is where you actually learn.
+- **Ask it to quiz you** before a test - and to check your answers and explain the mistakes.
+- **An error message you don't understand?** Paste it, and ask what it means and how to fix it - and then ask why that fix works.
+
+One rule: AI can be confidently wrong. Check what matters - in the docs, in your textbook, or by running it. Learning *with* it is the goal, not copying from it.
+-->
+
+---
+
+## I saved you some work
+
+#### blearning - summaries and learning materials, free
+
+- **Bagrut summaries** - math, physics, CS, history, Tanakh...
+- interactive physics animations
+- a full DevOps course - and this talk
+
+[barakkol33.github.io/blearning](https://barakkol33.github.io/blearning/)
+
+<!-- notes:
+My own example of building with AI - and something to save you some work: **blearning** ([barakkol33.github.io/blearning](https://barakkol33.github.io/blearning/)), a learning site I built and keep growing with Claude Code:
+- **Bagrut summaries** - math, physics, computer science, history, Tanakh and more;
+- **interactive physics animations**;
+- a full **DevOps course** - Linux, Git, Docker, Kubernetes, CI/CD, the cloud - and this talk, with its notes and the demo.
+
+It's free. It started as one small project, and grew one piece at a time - the same way your first project will.
 -->
 
 ---
 
 ## AI writes the code. You have to know what it does.
 
+#### It runs. It passes its tests. Is it done?
+
 ![An iceberg: above the water, the code you see; below, the algorithm, I/O, caching, memory, guardrails and access](img/iceberg.svg)
 
 <!-- notes:
-This is the central message of the talk.
+This is the central message of the talk. AI writes a working app in 30 seconds - it runs, it passes its tests. So is it done? Is there still a reason to learn how things work?
 
 **The iceberg:** the code is the small tip above the water - what AI writes in 30 seconds. Under the water is the big part: what that code does to real machines and real systems - the algorithm, I/O, caching, memory, guardrails and access.
 
-AI is very good at producing code that **looks** right and works when you try it once. But it has never seen your players, your data, or your bill - and it doesn't know the rest of your system (slide 25: a change that looked perfect broke the one address Kubernetes depends on). Every line becomes work a real machine does, many times a second. And when it breaks at 3 AM, the AI is not in the room. You are. If you can't explain what the code does, you can't fix it.
+AI is very good at producing code that **looks** right and works when you try it once. But it has never seen your players, your data, or your bill - and it doesn't know the rest of your system (slide 27: a change that looked perfect broke the one address Kubernetes depends on). Every line becomes work a real machine does, many times a second. And when it breaks at 3 AM, the AI is not in the room. You are. If you can't explain what the code does, you can't fix it.
 
-So: ask the AI to explain every line you don't understand, ask it "what happens with 100,000 users?", and test with real-size data. Six questions to ask about any code, and six traps hidden in code that "works", come after the wrap-up (slides 51-59).
+So: ask the AI to explain every line you don't understand, ask it "what happens with 100,000 users?", and test with real-size data. Six questions to ask about any code, and six traps hidden in code that "works", come after the wrap-up (slides 53-61).
 -->
 
 ---
@@ -543,7 +582,7 @@ The tools in this talk - Git, Docker, CI/CD, Kubernetes in the rest of this talk
 
 Underneath is the base, and it doesn't change:
 1. **Know what the product should do.** Who uses it, what problem it solves, what "working" means for them. AI can write code, but it can't decide what's worth building, or notice that it built the wrong thing.
-2. **Know what your technology does.** Not just that the code runs - what it does to real machines: the algorithm, the I/O, the memory, the access. That's the iceberg from slide 19.
+2. **Know what your technology does.** Not just that the code runs - what it does to real machines: the algorithm, the I/O, the memory, the access. That's the iceberg from slide 21.
 3. **Be able to learn new technologies and tools - all the time.** The tools on top will keep changing. The people who stay relevant are the ones who pick up the next one quickly - and AI is the best tool for learning there has ever been.
 
 **And one thing that's always true: learn English well.** Every new tool, its documentation, the forums where people solve your exact problem, the talks and courses - all of it comes out in English first, and often only in English. Even working with AI goes better when you can read and write English precisely. It's the tool that unlocks every other tool.
@@ -566,7 +605,7 @@ The whole talk in five ideas:
 1. **Building the app is the start.** AI can write a game in one evening. Getting it to 100,000 players - without breaking, at 3 AM, while changing it all the time - is the real job.
 2. **The road** that gets it there is **DevOps**: save every change (Git), pack it so it runs anywhere (Docker), check and ship every change by itself (CI/CD), and run many copies that heal themselves (Kubernetes).
 3. **AI writes the code - you have to know what it does.** Code that passes its tests can still break the real system. The code is the tip of the iceberg; what it does to the real system is underneath.
-4. **The base doesn't change:** know what the product should do, know what your technology does, keep learning new tools - and learn English well (slide 20).
+4. **The base doesn't change:** know what the product should do, know what your technology does, keep learning new tools - and learn English well (slide 22).
 5. **Use AI.** In my opinion, if you don't, you will become irrelevant. AI makes you fast; knowing what the code does makes you good. You need both.
 
 Anyone can write code now. Knowing what it does - and running it for many people, safely - that's engineering.
@@ -583,23 +622,23 @@ After the talk - for questions, or at home. Press **?** on any slide for the ful
 
 | subject | what's in it | slides |
 | --- | --- | --- |
-| **Docker** | go deeper: the Docker guide | 23 |
-| **CI/CD** | the pipeline for real: a new level, a bug, a rollback; outages; guardrails | 24-28 |
-| **Kubernetes** | scale with a file, kill all copies, a machine dies, observability, the guides | 29-38 |
-| **Kafka** | services that talk without waiting: producers, consumers, lag | 39-45 |
-| **Infrastructure as code** | Terraform, spot the bug, a real story, why it's harder | 46-49 |
-| **Know what the code does** | laptop vs the real world, six questions, six traps | 50-59 |
-| **Try it yourself** | run the demo at home, where to learn more | 60-61 |
+| **Docker** | go deeper: the Docker guide | 25 |
+| **CI/CD** | the pipeline for real: a new level, a bug, a rollback; outages; guardrails | 26-30 |
+| **Kubernetes** | scale with a file, kill all copies, a machine dies, observability, the guides | 31-40 |
+| **Kafka** | services that talk without waiting: producers, consumers, lag | 41-47 |
+| **Infrastructure as code** | Terraform, spot the bug, a real story, why it's harder | 48-51 |
+| **Know what the code does** | laptop vs the real world, six questions, six traps | 52-61 |
+| **Try it yourself** | run the demo at home, where to learn more | 62-63 |
 
 <!-- notes:
 The talk ended on the previous slide. Everything after this one goes deeper, subject by subject, in the order of the road - for time left over, for questions, or for going over at home:
-- **Docker** (slide 23): where to go deeper - the Docker guide on blearning.
-- **CI/CD** (slides 24-28): the pipeline for real - the new level shipped with a rolling update, and the "tidy-up" that passed every test and was rolled back by itself; famous outages caused by a change; the DevOps loop; and the guardrails that stop one mistake from becoming a disaster.
-- **Kubernetes** (slides 29-38, the last one points to the two Kubernetes guides on blearning): the demo cluster, scaling with a file (Infrastructure as Code), killing every copy at once, unplugging a whole machine (high availability), observability (events and logs), the watch-compare-fix loop, the Kubernetes words, and the architecture of a real app.
-- **Kafka** (slides 39-45): how services talk to each other without waiting - producers, consumers, partitions and lag.
-- **Infrastructure as code** (slides 46-49): Terraform, a bug to spot, a real story of an AI agent and a production database, and why infrastructure code is harder than app code.
-- **Know what the code does** (slides 50-59): your laptop vs the real world, six questions to ask about any code, and six traps hidden in code that "works".
-- **Try it yourself** (slides 60-61): run the whole demo on your own laptop, and where to keep learning.
+- **Docker** (slide 25): where to go deeper - the Docker guide on blearning.
+- **CI/CD** (slides 26-30): the pipeline for real - the new level shipped with a rolling update, and the "tidy-up" that passed every test and was rolled back by itself; famous outages caused by a change; the DevOps loop; and the guardrails that stop one mistake from becoming a disaster.
+- **Kubernetes** (slides 31-40, the last one points to the two Kubernetes guides on blearning): the demo cluster, scaling with a file (Infrastructure as Code), killing every copy at once, unplugging a whole machine (high availability), observability (events and logs), the watch-compare-fix loop, the Kubernetes words, and the architecture of a real app.
+- **Kafka** (slides 41-47): how services talk to each other without waiting - producers, consumers, partitions and lag.
+- **Infrastructure as code** (slides 48-51): Terraform, a bug to spot, a real story of an AI agent and a production database, and why infrastructure code is harder than app code.
+- **Know what the code does** (slides 52-61): your laptop vs the real world, six questions to ask about any code, and six traps hidden in code that "works".
+- **Try it yourself** (slides 62-63): run the whole demo on your own laptop, and where to keep learning.
 -->
 
 ---
@@ -691,7 +730,7 @@ Follow the pipeline:
 - **VERIFY fails.** Kubernetes asks every copy, every second: "are you ready?" - by calling the address `/healthz` (it's written in the project's `k8s/deployment.yaml` - slide 15). The AI renamed it in the code and in the test, but not there. The v3 copy no longer has that address, so it never answers "ready". Because a new copy must be ready before an old one stops, the old v2 copies keep serving the whole time.
 - **ROLLBACK** - after 30 seconds, the pipeline undoes the change by itself, back to v2.
 
-Players never noticed anything. The bug was in the code - but whether players got hurt was decided by **how we ship**: the readiness check, the rolling update, the automatic rollback. These are **guardrails** (more on slide 28).
+Players never noticed anything. The bug was in the code - but whether players got hurt was decided by **how we ship**: the readiness check, the rolling update, the automatic rollback. These are **guardrails** (more on slide 30).
 
 And notice why it happened: every test passed. The code "worked". The problem was in how the change connects to the rest of the system - and to catch it, someone had to know what the code does. Remember that for part 6.
 -->
@@ -717,7 +756,7 @@ Some of the biggest failures in tech had nothing to do with hard code:
 - **2021, Facebook.** A command during routine network maintenance disconnected Facebook's data centers from the internet. Facebook, Instagram and WhatsApp were offline for about six hours. Engineers even had trouble getting into the buildings, because the door systems depended on the same network.
 - **2024, CrowdStrike.** A faulty update to a security product crashed about 8.5 million Windows computers worldwide. Airlines, hospitals and banks stopped working.
 
-**The lesson:** the code itself was usually fine. What failed was **how the change reached production** (the live system real users use) - the deploy, the command, the rollout. That's exactly what the pipeline in the talk is for: test, roll out one copy at a time, verify, and roll back by itself (slides 24-25).
+**The lesson:** the code itself was usually fine. What failed was **how the change reached production** (the live system real users use) - the deploy, the command, the rollout. That's exactly what the pipeline in the talk is for: test, roll out one copy at a time, verify, and roll back by itself (slides 26-27).
 
 Each company name on the slide is a link to the full story. Amazon and Meta published their own reports (called post-mortems); Amazon's is short and readable.
 -->
@@ -735,7 +774,7 @@ The DevOps loop never stops. Follow the numbers around the infinity sign: plan, 
 
 Big companies go around this loop many times a day, with small changes. Why small? Because many small changes are safer than one big one: when something breaks, you know exactly which change caused it. One huge release once a month is a huge haystack to search for the needle.
 
-And every step is automated and checked - which is how you avoid becoming the next story on the outages slide (slide 26).
+And every step is automated and checked - which is how you avoid becoming the next story on the outages slide (slide 28).
 -->
 
 ---
@@ -749,12 +788,12 @@ And every step is automated and checked - which is how you avoid becoming the ne
 - **monitoring + rollback** - notice in seconds, undo in one command
 
 <!-- notes:
-DevOps is also about **guardrails**: safety measures that stop one mistake - by a human or by an AI - from becoming a disaster like the outages on slide 26. Two of them appeared in the talk: automatic rollback and monitoring (slide 25); a plan before a change is on slide 30 ("scale with a file").
-- **Review:** a human reads the plan - a preview of exactly what a change will do - before anyone applies it. (A plan: slide 30.)
+DevOps is also about **guardrails**: safety measures that stop one mistake - by a human or by an AI - from becoming a disaster like the outages on slide 28. Two of them appeared in the talk: automatic rollback and monitoring (slide 27); a plan before a change is on slide 32 ("scale with a file").
+- **Review:** a human reads the plan - a preview of exactly what a change will do - before anyone applies it. (A plan: slide 32.)
 - **Least privilege:** nobody - human or AI - holds keys it doesn't need. An agent that writes code doesn't need permission to delete the database.
 - **Staging:** try every change on a copy of the real system first, never straight on production.
 - **Backups and restore drills:** assume something will be deleted someday - and practice restoring. "A backup you've never restored is only a hope."
-- **Monitoring and rollback:** notice a problem in seconds, and undo it - on slide 25 the pipeline rolls back by itself.
+- **Monitoring and rollback:** notice a problem in seconds, and undo it - on slide 27 the pipeline rolls back by itself.
 -->
 
 ---
@@ -780,7 +819,7 @@ Everything is described in files: the machines (`kind-cluster.yaml`), the comman
 
 `./demo.sh watch` is a live dashboard, redrawn every second. At the top is **the game** as a player sees it: up or down, which version answered, and a traffic strip with one colored block per request (a red X when a request failed). Below are **the copies**: how many are wanted and how many are ready, and every copy on its machine - with its version and its state (starting, ready, not ready, stopping). The browser at `http://localhost:8080` shows the game itself.
 
-To run it yourself: "Try it at home", slide 60.
+To run it yourself: "Try it at home", slide 62.
 -->
 
 ---
@@ -813,9 +852,9 @@ To change the infrastructure, you change the file - here, `replicas: 3` becomes 
 - **Plan** (`kubectl diff`): show exactly what would change, before anything happens. Here: one line, 3 → 6.
 - **Apply** (`kubectl apply`): make it real. Kubernetes starts three more copies.
 
-Why bother, instead of just typing a command? Because the file can be reviewed by another person before it's applied, saved in Git with its whole history, and used to rebuild everything from scratch. The plan step is a **guardrail** - a safety measure against mistakes: look before you change. (All the guardrails: slide 28.)
+Why bother, instead of just typing a command? Because the file can be reviewed by another person before it's applied, saved in Git with its whole history, and used to rebuild everything from scratch. The plan step is a **guardrail** - a safety measure against mistakes: look before you change. (All the guardrails: slide 30.)
 
-For cloud infrastructure (servers, databases, storage), the same idea is done with tools like **Terraform** - same plan and apply. More on slide 46.
+For cloud infrastructure (servers, databases, storage), the same idea is done with tools like **Terraform** - same plan and apply. More on slide 48.
 -->
 
 ---
@@ -844,7 +883,7 @@ The talk killed one copy (slide 16). This kills **all** of them at once: `./demo
 
 Within a second, six new copies are starting (`ContainerCreating`, then `0/1` = running but not ready yet, then `1/1` = ready - about 8 seconds for the Python server), while the old ones are still `Terminating` (shutting down). The old copies finish the requests they're serving before they stop - the Deployment file gives each one a few seconds for that - so the dashboard's traffic strip shows that the game kept answering the whole time.
 
-It's the same **self-healing** loop as before: Kubernetes keeps comparing the wish (6 copies, after "scale with a file") with what's running (0), and fixes the gap - without a person doing anything, even at 3 AM. The loop itself is on slide 34.
+It's the same **self-healing** loop as before: Kubernetes keeps comparing the wish (6 copies, after "scale with a file") with what's running (0), and fixes the gap - without a person doing anything, even at 3 AM. The loop itself is on slide 36.
 -->
 
 ---
@@ -908,7 +947,7 @@ The morning after: someone asks what happened last night. A copy died, a broken 
 
 Three kinds in this demo:
 - **The dashboard** (`./demo.sh watch`) - is the game up, which version answered each request, how many copies are ready and on which machine, and red marks when something fails. Real systems have dashboards (for example Grafana) with graphs of requests, errors and response times, and **alerts** that wake someone up when a line crosses a limit.
-- **Events** (`./demo.sh events`): Kubernetes' own diary. The output on the slide is from the bug's pipeline run (slide 25), top to bottom: a new v3 copy is created; its readiness check fails - first "connection refused" (the Python server is still starting, a second or two), then again and again "404" (not found: the address `/healthz` no longer exists); and it's stopped - that's the rollback.
+- **Events** (`./demo.sh events`): Kubernetes' own diary. The output on the slide is from the bug's pipeline run (slide 27), top to bottom: a new v3 copy is created; its readiness check fails - first "connection refused" (the Python server is still starting, a second or two), then again and again "404" (not found: the address `/healthz` no longer exists); and it's stopped - that's the rollback.
 - **Logs** (`./demo.sh logs`): each copy writes a line for every request it serves - time, address, answer. When something breaks, logs tell you what the program was doing.
 
 The point: when something breaks at 3 AM, you can't fix what you can't see.
@@ -949,7 +988,7 @@ That loop is what brought the killed copy back on slide 16.
 | **Control plane** | the brain that makes decisions | head office |
 
 <!-- notes:
-The basic Kubernetes words, with the supermarket from slide 36:
+The basic Kubernetes words, with the supermarket from slide 38:
 - **Node:** a machine in the cluster. A branch of the chain.
 - **Pod:** one running copy of the app. One cashier.
 - **Deployment:** the rule "always keep N copies running". The shift manager, who makes sure there are always enough cashiers.
@@ -999,7 +1038,7 @@ Here is what's behind a messaging app you use every day. What happens when you t
 - **App servers:** your code - maybe written by AI - running in many identical containers, so if one dies the others continue.
 - **Database:** where the data lives permanently, like PostgreSQL or MongoDB.
 - **Cache:** fast memory for data that's read often, like Redis, so the database isn't asked the same thing a million times.
-- **Queue and workers:** jobs that don't have to happen *right now* - sending a notification, processing a video - wait in a queue and are handled in the background by workers. Kafka is a popular queue; it has its own section (slides 39-45).
+- **Queue and workers:** jobs that don't have to happen *right now* - sending a notification, processing a video - wait in a queue and are handled in the background by workers. Kafka is a popular queue; it has its own section (slides 41-47).
 
 Your message goes through all of these in a fraction of a second. And every box runs in many copies: with 100 servers, at any moment one of them is broken. Nobody can manage that by hand - that's why Kubernetes exists.
 -->
@@ -1033,7 +1072,7 @@ The conveyor belt between services:
 4. lag - how far behind the consumers are, and how to fix it
 
 <!-- notes:
-**Kafka** is the "queue" box from the architecture diagram (slide 37). It's one of the most common building blocks in large systems. This section explains it with one analogy - a restaurant, with waiters, an order rail and cooks.
+**Kafka** is the "queue" box from the architecture diagram (slide 39). It's one of the most common building blocks in large systems. This section explains it with one analogy - a restaurant, with waiters, an order rail and cooks.
 -->
 
 ---
@@ -1115,7 +1154,7 @@ Producer and consumer are the two to remember.
 <!-- notes:
 Why almost every big system has something like Kafka:
 - **Decoupling:** checkout doesn't know or care who reads its events. You can add a new service without touching checkout at all.
-- **Buffering:** a spike of orders waits in Kafka instead of crashing the services behind it. They work through it at their own pace. (Buffering is trap 4, slide 57.)
+- **Buffering:** a spike of orders waits in Kafka instead of crashing the services behind it. They work through it at their own pace. (Buffering is trap 4, slide 59.)
 - **Surviving failure:** if the email service is down for an hour, the events just wait. When it comes back, it continues from its bookmark and catches up. Nothing is lost.
 - **Replay:** a new service - say fraud detection - can read all of history, from the very first order.
 - **Scale:** more partitions and more consumers means more events handled per second.
@@ -1137,7 +1176,7 @@ Lag is the single most important number for a Kafka system:
 - **small and steady:** healthy - the consumers keep up.
 - **growing:** the consumers are too slow. Confirmation emails arrive an hour late, stock numbers are out of date.
 
-The **trend** matters more than the number itself. And notice: users don't see an error message - they see things happening late. That's why lag is the number every Kafka dashboard shows and alerts on. It's the "lag" from "bugs, lag, cost" (slide 53).
+The **trend** matters more than the number itself. And notice: users don't see an error message - they see things happening late. That's why lag is the number every Kafka dashboard shows and alerts on. It's the "lag" from "bugs, lag, cost" (slide 55).
 -->
 
 ---
@@ -1187,7 +1226,7 @@ With **Terraform** - the most common IaC tool - you describe real cloud infrastr
 
 `terraform plan` shows what will change. `terraform apply` makes it real - it creates actual servers in the cloud that cost actual money, every hour.
 
-And that's the catch: a mistake in app code usually gives you an error message. A mistake in infrastructure code can be a deleted database, a data leak, or a huge bill - often with no error at all. The next slide shows an example. (Why infrastructure code is harder, row by row: slide 49.) This is the same idea as "scale with a file" (slide 30) - change a file, plan, apply - but for real cloud machines.
+And that's the catch: a mistake in app code usually gives you an error message. A mistake in infrastructure code can be a deleted database, a data leak, or a huge bill - often with no error at all. The next slide shows an example. (Why infrastructure code is harder, row by row: slide 51.) This is the same idea as "scale with a file" (slide 32) - change a file, plan, apply - but for real cloud machines.
 -->
 
 ---
@@ -1240,7 +1279,7 @@ The right way: keep the bucket private, and serve the photos through the website
 <!-- notes:
 This isn't hypothetical. In July 2025, an AI coding agent that had been told not to change anything during a "code freeze" deleted a company's production database - the real, live data.
 
-The code it wrote wasn't the problem. The **access** was: the AI agent had the keys to production. "What is it allowed to touch?" is one of the six questions to ask about any code (slide 51). An AI agent that can run commands on real systems is a new kind of risk.
+The code it wrote wasn't the problem. The **access** was: the AI agent had the keys to production. "What is it allowed to touch?" is one of the six questions to ask about any code (slide 53). An AI agent that can run commands on real systems is a new kind of risk.
 
 The answer is not "don't use AI". It's guardrails - next slide.
 
@@ -1267,7 +1306,7 @@ Row by row:
 - **Who is hit:** an app bug breaks one feature. An infrastructure bug hits everyone, at once.
 - **State:** app code is all in the files. Infrastructure has state that lives in the cloud - and other people (and other scripts) change it too, so the files may not match reality.
 
-That's why the guardrails on slide 28 matter so much here.
+That's why the guardrails on slide 30 matter so much here.
 -->
 
 ---
@@ -1289,7 +1328,7 @@ The game you built in one evening runs on your laptop, for one user: you. The sa
 - **Users:** 100,000 people, many of them at the same second.
 - **Crashes:** on your laptop you just restart it. In the real world it's 3 AM, the game is down, and someone has to notice and fix it - or better, a system like Kubernetes fixes it by itself.
 - **Data:** your test data doesn't matter. Real data is accounts, scores, private information - losing it or leaking it is a disaster.
-- **New versions:** on your laptop you just run the new code. In the real world you replace it while everyone is playing, without anyone noticing - the rolling update from slide 24.
+- **New versions:** on your laptop you just run the new code. In the real world you replace it while everyone is playing, without anyone noticing - the rolling update from slide 26.
 - **Cost:** your laptop is free. Servers cost money every hour, and a mistake can multiply that.
 
 Writing the code was never the whole job. Everything on the right side is the job - and that's exactly what the road (Git, Docker, CI/CD, Kubernetes) was for.
@@ -1311,14 +1350,14 @@ Writing the code was never the whole job. Everything on the right side is the jo
 <!-- notes:
 Six questions to ask about any code - whoever or whatever wrote it. The last column connects them to the next slide: every unanswered question ends in bugs, lag or cost.
 
-- **Correctness:** does it actually do the right thing - including with empty, huge or strange input? Is there a test that proves it? AI is very good at the "happy path" (when everything is normal) and often forgets the edge cases. (Example on slide 54.)
-- **Algorithm:** how much work does the code do for each user? Some code is fast with 100 users and completely frozen with a million. (Example on slide 55.)
-- **I/O & caching** (I/O = input/output): how often does it go to the disk, the network or the database - and what does it keep close, so it doesn't have to go again? Each trip is slow; a thousand of them per click is a disaster. (Examples on slides 56 and 57.)
-- **Memory:** does the code hold on to things it never lets go of? Then memory slowly fills up and the server crashes every few days. (Slide 58.)
-- **Failure:** what happens when something it depends on is slow, down, or sends garbage? Timeouts, retries, limits and checking input are the answers. Without them, one slow service brings down everything. (Slide 59.)
-- **Security & access:** what is the code - or the AI agent - allowed to touch? Where are the passwords and keys? Who can see the data? Two examples: photos made public by mistake (slide 47), and an AI agent that deleted a production database (slide 48).
+- **Correctness:** does it actually do the right thing - including with empty, huge or strange input? Is there a test that proves it? AI is very good at the "happy path" (when everything is normal) and often forgets the edge cases. (Example on slide 56.)
+- **Algorithm:** how much work does the code do for each user? Some code is fast with 100 users and completely frozen with a million. (Example on slide 57.)
+- **I/O & caching** (I/O = input/output): how often does it go to the disk, the network or the database - and what does it keep close, so it doesn't have to go again? Each trip is slow; a thousand of them per click is a disaster. (Examples on slides 58 and 59.)
+- **Memory:** does the code hold on to things it never lets go of? Then memory slowly fills up and the server crashes every few days. (Slide 60.)
+- **Failure:** what happens when something it depends on is slow, down, or sends garbage? Timeouts, retries, limits and checking input are the answers. Without them, one slow service brings down everything. (Slide 61.)
+- **Security & access:** what is the code - or the AI agent - allowed to touch? Where are the passwords and keys? Who can see the data? Two examples: photos made public by mistake (slide 49), and an AI agent that deleted a production database (slide 50).
 
-One more question worth asking, which the demo showed: **can you see what it's doing?** If the code writes no logs and nobody watches it, you find out about problems from angry users (observability, slide 33).
+One more question worth asking, which the demo showed: **can you see what it's doing?** If the code writes no logs and nobody watches it, you find out about problems from angry users (observability, slide 35).
 -->
 
 ---
@@ -1334,7 +1373,7 @@ One more question worth asking, which the demo showed: **can you see what it's d
 The practical takeaway. You don't have to stop using AI - use it better:
 - Ask it directly: "what happens with 10 million users?" It will often find its own trap.
 - Ask it to explain every line you don't understand. AI is a great teacher, not only a code writer.
-- Test with real-size data, not 5 rows - traps like these hide at small scale (see the six traps, slides 54-59).
+- Test with real-size data, not 5 rows - traps like these hide at small scale (see the six traps, slides 56-61).
 - Measure: how long the code takes, how much memory it uses, how many database queries it makes.
 -->
 
@@ -1392,7 +1431,7 @@ def can_vote(age_text):
     return int(text) >= 18
 ```
 
-And the habit that protects you for good: a **test** for each case - `"17"`, `"30"`, `""`, `"seventeen"`, `"-5"`, `"150"` - that runs automatically every time the code changes. That's exactly the TEST stage of the CI/CD pipeline from slide 24.
+And the habit that protects you for good: a **test** for each case - `"17"`, `"30"`, `""`, `"seventeen"`, `"-5"`, `"150"` - that runs automatically every time the code changes. That's exactly the TEST stage of the CI/CD pipeline from slide 26.
 -->
 
 ---

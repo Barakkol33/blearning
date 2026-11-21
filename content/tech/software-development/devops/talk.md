@@ -19,7 +19,7 @@ A talk for high school students: Git, Docker, CI/CD and Kubernetes - in a world 
 
 ## What's inside
 
-**The talk** (slides 1-21, about 30 minutes):
+**The talk** (slides 1-23, about 30 minutes):
 
 1. **Why?** - a team project for school: working together on one version that works (Git), sending it to the teacher so it runs on her computer (Docker), and knowing every change works (CI/CD).
 2. **You built a game** - 4096 in Python, built with AI; tonight, 100,000 players. Writing the code is half the job: **DevOps** is the tools to ship and manage applications. Then the whole road in one picture: laptop → Git → a CI/CD pipeline (with Docker) → Kubernetes.
@@ -27,10 +27,10 @@ A talk for high school students: Git, Docker, CI/CD and Kubernetes - in a world 
 4. **Package it: Docker** - one image that runs the same anywhere.
 5. **Check it, ship it: CI/CD** - does it work? then ship it: build, test, deploy - automatically, on every push - and what the pipeline's file looks like.
 6. **Many copies: Kubernetes** - a load balancer and three copies, the Deployment file; infrastructure as code, high availability, and a copy that heals itself.
-7. **Build with AI** - go build something, but know what it does.
+7. **Build with AI** - go build something; don't know how? ask the AI to teach you; blearning, to save you some work; and know what the AI's code does.
 8. **Wrap-up** - the base that doesn't change, and the important ideas.
 
-**After the talk** (slide 22 is the map; slides 24-61), by subject: the pipeline for real (a new level, and a bug that passes every test and is rolled back), outages, the DevOps loop and guardrails; more Kubernetes (scale with a file, kill every copy, unplug a machine, observability, architecture); Kafka; infrastructure as code; knowing what the code does (six questions, six traps); and how to run the demo at home.
+**After the talk** (slide 24 is the map; slides 26-63), by subject: the pipeline for real (a new level, and a bug that passes every test and is rolled back), outages, the DevOps loop and guardrails; more Kubernetes (scale with a file, kill every copy, unplug a machine, observability, architecture); Kafka; infrastructure as code; knowing what the code does (six questions, six traps); and how to run the demo at home.
 
 ## The live demo
 

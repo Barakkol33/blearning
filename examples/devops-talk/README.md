@@ -13,7 +13,7 @@ A talk for high school students: Git, Docker, CI/CD and Kubernetes - in a world 
 
 ## The map
 
-The talk (slides 1-21, ~30 minutes) follows one small project - **4096 in Python** ([github.com/Barakkol33/devops-example](https://github.com/Barakkol33/devops-example)), built with AI - from a laptop to 100,000 players: save it (Git), pack it (Docker), check and ship it (CI/CD), run many copies (Kubernetes). Then: build with AI - but know what it does. Everything runs locally, and the commands are the visuals: every live moment has a slide with the command and its **real output**, so the talk works with no demo at all. Each idea is named **after** the students see it work.
+The talk (slides 1-23, ~30 minutes) follows one small project - **4096 in Python** ([github.com/Barakkol33/devops-example](https://github.com/Barakkol33/devops-example)), built with AI - from a laptop to 100,000 players: save it (Git), pack it (Docker), check and ship it (CI/CD), run many copies (Kubernetes). Then: build with AI - but know what it does. Everything runs locally, and the commands are the visuals: every live moment has a slide with the command and its **real output**, so the talk works with no demo at all. Each idea is named **after** the students see it work.
 
 | | part | min | slides | live (right terminal: `./present.sh`) |
 | --- | --- | --- | --- | --- |
@@ -27,26 +27,26 @@ The talk (slides 1-21, ~30 minutes) follows one small project - **4096 in Python
 | 4 | Check it, ship it: **CI/CD** (does it work? then ship it - a pipeline does both; the pipeline file) | 3 | 12-13 | |
 | 5 | Many copies: **Kubernetes** (load balancer, the Deployment file, IaC, HA, self-healing) | 6 | 14-16 | scene 3: `./demo.sh pods`, `kill` |
 | | The road you just saw | 1 | 17 | |
-| 6 | Build with AI - but know what it does (the iceberg) | 4 | 18-19 | |
-| 7 | Wrap-up: the base of everything, the important ideas | 3 | 20-21 | |
-| | More interesting topics - the map of what comes after the talk | | 22 | |
-| | **Talk** | **~35** | | |
+| 6 | Build with AI: go build, learn with AI, blearning, and know what it does (the iceberg) | 6 | 18-21 | |
+| 7 | Wrap-up: the base of everything, the important ideas | 3 | 22-23 | |
+| | More interesting topics - the map of what comes after the talk | | 24 | |
+| | **Talk** | **~37** | | |
 
-After the wrap-up, slide 22 maps the rest of the deck, which goes on **by subject**, in the road's order - for time left over, questions, or students at home:
+After the wrap-up, slide 24 maps the rest of the deck, which goes on **by subject**, in the road's order - for time left over, questions, or students at home:
 
 | subject | slides | live (`./present.sh extras`) |
 | --- | --- | --- |
-| Docker: go deeper - the Docker guide on blearning | 23 | |
-| CI/CD: ship the new level, the bug + automatic rollback, when a change goes wrong (outages), the DevOps loop, guardrails | 24-28 | `update`, `break` |
-| Kubernetes: the demo cluster, scale with a file (IaC), all the copies at once, a machine dies (HA), observability, the loop, the words, why so many copies, architecture, the Kubernetes guides on blearning | 29-38 | `iac 6`, `chaos`, `node-down`/`up`, `events`, `logs` |
-| Kafka | 39-45 | |
-| Infrastructure as code: Terraform, spot the bug, the July 2025 story, why it's harder | 46-49 | |
-| Know what the code does: your laptop vs the real world, six questions, bugs/lag/cost, six traps | 50-59 | |
-| Try it at home, learn more | 60-61 | |
+| Docker: go deeper - the Docker guide on blearning | 25 | |
+| CI/CD: ship the new level, the bug + automatic rollback, when a change goes wrong (outages), the DevOps loop, guardrails | 26-30 | `update`, `break` |
+| Kubernetes: the demo cluster, scale with a file (IaC), all the copies at once, a machine dies (HA), observability, the loop, the words, why so many copies, architecture, the Kubernetes guides on blearning | 31-40 | `iac 6`, `chaos`, `node-down`/`up`, `events`, `logs` |
+| Kafka | 41-47 | |
+| Infrastructure as code: Terraform, spot the bug, the July 2025 story, why it's harder | 48-51 | |
+| Know what the code does: your laptop vs the real world, six questions, bugs/lag/cost, six traps | 52-61 | |
+| Try it at home, learn more | 62-63 | |
 
 - **No demo** (no laptop, no WSL, a broken cluster): just present the slides. Slides 9, 11 and 16 show the real output, and their notes explain it line by line.
-- **Running late:** skip the live scenes - the output slides tell the same story. Then slide 19 (the iceberg) can be one sentence.
-- **Running early, or a question about it:** the pipeline for real - slides 24-25 with `./present.sh extras` (the new level, then the bug that passes every test and is rolled back).
+- **Running late:** skip the live scenes - the output slides tell the same story. Then slide 21 (the iceberg) can be one sentence.
+- **Running early, or a question about it:** the pipeline for real - slides 26-27 with `./present.sh extras` (the new level, then the bug that passes every test and is rolled back).
 
 ## Keys
 
@@ -79,12 +79,14 @@ What each slide *means* is in its notes. This is what to *do*.
 | 14 | Walk the diagram left to right. Then the two names: the wish is a file - Infrastructure as Code; multiple copies - high availability. |
 | 15 | The wish, as a file. Point at three lines: `replicas: 3`, `image:`, and the readiness check on `/healthz` - "remember this one". |
 | 16 | Scene 3: `pods`, then `kill`. Point at the dashboard (left): the copy disappears and a new one is ready in seconds, no red. Ask "who restarted it?" - nobody. |
-| 17 | Tick the four rows. "That road is DevOps." |
-| 18 | Say the quote plainly, as your own opinion. Refer back to who raised their hands on slide 2. The blearning bullet: if time, open it live. Leave "is it done?" hanging. |
-| 19 | The central message - slow down. Running late: this one sentence is the whole slide. |
-| 20 | Slow down - the tools change, these three don't. And English. |
-| 21 | The five ideas - one breath each. End with "Anyone can write code now - knowing what it does, and running it safely for many people, is engineering." Then questions. "Everything we skipped is in the slides after this one - press ? on any slide." If time is left: slides 23-24 with `./present.sh extras`. After: `./demo.sh reset`. |
-| 22 | Leave it on screen during questions - it's the map of everything you skipped. |
+| 17 | Tick the four rows. "That road is DevOps." Point at the link: all of it is a real project on GitHub. |
+| 18 | Say the quote plainly, as your own opinion. Refer back to who raised their hands on slide 2. "Go build." |
+| 19 | Learning with AI: one example per bullet, from their world (a test, a homework error). Close with "it can be confidently wrong - check what matters." |
+| 20 | Open the site if there's time (the high-school page). "Built with AI, one piece at a time - free, use it." |
+| 21 | The central message - slow down. Running late: this one sentence is the whole slide. |
+| 22 | Slow down - the tools change, these three don't. And English. |
+| 23 | The five ideas - one breath each. End with "Anyone can write code now - knowing what it does, and running it safely for many people, is engineering." Then questions. "Everything we skipped is in the slides after this one - press ? on any slide." If time is left: slides 25-26 with `./present.sh extras`. After: `./demo.sh reset`. |
+| 24 | Leave it on screen during questions - it's the map of everything you skipped. |
 
 ## The live demo
 
@@ -146,12 +148,12 @@ Two terminals side by side, plus a browser. Left: `./demo.sh watch` - the live d
 | 1 · Save it | 9 | `./demo.sh git` |
 | 2 · It works on my machine | 11 | `./demo.sh docker`, then `http://localhost:8081` |
 | 3 · Many copies | 16 | `./demo.sh pods`, `./demo.sh kill` |
-| extra · Ship the new level | 23 | `./demo.sh update` |
-| extra · The next commit has a bug | 24 | `./demo.sh break` |
-| extra · Scale with a file | 29 | `./demo.sh iac 6` |
-| extra · All the copies at once | 30 | `./demo.sh chaos` |
-| extra · A whole machine dies | 31 | `./demo.sh node-down` (Ctrl+C once the copies moved), then `./demo.sh node-up` |
-| extra · Observability | 32 | `./demo.sh events`, then `./demo.sh logs` |
+| extra · Ship the new level | 25 | `./demo.sh update` |
+| extra · The next commit has a bug | 26 | `./demo.sh break` |
+| extra · Scale with a file | 31 | `./demo.sh iac 6` |
+| extra · All the copies at once | 32 | `./demo.sh chaos` |
+| extra · A whole machine dies | 33 | `./demo.sh node-down` (Ctrl+C once the copies moved), then `./demo.sh node-up` |
+| extra · Observability | 34 | `./demo.sh events`, then `./demo.sh logs` |
 | after | | `./demo.sh reset`: back to v1, 3 copies, a fresh repo - also after any scene that went wrong |
 
 `./present.sh extras` runs all the extras in this order. `./demo.sh` with no arguments prints every command.
