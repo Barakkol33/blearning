@@ -22,10 +22,20 @@ A slide deck for everyone in Israeli hi-tech who is not a developer - HR and rec
 ## What's inside
 
 1. **The company** - the business side (funding rounds, exits, R&D centers, options under section 102), how a tech team works (sprints, backlog, QA), and who's who: the roles you meet.
+
+   Read more: [Software Developer](../basics/software-developer.md), [SRE](11-reliability/sre.md)
 2. **The software** - where software lives (frontend, backend, API, database), programming words, the technology names you'll see (Python, Java, Go, React, AWS, Kubernetes, Terraform), source code and Git, and open-source packages.
+
+   Read more: [Languages](05-code/languages.md), [APIs](05-code/apis.md), [Git and code hosting](06-delivery/git.md), [Artifacts and registries](06-delivery/artifacts.md)
 3. **DevOps** - the road from idea to customer, the old wall between Dev and Ops, the DevOps loop, CI/CD, containers and Kubernetes, and keeping software running (monitoring, incidents, on-call).
+
+   Read more: [What is DevOps](01-get-started/intro.md), [CI/CD](06-delivery/ci-cd.md), [Docker](02-containers/docker.md), [Kubernetes](02-containers/kubernetes.md), [Observability](09-observability/concepts.md)
 4. **Cloud & AI** - what is inside AWS, Azure and Google Cloud and how companies use them (pay as you go, regions, multi-cloud, shared responsibility), and the AI words (LLM, GenAI, agents, and data scientist vs. ML engineer vs. AI engineer).
+
+   Read more: [Cloud concepts](03-cloud/concepts.md), [AWS](03-cloud/aws.md), [Azure](03-cloud/azure.md), [GCP](03-cloud/gcp.md), [Cost (FinOps)](11-reliability/finops.md), [Claude guide (in Hebrew)](../../../claude-guide/_index.md)
 5. **Cyber** - the basic words and the security roles, how companies actually get attacked (phishing, stolen passwords, CEO fraud and deepfakes, ransomware, cloud misconfiguration, leaked secrets, poisoned packages, DDoS), and six habits that stop most attacks.
+
+   Read more: [Security](10-security/_index.md)
 
 The deck ends with a ten-word cheat sheet.
 
