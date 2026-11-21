@@ -91,8 +91,8 @@ new_repo() {   # a fresh clone at v1, on a branch "talk" - the scenes commit the
 }
 ensure_repo() { [[ -d "$REPO/.git" ]] || new_repo; }
 
-change_to_v2() {   # the change from the Git scene: a head start - a new game starts with 4 tiles
-  sed -i 's/^START_TILES = 2 /START_TILES = 4 /' "$REPO/board.py"
+change_to_v2() {   # the change from the Git scene: a bigger board, 5x5
+  sed -i 's/^SIZE = 4 /SIZE = 5 /' "$REPO/board.py"
   echo 'v2 #1a7f37' >"$REPO/VERSION"
 }
 change_to_v3() {   # an AI "tidy-up": rename /healthz to /health - and the test with it, so every test passes
@@ -104,7 +104,7 @@ change_to_v3() {   # an AI "tidy-up": rename /healthz to /health - and the test 
 ensure_v2_commit() {
   ensure_repo
   case "$(repo_version)" in
-    v1) change_to_v2; git -C "$REPO" commit -q -am "v2: a head start - a new game starts with 4 tiles" ;;
+    v1) change_to_v2; git -C "$REPO" commit -q -am "v2: a bigger board" ;;
     v3) git -C "$REPO" revert -q --no-edit HEAD ;;
   esac
 }
@@ -271,11 +271,11 @@ cmd_git() {
   cd "$REPO"
   note "The game's folder is a Git repository - the real project. Its history so far:"
   say git log --oneline
-  note "Now change the game: a new game starts with 4 tiles, not 2 (board.py), and a new version number (VERSION)."
+  note "Now change the game: a bigger board, 5x5 (board.py), and a new version number (VERSION)."
   change_to_v2
   say git diff
   pause
-  say git commit -am "v2: a head start - a new game starts with 4 tiles"
+  say git commit -am "v2: a bigger board"
   say git log --oneline
   note "Upload it - on a real project, to GitHub. (Here a folder plays GitHub, so nothing leaves the laptop.)"
   say git push
@@ -419,7 +419,7 @@ cmd_ship() {   # ship the repo's last commit: build -> test -> deploy -> verify 
 
 cmd_update() {
   ensure_v2_commit
-  printf 'Shipping the head start - the commit from the Git scene.\n'
+  printf 'Shipping the bigger board - the commit from the Git scene.\n'
   cmd_ship
 }
 

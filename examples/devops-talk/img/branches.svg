@@ -1,11 +1,11 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1300 430" width="1300" height="430" font-family="Segoe UI, Calibri, Carlito, sans-serif">
   <rect width="1300" height="430" fill="#ffffff"/>
 
-  <!-- branch 1: a head start - branched, two commits, merged -->
+  <!-- branch 1: a bigger board - branched, two commits, merged -->
   <path d="M260 215 C 300 215, 300 95, 345 95 L 470 95 C 515 95, 515 215, 560 215" fill="none" stroke="#1a7f37" stroke-width="6"/>
   <circle cx="365" cy="95" r="13" fill="#1a7f37"/>
   <circle cx="450" cy="95" r="13" fill="#1a7f37"/>
-  <text x="407" y="60" text-anchor="middle" font-size="22" font-weight="700" fill="#1a7f37">a head start</text>
+  <text x="407" y="60" text-anchor="middle" font-size="22" font-weight="700" fill="#1a7f37">a bigger board</text>
 
   <!-- branch 2: high scores - three commits, merged later -->
   <path d="M410 215 C 450 215, 450 340, 495 340 L 770 340 C 815 340, 815 215, 860 215" fill="none" stroke="#8250df" stroke-width="6"/>

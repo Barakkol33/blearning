@@ -149,11 +149,11 @@ Keep this picture in mind - every part of the talk zooms in on one box. The whol
 - a **branch** = "work area" to do changes in (commits)
 - `main` branch - latest working version, branches created from it
 - **together** - many people (and AIs) work, each one in its own branch
-- **GitHub** - the same history, online (`git push`
+- **GitHub** - the same history, online (`git push`)
 
 ```bash
 git diff                                  # what did I change?
-git commit -am "v2: a head start"         # save it, with a message
+git commit -am "v2: a bigger board"       # save it, with a message
 git log --oneline                         # the history
 git push                                  # upload it - to GitHub
 ```
@@ -182,13 +182,13 @@ And one more reason it matters for DevOps: every change that reaches players sta
 
 #### Each branch is a version - merged into main when it's ready
 
-![The main branch runs left to right. Three branches leave it, each with a feature: "a head start" (two commits, merged back), "high scores" (three commits, merged back later), and "undo a move" (still in progress, not merged yet)](img/branches.svg)
+![The main branch runs left to right. Three branches leave it, each with a feature: "a bigger board" (two commits, merged back), "high scores" (three commits, merged back later), and "undo a move" (still in progress, not merged yet)](img/branches.svg)
 
 <!-- notes:
 This is how a team - or you and an AI - works with Git every day.
 
 **main** (blue) is the version the players get. Nobody works on it directly. For every new feature you open a **branch** - a copy of the history that starts from main - and commit there as much as you want, without touching main or anyone else's work:
-- **a head start** (green) - two commits; when it was ready, it was **merged** back into main (the white circle).
+- **a bigger board** (green) - two commits; when it was ready, it was **merged** back into main (the white circle).
 - **high scores** (purple) - started a bit later, three commits, merged later. Both features were worked on at the same time - Git puts them together.
 - **undo a move** (orange) - still in progress. It's not in main, so players don't see it until it's done.
 
@@ -208,14 +208,14 @@ d2e2f19 4096 v1: the tests, a Dockerfile, Kubernetes files and the pipeline
 
 $ git diff
 +++ b/board.py
--START_TILES = 2     # how many tiles a new game starts with
-+START_TILES = 4     # how many tiles a new game starts with
+-SIZE = 4            # the board is SIZE x SIZE
++SIZE = 5            # the board is SIZE x SIZE
 +++ b/VERSION
 -v1 #1f6feb
 +v2 #1a7f37
 
-$ git commit -am "v2: a head start - a new game starts with 4 tiles"
-[talk 8b97521] v2: a head start - a new game starts with 4 tiles
+$ git commit -am "v2: a bigger board"
+[talk 8b97521] v2: a bigger board
 
 $ git push
    d2e2f19..8b97521  talk -> talk
@@ -225,8 +225,8 @@ $ git push
 The real output from the demo (`./demo.sh git`), trimmed a little. Read it from the top:
 
 1. `git log --oneline` - the history so far, newest on top (trimmed): the code (the game - the three files from Part 1), then v1 - everything around it: the tests, a Dockerfile, the Kubernetes files and the pipeline. The code in front (`d2e2f19`) is the commit's name - a unique ID.
-2. Then we change the game: a head start. `git diff` shows exactly what changed - a line starting with `-` was removed, a line starting with `+` was added. Two changes: a new game starts with 4 tiles instead of 2 (`START_TILES` goes from 2 to 4, in the rules file `board.py`), and the version goes from v1 (blue) to v2 (green) - the file `VERSION` holds the version and its color, so you can always see which version is running. The `+++` lines say which file each change is in.
-3. `git commit -am "v2: a head start - ..."` - save it. Git answers with the new commit's ID: `8b97521` (on the branch `talk`). If v2 turns out to be a bad idea, v1 is one command away.
+2. Then we change the game: a bigger board. `git diff` shows exactly what changed - a line starting with `-` was removed, a line starting with `+` was added. Two changes: the board gets bigger (`SIZE` goes from 4 to 5, in the rules file `board.py`), and the version goes from v1 (blue) to v2 (green) - the file `VERSION` holds the version and its color, so you can always see which version is running. The `+++` lines say which file each change is in.
+3. `git commit -am "v2: a bigger board"` - save it. Git answers with the new commit's ID: `8b97521` (on the branch `talk`). If v2 turns out to be a bad idea, v1 is one command away.
 4. `git push` - upload it: the copy on the server moved from `d2e2f19` to `8b97521`. On a real project that's GitHub; in the demo a folder on the laptop plays GitHub, so nothing leaves the laptop.
 
 That's **version control**. Notice: the new level is saved and uploaded, but no player has seen it yet. Getting it to them is the next steps.
@@ -241,7 +241,6 @@ That's **version control**. Notice: the new level is saved and uploaded, but no 
 - an **image** = the game + Python + its libraries, in one package
 - a **container** = a running image - the same anywhere
 - "lightweight VM": has OS, programs and app ready to run
-- under the hood: only the added files - shares the host's OS
 
 ```dockerfile
 FROM python:3.12-slim                      # start from Python
@@ -509,7 +508,7 @@ In my opinion, if you don't use AI, you will become irrelevant - not in ten year
 
 #### The most patient teacher you'll ever have
 
-- "explain it like I'm 15" - any subject, any time
+- "explain it like I'm 4" - any subject, any time
 - ask for an example - then ask **why**
 - ask it to quiz you, and to check your answers
 - an error you don't understand? paste it, and ask
@@ -669,7 +668,7 @@ Everything there runs on your own laptop.
 
 ```text
 $ ./demo.sh update
- PIPELINE - commit 8b97521 "v2: a head start"
+ PIPELINE - commit 8b97521 "v2: a bigger board"
 == 1. BUILD     ok: built game-site:v2
 == 2. TEST      19 passed in 1.69s                    (pytest)
                 smoke test: the image starts and serves the game
@@ -684,7 +683,7 @@ $ ./demo.sh update
 - on the dashboard, blue copies turn green - one by one
 
 <!-- notes:
-Now the commit from the Git slide (`8b97521`, the head start) goes to the players - through the pipeline from slide 12, for real. The real output of `./demo.sh update`, slightly shortened:
+Now the commit from the Git slide (`8b97521`, the bigger board) goes to the players - through the pipeline from slide 12, for real. The real output of `./demo.sh update`, slightly shortened:
 
 1. **BUILD** - the commit becomes the image `game-site:v2`.
 2. **TEST** - the 19 unit tests (pytest) run in the image's test stage, then a smoke test: the real image starts and serves the game. All pass.
