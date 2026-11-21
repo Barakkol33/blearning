@@ -98,8 +98,10 @@ sleep 3
 # ---------------------------------------------------------------- the talk's scenes
 step "1 - Git: ./demo.sh git"
 l=$(wc -l < "$LOG"); scene git
-if [[ "$(git -C /tmp/game-site log -1 --format=%s 2>/dev/null)" == "v2: a bigger board" ]] && log_since "$l" | grep -q "v2: a bigger board"; then
-  pass "git: the bigger board saved as a commit"; else fail "git: no v2 commit"; fi
+if [[ "$(git -C /tmp/game-site log -1 --format=%s 2>/dev/null)" == "v2: a head start - a new game starts with 4 tiles" ]] && log_since "$l" | grep -q "v2: a head start"; then
+  pass "git: the head start saved as a commit"; else fail "git: no v2 commit"; fi
+if [[ "$(git -C /tmp/github/devops-example.git log -1 --format=%s talk 2>/dev/null)" == "v2: a head start - a new game starts with 4 tiles" ]]; then
+  pass "git: pushed"; else fail "git: the push did not arrive"; fi
 
 step "2 - Docker: ./demo.sh docker"
 l=$(wc -l < "$LOG"); scene docker

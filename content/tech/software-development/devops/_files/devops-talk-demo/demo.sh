@@ -34,6 +34,7 @@ URL=http://localhost:8080
 PROJECT=https://github.com/Barakkol33/devops-example.git
 CACHE="${DEMO_CACHE:-$HOME/.devops-talk/devops-example}"   # cloned once (needs internet), then used offline
 REPO="${DEMO_REPO:-/tmp/game-site}"                        # the clone the scenes change
+ORIGIN="${DEMO_ORIGIN:-/tmp/github/devops-example.git}"    # plays GitHub: git push goes here, never to the internet
 
 # always talk to the demo cluster, whatever kubectl's current context is (another kind cluster, say)
 kubectl() { command kubectl --context "kind-$CLUSTER" "$@"; }
@@ -76,23 +77,26 @@ ensure_cache() {   # the project, cloned once from GitHub - after that, everythi
     mkdir -p "$(dirname "$CACHE")"
     git clone -q "$PROJECT" "$CACHE"
   else
-    git -C "$CACHE" fetch -q --tags origin 2>/dev/null || true   # newer version, if there's internet
+    timeout 15 git -C "$CACHE" fetch -q --force --tags origin 2>/dev/null || true   # newer version (even a rewritten one), if there's internet
   fi
 }
 new_repo() {   # a fresh clone at v1, on a branch "talk" - the scenes commit there
-  [[ -d "$CACHE/.git" ]] || ensure_cache
-  rm -rf "$REPO"
-  git clone -q "$CACHE" "$REPO"
+  ensure_cache   # the latest version of the project, if there's internet - otherwise the one already here
+  rm -rf "$REPO" "$ORIGIN"
+  mkdir -p "$(dirname "$ORIGIN")"
+  git clone -q --bare "$CACHE" "$ORIGIN"
+  git clone -q "$ORIGIN" "$REPO"
   git -C "$REPO" switch -q -c talk v1
+  git -C "$REPO" push -q -u origin talk
 }
 ensure_repo() { [[ -d "$REPO/.git" ]] || new_repo; }
 
-change_to_v2() {   # the change from the Git scene: a bigger board
-  sed -i 's/^SIZE = 4 /SIZE = 5 /' "$REPO/src/game2048/board.py"
+change_to_v2() {   # the change from the Git scene: a head start - a new game starts with 4 tiles
+  sed -i 's/^START_TILES = 2 /START_TILES = 4 /' "$REPO/board.py"
   echo 'v2 #1a7f37' >"$REPO/VERSION"
 }
 change_to_v3() {   # an AI "tidy-up": rename /healthz to /health - and the test with it, so every test passes
-  sed -i 's|@app.get("/healthz"|@app.get("/health"|; s|^def healthz|def health|' "$REPO/src/game2048/app.py"
+  sed -i 's|@app.get("/healthz"|@app.get("/health"|; s|^def healthz|def health|' "$REPO/main.py"
   sed -i 's|^def test_healthz|def test_health|; s|client.get("/healthz")|client.get("/health")|' "$REPO/tests/test_app.py"
   echo 'v3 #cf222e' >"$REPO/VERSION"
 }
@@ -100,7 +104,7 @@ change_to_v3() {   # an AI "tidy-up": rename /healthz to /health - and the test 
 ensure_v2_commit() {
   ensure_repo
   case "$(repo_version)" in
-    v1) change_to_v2; git -C "$REPO" commit -q -am "v2: a bigger board" ;;
+    v1) change_to_v2; git -C "$REPO" commit -q -am "v2: a head start - a new game starts with 4 tiles" ;;
     v3) git -C "$REPO" revert -q --no-edit HEAD ;;
   esac
 }
@@ -267,12 +271,14 @@ cmd_git() {
   cd "$REPO"
   note "The game's folder is a Git repository - the real project. Its history so far:"
   say git log --oneline
-  note "Now change the game: a bigger board (src/game2048/board.py), and a new version number (VERSION)."
+  note "Now change the game: a new game starts with 4 tiles, not 2 (board.py), and a new version number (VERSION)."
   change_to_v2
   say git diff
   pause
-  say git commit -am "v2: a bigger board"
+  say git commit -am "v2: a head start - a new game starts with 4 tiles"
   say git log --oneline
+  note "Upload it - on a real project, to GitHub. (Here a folder plays GitHub, so nothing leaves the laptop.)"
+  say git push
 }
 
 # --- A CONTAINER: pack the game with everything it needs, run it anywhere ---
@@ -413,7 +419,7 @@ cmd_ship() {   # ship the repo's last commit: build -> test -> deploy -> verify 
 
 cmd_update() {
   ensure_v2_commit
-  printf 'Shipping the bigger board - the commit from the Git scene.\n'
+  printf 'Shipping the head start - the commit from the Git scene.\n'
   cmd_ship
 }
 

@@ -19,9 +19,10 @@ A talk for high school students: Git, Docker, CI/CD and Kubernetes - in a world 
 
 ## What's inside
 
-**The talk** (slides 1-16, about 30 minutes):
+**The talk** (slides 1-18, about 30 minutes):
 
-1. **You built a game** - 2048 in Python, built with AI; tonight, 100,000 players.
+- **The road** - the whole talk in one picture: laptop → Git → a CI/CD pipeline (with Docker) → Kubernetes.
+1. **You built a game** - 2048 in Python, built with AI; tonight, 100,000 players. Writing the code is half the job: **DevOps** is the tools to ship and manage applications.
 2. **Save it: Git** - commits, history, a way back.
 3. **Package it: Docker** - one image that runs the same anywhere.
 4. **Check it, ship it: CI/CD** - build, test, deploy, verify, roll back - by itself.
@@ -29,13 +30,13 @@ A talk for high school students: Git, Docker, CI/CD and Kubernetes - in a world 
 6. **Build with AI** - go build something, but know what it does.
 7. **Wrap-up** - the base that doesn't change, and the important ideas.
 
-**After the talk** (slide 17 is the map; slides 18-54), by subject: the pipeline for real (a new level, and a bug that passes every test and is rolled back), outages, the DevOps loop and guardrails; more Kubernetes (scale with a file, kill every copy, unplug a machine, observability, architecture); Kafka; infrastructure as code; knowing what the code does (six questions, six traps); and how to run the demo at home.
+**After the talk** (slide 19 is the map; slides 20-56), by subject: the pipeline for real (a new level, and a bug that passes every test and is rolled back), outages, the DevOps loop and guardrails; more Kubernetes (scale with a file, kill every copy, unplug a machine, observability, architecture); Kafka; infrastructure as code; knowing what the code does (six questions, six traps); and how to run the demo at home.
 
 ## The live demo
 
 Everything runs on one laptop: a local clone of the game's repository, Docker, and a real Kubernetes cluster with [kind](https://kind.sigs.k8s.io/) (Kubernetes in Docker). No cloud, and no internet after the first setup.
 
-The game is a real project: **[github.com/Barakkol33/devops-example](https://github.com/Barakkol33/devops-example)** - 2048 in Python (FastAPI), with its tests, a Dockerfile, its Kubernetes files and a CI/CD pipeline. The demo clones it by itself; you can also run it on its own (`pip install`, `pytest`, `uvicorn` - see its README).
+The game is a real project: **[github.com/Barakkol33/devops-example](https://github.com/Barakkol33/devops-example)** - 2048 in Python (FastAPI), with its tests, a Dockerfile, its Kubernetes files and a CI/CD pipeline. The demo clones it by itself; you can also run it on its own: `pip install -r requirements.txt`, then `python main.py` (see its README).
 
 | file | what it is |
 | --- | --- |

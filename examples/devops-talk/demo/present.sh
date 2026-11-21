@@ -46,7 +46,7 @@ talk() {
 
   if scene 1; then
     headline "1 · Save it" \
-      "You made the board bigger (5x5). Before anything else: save the change - with a message."
+      "You gave the players a head start: a new game starts with 4 tiles. Before anything else: save the change - with a message."
     run ./demo.sh git
     named "Version control - Git"
   fi
