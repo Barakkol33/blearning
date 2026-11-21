@@ -7,7 +7,7 @@ attachments: [_files/devops-talk.html, _files/devops-talk-demo/kind-cluster.yaml
 
 # From Code to the Real World - a talk
 
-A talk for high school students: Git, Docker, CI/CD and Kubernetes - in a world where AI writes the code. It follows one small project - 2048 in Python, built with AI - from a laptop to 100,000 players, one step at a time - with real commands on one laptop, and the real output of every step on the slides.
+A talk for high school students: Git, Docker, CI/CD and Kubernetes - in a world where AI writes the code. It follows one small project - 4096 in Python, built with AI - from a laptop to 100,000 players, one step at a time - with real commands on one laptop, and the real output of every step on the slides.
 
 <div style="position:relative; width:100%; aspect-ratio:16/9; margin:1rem 0; border:1px solid var(--sl-color-gray-5); border-radius:6px; overflow:hidden">
 <iframe src="/blearning/tech/software-development/devops/_files/devops-talk.html" title="From Code to the Real World - slides" loading="lazy" allowfullscreen style="position:absolute; inset:0; width:100%; height:100%; border:0"></iframe>
@@ -21,7 +21,7 @@ A talk for high school students: Git, Docker, CI/CD and Kubernetes - in a world 
 
 **The talk** (slides 1-18, about 30 minutes):
 
-1. **You built a game** - 2048 in Python, built with AI; tonight, 100,000 players. Writing the code is half the job: **DevOps** is the tools to ship and manage applications. Then the whole road in one picture: laptop → Git → a CI/CD pipeline (with Docker) → Kubernetes.
+1. **You built a game** - 4096 in Python, built with AI; tonight, 100,000 players. Writing the code is half the job: **DevOps** is the tools to ship and manage applications. Then the whole road in one picture: laptop → Git → a CI/CD pipeline (with Docker) → Kubernetes.
 2. **Save it: Git** - commits, history, a way back.
 3. **Package it: Docker** - one image that runs the same anywhere.
 4. **Check it, ship it: CI/CD** - build, test, deploy, verify, roll back - by itself.
@@ -35,7 +35,7 @@ A talk for high school students: Git, Docker, CI/CD and Kubernetes - in a world 
 
 Everything runs on one laptop: a local clone of the game's repository, Docker, and a real Kubernetes cluster with [kind](https://kind.sigs.k8s.io/) (Kubernetes in Docker). No cloud, and no internet after the first setup.
 
-The game is a real project: **[github.com/Barakkol33/devops-example](https://github.com/Barakkol33/devops-example)** - 2048 in Python (FastAPI), with its tests, a Dockerfile, its Kubernetes files and a CI/CD pipeline. The demo clones it by itself; you can also run it on its own: `pip install -r requirements.txt`, then `python main.py` (see its README).
+The game is a real project: **[github.com/Barakkol33/devops-example](https://github.com/Barakkol33/devops-example)** - 4096 in Python (FastAPI), with its tests, a Dockerfile, its Kubernetes files and a CI/CD pipeline. The demo clones it by itself; you can also run it on its own: `pip install -r requirements.txt`, then `python main.py` (see its README).
 
 | file | what it is |
 | --- | --- |
@@ -62,7 +62,7 @@ The game is a real project: **[github.com/Barakkol33/devops-example](https://git
 
 `./demo.sh` with no arguments lists every command; `./demo.sh reset` goes back to the start; `./demo.sh down` deletes the cluster.
 
-**On GitHub:** the same pipeline runs in GitHub Actions on every push and pull request of [devops-example](https://github.com/Barakkol33/devops-example), in a real Kubernetes cluster that GitHub starts for each run - and the bug is a pull request with a red X ([PR #1](https://github.com/Barakkol33/devops-example/pull/1)).
+**On GitHub:** the same pipeline runs in GitHub Actions on every push and pull request of [devops-example](https://github.com/Barakkol33/devops-example), in a real Kubernetes cluster that GitHub starts for each run - and the bug is a pull request with a red X ([PR #2](https://github.com/Barakkol33/devops-example/pull/2)).
 
 ## Next steps
 

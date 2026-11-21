@@ -11,7 +11,7 @@ Git, Docker, CI/CD and Kubernetes - in a world where AI writes the code
 <!-- notes:
 Welcome! These notes explain every slide in full, so you can go through the talk on your own, at your own pace. Use the arrow keys to move between slides, and press **?** to open or close these notes.
 
-The talk follows one small game - 2048, written in Python with AI - from a laptop to 100,000 players - one step at a time: save it (Git), pack it (Docker), check and ship it (CI/CD), and run many copies of it (Kubernetes). Everything runs on one laptop, with real commands, and every step has a slide with the real output - so you can follow it even without the live demo.
+The talk follows one small game - 4096, written in Python with AI - from a laptop to 100,000 players - one step at a time: save it (Git), pack it (Docker), check and ship it (CI/CD), and run many copies of it (Kubernetes). Everything runs on one laptop, with real commands, and every step has a slide with the real output - so you can follow it even without the live demo.
 -->
 
 ---
@@ -42,26 +42,26 @@ It's completely fine to answer "no" to all of them - every word on this slide is
 
 ## Part 1 · You built a game
 
-#### 2048 - built with AI, in Python
+#### 4096 - built with AI, in Python
 
-- slide the tiles, merge equal numbers, reach 2048
+- slide the tiles, merge equal numbers, reach 4096
 - it works on your laptop
 - tonight you share the link: **100,000 players**
 
 ```text
 devops-example/            github.com/Barakkol33/devops-example
   main.py                  the web server - Python
-  board.py                 the rules of 2048 - Python
+  board.py                 the rules of 4096 - Python
   static/index.html        the page: draws the board
   requirements.txt         the libraries it needs
 
 $ pip install -r requirements.txt
 $ python main.py
-2048 is running - open http://localhost:8000
+4096 is running - open http://localhost:8000
 ```
 
 <!-- notes:
-You already know how to write code - and many of you build things with AI. So say you did: you asked an AI to help you write **2048** in Python. You slide the tiles on a 4x4 board; two equal numbers that touch merge into one, and you try to reach the 2048 tile.
+You already know how to write code - and many of you build things with AI. So say you did: you asked an AI to help you write **4096** in Python. You slide the tiles on a 4x4 board; two equal numbers that touch merge into one, and you try to reach the 4096 tile.
 
 It works on your laptop: `python main.py`, and open the browser. Then you share the link, and tonight 100,000 people want to play it. Now what?
 
@@ -120,11 +120,11 @@ Keep this picture in mind - every part of the talk zooms in on one box. The whol
 
 #### Every change saved - with who, when and why
 
-- a **commit** = a saved snapshot of all the files, with a message
-- **history** - see every change, and go back to any version
-- a **branch** = a version - work on it without touching the others
-- **together** - many people (and AIs) change the same code safely
-- **GitHub** - the same history, online (`git push`)
+- a **commit** = saving current state of files (like a 💾 button)
+- a **branch** = "work area" to do changes in (commits)
+- `main` branch - latest working version, branches created from it
+- **together** - many people (and AIs) work, each one in its own branch
+- **GitHub** - the same history, online (`git push`
 
 ```bash
 git diff                                  # what did I change?
@@ -157,8 +157,8 @@ And one more reason it matters for DevOps: every change that reaches players sta
 
 ```text
 $ git log --oneline
-e71eb95 2048 v1: the tests, a Dockerfile, Kubernetes files and the pipeline
-b951cb8 2048 in Python: the code
+d2e2f19 4096 v1: the tests, a Dockerfile, Kubernetes files and the pipeline
+7a46254 4096 in Python: the code
 
 $ git diff
 +++ b/board.py
@@ -169,19 +169,19 @@ $ git diff
 +v2 #1a7f37
 
 $ git commit -am "v2: a head start - a new game starts with 4 tiles"
-[talk 619441b] v2: a head start - a new game starts with 4 tiles
+[talk 8b97521] v2: a head start - a new game starts with 4 tiles
 
 $ git push
-   e71eb95..619441b  talk -> talk
+   d2e2f19..8b97521  talk -> talk
 ```
 
 <!-- notes:
 The real output from the demo (`./demo.sh git`), trimmed a little. Read it from the top:
 
-1. `git log --oneline` - the history so far, newest on top (trimmed): the code (the game - the three files from Part 1), then v1 - everything around it: the tests, a Dockerfile, the Kubernetes files and the pipeline. The code in front (`e71eb95`) is the commit's name - a unique ID.
+1. `git log --oneline` - the history so far, newest on top (trimmed): the code (the game - the three files from Part 1), then v1 - everything around it: the tests, a Dockerfile, the Kubernetes files and the pipeline. The code in front (`d2e2f19`) is the commit's name - a unique ID.
 2. Then we change the game: a head start. `git diff` shows exactly what changed - a line starting with `-` was removed, a line starting with `+` was added. Two changes: a new game starts with 4 tiles instead of 2 (`START_TILES` goes from 2 to 4, in the rules file `board.py`), and the version goes from v1 (blue) to v2 (green) - the file `VERSION` holds the version and its color, so you can always see which version is running. The `+++` lines say which file each change is in.
-3. `git commit -am "v2: a head start - ..."` - save it. Git answers with the new commit's ID: `619441b` (on the branch `talk`). If v2 turns out to be a bad idea, v1 is one command away.
-4. `git push` - upload it: the copy on the server moved from `e71eb95` to `619441b`. On a real project that's GitHub; in the demo a folder on the laptop plays GitHub, so nothing leaves the laptop.
+3. `git commit -am "v2: a head start - ..."` - save it. Git answers with the new commit's ID: `8b97521` (on the branch `talk`). If v2 turns out to be a bad idea, v1 is one command away.
+4. `git push` - upload it: the copy on the server moved from `d2e2f19` to `8b97521`. On a real project that's GitHub; in the demo a folder on the laptop plays GitHub, so nothing leaves the laptop.
 
 That's **version control**. Notice: the new level is saved and uploaded, but no player has seen it yet. Getting it to them is the next steps.
 -->
@@ -529,9 +529,9 @@ The talk ended on the previous slide. Everything after this one goes deeper, sub
 
 ```text
 $ ./demo.sh update
- PIPELINE - commit 619441b "v2: a head start"
+ PIPELINE - commit 8b97521 "v2: a head start"
 == 1. BUILD     ok: built game-site:v2
-== 2. TEST      19 passed in 1.11s                    (pytest)
+== 2. TEST      19 passed in 1.69s                    (pytest)
                 smoke test: the image starts and serves the game
                 ok: all tests passed
 == 3. DEPLOY    ok: uploaded game-site:v2 to the cluster's machines
@@ -544,7 +544,7 @@ $ ./demo.sh update
 - on the dashboard, blue copies turn green - one by one
 
 <!-- notes:
-Now the commit from the Git slide (`619441b`, the head start) goes to the players - through the pipeline from slide 10, for real. The real output of `./demo.sh update`, slightly shortened:
+Now the commit from the Git slide (`8b97521`, the head start) goes to the players - through the pipeline from slide 10, for real. The real output of `./demo.sh update`, slightly shortened:
 
 1. **BUILD** - the commit becomes the image `game-site:v2`.
 2. **TEST** - the 19 unit tests (pytest) run in the image's test stage, then a smoke test: the real image starts and serves the game. All pass.
@@ -567,7 +567,7 @@ $ git diff                    # an AI "tidied up" the server - and its test
 -    assert client.get("/healthz").text == "ok"
 +    assert client.get("/health").text == "ok"
 
- PIPELINE - commit f485d57 "v3: tidy up - rename /healthz to /health"
+ PIPELINE - commit 30d4404 "v3: tidy up - rename /healthz to /health"
 == 2. TEST      19 passed - ok: all tests passed
 == 3. DEPLOY    ok: uploaded game-site:v3
 == 4. VERIFY    FAILED: the new copies never became ready

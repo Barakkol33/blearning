@@ -1,10 +1,10 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 70 1330 245" width="1330" height="245" font-family="Segoe UI, Calibri, Carlito, sans-serif">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 70 1330 268" width="1330" height="268" font-family="Segoe UI, Calibri, Carlito, sans-serif">
   <defs>
     <marker id="a" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
       <path d="M0 0 L10 5 L0 10 z" fill="#0f6cbd"/>
     </marker>
   </defs>
-  <rect y="70" width="1330" height="245" fill="#ffffff"/>
+  <rect y="70" width="1330" height="268" fill="#ffffff"/>
 
   <!-- 1. the laptop, with the game on its screen -->
   <rect x="40" y="110" width="190" height="130" rx="10" fill="#242424"/>
@@ -28,7 +28,14 @@
 
   <!-- 2. GitHub -->
   <rect x="362" y="110" width="200" height="140" rx="14" fill="#242424"/>
-  <text x="462" y="189" text-anchor="middle" font-size="28" font-weight="700" fill="#ffffff">GitHub</text>
+  <!-- the files, as GitHub lists them -->
+  <path d="M390 139 L398 139 L401 142 L412 142 L412 158 L390 158 Z" fill="#54aeff"/>
+  <text x="424" y="154" font-size="19" font-family="Consolas, monospace" fill="#e6edf3">static/</text>
+  <path d="M392 170 L404 170 L410 176 L410 192 L392 192 Z" fill="#d0d7de"/><path d="M404 170 L404 176 L410 176" fill="#8c959f"/>
+  <text x="424" y="188" font-size="19" font-family="Consolas, monospace" fill="#e6edf3">board.py</text>
+  <path d="M392 204 L404 204 L410 210 L410 226 L392 226 Z" fill="#d0d7de"/><path d="M404 204 L404 210 L410 210" fill="#8c959f"/>
+  <text x="424" y="222" font-size="19" font-family="Consolas, monospace" fill="#e6edf3">main.py</text>
+  <text x="462" y="298" text-anchor="middle" font-size="24" font-weight="700" fill="#242424">GitHub</text>
 
   <!-- arrow: every push starts the pipeline -->
   <path d="M570 180 L632 180" stroke="#0f6cbd" stroke-width="5" marker-end="url(#a)"/>
@@ -53,7 +60,7 @@
 
   <!-- 4. production: Kubernetes runs the game -->
   <rect x="1102" y="90" width="190" height="180" rx="14" fill="#e8f1fb" stroke="#0f6cbd" stroke-width="2"/>
-  <text x="1197" y="120" text-anchor="middle" font-size="22" font-weight="700" fill="#242424">production</text>
-  <rect x="1122" y="164" width="150" height="56" rx="8" fill="#1f6feb"/><text x="1197" y="199" text-anchor="middle" font-size="20" font-weight="700" fill="#ffffff">the game</text>
-  <text x="1197" y="298" text-anchor="middle" font-size="24" font-weight="700" fill="#242424">Kubernetes</text>
+  <rect x="1122" y="152" width="150" height="56" rx="8" fill="#1f6feb"/><text x="1197" y="187" text-anchor="middle" font-size="20" font-weight="700" fill="#ffffff">the game</text>
+  <text x="1197" y="298" text-anchor="middle" font-size="24" font-weight="700" fill="#242424">production</text>
+  <text x="1197" y="324" text-anchor="middle" font-size="18" fill="#7a7a7a">Kubernetes</text>
 </svg>

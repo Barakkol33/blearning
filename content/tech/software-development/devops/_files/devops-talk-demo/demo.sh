@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# A live demo on one laptop (WSL / Linux / macOS): a real project - 2048 in Python
+# A live demo on one laptop (WSL / Linux / macOS): a real project - 4096 in Python
 # (github.com/Barakkol33/devops-example) - from code to many copies.
 # Everything is local: a Git clone in /tmp/game-site, Docker, and a Kubernetes cluster (kind).
 #

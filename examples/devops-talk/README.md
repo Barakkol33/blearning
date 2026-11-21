@@ -13,7 +13,7 @@ A talk for high school students: Git, Docker, CI/CD and Kubernetes - in a world 
 
 ## The map
 
-The talk (slides 1-18, ~30 minutes) follows one small project - **2048 in Python** ([github.com/Barakkol33/devops-example](https://github.com/Barakkol33/devops-example)), built with AI - from a laptop to 100,000 players: save it (Git), pack it (Docker), check and ship it (CI/CD), run many copies (Kubernetes). Then: build with AI - but know what it does. Everything runs locally, and the commands are the visuals: every live moment has a slide with the command and its **real output**, so the talk works with no demo at all. Each idea is named **after** the students see it work.
+The talk (slides 1-18, ~30 minutes) follows one small project - **4096 in Python** ([github.com/Barakkol33/devops-example](https://github.com/Barakkol33/devops-example)), built with AI - from a laptop to 100,000 players: save it (Git), pack it (Docker), check and ship it (CI/CD), run many copies (Kubernetes). Then: build with AI - but know what it does. Everything runs locally, and the commands are the visuals: every live moment has a slide with the command and its **real output**, so the talk works with no demo at all. Each idea is named **after** the students see it work.
 
 | | part | min | slides | live (right terminal: `./present.sh`) |
 | --- | --- | --- | --- | --- |
@@ -92,11 +92,11 @@ What each slide *means* is in its notes. This is what to *do*.
 | [demo/present.sh](demo/present.sh) | the show, for the right terminal: a headline per scene, every command typed out, Enter to go on |
 | [demo/rehearse.sh](demo/rehearse.sh) | runs every scene start to end, checks each one, prints PASS/FAIL, and ends with `reset` |
 
-**The game is a real project:** [github.com/Barakkol33/devops-example](https://github.com/Barakkol33/devops-example) - 2048 in Python (FastAPI), with its tests, a Dockerfile, its Kubernetes files and a pipeline. `./demo.sh up` clones it once into `~/.devops-talk/devops-example` (the only step that needs internet - with the Python base image and the libraries), builds its first image and deploys its own `k8s/` files. Every scene works on a fresh local clone at `/tmp/game-site`, on a branch `talk` that starts at the project's tag `v1` - the GitHub repo and the blearning repo are never touched.
+**The game is a real project:** [github.com/Barakkol33/devops-example](https://github.com/Barakkol33/devops-example) - 4096 in Python (FastAPI), with its tests, a Dockerfile, its Kubernetes files and a pipeline. `./demo.sh up` clones it once into `~/.devops-talk/devops-example` (the only step that needs internet - with the Python base image and the libraries), builds its first image and deploys its own `k8s/` files. Every scene works on a fresh local clone at `/tmp/game-site`, on a branch `talk` that starts at the project's tag `v1` - the GitHub repo and the blearning repo are never touched.
 
 `./demo.sh git` makes the v2 change (`START_TILES = 2` → `4`, a head start: a new game starts with 4 tiles) and commits it. `./demo.sh docker` builds that commit into `game-site:v2` and runs it on port 8081. `./demo.sh update` is a real pipeline from the clone: build → test (pytest in the image's test stage, then `tests/smoke.sh`) → upload the image to the cluster (`kind load`) → rolling update → verify → rollback. `./demo.sh break` commits v3 - an AI "tidy-up" that renames `/healthz` to `/health` and updates the test to match: every test passes, but the copies never become ready, so VERIFY fails and it rolls back. `./demo.sh iac 6` changes the project's own `k8s/deployment.yaml`.
 
-On GitHub, the same project runs the same pipeline in GitHub Actions on every push and pull request - and the bug is a pull request with a red X: [PR #1](https://github.com/Barakkol33/devops-example/pull/1).
+On GitHub, the same project runs the same pipeline in GitHub Actions on every push and pull request - and the bug is a pull request with a red X: [PR #2](https://github.com/Barakkol33/devops-example/pull/2).
 
 ### Once: set up WSL
 
@@ -153,13 +153,13 @@ Two terminals side by side, plus a browser. Left: `./demo.sh watch` - the live d
 
 ### What was tested
 
-On WSL 2 (Ubuntu), Docker 27, kind 0.26 (Kubernetes 1.32), with requests going out ~3 times a second, by `rehearse.sh` (November 2026, the game: 2048 in Python, flat - `python main.py` - with two other kind clusters running) - all 14 checks passed:
+On WSL 2 (Ubuntu), Docker 27, kind 0.26 (Kubernetes 1.32), with requests going out ~3 times a second, by `rehearse.sh` (November 2026, the game: 4096 in Python, flat - `python main.py` - with two other kind clusters running; WSL ran out of memory once and restarted, so stop the clusters you don't need) - all 14 checks passed:
 
 - `git`: the commit, and `git push` to the folder that plays GitHub (`/tmp/github/devops-example.git`).
-- `git`, `docker`, `kill`, `update`, `break` and `iac 6`: **0 failed requests**. `update` ran 19 tests (pytest) and the smoke test, then a rolling update to v2.
+- `git`, `docker`, `kill`, `update` and `break`: **0 failed requests**; `iac 6`: 1. `update` ran 19 tests (pytest) and the smoke test, then a rolling update to v2.
 - `break`: all 19 tests passed (the AI updated the test too), VERIFY failed after 30s, and it rolled back to v2 by itself.
-- `chaos` (every copy killed at once): **6 failed requests** this time (0 in some earlier runs) - six new copies need a few seconds to start.
-- `node-down`: **6 failed requests**, and the copies had left the dead worker after ~28s (other runs: 6-13 failed, 23-32s). Say "a few seconds of errors", not a number.
+- `chaos` (every copy killed at once): **13 failed requests** this time (0-13 in earlier runs) - six new copies need a few seconds to start.
+- `node-down`: **10 failed requests**, and the copies had left the dead worker after ~32s (other runs: 6-13 failed, 23-32s). Say "a few seconds of errors", not a number.
 - `events` showed the failed readiness check (`/healthz` → 404) and the rollback; `logs` showed the requests.
 - `./demo.sh up` the first time downloads the project, the Python base image and the libraries - a few minutes with internet. After that, everything is cached and works offline. Every fresh start (`git`, `reset`) also fetches the project's latest version, if there's internet (15 seconds at most).
 
