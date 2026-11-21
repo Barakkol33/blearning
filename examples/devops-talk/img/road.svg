@@ -1,10 +1,10 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1330 440" width="1330" height="440" font-family="Segoe UI, Calibri, Carlito, sans-serif">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 70 1330 280" width="1330" height="280" font-family="Segoe UI, Calibri, Carlito, sans-serif">
   <defs>
     <marker id="a" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
       <path d="M0 0 L10 5 L0 10 z" fill="#0f6cbd"/>
     </marker>
   </defs>
-  <rect width="1330" height="440" fill="#ffffff"/>
+  <rect width="1330" height="350" fill="#ffffff"/>
 
   <!-- 1. the laptop, with the game on its screen -->
   <rect x="40" y="110" width="190" height="130" rx="10" fill="#242424"/>
@@ -22,11 +22,10 @@
   <path d="M20 240 L250 240 L262 258 L8 258 Z" fill="#7a7a7a"/>
   <text x="135" y="298" text-anchor="middle" font-size="24" font-weight="700" fill="#242424">your laptop</text>
   <text x="135" y="326" text-anchor="middle" font-size="18" fill="#7a7a7a">the code: main.py, board.py</text>
-  <text x="135" y="392" text-anchor="middle" font-size="19" font-weight="700" fill="#0f6cbd">Part 1 · the game</text>
 
   <!-- arrow: git push -->
   <path d="M268 180 L352 180" stroke="#0f6cbd" stroke-width="5" marker-end="url(#a)"/>
-  <text x="308" y="166" text-anchor="middle" font-size="18" font-family="Consolas, monospace" font-weight="700" fill="#242424">git push</text>
+  <text x="308" y="156" text-anchor="middle" font-size="18" font-family="Consolas, monospace" font-weight="700" fill="#242424">git push</text>
 
   <!-- 2. the repository -->
   <rect x="362" y="110" width="200" height="140" rx="14" fill="#242424"/>
@@ -34,11 +33,10 @@
   <text x="462" y="202" text-anchor="middle" font-size="16" fill="#d0d0d0">the code + its history</text>
   <text x="462" y="298" text-anchor="middle" font-size="24" font-weight="700" fill="#242424">a repository</text>
   <text x="462" y="326" text-anchor="middle" font-size="18" fill="#7a7a7a">every commit, saved</text>
-  <text x="462" y="392" text-anchor="middle" font-size="19" font-weight="700" fill="#0f6cbd">Part 2 · Git</text>
 
   <!-- arrow: every push starts the pipeline -->
   <path d="M570 180 L632 180" stroke="#0f6cbd" stroke-width="5" marker-end="url(#a)"/>
-  <text x="601" y="166" text-anchor="middle" font-size="15" fill="#7a7a7a">by itself</text>
+  <text x="601" y="158" text-anchor="middle" font-size="15" fill="#7a7a7a">by itself</text>
 
   <!-- 3+4. the pipeline: build (a Docker image), test, deploy, verify -->
   <rect x="642" y="90" width="400" height="180" rx="14" fill="#f3f6fb" stroke="#0f6cbd" stroke-width="2"/>
@@ -56,8 +54,6 @@
   <text x="752" y="248" text-anchor="middle" font-size="15" font-weight="700" fill="#ffffff">image</text>
   <text x="842" y="298" text-anchor="middle" font-size="24" font-weight="700" fill="#242424">a pipeline</text>
   <text x="842" y="326" text-anchor="middle" font-size="18" fill="#7a7a7a">automatic, on every push</text>
-  <text x="726" y="392" text-anchor="middle" font-size="19" font-weight="700" fill="#0f6cbd">Part 3 · Docker</text>
-  <text x="958" y="392" text-anchor="middle" font-size="19" font-weight="700" fill="#0f6cbd">Part 4 · CI/CD</text>
 
   <!-- arrow: to production -->
   <path d="M1050 180 L1092 180" stroke="#0f6cbd" stroke-width="5" marker-end="url(#a)"/>
@@ -69,7 +65,5 @@
   <rect x="1122" y="176" width="150" height="34" rx="6" fill="#1f6feb"/><text x="1197" y="199" text-anchor="middle" font-size="16" font-weight="700" fill="#ffffff">copy · the game</text>
   <rect x="1122" y="218" width="150" height="34" rx="6" fill="#1f6feb"/><text x="1197" y="241" text-anchor="middle" font-size="16" font-weight="700" fill="#ffffff">copy · the game</text>
   <text x="1197" y="298" text-anchor="middle" font-size="24" font-weight="700" fill="#242424">Kubernetes</text>
-  <text x="1197" y="326" text-anchor="middle" font-size="18" fill="#7a7a7a">many copies of the image</text>
-  <text x="1197" y="392" text-anchor="middle" font-size="19" font-weight="700" fill="#0f6cbd">Part 5 · Kubernetes</text>
 
 </svg>
