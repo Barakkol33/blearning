@@ -29,6 +29,6 @@ A slide deck for everyone in Israeli hi-tech who is not a developer - HR and rec
 
 ## Next steps
 
-- [Hi-tech, DevOps & JFrog 101](devops-101.md) - the same slides, followed by one company's products
+- [Hi-tech, DevOps & JFrog 101](devops-101.md) - an earlier, shorter version of these slides, followed by one company's products
 - [From Code to the Real World](talk.md) - a more technical talk, with a live Kubernetes demo
 - [What is DevOps](01-get-started/intro.md) - the core ideas, in detail
