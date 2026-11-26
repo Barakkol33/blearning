@@ -33,6 +33,8 @@ Services talk to each other through APIs. When something breaks between two serv
 | OAuth 2.0 / OIDC | Standards for delegated access and login. The caller presents a token, not a password |
 | JWT | A signed token that carries claims (who, what, until when) and can be verified without a database |
 
+How callers prove who they are (cookies, the `Authorization` header, API keys, JWT, OAuth and OIDC) is explained in full in [Authentication](../10-security/authentication.md).
+
 ### Status codes worth knowing by heart
 
 | Code | Meaning | Whose problem |
@@ -73,7 +75,7 @@ ratelimit-remaining: 98
 
 What each part is for:
 
-- `Authorization: Bearer` carries the token. Without it: 401.
+- `Authorization: Bearer` carries the token. Without it: 401. See [the `Authorization` header](../10-security/authentication.md#the-authorization-header).
 - `Idempotency-Key` lets the client retry after a timeout without creating two orders.
 - `--max-time 5` is the timeout.
 - `x-request-id` appears in the logs of every service the request passed through. It is the first thing to search for when debugging.
@@ -101,4 +103,5 @@ The topics and technologies to know at this level. Each line is a name to search
 ## See also
 
 - [Networking](../01-get-started/networking.md)
+- [Authentication](../10-security/authentication.md): cookies, tokens, JWT, OAuth and OIDC
 - [Messaging and queues](../08-services/messaging.md): when not to call directly

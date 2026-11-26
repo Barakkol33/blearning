@@ -4,16 +4,36 @@ sidebar:
   label: Topics to know
 order: 1
 lang: en
-updated: 2026-11-18
+updated: 2026-11-25
 ---
 
 # Topics to know
 
-Everything a DevOps engineer is expected to know beyond the basics, on one page: 579 topics and technologies from the Advanced sections of the guide, chapter by chapter. Each line is a name to search for, and what it is in a few words.
+Everything a DevOps engineer is expected to know beyond the basics, on one page: 598 topics and technologies from the Advanced sections of the guide, chapter by chapter. Each line is a name to search for, and what it is in a few words.
 
 Use it as a map. Read down a chapter to see what belongs to it, mark what you have never heard of, and look it up. The heading of each page links to its Advanced section, where the list also appears. The basics (the Intro and Beginner levels) are in the pages themselves, and the [roadmap](roadmap.md) shows how the guide follows the industry's list of DevOps topics.
 
 Terraform is the exception: the guide keeps it at the intro and beginner levels, so it has no list here.
+
+## The chapters
+
+What each chapter is about, before its list of topics:
+
+| # | Chapter | What it is about |
+|---|---|---|
+| 1 | [Get started](#1-get-started) | What DevOps is and the ground under everything else: Linux and the shell, how the kernel runs processes, networking (IP, DNS, TLS, SSH) |
+| 2 | [Containers](#2-containers) | Packaging an application with everything it needs (Docker) and running many of them on a cluster (Kubernetes), up to production concerns |
+| 3 | [Cloud](#3-cloud) | Renting infrastructure: the shared concepts (accounts, IAM, networks, regions), the three big providers, and serverless |
+| 4 | [Infrastructure as code](#4-infrastructure-as-code) | Describing servers, networks and configuration in files that are reviewed and applied by tools, not by hand |
+| 5 | [Code](#5-code) | The software being operated: languages, runtimes, frameworks and APIs, and how each behaves in production |
+| 6 | [Delivery](#6-delivery) | The path from a commit to production: Git, CI/CD pipelines, artifacts and registries, deployment strategies, GitOps |
+| 7 | [Databases](#7-databases) | How databases work inside, replication, backups and upgrades, and a page per common database with what to watch |
+| 8 | [Services](#8-services) | The backing services around an application: queues and Kafka, caches, search, object storage, proxies, the service mesh |
+| 9 | [Observability](#9-observability) | Knowing what a system is doing: metrics, logs, traces and alerts, with Prometheus, Loki and Grafana |
+| 10 | [Security](#10-security) | Security in the daily work: secrets, scanning and the supply chain, and how users and services authenticate |
+| 11 | [Reliability](#11-reliability) | Keeping the system up and affordable: SLOs, incidents and on-call (SRE), and cost (FinOps) |
+
+Chapters 12 (the exercise) and 13 (the lab) are practice, so they have no topics here.
 
 ## 1. Get started
 
@@ -697,7 +717,7 @@ Terraform is the exception: the guide keeps it at the intro and beginner levels,
 
 ## 10. Security
 
-### [Security](10-security/_index.md#advanced)
+### [DevSecOps](10-security/devsecops.md#advanced)
 
 - **Threat modeling**: STRIDE, data-flow diagrams, attack trees
 - **OWASP Top 10**: the most common web application risks
@@ -716,6 +736,28 @@ Terraform is the exception: the guide keeps it at the intro and beginner levels,
 - **Incident response and forensics**: detection, containment, evidence, postmortem
 - **Compliance frameworks**: SOC 2, ISO 27001, PCI DSS, GDPR, CIS Benchmarks
 - **CVEs and CVSS**: reading a vulnerability report, deciding what to patch first
+
+### [Authentication](10-security/authentication.md#advanced)
+
+- **OAuth 2.0 in depth**: the grants, PKCE, token introspection and revocation, OAuth 2.1
+- **OpenID Connect**: ID tokens, discovery, `userinfo`, logout flows
+- **JWT security**: algorithm confusion, `alg: none`, key rotation with JWKS and `kid`, audience checks
+- **JWE and PASETO**: encrypted tokens, and an alternative token format
+- **Token storage in browsers**: `HttpOnly` cookies vs `localStorage`, the backend-for-frontend pattern
+- **Refresh token rotation**: detecting a stolen refresh token by its reuse
+- **Sender-constrained tokens**: DPoP and mTLS-bound tokens, so a stolen token is useless alone
+- **Token exchange**: RFC 8693, swapping one token for another, the basis of workload federation
+- **SAML**: assertions, IdP and SP metadata, why enterprises still use it
+- **Identity providers**: Keycloak, Dex, Authentik, Entra ID, Okta, Auth0, Cognito
+- **SCIM**: provisioning and removing users across applications from the IdP
+- **Kubernetes authentication**: ServiceAccount token projection, OIDC for `kubectl`, the TokenReview API, impersonation
+- **Workload identity federation**: GitHub Actions and GitLab OIDC, IRSA and EKS Pod Identity, GKE and Azure Workload Identity, SPIFFE and SPIRE
+- **Authentication at the edge**: oauth2-proxy, Traefik ForwardAuth, nginx `auth_request`, JWT validation in API gateways and Envoy
+- **Authorization models**: RBAC, ABAC, ReBAC (Zanzibar, OpenFGA), policy engines such as OPA and Cedar
+- **CSRF, XSS and CORS**: the browser attacks on cookies and tokens, and the defenses
+- **Webhook signatures**: HMAC over the body, timestamps against replay
+- **Passkeys and WebAuthn**: login without passwords, with keys held by the device
+- **MFA methods**: TOTP, push, hardware keys (FIDO2), and which resist phishing
 
 ## 11. Reliability
 

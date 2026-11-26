@@ -128,5 +128,5 @@ The topics and technologies to know at this level. Each line is a name to search
 
 - [CI/CD](ci-cd.md): the pipeline that builds and pushes
 - [Docker](../02-containers/docker.md): images, layers and tags
-- [Security](../10-security/_index.md): scanning and signing images
+- [DevSecOps](../10-security/devsecops.md): scanning and signing images
 - [Hi-tech, DevOps & JFrog 101](../devops-101.md): slides for non-technical people

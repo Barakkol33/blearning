@@ -145,7 +145,7 @@ Real pipelines add caching, artifacts, environments and protected variables.
 - **Fast**: under ten minutes, or people stop waiting for it.
 - **Reliable**: a red pipeline always means a real problem. Flaky tests are fixed or removed.
 - **Reproducible**: pinned versions and lock files.
-- **Secure**: least-privilege tokens, no long-lived cloud keys (see [Security](../10-security/_index.md)).
+- **Secure**: least-privilege tokens, no long-lived cloud keys (see [DevSecOps](../10-security/devsecops.md)).
 
 ## Advanced
 

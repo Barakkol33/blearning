@@ -31,7 +31,7 @@ Use it in two ways: as a study order, from top to bottom, and as a check of what
 | 10 | Provisioning | Terraform, Pulumi, CloudFormation, CDK | [Terraform](04-infrastructure-as-code/terraform.md), [Pulumi in the lab](13-lab/pulumi.md) | beginner | The whole lab is one Pulumi program |
 | 11 | Configuration management | Ansible, Chef, Puppet, Salt | [Configuration and images](04-infrastructure-as-code/configuration.md) | intro | |
 | 12 | CI/CD tools | GitHub Actions, GitLab CI, Jenkins, CircleCI and others | [CI/CD](06-delivery/ci-cd.md), [Deployment strategies](06-delivery/deployment-strategies.md) | intro | A workflow deploys and tests the lab. Rolling update and rollback |
-| 13 | Secret management | Vault, SOPS, Sealed Secrets, External Secrets, cloud secret managers | [Security](10-security/_index.md) | intro | |
+| 13 | Secret management | Vault, SOPS, Sealed Secrets, External Secrets, cloud secret managers | [DevSecOps](10-security/devsecops.md) | intro | |
 | 14 | Infrastructure monitoring | Prometheus, Grafana, Datadog, Zabbix | [Observability](09-observability/concepts.md), [Metrics](09-observability/metrics.md), [Monitoring](09-observability/monitoring.md) | beginner | Prometheus, Grafana, a dashboard, 19 alert rules |
 | 15 | Logs management | Elastic Stack, Loki, Graylog, Splunk | [Loki](09-observability/loki.md), [Search](08-services/search.md), [Elasticsearch](07-databases/elasticsearch.md) | beginner | JSON logs from the application. No log store yet |
 | 16 | Application monitoring | OpenTelemetry, Jaeger, Datadog, New Relic, Dynatrace | [Observability](09-observability/concepts.md) | intro | Application metrics. No tracing yet |
@@ -52,7 +52,8 @@ The roadmap lists tools. A DevOps engineer is also expected to keep the data lay
 | Messaging | [Messaging and queues](08-services/messaging.md), [Kafka](08-services/kafka.md) | Consumer lag and its fix |
 | Object storage | [Object storage](08-services/object-storage.md) | |
 | The code you operate | [Runtimes](05-code/runtimes.md), [Frameworks](05-code/frameworks.md), [APIs](05-code/apis.md) | An application built to be operated |
-| Security as a whole | [Security](10-security/_index.md) | |
+| Security as a whole | [DevSecOps](10-security/devsecops.md) | |
+| Authentication: cookies, sessions, the `Authorization` header, JWT, OAuth 2.0, OIDC | [Authentication](10-security/authentication.md) | |
 | Reliability and cost | [SRE](11-reliability/sre.md), [FinOps](11-reliability/finops.md) | An alert on what users feel |
 
 ## What is not covered

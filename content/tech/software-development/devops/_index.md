@@ -83,7 +83,8 @@ A link in a level column opens that section of the page. An empty cell means the
 | 9 | Observability | [Metrics and Prometheus](09-observability/metrics.md) | [intro](09-observability/metrics.md#intro) |  | [topics](09-observability/metrics.md#advanced) |
 | 9 | Observability | [Monitoring with Prometheus, Loki and Grafana](09-observability/monitoring.md) |  | [beginner](09-observability/monitoring.md#beginner) | [topics](09-observability/monitoring.md#advanced) |
 | 9 | Observability | [Loki and LogQL](09-observability/loki.md) |  | [beginner](09-observability/loki.md#beginner) | [topics](09-observability/loki.md#advanced) |
-| 10 | Security | [Security](10-security/_index.md) | [intro](10-security/_index.md#intro) |  | [topics](10-security/_index.md#advanced) |
+| 10 | Security | [DevSecOps](10-security/devsecops.md): secrets, scanning, the supply chain | [intro](10-security/devsecops.md#intro) |  | [topics](10-security/devsecops.md#advanced) |
+| 10 | Security | [Authentication](10-security/authentication.md): cookies, tokens, JWT, OAuth, OIDC | [intro](10-security/authentication.md#intro) | [beginner](10-security/authentication.md#beginner) | [topics](10-security/authentication.md#advanced) |
 | 11 | Reliability | [SRE](11-reliability/sre.md) | [intro](11-reliability/sre.md#intro) |  | [topics](11-reliability/sre.md#advanced) |
 | 11 | Reliability | [Cost (FinOps)](11-reliability/finops.md) | [intro](11-reliability/finops.md#intro) |  | [topics](11-reliability/finops.md#advanced) |
 

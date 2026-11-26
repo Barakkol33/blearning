@@ -269,7 +269,7 @@ What each page's missing level sections should hold. These lists were the "Where
 - `09-observability/concepts.md`
   - Beginner: instrument an application with OpenTelemetry, see its traces in Jaeger or Tempo, build a RED dashboard.
   - Advanced: SLO-based alerting with burn rates, cardinality and cost control, sampling strategies, running Prometheus at scale, eBPF-based observability.
-- `10-security/_index.md`
+- `10-security/devsecops.md`
   - Beginner: a Vault dev server and an application that reads a secret from it, Trivy and gitleaks in a pipeline, OIDC from GitHub Actions to a cloud.
   - Advanced: threat modeling, supply-chain hardening (SLSA, signing, admission policies), network segmentation and mTLS, incident response, compliance frameworks (SOC 2, ISO 27001).
 - `11-reliability/finops.md`
@@ -295,7 +295,8 @@ What each page's missing level sections should hold. These lists were the "Where
 - [ ] Build systems (Maven, Gradle, npm) at intro level. Artifacts, a Beginner section: Artifactory or Nexus in a container with a remote repository in front of Docker Hub and npmjs, promotion between repositories, a retention policy
 - [ ] Service mesh, a Beginner section: Linkerd on the lab's cluster, mTLS and a traffic split that were really run (the example on the page was not)
 - [ ] Serverless, a Beginner section: a function behind a queue in a real account, with its IAM role, deployed from code
-- [ ] Secret management as its own page in chapter 10 (Vault or OpenBao, SOPS, External Secrets), with a hands-on example. It turns Security into a chapter of two pages, so `_index.md` content moves to its own page with a redirect
+- [ ] Secret management as its own page in chapter 10 (Vault or OpenBao, SOPS, External Secrets), with a hands-on example. Security is already a chapter of pages (DevSecOps, Authentication), so it is a third page
+- [ ] Authentication: the Kubernetes ServiceAccount exercise was not run when written (no cluster at hand). The httpbin, JWT and Docker Hub exercises were
 - [ ] Data pipelines (Airflow, Spark, dbt) at intro level
 - [ ] Platform engineering and internal developer platforms (Backstage)
 - [ ] AI in operations: running models (GPUs, inference servers), AI coding agents in the workflow
@@ -319,3 +320,4 @@ What each page's missing level sections should hold. These lists were the "Where
 - [x] New pages from the roadmap's gaps: Git and code hosting, Artifacts and registries, Serverless, Service mesh (2026-11-15)
 - [x] Elasticsearch, Redis, MongoDB and ClickHouse: Intro sections rewritten with a terms table, "what is different" and an example that was run (2026-11-15)
 - [x] "DevOps overview" and "DevOps intro" merged into one page, "What is DevOps", in the page pattern, with the DORA metrics. The GitLab CI example moved to CI/CD, the SOPS note to Security (2026-11-15)
+- [x] Security became a chapter of two pages: the old content is now DevSecOps, and a new Authentication page explains cookies and sessions, the `Authorization` header, API keys, JWT, OAuth 2.0 and OIDC, with Beginner exercises. Topics to know opens with an overview of the chapters (2026-11-25)

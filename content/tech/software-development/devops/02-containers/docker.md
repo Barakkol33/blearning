@@ -601,4 +601,4 @@ The topics and technologies to know at this level. Each line is a name to search
 - [Kubernetes](kubernetes.md): running the images on a cluster
 - [Linux internals](../01-get-started/linux-internals.md): processes, signals and cgroups underneath
 - [Artifacts and registries](../06-delivery/artifacts.md): where images are stored and promoted
-- [Security](../10-security/_index.md): scanning and the supply chain
+- [DevSecOps](../10-security/devsecops.md): scanning and the supply chain
